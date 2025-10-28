@@ -1,0 +1,47 @@
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc \"printf '{\\\"hookSpecificOutput\\\":{\\\"hookEventName\\\":\\\"SessionStart\\\",\\\"additionalContext\\\":\\\"MANDATE: Execute skills-based project restoration protocol immediately: 1. SYSTEM CONFIGURATION: Read @CLAUDE.md and apply all autonomous skills coordination protocols. Read @project-detector/project-detection.yaml to identify current project type. Skills will be automatically invoked based on context (no manual activation needed). 2. MEMORY SYSTEM RESTORATION: Read @.memory/active-context.md to restore current project state and phase. Read @memory-manager/memory-templates.yaml and verify memory structure. Validate skill-specific memory files exist (Backend: @.memory/service-architecture.md, @.memory/api-documentation.md, @.memory/database-schema.md | QA: @.memory/test-coverage.md, @.memory/quality-metrics.md, @.memory/security-testing.md, @.memory/performance-validation.md | DevOps: @.memory/deployment-config.md, @.memory/infrastructure-state.md, @.memory/ci-cd-workflows.md, @.memory/monitoring-metrics.md | Research: @.memory/research-findings.md, @.memory/technology-analysis.md, @.memory/market-analysis.md, @.memory/risk-assessment.md | SystemDev: @.memory/system-performance.md, @.memory/gpu-optimization.md, @.memory/infrastructure-scaling.md | Frontend: @.memory/component-library.md, @.memory/design-system.md, @.memory/ui-patterns.md | Fullstack: @.memory/integration-architecture.md, @.memory/system-design.md, @.memory/technology-stack.md | MCP: @.memory/tool-usage-optimization.md, @.memory/automation-workflows.md, @.memory/integration-patterns.md). Create missing memory files from templates if needed. Read @.memory/project-state.json to restore metrics and collaboration status. 3. QUALITY & LOGGING SYSTEMS: Read @quality-controller/quality-standards.json and restore quality gates for current project type. Read @memory-manager/memory-logging-integration.yaml for logging configuration. Validate .logs/ directory structure is intact. 4. CONTEXT CONTINUITY: If project is in progress, resume from current phase with full context. Skills will be invoked automatically based on project needs. pm-orchestrator will coordinate workflow progression if needed. CRITICAL: This is context restoration after session break or auto-compact. Ensure complete project state continuity through memory system. Skills operate autonomously with zero user confirmations. ultrathink.\\\"}}'\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "manual|auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc \"printf '{\\\"systemMessage\\\":\\\"ENHANCED Pre-compact preservation protocol for Skills-Based System: 1. UPDATE CORE MEMORY FILES: Update @.memory/active-context.md with current project phase, active skills, and task status. Update @.memory/project-state.json with real-time skill engagement status, quality metrics and gate status, memory-logging integration status, and current workflow phase. Update @.memory/collaboration.log.md with skill interactions and coordination effectiveness. 2. PRESERVE SKILL-SPECIFIC MEMORY FILES: Backend (nestjs/fastapi): @.memory/service-architecture.md, @.memory/api-documentation.md, @.memory/database-schema.md | QA Testing: @.memory/test-coverage.md, @.memory/quality-metrics.md, @.memory/security-testing.md, @.memory/performance-validation.md | DevOps: @.memory/deployment-config.md, @.memory/infrastructure-state.md, @.memory/ci-cd-workflows.md, @.memory/monitoring-metrics.md | Research: @.memory/research-findings.md, @.memory/technology-analysis.md, @.memory/market-analysis.md, @.memory/risk-assessment.md | SystemDev: @.memory/system-performance.md, @.memory/gpu-optimization.md, @.memory/infrastructure-scaling.md | Frontend: @.memory/component-library.md, @.memory/design-system.md, @.memory/ui-patterns.md | Fullstack: @.memory/integration-architecture.md, @.memory/system-design.md, @.memory/technology-stack.md | MCP: @.memory/tool-usage-optimization.md, @.memory/automation-workflows.md, @.memory/integration-patterns.md. 3. VALIDATE MEMORY-LOGGING INTEGRATION: Ensure @memory-manager/memory-logging-integration.yaml configuration is preserved. Maintain .logs/ directory structure and all log files. Preserve log analysis feedback status and optimization recommendations. 4. SYSTEM CONFORMANCE CHECK: Verify conformance to @CLAUDE.md protocols. Validate @project-detector/project-detection.yaml integrity. Ensure @memory-manager/memory-templates.yaml is current. Check @quality-controller/quality-standards.json quality gate status. 5. CONFLICT RESOLUTION: If conflicts detected, reconcile immediately or flag for user clarification. CRITICAL: Complete hybrid memory-logging system state must be preserved. Skills will be automatically re-invoked after restoration based on project context. Zero manual skill activation required. ultrathink.\\\",\\\"continue\\\":true}'\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc \"printf '{\\\"systemMessage\\\":\\\"MANDATE: @CLAUDE.md Skills-Based Autonomous System Protocol - 13 autonomous skills with contextual invocation. Skills auto-invoke based on description matching (no manual activation). Natural language mentions for skill collaboration. Zero user confirmation for all technical decisions. Memory-logging hybrid system active. Quality gates enforced by quality-controller. MCP tools used autonomously. Apply 4-Phase Protocol (Detection → Assembly → Memory Init → Task Start). Complete project delivery from user request to finished code. ultrathink.\\\",\\\"continue\\\":true,\\\"suppressOutput\\\": true}'\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "env": {
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "300000",
+    "MAX_MCP_OUTPUT_TOKENS": "1000000"
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "version": "1.0",
+  "name": "Project Quality Management System",
+  "description": "Development AI Agent Team quality standards and metrics tracking",
+  "powered_by": "Hans(HanTaek) Lim - Quality Management Pattern",
+  
+  "quality_frameworks": {
+    "web_application": {
+      "name": "Web Application Quality Standards",
+      "categories": {
+        "code_quality": {
+          "typescript_coverage": {
+            "target": 95,
+            "minimum": 85,
+            "measurement": "percentage",
+            "tools": ["tsc", "typescript-coverage-report"],
+            "validation_command": "cd workspace/frontend && npx tsc --noEmit && npx typescript-coverage-report"
+          },
+          "test_coverage": {
+            "target": 80,
+            "minimum": 70,
+            "measurement": "percentage", 
+            "tools": ["jest", "vitest", "playwright"],
+            "validation_command": "cd workspace/frontend && npm run test:coverage"
+          },
+          "lint_score": {
+            "target": 100,
+            "minimum": 95,
+            "measurement": "percentage",
+            "tools": ["eslint", "prettier"],
+            "validation_command": "cd workspace/frontend && npm run lint && npm run format:check"
+          },
+          "build_success": {
+            "target": "pass",
+            "requirement": "mandatory",
+            "tools": ["next build", "vite build"],
+            "validation_command": "cd workspace/frontend && npm run build"
+          }
+        },
+        "performance": {
+          "core_web_vitals": {
+            "lcp": {
+              "target": "< 2.5s",
+              "measurement": "seconds",
+              "tools": ["lighthouse", "web-vitals"]
+            },
+            "fid": {
+              "target": "< 100ms", 
+              "measurement": "milliseconds",
+              "tools": ["lighthouse", "web-vitals"]
+            },
+            "cls": {
+              "target": "< 0.1",
+              "measurement": "score",
+              "tools": ["lighthouse", "web-vitals"]
+            }
+          },
+          "lighthouse_score": {
+            "performance": {
+              "target": 90,
+              "minimum": 80
+            },
+            "accessibility": {
+              "target": 100,
+              "minimum": 95
+            },
+            "best_practices": {
+              "target": 100,
+              "minimum": 90
+            },
+            "seo": {
+              "target": 100,
+              "minimum": 90
+            }
+          },
+          "bundle_size": {
+            "target": "< 250KB",
+            "measurement": "gzipped",
+            "tools": ["webpack-bundle-analyzer", "next-bundle-analyzer"]
+          },
+          "api_response_time": {
+            "target": "< 200ms",
+            "measurement": "95th percentile",
+            "tools": ["k6", "artillery", "jest-performance"]
+          }
+        },
+        "security": {
+          "vulnerability_scan": {
+            "target": "0 high/critical",
+            "tools": ["npm audit", "snyk", "github-security"],
+            "validation_command": "npm audit --audit-level moderate"
+          },
+          "authentication": {
+            "implementation": "required",
+            "standards": ["OWASP", "JWT best practices"],
+            "validation": "security review"
+          },
+          "data_validation": {
+            "input_sanitization": "required",
+            "sql_injection_prevention": "required",
+            "xss_prevention": "required"
+          }
+        },
+        "accessibility": {
+          "wcag_compliance": {
+            "target": "WCAG 2.1 AA",
+            "automated_testing": "axe-core",
+            "manual_testing": "required"
+          },
+          "screen_reader": {
+            "compatibility": ["NVDA", "JAWS", "VoiceOver"],
+            "testing": "required"
+          },
+          "keyboard_navigation": {
+            "full_accessibility": "required",
+            "focus_management": "required"
+          }
+        }
+      }
+    },
+    
+    "ai_ml_system": {
+      "name": "AI/ML System Quality Standards",
+      "categories": {
+        "model_performance": {
+          "accuracy_metrics": {
+            "primary_metric": {
+              "target": 0.95,
+              "minimum": 0.90,
+              "measurement": "depends on problem type"
+            },
+            "validation_accuracy": {
+              "target": 0.93,
+              "minimum": 0.88
+            },
+            "cross_validation": {
+              "folds": 5,
+              "consistency": "< 5% variance"
+            }
+          },
+          "inference_performance": {
+            "latency": {
+              "target": "< 100ms",
+              "measurement": "95th percentile"
+            },
+            "throughput": {
+              "target": "> 100 requests/second",
+              "measurement": "sustained load"
+            },
+            "memory_usage": {
+              "target": "< 2GB",
+              "measurement": "peak usage"
+            }
+          }
+        },
+        "data_quality": {
+          "data_validation": {
+            "completeness": {
+              "target": "> 95%",
+              "measurement": "non-null values"
+            },
+            "accuracy": {
+              "target": "> 98%",
+              "measurement": "validation against ground truth"
+            },
+            "consistency": {
+              "target": "> 99%",
+              "measurement": "format and type consistency"
+            }
+          },
+          "data_drift_monitoring": {
+            "statistical_tests": ["KS-test", "PSI"],
+            "alert_threshold": "p-value < 0.05",
+            "monitoring_frequency": "daily"
+          }
+        },
+        "model_reliability": {
+          "robustness_testing": {
+            "adversarial_testing": "required",
+            "edge_case_coverage": "> 95%",
+            "stress_testing": "required"
+          },
+          "model_interpretability": {
+            "feature_importance": "required",
+            "model_explainability": "SHAP/LIME",
+            "decision_transparency": "documented"
+          },
+          "ethical_considerations": {
+            "bias_testing": "required",
+            "fairness_metrics": "demographic parity",
+            "ethical_review": "completed"
+          }
+        }
+      }
+    },
+    
+    "mobile_application": {
+      "name": "Mobile Application Quality Standards",
+      "categories": {
+        "performance": {
+          "app_launch_time": {
+            "cold_start": "< 3s",
+            "warm_start": "< 1s",
+            "measurement": "time to interactive"
+          },
+          "memory_usage": {
+            "target": "< 150MB",
+            "maximum": "< 200MB",
+            "measurement": "peak usage"
+          },
+          "battery_efficiency": {
+            "target": "minimal impact",
+            "measurement": "battery usage per hour"
+          },
+          "network_efficiency": {
+            "data_usage": "optimized",
+            "offline_capability": "graceful degradation"
+          }
+        },
+        "compatibility": {
+          "device_support": {
+            "ios_minimum": "iOS 13+",
+            "android_minimum": "API 21+",
+            "screen_sizes": "all standard sizes"
+          },
+          "platform_integration": {
+            "native_features": "proper implementation",
+            "platform_guidelines": "HIG/Material Design compliance"
+          }
+        },
+        "app_store_readiness": {
+          "submission_requirements": {
+            "metadata_complete": "required",
+            "screenshots": "all required sizes",
+            "privacy_policy": "required",
+            "app_description": "optimized"
+          },
+          "review_compliance": {
+            "apple_guidelines": "compliant",
+            "google_policies": "compliant",
+            "content_rating": "appropriate"
+          }
+        }
+      }
+    },
+    
+    "api_microservice": {
+      "name": "API/Microservice Quality Standards", 
+      "categories": {
+        "api_design": {
+          "rest_compliance": {
+            "http_methods": "proper usage",
+            "status_codes": "correct implementation",
+            "resource_naming": "RESTful conventions"
+          },
+          "documentation": {
+            "openapi_spec": "complete and accurate",
+            "examples": "comprehensive",
+            "authentication_docs": "clear"
+          },
+          "versioning": {
+            "strategy": "semantic versioning",
+            "backward_compatibility": "maintained",
+            "deprecation_policy": "documented"
+          }
+        },
+        "performance": {
+          "response_time": {
+            "target": "< 200ms",
+            "measurement": "95th percentile",
+            "monitoring": "continuous"
+          },
+          "throughput": {
+            "target": "> 1000 RPS",
+            "measurement": "sustained load",
+            "auto_scaling": "configured"
+          },
+          "availability": {
+            "target": "99.9%",
+            "measurement": "uptime",
+            "monitoring": "24/7"
+          }
+        },
+        "security": {
+          "authentication": {
+            "mechanism": "JWT/OAuth2",
+            "token_expiry": "appropriate",
+            "refresh_strategy": "secure"
+          },
+          "authorization": {
+            "rbac": "implemented",
+            "permission_checks": "comprehensive",
+            "audit_logging": "enabled"
+          },
+          "data_protection": {
+            "encryption_at_rest": "required",
+            "encryption_in_transit": "TLS 1.3",
+            "sensitive_data_handling": "compliant"
+          }
+        }
+      }
+    }
+  },
+  
+  "quality_gates": {
+    "pre_development": {
+      "requirements_clarity": {
+        "acceptance_criteria": "defined",
+        "technical_specifications": "documented",
+        "quality_requirements": "established"
+      }
+    },
+    "development": {
+      "code_review": {
+        "required_approvals": 1,
+        "automated_checks": "passing",
+        "manual_review": "completed"
+      },
+      "continuous_testing": {
+        "unit_tests": "passing",
+        "integration_tests": "passing", 
+        "quality_metrics": "meeting targets"
+      }
+    },
+    "pre_deployment": {
+      "comprehensive_testing": {
+        "end_to_end_tests": "passing",
+        "performance_tests": "meeting targets",
+        "security_scan": "no critical issues"
+      },
+      "deployment_readiness": {
+        "build_success": "confirmed",
+        "environment_config": "validated",
+        "rollback_plan": "prepared"
+      }
+    },
+    "post_deployment": {
+      "monitoring": {
+        "error_tracking": "configured",
+        "performance_monitoring": "active",
+        "user_feedback": "collected"
+      },
+      "quality_metrics": {
+        "sla_compliance": "monitored",
+        "user_satisfaction": "measured",
+        "business_metrics": "tracked"
+      }
+    }
+  },
+  
+  "measurement_protocols": {
+    "automated_measurement": {
+      "frequency": "every commit/build",
+      "tools_integration": "CI/CD pipeline",
+      "failure_handling": "block deployment on critical failures"
+    },
+    "manual_measurement": {
+      "frequency": "weekly/milestone",
+      "responsible_experts": ["qa", "relevant domain experts"],
+      "documentation": "required for all manual checks"
+    },
+    "continuous_monitoring": {
+      "production_metrics": "real-time",
+      "alerting": "configured for all critical metrics",
+      "dashboard": "accessible to all team members"
+    }
+  },
+  
+  "quality_improvement": {
+    "feedback_loops": {
+      "metrics_review": "weekly",
+      "process_improvement": "retrospective based",
+      "standards_evolution": "quarterly review"
+    },
+    "benchmarking": {
+      "internal_comparison": "track trends over time",
+      "industry_standards": "compare with best practices",
+      "competitive_analysis": "when applicable"
+    },
+    "training_and_development": {
+      "quality_awareness": "team training",
+      "tools_proficiency": "skill development",
+      "best_practices_sharing": "knowledge transfer"
+    }
+  },
+  
+  "novel_analysis_integration": {
+    "quality_metrics_tracking": {
+      "similar_to_novel_analysis": "systematic quality tracking like quality-metrics.json",
+      "domain_specific": "each project type has tailored quality standards",
+      "continuous_improvement": "iterative quality enhancement"
+    },
+    "expert_quality_responsibilities": {
+      "qa_specialist": "overall quality orchestration and validation",
+      "domain_experts": "domain-specific quality standards enforcement", 
+      "collaborative_quality": "cross-expert quality validation"
+    },
+    "quality_memory_integration": {
+      "quality_context_preservation": "quality decisions and improvements tracked in memory system",
+      "quality_learning": "learn from quality issues and improvements across projects",
+      "quality_standards_evolution": "adapt standards based on project learnings"
+    }
+  }
+}

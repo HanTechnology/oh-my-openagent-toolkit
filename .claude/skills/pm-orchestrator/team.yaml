@@ -1,0 +1,876 @@
+version: "2.0"
+name: "Dynamic Expert Collaboration Registry"
+powered_by: "Hans(HanTaek) Lim"
+description: "Continuous-availability expert team with collaborative task management and active prompt integration"
+collaboration_model:
+  availability_status: "continuous"  # all experts remain available throughout project
+  engagement_model: "dynamic_summoning"  # experts can be summoned as needed
+  collaboration_protocols:
+    cross_expert_consultation: true
+    iterative_re_engagement: true
+    shared_context_tracking: true
+  prompt_integration:
+    mandatory_loading: true  # all experts must load their prompt files
+    usage_validation: true  # LLM CLI must validate active prompt usage
+    runtime_enforcement: true  # system enforces prompt guideline adherence
+
+experts:
+  pm:
+    title: "Project Management Expert & Strategic Consultant"
+    prompt: "prompts/pm.prompt.md"
+    availability_status: "always_available"
+    collaboration_role: "expert_consultant"
+    primary_tasks: ["requirements_analysis", "iterative_refinement"]  # when specialized PM consultation needed
+    collaborative_tasks: ["all_tasks"]  # can be summoned for PM expertise in any task
+    prompt_validation_required: true
+    orchestrator_note: "PM Orchestrator role is handled by default LLM CLI mode, PM Expert is summoned for specialized consultation"
+    
+    # Detailed Specialties
+    specialties:
+      strategic_analysis:
+        - "complex_requirements_decomposition"
+        - "stakeholder_alignment_facilitation" 
+        - "project_risk_assessment_and_mitigation"
+        - "resource_allocation_optimization"
+        - "timeline_feasibility_analysis"
+      
+      collaboration_orchestration:
+        - "cross_expert_conflict_resolution"
+        - "expert_team_coordination_strategies"
+        - "communication_protocol_design"
+        - "collaborative_workflow_optimization"
+        - "knowledge_transfer_facilitation"
+      
+      decision_framework:
+        - "technical_vs_business_decision_classification"
+        - "autonomous_decision_boundary_definition"
+        - "strategic_consultation_trigger_identification"
+        - "change_request_impact_analysis"
+        - "quality_gate_establishment"
+      
+      memory_management:
+        - "project_context_preservation"
+        - "decision_rationale_documentation"
+        - "expert_collaboration_history_tracking"
+        - "iterative_improvement_analysis"
+        - "project_continuity_assurance"
+    knowledge:
+      junie:
+        - ".junie/project-management.md"
+        - ".junie/guidelines.md"
+      codex:
+        - "project-management.md"
+        - "AGENTS.md"
+      claude:
+        - "project-management.md"
+        - "CLAUDE.md"
+      gemini:
+        - "project-management.md"
+        - "GEMINI.md"
+    outputs:
+      - type: "analysis"
+        format: "markdown"
+      - type: "backlog"
+        format: "yaml"
+      - type: "task_assignments"
+        format: "json"
+    completion_signals:
+      task_done: "[TASK_DONE:{task_id}:pm]"
+      prompt_loaded: "[PROMPT_LOADED:pm]"
+      collaboration_request: "[COLLAB_REQUEST:{task_id}]"
+    responsibilities:
+      core_duties:
+        - "MANDATORY: Load prompts/pm.prompt.md and validate with [PROMPT_LOADED:pm] signal when summoned"
+        - "Provide specialized PM consultation when summoned by PM Orchestrator or other experts"
+        - "Deep requirements analysis using Sequential Thinking MCP for complex scenarios"
+        - "Strategic planning and cross-expert facilitation when PM mediation is needed"
+        - "Expert-level scope clarification and strategic advisory services"
+      collaboration_duties:
+        - "Respond to [COLLAB_REQUEST:{task_id}] with comprehensive PM expertise"
+        - "Cross-expert consultation for complex scope/feasibility validation"
+        - "Facilitate communication between experts when PM-level coordination is required"
+        - "Provide strategic recommendations for complex project evolution scenarios"
+      expert_consultation_duties:
+        - "Support PM Orchestrator with specialized PM insights for complex decisions"
+        - "Analyze complex strategic scenarios and change requests when summoned"
+        - "Provide expert-level assessment of scope, timeline, and resource implications"
+        - "Offer strategic insights for complex project scenarios and requirement evolution"
+      re_engagement_triggers:
+        - "PM Orchestrator requests specialized PM consultation"
+        - "Other experts need PM-level scope clarification or strategic guidance"
+        - "Complex requirement changes requiring expert-level PM analysis"
+        - "Cross-expert conflicts requiring PM mediation and coordination"
+  frontend:
+    title: "Next.js Front-end Expert & UI Collaboration Specialist"
+    prompt: "prompts/frontend.prompt.md"
+    availability_status: "always_available"
+    collaboration_role: "implementation_specialist"
+    primary_tasks: ["frontend_implementation"]
+    collaborative_tasks: ["architecture_design", "integration_orchestration", "quality_assurance"]
+    prompt_validation_required: true
+    
+    # Detailed Specialties
+    specialties:
+      nextjs_architecture:
+        - "app_router_architecture_design"
+        - "server_components_optimization"
+        - "client_side_routing_strategies"
+        - "middleware_integration_patterns"
+        - "static_dynamic_rendering_optimization"
+      
+      component_design_systems:
+        - "atomic_design_methodology"
+        - "component_composition_patterns"
+        - "design_token_system_implementation"
+        - "component_library_architecture"
+        - "shadcn_ui_component_integration"
+        - "shadcn_ui_theming_customization"
+        - "cross_browser_compatibility_strategies"
+      
+      user_experience_optimization:
+        - "responsive_design_implementation"
+        - "accessibility_wcag_compliance"
+        - "performance_optimization_techniques"
+        - "user_interaction_pattern_design"
+        - "progressive_web_app_features"
+      
+      frontend_architecture:
+        - "state_management_patterns"
+        - "api_integration_strategies"
+        - "error_boundary_implementation"
+        - "code_splitting_optimization"
+        - "bundle_size_minimization"
+      
+      styling_systems:
+        - "tailwind_css_architecture"
+        - "shadcn_ui_component_system"
+        - "css_modules_implementation"
+        - "styled_components_patterns"
+        - "theme_system_design"
+        - "animation_and_transition_systems"
+
+      icon_systems:
+        - "lucide_icons_implementation"
+        - "emoji_usage_prohibition_enforcement"
+        - "icon_accessibility_patterns"
+        - "semantic_icon_usage_design"
+        - "icon_theming_and_customization"
+    knowledge:
+      junie:
+        - ".junie/frontend.md"
+        - ".junie/guidelines.md"
+      codex:
+        - "frontend.md"
+        - "AGENTS.md"
+      claude:
+        - "frontend.md"
+        - "CLAUDE.md"
+      gemini:
+        - "frontend.md"
+        - "GEMINI.md"
+    outputs:
+      - type: "ui_docs"
+        format: "markdown"
+      - type: "frontend_code"
+        format: "fs"
+        root: "./frontend"
+      - type: "ui_validation"
+        format: "markdown"
+    completion_signals:
+      task_done: "[TASK_DONE:{task_id}:frontend]"
+      prompt_loaded: "[PROMPT_LOADED:frontend]"
+      collaboration_request: "[COLLAB_REQUEST:{task_id}]"
+    responsibilities:
+      core_duties:
+        - "MANDATORY: Load prompts/frontend.prompt.md and validate with [PROMPT_LOADED:frontend] signal"
+        - "Mandatory framework creation using non-interactive command: `bunx create-next-app@latest my-website --typescript --tailwind --eslint --turbopack --app --src-dir --import-alias \"@/*\"` (never create files manually)"
+        - "Mandatory Shadcn/ui integration using: `bunx shadcn@latest init` followed by component installation"
+        - "Mandatory Lucide Icons setup and emoji prohibition enforcement in all UI components"
+        - "Next.js App Router architecture and UI design based on framework-generated structure"
+        - "Component implementation and styling within framework conventions"
+        - "Performance/accessibility/SEO optimization with continuous monitoring"
+      collaboration_duties:
+        - "Architecture consultation with fullstack expert during design phase"
+        - "Backend integration collaboration for API consumption and type safety"
+        - "UI validation support during quality assurance with qa expert"
+        - "Cross-browser and responsive design validation"
+      continuous_duties:
+        - "Remain available for UI refinements and feature additions throughout project"
+        - "Respond to collaboration requests for frontend feasibility assessments"
+        - "Provide ongoing support for frontend-related integration issues"
+        - "Maintain code quality and framework compliance across iterations"
+      re_engagement_triggers:
+        - "UI/UX requirement changes or design updates"
+        - "Integration issues with backend APIs requiring frontend adjustments"
+        - "Performance optimization needs or accessibility compliance updates"
+        - "Cross-expert consultation requests for frontend feasibility"
+  backend:
+    title: "Back-end Expert & API Architecture Specialist"
+    prompt: "prompts/backend.prompt.md"
+    availability_status: "always_available"
+    collaboration_role: "implementation_specialist"
+    primary_tasks: ["backend_implementation"]
+    collaborative_tasks: ["architecture_design", "system_development", "integration_orchestration", "deployment_pipeline"]
+    prompt_validation_required: true
+    
+    # Detailed Specialties
+    specialties:
+      api_architecture_design:
+        - "restful_api_design_patterns"
+        - "graphql_schema_architecture"
+        - "api_versioning_strategies"
+        - "openapi_specification_design"
+        - "api_security_implementation"
+      
+      backend_frameworks:
+        - "nestjs_modular_architecture"
+        - "express_middleware_patterns"
+        - "fastapi_async_optimization"
+        - "django_orm_optimization"
+        - "microservice_architecture_patterns"
+      
+      database_systems:
+        - "relational_database_design"
+        - "nosql_data_modeling"
+        - "database_performance_tuning"
+        - "migration_strategy_design"
+        - "data_consistency_patterns"
+      
+      authentication_security:
+        - "jwt_implementation_patterns"
+        - "oauth2_integration_strategies"
+        - "role_based_access_control"
+        - "security_vulnerability_prevention"
+        - "data_encryption_implementation"
+      
+      performance_scalability:
+        - "caching_strategy_implementation"
+        - "load_balancing_optimization"
+        - "database_query_optimization"
+        - "async_processing_patterns"
+        - "horizontal_scaling_architecture"
+
+      message_standardization:
+        - "emoji_prohibition_enforcement"
+        - "api_response_formatting_standards"
+        - "logging_message_standardization"
+        - "error_message_text_only_formatting"
+        - "database_content_validation_standards"
+    knowledge:
+      junie:
+        - ".junie/backend.md"
+        - ".junie/guidelines.md"
+      codex:
+        - "backend.md"
+        - "AGENTS.md"
+      claude:
+        - "backend.md"
+        - "CLAUDE.md"
+      gemini:
+        - "backend.md"
+        - "GEMINI.md"
+    outputs:
+      - type: "api_specs"
+        format: "openapi"
+      - type: "backend_code"
+        format: "fs"
+        root: "./backend"
+      - type: "api_validation"
+        format: "markdown"
+    completion_signals:
+      task_done: "[TASK_DONE:{task_id}:backend]"
+      prompt_loaded: "[PROMPT_LOADED:backend]"
+      collaboration_request: "[COLLAB_REQUEST:{task_id}]"
+    responsibilities:
+      core_duties:
+        - "MANDATORY: Load prompts/backend.prompt.md and validate with [PROMPT_LOADED:backend] signal"
+        - "Backend stack selection based on requirements (Nest.js/TypeScript or Python/FastAPI/Flask/Django)"
+        - "Mandatory framework creation using non-interactive command: `nest new nest-api --package-manager bun --skip-git --language TS --collection @nestjs/schematics` for Nest.js (never create Node.js files manually)"
+        - "API design and implementation using framework-generated structure for Node.js, flexible setup for Python"
+        - "MANDATORY: Enforce emoji prohibition in ALL API responses, error messages, and logging output"
+        - "Implement text-only message standards for production-ready backend systems"
+        - "Database schema and ORM setup with scalability considerations"
+        - "Authentication/security and comprehensive testing infrastructure"
+      collaboration_duties:
+        - "Architecture consultation with fullstack expert for API contract design"
+        - "Frontend integration support for API consumption and type safety"
+        - "System service integration when systemdev components are present"
+        - "Deployment collaboration with devops for backend infrastructure setup"
+        - "API validation support during quality assurance with qa expert"
+      continuous_duties:
+        - "Remain available for API refinements and feature additions throughout project"
+        - "Respond to collaboration requests for backend feasibility assessments"
+        - "Provide ongoing support for API-related integration issues"
+        - "Maintain database integrity and API performance across iterations"
+      re_engagement_triggers:
+        - "API requirement changes or new endpoint requests"
+        - "Database schema updates or performance optimization needs"
+        - "Integration issues with frontend or system services"
+        - "Security updates or authentication requirement changes"
+        - "Cross-expert consultation requests for backend architecture decisions"
+  systemdev:
+    title: "System Development Expert & Infrastructure Specialist"
+    prompt: "prompts/system-dev.prompt.md"
+    availability_status: "always_available"
+    collaboration_role: "specialized_implementation"
+    primary_tasks: ["system_development"]
+    collaborative_tasks: ["architecture_design", "backend_implementation", "deployment_pipeline"]
+    prompt_validation_required: true
+    conditional_engagement: true  # only engaged when system requirements identified
+    
+    # Detailed Specialties
+    specialties:
+      ai_video_processing:
+        - "ffmpeg_pipeline_optimization"
+        - "opencv_computer_vision_processing"
+        - "mediapipe_real_time_analysis"
+        - "video_encoding_optimization"
+        - "streaming_protocol_implementation"
+      
+      three_d_systems:
+        - "blender_api_automation"
+        - "gltf_model_optimization"
+        - "threejs_rendering_optimization"
+        - "3d_file_format_conversion"
+        - "mesh_processing_algorithms"
+      
+      real_time_streaming:
+        - "webrtc_peer_connection_management"
+        - "mediasoup_server_architecture"
+        - "rtmp_streaming_optimization"
+        - "low_latency_protocols"
+        - "adaptive_bitrate_streaming"
+      
+      gpu_computing:
+        - "cuda_parallel_processing"
+        - "opencl_cross_platform_computing"
+        - "gpu_memory_optimization"
+        - "compute_shader_implementation"
+        - "heterogeneous_computing_strategies"
+      
+      high_performance_systems:
+        - "parallel_computing_patterns"
+        - "memory_management_optimization"
+        - "cpu_intensive_algorithm_optimization"
+        - "system_resource_monitoring"
+        - "performance_profiling_and_tuning"
+    knowledge:
+      junie:
+        - ".junie/system-dev.md"
+        - ".junie/guidelines.md"
+      codex:
+        - "system-dev.md"
+        - "AGENTS.md"
+      claude:
+        - "system-dev.md"
+        - "CLAUDE.md"
+      gemini:
+        - "system-dev.md"
+        - "GEMINI.md"
+    outputs:
+      - type: "system_specs"
+        format: "markdown"
+      - type: "system_code"
+        format: "fs"
+        root: "./system"
+      - type: "system_integration"
+        format: "markdown"
+    completion_signals:
+      task_done: "[TASK_DONE:{task_id}:systemdev]"
+      prompt_loaded: "[PROMPT_LOADED:systemdev]"
+      collaboration_request: "[COLLAB_REQUEST:{task_id}]"
+    responsibilities:
+      core_duties:
+        - "MANDATORY: Load prompts/system-dev.prompt.md and validate with [PROMPT_LOADED:systemdev] signal"
+        - "AI video processing pipeline design and implementation (FFmpeg, OpenCV, MediaPipe)"
+        - "3D model file conversion system (Blender API, Three.js, glTF)"
+        - "Real-time video streaming service (WebRTC, MediaSoup, RTMP)"
+        - "GPU accelerated processing and parallel computing (CUDA, OpenCL)"
+        - "Large-scale file processing and CDN integration"
+        - "System monitoring and performance optimization"
+      collaboration_duties:
+        - "Architecture consultation with fullstack expert for system requirement evaluation"
+        - "Backend integration support for system service API endpoints"
+        - "Deployment consultation with devops for system infrastructure requirements"
+        - "Performance optimization collaboration across all system components"
+      continuous_duties:
+        - "Remain available for system requirement analysis throughout project lifecycle"
+        - "Provide consultation on system feasibility during architecture phase"
+        - "Support system service integration and optimization as needed"
+        - "Maintain system performance and scalability across project iterations"
+      re_engagement_triggers:
+        - "System requirements identified during architecture or implementation phases"
+        - "Performance bottlenecks requiring system-level optimization"
+        - "Integration challenges with AI/video processing components"
+        - "Scalability issues requiring system architecture changes"
+        - "Cross-expert consultation requests for system feasibility assessments"
+  fullstack:
+    title: "Full-Stack Integration Architect & System Coordinator"
+    prompt: "prompts/fullstack.prompt.md"
+    availability_status: "always_available"
+    collaboration_role: "architecture_coordinator"
+    primary_tasks: ["architecture_design", "integration_orchestration"]
+    collaborative_tasks: ["requirements_analysis", "system_development", "backend_implementation", "frontend_implementation", "deployment_pipeline"]
+    prompt_validation_required: true
+    
+    # Detailed Specialties
+    specialties:
+      system_architecture_design:
+        - "microservice_architecture_patterns"
+        - "monolith_to_microservice_migration"
+        - "distributed_system_design"
+        - "event_driven_architecture"
+        - "domain_driven_design_implementation"
+      
+      integration_orchestration:
+        - "api_contract_design_and_validation"
+        - "data_flow_architecture_optimization"
+        - "real_time_synchronization_patterns"
+        - "event_sourcing_implementation"
+        - "saga_pattern_orchestration"
+      
+      cross_domain_expertise:
+        - "frontend_backend_architecture_alignment"
+        - "database_architecture_optimization"
+        - "caching_layer_design"
+        - "message_queue_integration"
+        - "service_mesh_implementation"
+      
+      performance_architecture:
+        - "load_balancing_strategy_design"
+        - "horizontal_scaling_patterns"
+        - "performance_bottleneck_identification"
+        - "capacity_planning_and_forecasting"
+        - "system_monitoring_architecture"
+      
+      technology_integration:
+        - "polyglot_architecture_coordination"
+        - "cloud_native_architecture_design"
+        - "containerization_strategy"
+        - "ci_cd_pipeline_architecture"
+        - "infrastructure_as_code_patterns"
+    knowledge:
+      junie:
+        - ".junie/fullstack.md"
+        - ".junie/guidelines.md"
+      codex:
+        - "fullstack.md"
+        - "AGENTS.md"
+      claude:
+        - "fullstack.md"
+        - "CLAUDE.md"
+      gemini:
+        - "fullstack.md"
+        - "GEMINI.md"
+    outputs:
+      - type: "integration_report"
+        format: "markdown"
+      - type: "architecture_specs"
+        format: "markdown"
+      - type: "api_contracts"
+        format: "openapi"
+    completion_signals:
+      task_done: "[TASK_DONE:{task_id}:fullstack]"
+      prompt_loaded: "[PROMPT_LOADED:fullstack]"
+      collaboration_request: "[COLLAB_REQUEST:{task_id}]"
+    responsibilities:
+      core_duties:
+        - "MANDATORY: Load prompts/fullstack.prompt.md and validate with [PROMPT_LOADED:fullstack] signal"
+        - "Overall system architecture design with cross-domain expertise integration"
+        - "API contract and data flow definition across all system components"
+        - "Type safety and real-time synchronization implementation"
+        - "Integration orchestration between frontend, backend, and system services"
+      collaboration_duties:
+        - "Requirements consultation with pm for technical feasibility assessment"
+        - "Architecture validation with backend/frontend experts for implementation feasibility"
+        - "System integration coordination with systemdev when system services are required"
+        - "Deployment architecture consultation with devops for infrastructure requirements"
+        - "Cross-domain technical decision making and conflict resolution"
+      continuous_duties:
+        - "Remain available for architecture refinements and integration issues throughout project"
+        - "Provide ongoing technical leadership and cross-expert coordination"
+        - "Monitor system-wide consistency and architectural compliance across iterations"
+        - "Support integration troubleshooting and performance optimization decisions"
+      re_engagement_triggers:
+        - "Architecture changes due to requirement evolution or technical constraints"
+        - "Integration issues between frontend, backend, or system components"
+        - "Cross-domain technical conflicts requiring architectural decision making"
+        - "Performance or scalability issues requiring system-wide architectural changes"
+        - "Expert consultation requests for technical feasibility or architecture validation"
+  devops:
+    title: "Deployment & DevOps Infrastructure Specialist"
+    prompt: "prompts/devops.prompt.md"
+    availability_status: "always_available"
+    collaboration_role: "infrastructure_specialist"
+    primary_tasks: ["deployment_pipeline"]
+    collaborative_tasks: ["architecture_design", "backend_implementation", "frontend_implementation", "system_development"]
+    prompt_validation_required: true
+
+    # Detailed Specialties
+    specialties:
+      modern_docker_standards:
+        - "docker_latest_manual_compliance"
+        - "image_signing_verification_protocols"
+        - "version_pinning_change_control"
+        - "security_governance_protocols"
+        - "container_registry_management"
+
+      compose_v2_orchestration:
+        - "compose_v2_command_standardization"
+        - "environment_overlay_management"
+        - "healthcheck_restart_policies"
+        - "resource_limits_log_drivers"
+        - "multi_environment_configuration"
+
+      cloud_deployment_optimization:
+        - "vercel_frontend_deployment_optimization"
+        - "supabase_database_deployment_automation"
+        - "multi_cloud_strategy_management"
+        - "hybrid_onpremise_cloud_integration"
+        - "serverless_deployment_patterns"
+
+      container_orchestration_scaling:
+        - "compose_single_node_management"
+        - "k3s_kubernetes_transition_strategies"
+        - "helm_versioned_releases"
+        - "blue_green_canary_deployment"
+        - "auto_scaling_configuration"
+
+      infrastructure_automation:
+        - "ansible_initial_provisioning"
+        - "iac_configuration_management"
+        - "private_registry_governance"
+        - "backup_dr_automation"
+        - "monitoring_observability_integration"
+    knowledge:
+      junie:
+        - ".junie/deployment.md"
+        - ".junie/guidelines.md"
+      codex:
+        - "deployment.md"
+        - "AGENTS.md"
+      claude:
+        - "deployment.md"
+        - "CLAUDE.md"
+      gemini:
+        - "deployment.md"
+        - "GEMINI.md"
+    outputs:
+      - type: "cicd_pipeline"
+        format: "yaml"
+        root: ".github/workflows"
+      - type: "infrastructure"
+        format: "fs"
+        root: "./ops"
+      - type: "deployment_validation"
+        format: "markdown"
+    completion_signals:
+      task_done: "[TASK_DONE:{task_id}:devops]"
+      prompt_loaded: "[PROMPT_LOADED:devops]"
+      collaboration_request: "[COLLAB_REQUEST:{task_id}]"
+    responsibilities:
+      core_duties:
+        - "MANDATORY: Load prompts/devops.prompt.md and validate with [PROMPT_LOADED:devops] signal"
+        - "PRIMARY: Docker containerization and local deployment orchestration with Docker Compose V2"
+        - "MANDATORY: Follow Docker latest manual standards (https://docs.docker.com/manuals/) and use 'docker compose' commands"
+        - "MANDATORY: Implement image signing/verification protocols and version pinning for production deployments"
+        - "Docker container configuration for frontend, backend, database, and reverse proxy services"
+        - "CI/CD pipeline design with Docker-first approach and cloud deployment alternatives (Vercel/Supabase optimization)"
+        - "Environment variables, Docker networking, volumes, and container security configuration"
+        - "Infrastructure provisioning with emphasis on containerized environments and modern orchestration"
+      collaboration_duties:
+        - "Docker architecture consultation with fullstack expert for containerized service integration"
+        - "Backend containerization collaboration for API server Docker configuration and database connections"
+        - "Frontend containerization support for Next.js Docker builds and optimization"
+        - "System service containerization coordination with systemdev for specialized Docker services"
+        - "Docker security, networking, and performance optimization across all containerized services"
+        - "ALTERNATIVE: Cloud deployment consultation when Docker local deployment is not suitable"
+      continuous_duties:
+        - "Remain available for Docker container issues and containerized infrastructure support throughout project"
+        - "Monitor and maintain Docker container health, deployment pipelines, and container orchestration"
+        - "Provide ongoing support for Docker environment configuration, volume management, and container scaling"
+        - "Support continuous Docker deployment, container updates, and rollback procedures as project evolves"
+        - "ALTERNATIVE: Provide cloud deployment support when Docker local deployment requirements change"
+      re_engagement_triggers:
+        - "Deployment failures or infrastructure issues requiring immediate attention"
+        - "New component deployments or infrastructure requirement changes"
+        - "Security updates or compliance requirements affecting deployment strategy"
+        - "Performance optimization needs requiring infrastructure scaling or reconfiguration"
+        - "Cross-expert consultation requests for deployment feasibility or infrastructure planning"
+  qa:
+    title: "Quality Assurance & Testing Specialist"
+    prompt: "prompts/qa-testing.prompt.md"
+    availability_status: "always_available"
+    collaboration_role: "quality_specialist"
+    primary_tasks: ["quality_assurance"]
+    collaborative_tasks: ["requirements_analysis", "backend_implementation", "frontend_implementation", "integration_orchestration", "system_development", "deployment_pipeline"]
+    prompt_validation_required: true
+    
+    # Detailed Specialties
+    specialties:
+      end_to_end_testing:
+        - "playwright_test_automation"
+        - "cross_browser_compatibility_testing"
+        - "mobile_responsive_testing"
+        - "user_journey_validation"
+        - "regression_test_suite_management"
+      
+      performance_testing:
+        - "core_web_vitals_optimization"
+        - "load_testing_strategy_design"
+        - "api_performance_validation"
+        - "database_performance_testing"
+        - "frontend_bundle_analysis"
+      
+      accessibility_compliance:
+        - "wcag_2_1_aa_validation"
+        - "screen_reader_compatibility_testing"
+        - "keyboard_navigation_validation"
+        - "color_contrast_compliance"
+        - "assistive_technology_integration"
+      
+      security_testing:
+        - "vulnerability_assessment_automation"
+        - "penetration_testing_coordination"
+        - "authentication_security_validation"
+        - "data_privacy_compliance_testing"
+        - "api_security_testing"
+      
+      quality_automation:
+        - "ci_cd_quality_gate_implementation"
+        - "automated_testing_pipeline_design"
+        - "quality_metrics_dashboard_setup"
+        - "defect_tracking_and_analysis"
+        - "test_data_management_strategies"
+    knowledge:
+      junie:
+        - ".junie/qa-testing.md"
+        - ".junie/guidelines.md"
+      codex:
+        - "qa-testing.md"
+        - "AGENTS.md"
+      claude:
+        - "qa-testing.md"
+        - "CLAUDE.md"
+      gemini:
+        - "qa-testing.md"
+        - "GEMINI.md"
+    outputs:
+      - type: "test_reports"
+        format: "markdown"
+      - type: "quality_analysis"
+        format: "markdown"
+      - type: "accessibility_validation"
+        format: "markdown"
+      - type: "performance_analysis"
+        format: "markdown"
+    completion_signals:
+      task_done: "[TASK_DONE:{task_id}:qa]"
+      prompt_loaded: "[PROMPT_LOADED:qa]"
+      collaboration_request: "[COLLAB_REQUEST:{task_id}]"
+    responsibilities:
+      core_duties:
+        - "MANDATORY: Load prompts/qa-testing.prompt.md and validate with [PROMPT_LOADED:qa] signal"
+        - "Comprehensive E2E testing using Playwright MCP (never external packages)"
+        - "Quality assurance and validation throughout project lifecycle"
+        - "Testing strategy design and quality gates enforcement"
+        - "Performance testing (Core Web Vitals, load testing, optimization analysis)"
+        - "Accessibility compliance validation (WCAG standards, screen reader testing)"
+        - "Cross-browser and device compatibility testing"
+        - "Security testing and vulnerability assessment"
+        - "Integration testing coordination across all project components"
+      collaboration_duties:
+        - "Backend API testing, performance validation, and security testing collaboration"
+        - "Frontend UI/UX testing, accessibility validation, and performance testing collaboration"
+        - "Integration testing coordination with fullstack expert for end-to-end validation"
+        - "Quality requirements analysis and testing timeline coordination with pm expert"
+        - "Deployment testing and infrastructure performance validation with devops expert"
+        - "System component testing and performance optimization with systemdev expert"
+        - "MCP tool assistance coordination with mcp expert for testing automation support"
+      continuous_duties:
+        - "Remain available for quality issues and testing validation throughout project lifecycle"
+        - "Provide ongoing testing support and quality monitoring across all project phases"
+        - "Monitor and optimize testing coverage and quality metrics continuously"
+        - "Support continuous quality improvement and testing automation"
+        - "Respond to quality issues and testing validation requests immediately"
+        - "Maintain testing documentation and quality standards throughout iterations"
+      re_engagement_triggers:
+        - "Quality issues or test failures requiring immediate investigation and resolution"
+        - "New features or components requiring comprehensive testing coverage and validation"
+        - "Performance degradation or accessibility compliance issues requiring immediate attention"
+        - "Integration problems requiring cross-expert testing coordination and quality validation"
+        - "Security vulnerabilities or quality concerns requiring immediate assessment and mitigation"
+        - "Cross-expert consultation requests for quality validation and testing strategy decisions"
+  mcp:
+    title: "MCP Tools Assistant & Orchestrator"
+    prompt: "prompts/mcp-tools.prompt.md"
+    availability_status: "always_available"
+    collaboration_role: "tool_assistant"
+    primary_tasks: ["mcp_tool_assistance"]
+    collaborative_tasks: ["requirements_analysis", "backend_implementation", "frontend_implementation", "integration_orchestration", "system_development", "deployment_pipeline", "quality_assurance"]
+    prompt_validation_required: true
+    knowledge:
+      junie:
+        - ".junie/mcp-tools.md"
+        - ".junie/guidelines.md"
+      codex:
+        - "mcp-tools.md"
+        - "AGENTS.md"
+      claude:
+        - "mcp-tools.md"
+        - "CLAUDE.md"
+      gemini:
+        - "mcp-tools.md"
+        - "GEMINI.md"
+    outputs:
+      - type: "mcp_orchestration"
+        format: "json"
+      - type: "mcp_assistance"
+        format: "markdown"
+      - type: "mcp_tool_guide"
+        format: "markdown"
+    completion_signals:
+      task_done: "[TASK_DONE:{task_id}:mcp]"
+      prompt_loaded: "[PROMPT_LOADED:mcp]"
+      collaboration_request: "[COLLAB_REQUEST:{task_id}]"
+    responsibilities:
+      core_duties:
+        - "MANDATORY: Load prompts/mcp-tools.prompt.md and validate with [PROMPT_LOADED:mcp] signal"
+        - "MCP tools orchestration and assistance across all project phases"
+        - "Expert support for MCP tool utilization (Context7, Sequential Thinking, GitHub MCP, Playwright MCP)"
+        - "MCP tool configuration, optimization, and troubleshooting"
+        - "Sequential thinking coordination for complex problem-solving across experts"
+        - "MCP tool documentation and best practices maintenance"
+      collaboration_duties:
+        - "Requirements analysis support with pm using Sequential Thinking MCP"
+        - "Backend expert assistance for GitHub MCP operations and repository management"
+        - "Frontend expert support for Context7 usage and documentation assistance"
+        - "QA expert assistance for Playwright MCP setup and configuration (not testing execution)"
+        - "All expert support for MCP tool optimization and efficiency improvements"
+        - "Cross-expert MCP tool integration and troubleshooting coordination"
+      continuous_duties:
+        - "Remain available for MCP tool assistance and optimization throughout project lifecycle"
+        - "Provide ongoing MCP tool support and configuration guidance across all phases"
+        - "Monitor and optimize MCP tool usage efficiency across expert collaborations"
+        - "Support continuous improvement of MCP tool integration and automation"
+        - "Respond to MCP tool issues and configuration requests immediately"
+        - "Maintain MCP tool documentation and share best practices with expert team"
+      re_engagement_triggers:
+        - "MCP tool configuration issues or integration challenges requiring immediate assistance"
+        - "New MCP tool requirements or optimization needs across expert workflows"
+        - "Tool performance issues or configuration updates affecting expert productivity"
+        - "Cross-expert MCP tool coordination and integration support"
+        - "Expert requests for MCP tool guidance, training, or advanced usage consultation"
+  research:
+    title: "Research Specialist & Strategic Analysis Expert"
+    prompt: "prompts/research.prompt.md"
+    availability_status: "always_available"
+    collaboration_role: "analysis_specialist"
+    primary_tasks: ["research_analysis"]
+    collaborative_tasks: ["requirements_analysis", "architecture_design", "backend_implementation", "frontend_implementation", "system_development", "deployment_pipeline", "quality_assurance"]
+    prompt_validation_required: true
+    
+    # Detailed Specialties
+    specialties:
+      technology_research:
+        - "emerging_technology_trend_analysis"
+        - "framework_comparative_assessment"
+        - "technology_stack_optimization_research"
+        - "performance_benchmark_analysis"
+        - "compatibility_matrix_development"
+      
+      market_competitive_analysis:
+        - "competitor_feature_analysis"
+        - "market_positioning_research"
+        - "user_behavior_pattern_analysis"
+        - "industry_best_practices_identification"
+        - "strategic_opportunity_assessment"
+      
+      architecture_pattern_research:
+        - "design_pattern_applicability_analysis"
+        - "scalability_solution_research"
+        - "architecture_decision_record_creation"
+        - "performance_optimization_strategy_research"
+        - "security_framework_evaluation"
+      
+      implementation_methodology_research:
+        - "development_workflow_optimization"
+        - "ci_cd_pipeline_best_practices"
+        - "testing_strategy_research"
+        - "deployment_pattern_analysis"
+        - "monitoring_and_observability_research"
+      
+      strategic_analysis:
+        - "risk_assessment_and_mitigation_research"
+        - "technical_debt_analysis"
+        - "resource_allocation_optimization"
+        - "timeline_feasibility_assessment"
+        - "roi_impact_analysis"
+    knowledge:
+      junie:
+        - ".junie/guidelines.md"
+        - ".junie/research.md"
+      codex:
+        - "AGENTS.md"
+        - "research.md"
+      claude:
+        - "CLAUDE.md"
+        - "research.md"
+      gemini:
+        - "GEMINI.md"
+        - "research.md"
+    outputs:
+      - type: "market_analysis"
+        format: "markdown"
+        path: "research/market-analysis.md"
+      - type: "tech_stack_analysis"
+        format: "markdown"
+        path: "research/tech-stack-analysis.md"
+      - type: "architecture_patterns"
+        format: "markdown"
+        path: "research/architecture-patterns.md"
+      - type: "risk_assessment"
+        format: "markdown"
+        path: "research/risk-assessment.md"
+      - type: "implementation_options"
+        format: "markdown"
+        path: "research/implementation-options.md"
+      - type: "research_summary"
+        format: "markdown"
+        path: "research/research-summary.md"
+    completion_signals:
+      task_done: "[TASK_DONE:{task_id}:research]"
+      prompt_loaded: "[PROMPT_LOADED:research]"
+      collaboration_request: "[COLLAB_REQUEST:{task_id}]"
+    responsibilities:
+      core_duties:
+        - "MANDATORY: Load prompts/research.prompt.md and validate with [PROMPT_LOADED:research] signal"
+        - "Deep technical research using GitHub MCP, Context7 MCP, and browser-based investigation"
+        - "Market analysis and competitive benchmarking for strategic positioning"
+        - "Technology stack analysis and architecture pattern research"
+        - "Risk assessment and mitigation strategy development"
+        - "Implementation methodology research and best practice identification"
+        - "Continuous research support throughout project lifecycle for all expert domains"
+      collaboration_duties:
+        - "PM collaboration for requirements clarification and strategic alignment"
+        - "Fullstack expert support for architecture feasibility validation and pattern consultation"
+        - "Backend expert assistance for API design patterns and technology stack validation"
+        - "Frontend expert support for UI/UX pattern research and technology trend analysis"
+        - "System development expert collaboration for architecture patterns and performance optimization research"
+        - "DevOps expert assistance for deployment pattern research and infrastructure best practices"
+        - "QA expert support for testing strategy research and quality benchmark analysis"
+        - "MCP expert collaboration for tool optimization and advanced usage consultation"
+      continuous_duties:
+        - "Remain available for research questions and strategic analysis throughout project lifecycle"
+        - "Monitor technology trends and market changes affecting project direction"
+        - "Provide ongoing research support for all expert domains and project phases"
+        - "Support continuous improvement with research-backed optimization recommendations"
+        - "Respond to research requests and analysis needs immediately across all project stages"
+        - "Maintain research documentation and share strategic insights with expert team"
+      re_engagement_triggers:
+        - "New research requirements or investigation needs arising from project evolution"
+        - "Technology trend changes or market shifts affecting project strategy and direction"
+        - "Competitive landscape changes requiring strategic repositioning or approach adjustments"
+        - "Expert consultation requests for research validation, analysis support, or strategic insights"
+        - "Risk assessment updates or mitigation strategy refinements based on project developments"
+        - "Cross-expert research coordination for comprehensive analysis and strategic decision support"

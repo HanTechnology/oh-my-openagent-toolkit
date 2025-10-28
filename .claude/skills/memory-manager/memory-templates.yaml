@@ -1,0 +1,935 @@
+version: "1.0"
+name: "Domain-Specific Memory Template System"
+description: "Project type specific memory structures for effective context management throughout project lifecycle"
+powered_by: "Hans(HanTaek) Lim - Development AI Agent Team Memory Pattern"
+
+# Development AI Agent Team Memory System
+# Provides specialized memory structures for each project type
+memory_templates:
+  
+  # Web Application Memory Structure
+  web-app:
+    name: "Web Application Memory Structure"
+    description: "Frontend, Backend, Database integration focused memory management"
+    core_files:
+      active-context.md:
+        purpose: "Current web application development status, active tasks, and immediate context"
+        update_triggers: ["task_start", "task_completion", "feature_addition", "integration_milestone"]
+        access_pattern: "read_on_start, update_on_change"
+        template_content: |
+          # Web Application Development Context
+          
+          ## Project Overview
+          - **Project Type**: Web Application
+          - **Current Phase**: [requirements/architecture/implementation/testing/deployment]
+          - **Active Tasks**: [current development tasks]
+          - **Next Milestones**: [upcoming deliverables]
+          
+          ## Technical Stack
+          - **Frontend**: [Next.js/React/Vue/etc]
+          - **Backend**: [Nest.js/Express/FastAPI/etc]
+          - **Database**: [PostgreSQL/MongoDB/etc]
+          - **Deployment**: [Vercel/Railway/Docker/etc]
+          
+          ## Current Focus Areas
+          - **UI/UX Development**: [current component work]
+          - **API Development**: [current endpoint work]
+          - **Integration Status**: [frontend-backend connection status]
+          - **Performance Targets**: [current optimization goals]
+      
+      ui-components.md:
+        purpose: "UI component architecture, design system, and component specifications"
+        update_triggers: ["component_design", "ui_refinement", "design_system_update"]
+        access_pattern: "read_before_frontend_work, update_during_design"
+        template_content: |
+          # UI Components & Design System
+          
+          ## Component Architecture
+          - **Design System**: [component library approach]
+          - **Styling Strategy**: [Tailwind/CSS Modules/Styled Components/etc]
+          - **Component Patterns**: [atomic design/feature-based/etc]
+          
+          ## Core Components
+          ### Layout Components
+          - Header/Navigation: [specifications]
+          - Footer: [specifications]
+          - Sidebar: [specifications]
+          
+          ### UI Components  
+          - Buttons: [variants and specifications]
+          - Forms: [input types and validation]
+          - Cards: [content display patterns]
+          - Modals: [interaction patterns]
+          
+          ## Responsive Design
+          - **Breakpoints**: [mobile/tablet/desktop specifications]
+          - **Grid System**: [layout structure]
+          - **Typography Scale**: [font size and hierarchy]
+          
+          ## Accessibility Requirements
+          - **WCAG Compliance**: [target level]
+          - **Screen Reader Support**: [implementation status]
+          - **Keyboard Navigation**: [focus management]
+      
+      api-endpoints.md:
+        purpose: "API specification, endpoint documentation, and backend integration details"
+        update_triggers: ["api_design", "endpoint_implementation", "integration_testing"]
+        access_pattern: "read_before_backend_work, update_during_api_development"
+        template_content: |
+          # API Endpoints & Backend Integration
+          
+          ## API Architecture
+          - **API Style**: [REST/GraphQL/tRPC/etc]
+          - **Authentication**: [JWT/OAuth/Session/etc]
+          - **Data Format**: [JSON/XML/etc]
+          - **Error Handling**: [error response patterns]
+          
+          ## Endpoint Specifications
+          ### Authentication Endpoints
+          - POST /api/auth/login: [user login]
+          - POST /api/auth/register: [user registration]
+          - POST /api/auth/logout: [user logout]
+          - GET /api/auth/profile: [user profile]
+          
+          ### Core Business Endpoints
+          [Domain-specific endpoints based on project requirements]
+          
+          ## Database Schema
+          - **User Model**: [field specifications]
+          - **Core Entity Models**: [business domain models]
+          - **Relationships**: [entity relationships]
+          
+          ## Integration Details
+          - **Frontend-Backend Communication**: [data flow patterns]
+          - **Real-time Features**: [WebSocket/SSE implementation]
+          - **File Upload**: [media handling strategy]
+      
+      user-flows.md:
+        purpose: "User journey mapping, interaction flows, and UX specifications"
+        update_triggers: ["ux_design", "flow_optimization", "user_testing"]
+        access_pattern: "read_before_ux_work, update_during_design"
+        template_content: |
+          # User Flows & Experience Design
+          
+          ## Primary User Journeys
+          ### User Registration & Onboarding
+          1. Landing page visit
+          2. Registration form completion
+          3. Email verification
+          4. Profile setup
+          5. Dashboard introduction
+          
+          ### Core Feature Usage
+          [Domain-specific user flows]
+          
+          ## Interaction Patterns
+          - **Navigation Patterns**: [menu structure and flow]
+          - **Form Interactions**: [validation and feedback]
+          - **Data Visualization**: [charts/tables/dashboards]
+          - **Search & Filtering**: [data discovery patterns]
+          
+          ## UX Requirements
+          - **Performance Expectations**: [page load times]
+          - **Accessibility Standards**: [inclusive design requirements]
+          - **Mobile Experience**: [responsive behavior]
+          - **Error States**: [error handling UX]
+      
+      performance-targets.md:
+        purpose: "Performance metrics, optimization goals, and monitoring specifications"
+        update_triggers: ["performance_testing", "optimization_work", "metric_updates"]
+        access_pattern: "read_during_optimization, update_after_testing"
+        template_content: |
+          # Performance Targets & Optimization
+          
+          ## Core Web Vitals Targets
+          - **Largest Contentful Paint (LCP)**: < 2.5s
+          - **First Input Delay (FID)**: < 100ms
+          - **Cumulative Layout Shift (CLS)**: < 0.1
+          
+          ## Application Performance
+          - **Initial Page Load**: < 3s
+          - **Route Transitions**: < 500ms
+          - **API Response Times**: < 200ms
+          - **Bundle Size**: < 250KB (gzipped)
+          
+          ## Optimization Strategies
+          - **Code Splitting**: [lazy loading implementation]
+          - **Image Optimization**: [format and compression strategy]
+          - **Caching Strategy**: [browser and server caching]
+          - **CDN Usage**: [static asset delivery]
+          
+          ## Monitoring & Analytics
+          - **Performance Monitoring**: [tools and dashboards]
+          - **User Analytics**: [behavior tracking]
+          - **Error Tracking**: [error monitoring setup]
+    
+    workflow_integration:
+      initialization: "Create web-app memory structure when web application project detected"
+      expert_access: ["frontend", "backend", "fullstack", "qa", "devops"]
+      collaboration_triggers: ["ui_design_decisions", "api_contract_changes", "performance_optimization"]
+
+  # AI/ML System Memory Structure  
+  ai-system:
+    name: "AI/ML System Memory Structure"
+    description: "Machine learning model development and deployment focused memory management"
+    core_files:
+      active-context.md:
+        purpose: "Current AI/ML system development status and model training progress"
+        template_content: |
+          # AI/ML System Development Context
+          
+          ## Project Overview
+          - **Project Type**: AI/ML System
+          - **Current Phase**: [research/data-prep/training/evaluation/deployment]
+          - **Model Type**: [classification/regression/generation/etc]
+          - **Domain**: [NLP/Computer Vision/Recommendation/etc]
+          
+          ## Current Development Focus
+          - **Data Pipeline Status**: [data collection and preprocessing]
+          - **Model Development**: [current architecture experiments]
+          - **Training Progress**: [current training metrics]
+          - **Evaluation Results**: [model performance metrics]
+          
+      model-architecture.md:
+        purpose: "ML model architecture specifications and design decisions"
+        template_content: |
+          # Model Architecture & Design
+          
+          ## Model Specifications
+          - **Model Type**: [neural network/tree-based/statistical/etc]
+          - **Architecture**: [detailed model structure]
+          - **Input/Output Specifications**: [data format and dimensions]
+          - **Hyperparameters**: [key parameter settings]
+          
+          ## Training Configuration
+          - **Loss Function**: [optimization objective]
+          - **Optimizer**: [training algorithm]
+          - **Learning Rate Schedule**: [lr strategy]
+          - **Regularization**: [overfitting prevention]
+          
+          ## Performance Targets
+          - **Accuracy Metrics**: [target performance levels]
+          - **Inference Time**: [real-time requirements]
+          - **Model Size**: [deployment constraints]
+          
+      data-pipeline.md:
+        purpose: "Data processing pipeline and feature engineering specifications"
+        template_content: |
+          # Data Pipeline & Feature Engineering
+          
+          ## Data Sources
+          - **Primary Data**: [main dataset specifications]
+          - **External APIs**: [third-party data integration]
+          - **Real-time Data**: [streaming data sources]
+          
+          ## Data Processing Pipeline
+          1. **Data Ingestion**: [collection methods]
+          2. **Data Cleaning**: [preprocessing steps]
+          3. **Feature Engineering**: [transformation logic]
+          4. **Data Validation**: [quality checks]
+          5. **Data Storage**: [processed data storage]
+          
+          ## Feature Specifications
+          - **Input Features**: [model input variables]
+          - **Target Variables**: [prediction targets]
+          - **Feature Selection**: [important features]
+          - **Data Types**: [numerical/categorical/text/etc]
+          
+      training-requirements.md:
+        purpose: "Training infrastructure and computational requirements"
+        template_content: |
+          # Training Requirements & Infrastructure
+          
+          ## Computational Requirements
+          - **Hardware**: [GPU/CPU requirements]
+          - **Memory**: [RAM and storage needs]
+          - **Training Time**: [estimated duration]
+          - **Distributed Training**: [multi-GPU setup]
+          
+          ## Training Pipeline
+          - **Data Loading**: [batch processing strategy]
+          - **Model Checkpointing**: [save/resume strategy]
+          - **Monitoring**: [training metrics tracking]
+          - **Early Stopping**: [convergence criteria]
+          
+          ## Experiment Tracking
+          - **Version Control**: [model versioning]
+          - **Hyperparameter Tuning**: [optimization strategy]
+          - **Result Logging**: [experiment tracking tools]
+          
+      performance-metrics.md:
+        purpose: "Model performance evaluation and monitoring metrics"
+        template_content: |
+          # Performance Metrics & Evaluation
+          
+          ## Evaluation Metrics
+          - **Primary Metrics**: [main performance indicators]
+          - **Secondary Metrics**: [additional evaluation criteria]
+          - **Business Metrics**: [impact on business objectives]
+          
+          ## Model Validation
+          - **Cross-Validation**: [validation strategy]
+          - **Test Set Performance**: [final evaluation results]
+          - **A/B Testing**: [production testing approach]
+          
+          ## Monitoring & Drift Detection
+          - **Data Drift**: [input data change detection]
+          - **Model Drift**: [performance degradation tracking]
+          - **Retraining Triggers**: [model update criteria]
+    
+    workflow_integration:
+      initialization: "Create ai-system memory structure when AI/ML project detected"
+      expert_access: ["systemdev", "research", "backend", "qa"]
+      collaboration_triggers: ["model_architecture_decisions", "data_pipeline_changes", "performance_optimization"]
+
+  # Mobile Application Memory Structure
+  mobile-app:
+    name: "Mobile Application Memory Structure"
+    description: "Cross-platform mobile development focused memory management"
+    core_files:
+      active-context.md:
+        purpose: "Current mobile application development status and platform-specific progress"
+        template_content: |
+          # Mobile Application Development Context
+          
+          ## Project Overview
+          - **Project Type**: Mobile Application
+          - **Platforms**: [iOS/Android/Cross-platform]
+          - **Framework**: [React Native/Flutter/Native/etc]
+          - **Current Phase**: [design/development/testing/deployment]
+          
+          ## Development Focus
+          - **UI Implementation**: [screen development progress]
+          - **Platform Integration**: [native feature usage]
+          - **Performance Status**: [app performance metrics]
+          - **Testing Progress**: [device testing coverage]
+          
+      platform-requirements.md:
+        purpose: "Platform-specific requirements and native feature integration"
+        template_content: |
+          # Platform Requirements & Native Features
+          
+          ## Platform Specifications
+          - **iOS Requirements**: [minimum version, device support]
+          - **Android Requirements**: [API level, device compatibility]
+          - **Cross-platform Considerations**: [shared vs platform-specific code]
+          
+          ## Native Feature Integration
+          - **Camera/Media**: [photo/video capture requirements]
+          - **GPS/Location**: [location service usage]
+          - **Push Notifications**: [notification strategy]
+          - **Device Storage**: [local data storage needs]
+          - **Biometric Auth**: [fingerprint/face recognition]
+          
+          ## App Store Requirements
+          - **iOS App Store**: [submission guidelines compliance]
+          - **Google Play Store**: [policy requirements]
+          - **App Metadata**: [descriptions, screenshots, keywords]
+          
+      performance-targets.md:
+        purpose: "Mobile-specific performance metrics and optimization goals"
+        template_content: |
+          # Mobile Performance Targets
+          
+          ## Performance Metrics
+          - **App Launch Time**: < 3s
+          - **Screen Transition**: < 300ms
+          - **Memory Usage**: [RAM consumption limits]
+          - **Battery Impact**: [power efficiency goals]
+          - **Network Efficiency**: [data usage optimization]
+          
+          ## Device Compatibility
+          - **Minimum Device Support**: [oldest supported devices]
+          - **Screen Size Adaptation**: [responsive design for various screens]
+          - **Performance on Low-end Devices**: [resource constraints handling]
+          
+          ## Optimization Strategies
+          - **Bundle Size**: [app size minimization]
+          - **Image Optimization**: [mobile-optimized assets]
+          - **Code Splitting**: [lazy loading for mobile]
+          - **Offline Capability**: [offline-first design]
+    
+    workflow_integration:
+      initialization: "Create mobile-app memory structure when mobile project detected"
+      expert_access: ["frontend", "backend", "devops", "qa"]
+      collaboration_triggers: ["platform_specific_features", "performance_optimization", "app_store_submission"]
+
+  # Data Processing System Memory Structure
+  data-system:
+    name: "Data Processing System Memory Structure" 
+    description: "Data pipeline and ETL system focused memory management"
+    core_files:
+      active-context.md:
+        purpose: "Current data processing system development status"
+        template_content: |
+          # Data Processing System Context
+          
+          ## System Overview
+          - **Project Type**: Data Processing System
+          - **Data Scale**: [volume/velocity/variety characteristics]
+          - **Processing Type**: [batch/streaming/hybrid]
+          - **Current Phase**: [pipeline-design/implementation/testing/production]
+          
+      data-pipeline-architecture.md:
+        purpose: "Data pipeline design and processing workflow specifications"
+        template_content: |
+          # Data Pipeline Architecture
+          
+          ## Pipeline Overview
+          - **Data Sources**: [input data specifications]
+          - **Processing Stages**: [transformation steps]
+          - **Data Destinations**: [output targets]
+          - **Processing Framework**: [Spark/Kafka/Airflow/etc]
+          
+          ## Data Flow Design
+          1. **Ingestion**: [data collection methods]
+          2. **Validation**: [data quality checks]
+          3. **Transformation**: [processing logic]
+          4. **Enrichment**: [data enhancement steps]
+          5. **Storage**: [data persistence strategy]
+          
+      performance-metrics.md:
+        purpose: "Data processing performance and system monitoring metrics"
+        template_content: |
+          # Data System Performance Metrics
+          
+          ## Processing Performance
+          - **Throughput**: [records/messages per second]
+          - **Latency**: [end-to-end processing time]
+          - **Error Rate**: [processing failure percentage]
+          - **Data Quality**: [accuracy and completeness metrics]
+          
+          ## System Monitoring
+          - **Resource Usage**: [CPU/Memory/Storage utilization]
+          - **Pipeline Health**: [system component status]
+          - **Data Freshness**: [data recency tracking]
+    
+    workflow_integration:
+      initialization: "Create data-system memory structure when data processing project detected"
+      expert_access: ["systemdev", "backend", "research", "devops"]
+      collaboration_triggers: ["pipeline_architecture_changes", "performance_optimization", "data_quality_issues"]
+
+  # API/Microservice Memory Structure
+  api-service:
+    name: "API/Microservice Memory Structure"
+    description: "API development and microservice architecture focused memory management" 
+    core_files:
+      active-context.md:
+        purpose: "Current API/microservice development status"
+        template_content: |
+          # API/Microservice Development Context
+          
+          ## Service Overview
+          - **Project Type**: API/Microservice
+          - **Architecture Pattern**: [monolith/microservices/serverless]
+          - **API Style**: [REST/GraphQL/gRPC]
+          - **Current Phase**: [design/implementation/testing/deployment]
+          
+      api-specifications.md:
+        purpose: "Detailed API endpoint specifications and service contracts"
+        template_content: |
+          # API Specifications & Service Contracts
+          
+          ## API Design
+          - **Base URL**: [service endpoint base]
+          - **Authentication**: [auth strategy]
+          - **Rate Limiting**: [usage limits]
+          - **Versioning**: [API version strategy]
+          
+          ## Endpoint Documentation
+          [Detailed endpoint specifications]
+          
+          ## Service Dependencies
+          - **External APIs**: [third-party integrations]
+          - **Database Dependencies**: [data layer requirements]
+          - **Messaging Systems**: [async communication]
+          
+      performance-targets.md:
+        purpose: "API performance requirements and SLA specifications"
+        template_content: |
+          # API Performance & SLA Targets
+          
+          ## Performance Requirements
+          - **Response Time**: < 200ms (95th percentile)
+          - **Throughput**: [requests per second capacity]
+          - **Availability**: 99.9% uptime
+          - **Error Rate**: < 0.1%
+          
+          ## Scalability Targets
+          - **Horizontal Scaling**: [auto-scaling configuration]
+          - **Load Testing**: [performance testing results]
+          - **Capacity Planning**: [resource allocation strategy]
+    
+    workflow_integration:
+      initialization: "Create api-service memory structure when API project detected"
+      expert_access: ["backend", "fullstack", "devops", "qa"]
+      collaboration_triggers: ["api_design_changes", "performance_optimization", "service_integration"]
+
+  # Desktop Application Memory Structure
+  desktop-app:
+    name: "Desktop Application Memory Structure"
+    description: "Desktop application development focused memory management"
+    core_files:
+      active-context.md:
+        purpose: "Current desktop application development status"
+        template_content: |
+          # Desktop Application Development Context
+          
+          ## Application Overview
+          - **Project Type**: Desktop Application
+          - **Target Platforms**: [Windows/macOS/Linux]
+          - **Framework**: [Electron/Tauri/Qt/etc]
+          - **Current Phase**: [design/development/testing/packaging]
+          
+      platform-compatibility.md:
+        purpose: "Cross-platform compatibility and native integration specifications"
+        template_content: |
+          # Platform Compatibility & Native Integration
+          
+          ## Platform Support
+          - **Windows**: [minimum version, compatibility requirements]
+          - **macOS**: [macOS version support, Apple Silicon compatibility]
+          - **Linux**: [distribution support, package formats]
+          
+          ## Native Features
+          - **File System Access**: [file operations requirements]
+          - **System Integration**: [OS-specific features]
+          - **Performance**: [native performance considerations]
+          
+      distribution-strategy.md:
+        purpose: "Application packaging and distribution approach"
+        template_content: |
+          # Distribution Strategy & Packaging
+          
+          ## Packaging Requirements
+          - **Installation Process**: [installer/portable distribution]
+          - **Auto-update System**: [update mechanism]
+          - **Code Signing**: [security certificates]
+          
+          ## Distribution Channels
+          - **Direct Distribution**: [website download]
+          - **App Stores**: [Microsoft Store/Mac App Store/etc]
+          - **Package Managers**: [Homebrew/Chocolatey/etc]
+    
+    workflow_integration:
+      initialization: "Create desktop-app memory structure when desktop project detected"
+      expert_access: ["frontend", "systemdev", "devops", "qa"]
+      collaboration_triggers: ["platform_specific_features", "packaging_requirements", "distribution_strategy"]
+
+# Memory System Management Rules
+memory_management:
+  automatic_initialization: true  # Automatic memory structure creation upon project detection
+  template_selection_logic: "project_detection_result"  # Based on project-detection.yaml results
+  hybrid_project_handling: "multiple_templates"  # Multiple template combination for hybrid projects
+  
+  update_protocols:
+    frequent_updates: ["active-context.md"]  # Frequently updated files
+    milestone_updates: ["architecture files", "specification files"]  # Updated at milestones
+    completion_updates: ["performance files", "metrics files"]  # Updated upon completion
+  
+  collaboration_integration:
+    shared_access: true  # All experts can access relevant memory files
+    update_notifications: true  # Notify relevant experts when memory files are updated
+    version_tracking: true  # Track memory file change history
+
+# Expert-Specific Memory Templates (Common across all project types)
+expert_memory_templates:
+
+  # QA Expert Memory Files
+  qa_expert_files:
+    test-coverage.md:
+      purpose: "Comprehensive testing documentation and coverage metrics tracking"
+      update_triggers: ["test_implementation", "coverage_analysis", "quality_validation"]
+      template_content: |
+        # Test Coverage & Quality Metrics
+
+        ## Test Coverage Overview
+        - **Unit Test Coverage**: [Current percentage and targets]
+        - **Integration Test Coverage**: [API and service integration testing]
+        - **E2E Test Coverage**: [End-to-end user flow coverage]
+        - **Component Test Coverage**: [Frontend component testing status]
+
+        ## Testing Strategy
+        - **Testing Framework**: [Playwright MCP for E2E, Jest/Vitest for unit tests]
+        - **Test Automation**: [CI/CD integration and automated testing pipelines]
+        - **Quality Gates**: [Minimum coverage requirements and quality standards]
+        - **Test Maintenance**: [Test suite maintenance and updates]
+
+        ## Current Test Metrics
+        - **Total Tests**: [Number of tests implemented]
+        - **Passing Tests**: [Success rate and stability metrics]
+        - **Test Execution Time**: [Performance of test suite]
+        - **Coverage Gaps**: [Areas requiring additional testing]
+
+    quality-metrics.md:
+      purpose: "Performance metrics, accessibility compliance, and quality tracking"
+      update_triggers: ["performance_testing", "accessibility_validation", "quality_assessment"]
+      template_content: |
+        # Quality Metrics & Standards Tracking
+
+        ## Performance Metrics
+        - **Core Web Vitals**: LCP, FID, CLS measurements and targets
+        - **Load Testing Results**: Response times and throughput metrics
+        - **Resource Usage**: Memory, CPU, and network utilization
+        - **Performance Trends**: Historical performance data and improvements
+
+        ## Accessibility Compliance
+        - **WCAG 2.1 AA Compliance**: Current status and gap analysis
+        - **Screen Reader Testing**: Compatibility and navigation testing
+        - **Keyboard Navigation**: Focus management and accessibility features
+        - **Color Contrast**: Visual accessibility and inclusive design
+
+        ## Code Quality Metrics
+        - **Code Coverage**: Test coverage percentages and quality gates
+        - **Static Analysis**: Code quality scores and improvement recommendations
+        - **Security Scanning**: Vulnerability assessments and remediation status
+        - **Best Practices**: Adherence to coding standards and conventions
+
+    security-testing.md:
+      purpose: "Security testing results and vulnerability assessment tracking"
+      update_triggers: ["security_scanning", "vulnerability_assessment", "penetration_testing"]
+      template_content: |
+        # Security Testing & Vulnerability Management
+
+        ## Security Assessment Status
+        - **Vulnerability Scanning**: Automated security scan results
+        - **Penetration Testing**: Manual security testing outcomes
+        - **Authentication Testing**: Security validation for auth flows
+        - **Authorization Testing**: Access control and permission validation
+
+        ## Security Compliance
+        - **Security Standards**: OWASP compliance and security best practices
+        - **Data Protection**: Privacy and data security implementation
+        - **Encryption**: Data encryption at rest and in transit
+        - **API Security**: Endpoint security and rate limiting
+
+        ## Remediation Tracking
+        - **Critical Issues**: High-priority security issues and fixes
+        - **Remediation Progress**: Security improvement implementation status
+        - **Security Monitoring**: Ongoing security monitoring and alerting
+        - **Incident Response**: Security incident handling and response plans
+
+    performance-validation.md:
+      purpose: "Performance testing history and optimization tracking"
+      update_triggers: ["performance_optimization", "load_testing", "monitoring_updates"]
+      template_content: |
+        # Performance Validation & Optimization
+
+        ## Performance Testing Results
+        - **Load Testing**: Concurrent user testing and capacity planning
+        - **Stress Testing**: System limits and breaking point analysis
+        - **Performance Benchmarks**: Baseline metrics and improvement targets
+        - **Resource Monitoring**: System resource usage and optimization
+
+        ## Optimization Tracking
+        - **Performance Improvements**: Optimization changes and impact analysis
+        - **Bottleneck Identification**: Performance bottlenecks and resolution
+        - **Resource Optimization**: Memory, CPU, and network optimization
+        - **Caching Strategy**: Cache implementation and effectiveness
+
+        ## Monitoring & Alerting
+        - **Performance Monitoring**: Real-time performance tracking setup
+        - **Alert Configuration**: Performance threshold alerts and notifications
+        - **Trend Analysis**: Performance trend analysis and predictive monitoring
+        - **SLA Tracking**: Service level agreement monitoring and compliance
+
+  # DevOps Expert Memory Files
+  devops_expert_files:
+    deployment-config.md:
+      purpose: "Infrastructure configuration and deployment pipeline documentation"
+      update_triggers: ["deployment_changes", "infrastructure_updates", "pipeline_modifications"]
+      template_content: |
+        # Deployment Configuration & Infrastructure
+
+        ## Deployment Architecture
+        - **Deployment Strategy**: [Blue-green/Rolling/Canary deployment approach]
+        - **Infrastructure**: [Cloud provider and resource configuration]
+        - **Container Configuration**: [Docker setup and orchestration]
+        - **Environment Management**: [Development/Staging/Production environments]
+
+        ## Pipeline Configuration
+        - **CI/CD Pipeline**: [GitHub Actions/GitLab CI pipeline setup]
+        - **Build Process**: [Build scripts and automation]
+        - **Testing Integration**: [Automated testing in pipeline]
+        - **Deployment Automation**: [Automated deployment and rollback]
+
+        ## Infrastructure as Code
+        - **Configuration Management**: [Infrastructure automation tools]
+        - **Resource Provisioning**: [Automated resource creation]
+        - **Version Control**: [Infrastructure version control and changes]
+        - **Documentation**: [Infrastructure documentation and runbooks]
+
+    infrastructure-state.md:
+      purpose: "System monitoring and performance tracking for production systems"
+      update_triggers: ["infrastructure_monitoring", "performance_updates", "scaling_events"]
+      template_content: |
+        # Infrastructure State & System Monitoring
+
+        ## System Health
+        - **Server Status**: [System uptime and availability metrics]
+        - **Resource Utilization**: [CPU, memory, disk usage monitoring]
+        - **Network Performance**: [Network latency and throughput]
+        - **Service Status**: [Application service health and status]
+
+        ## Performance Monitoring
+        - **Application Performance**: [Response times and throughput]
+        - **Database Performance**: [Query performance and connection status]
+        - **Cache Performance**: [Cache hit rates and optimization]
+        - **CDN Performance**: [Content delivery optimization]
+
+        ## Scaling & Capacity
+        - **Auto-scaling Configuration**: [Scaling rules and thresholds]
+        - **Capacity Planning**: [Resource capacity and growth planning]
+        - **Load Balancing**: [Traffic distribution and optimization]
+        - **Cost Optimization**: [Resource cost tracking and optimization]
+
+    ci-cd-workflows.md:
+      purpose: "Automation pipeline configuration and optimization history"
+      update_triggers: ["pipeline_updates", "workflow_optimization", "automation_improvements"]
+      template_content: |
+        # CI/CD Workflows & Automation Pipeline
+
+        ## Pipeline Configuration
+        - **Build Workflow**: [Automated build process and optimization]
+        - **Test Workflow**: [Automated testing integration and coverage]
+        - **Deployment Workflow**: [Automated deployment and rollback procedures]
+        - **Quality Gates**: [Automated quality checks and approvals]
+
+        ## Workflow Optimization
+        - **Performance Optimization**: [Pipeline speed and efficiency improvements]
+        - **Resource Optimization**: [Build resource usage and cost optimization]
+        - **Parallel Processing**: [Concurrent workflow execution and optimization]
+        - **Caching Strategy**: [Build cache optimization and artifact management]
+
+        ## Automation Enhancement
+        - **Script Automation**: [Automated scripts and tooling]
+        - **Notification System**: [Automated alerts and notifications]
+        - **Documentation Generation**: [Automated documentation updates]
+        - **Metrics Collection**: [Automated metrics collection and reporting]
+
+    monitoring-metrics.md:
+      purpose: "System observability and performance tracking"
+      update_triggers: ["monitoring_setup", "alert_configuration", "metrics_analysis"]
+      template_content: |
+        # Monitoring Metrics & System Observability
+
+        ## Monitoring Infrastructure
+        - **Monitoring Stack**: [Monitoring tools and infrastructure setup]
+        - **Metrics Collection**: [System and application metrics collection]
+        - **Log Aggregation**: [Centralized logging and analysis]
+        - **Alerting System**: [Alert configuration and notification setup]
+
+        ## Key Performance Indicators
+        - **System KPIs**: [Critical system performance indicators]
+        - **Application KPIs**: [Application-specific performance metrics]
+        - **Business KPIs**: [Business impact and user experience metrics]
+        - **SLA Tracking**: [Service level agreement monitoring]
+
+        ## Alert Management
+        - **Alert Configuration**: [Alert thresholds and conditions]
+        - **Escalation Procedures**: [Alert escalation and response procedures]
+        - **Incident Response**: [Incident management and resolution tracking]
+        - **Post-incident Analysis**: [Incident analysis and improvement actions]
+
+  # Research Expert Memory Files
+  research_expert_files:
+    research-findings.md:
+      purpose: "Comprehensive research documentation and strategic insights"
+      update_triggers: ["research_completion", "market_analysis", "technology_assessment"]
+      template_content: |
+        # Research Findings & Strategic Analysis
+
+        ## Market Research
+        - **Market Landscape**: [Industry analysis and competitive positioning]
+        - **Target Audience**: [User research and market segmentation]
+        - **Market Trends**: [Industry trends and future predictions]
+        - **Competitive Analysis**: [Competitor analysis and differentiation]
+
+        ## Technology Research
+        - **Technology Stack Analysis**: [Technology evaluation and selection]
+        - **Framework Comparison**: [Framework pros/cons and recommendations]
+        - **Tool Evaluation**: [Development tool assessment and selection]
+        - **Integration Patterns**: [Best practices and integration strategies]
+
+        ## Strategic Recommendations
+        - **Technical Strategy**: [Technology strategy and roadmap]
+        - **Implementation Approach**: [Recommended implementation strategies]
+        - **Risk Assessment**: [Technology and market risks analysis]
+        - **Success Metrics**: [Key performance indicators and success criteria]
+
+    technology-analysis.md:
+      purpose: "Technology stack research, comparisons, and recommendations"
+      update_triggers: ["technology_evaluation", "framework_comparison", "tool_assessment"]
+      template_content: |
+        # Technology Analysis & Stack Evaluation
+
+        ## Technology Stack Research
+        - **Frontend Technologies**: [Frontend framework evaluation and selection]
+        - **Backend Technologies**: [Backend framework and tool analysis]
+        - **Database Technologies**: [Database selection and optimization]
+        - **DevOps Technologies**: [Infrastructure and deployment tool evaluation]
+
+        ## Framework Comparison
+        - **Performance Analysis**: [Framework performance benchmarks]
+        - **Developer Experience**: [Development efficiency and ease of use]
+        - **Community Support**: [Community size and ecosystem analysis]
+        - **Long-term Viability**: [Framework sustainability and future outlook]
+
+        ## Integration Assessment
+        - **Compatibility Analysis**: [Technology stack integration compatibility]
+        - **Migration Considerations**: [Migration path and effort analysis]
+        - **Vendor Lock-in Risk**: [Technology dependency and flexibility]
+        - **Cost Analysis**: [Technology cost and licensing considerations]
+
+    market-analysis.md:
+      purpose: "Competitive landscape analysis and market positioning insights"
+      update_triggers: ["competitive_analysis", "market_research", "positioning_strategy"]
+      template_content: |
+        # Market Analysis & Competitive Intelligence
+
+        ## Competitive Landscape
+        - **Direct Competitors**: [Primary competitors and their positioning]
+        - **Indirect Competitors**: [Alternative solutions and substitutes]
+        - **Market Leaders**: [Industry leaders and their strategies]
+        - **Emerging Players**: [New entrants and disruptive technologies]
+
+        ## Market Positioning
+        - **Value Proposition**: [Unique value proposition and differentiation]
+        - **Target Market**: [Market segmentation and target audience]
+        - **Pricing Strategy**: [Competitive pricing analysis and positioning]
+        - **Go-to-Market**: [Market entry and expansion strategies]
+
+        ## Market Intelligence
+        - **Market Size**: [Total addressable market and growth projections]
+        - **Market Trends**: [Industry trends and future opportunities]
+        - **Customer Insights**: [Customer needs and pain points analysis]
+        - **Regulatory Environment**: [Industry regulations and compliance requirements]
+
+    risk-assessment.md:
+      purpose: "Risk analysis documentation and mitigation strategy tracking"
+      update_triggers: ["risk_identification", "mitigation_planning", "risk_monitoring"]
+      template_content: |
+        # Risk Assessment & Mitigation Strategy
+
+        ## Risk Identification
+        - **Technical Risks**: [Technology and implementation risks]
+        - **Market Risks**: [Market and competitive risks]
+        - **Operational Risks**: [Process and resource risks]
+        - **Security Risks**: [Security and compliance risks]
+
+        ## Risk Analysis
+        - **Risk Probability**: [Likelihood assessment for identified risks]
+        - **Risk Impact**: [Potential impact and severity analysis]
+        - **Risk Priority**: [Risk prioritization and ranking]
+        - **Risk Dependencies**: [Risk relationships and cascading effects]
+
+        ## Mitigation Strategies
+        - **Risk Mitigation Plans**: [Specific mitigation strategies and actions]
+        - **Contingency Plans**: [Backup plans and alternative approaches]
+        - **Risk Monitoring**: [Risk tracking and early warning systems]
+        - **Risk Communication**: [Risk reporting and stakeholder communication]
+
+  # SystemDev Expert Memory Files
+  systemdev_expert_files:
+    system-performance.md:
+      purpose: "High-performance system documentation and optimization tracking"
+      update_triggers: ["performance_optimization", "system_tuning", "benchmarking"]
+      template_content: |
+        # System Performance & High-Performance Computing
+
+        ## Performance Metrics
+        - **System Throughput**: [Processing capacity and performance benchmarks]
+        - **Latency Optimization**: [Response time optimization and tuning]
+        - **Resource Utilization**: [CPU, memory, and I/O optimization]
+        - **Scalability Metrics**: [System scaling performance and limits]
+
+        ## Optimization Strategies
+        - **Algorithm Optimization**: [Code optimization and algorithmic improvements]
+        - **Memory Optimization**: [Memory usage optimization and management]
+        - **I/O Optimization**: [File system and network I/O optimization]
+        - **Parallel Processing**: [Multi-threading and parallel computing optimization]
+
+        ## Performance Monitoring
+        - **Real-time Monitoring**: [Performance monitoring and alerting systems]
+        - **Benchmarking**: [Performance benchmarking and comparison]
+        - **Profiling**: [System profiling and bottleneck identification]
+        - **Optimization Tracking**: [Performance improvement tracking and analysis]
+
+    gpu-optimization.md:
+      purpose: "AI/ML acceleration metrics and GPU utilization optimization"
+      update_triggers: ["gpu_optimization", "ai_acceleration", "model_optimization"]
+      template_content: |
+        # GPU Optimization & AI/ML Acceleration
+
+        ## GPU Utilization
+        - **GPU Performance**: [GPU utilization metrics and optimization]
+        - **Memory Management**: [GPU memory optimization and allocation]
+        - **Compute Optimization**: [CUDA/OpenCL optimization and tuning]
+        - **Model Acceleration**: [AI/ML model acceleration and optimization]
+
+        ## AI/ML Optimization
+        - **Model Performance**: [Inference speed and accuracy optimization]
+        - **Training Optimization**: [Training speed and efficiency improvements]
+        - **Framework Optimization**: [TensorFlow/PyTorch optimization]
+        - **Hardware Acceleration**: [Specialized hardware utilization and optimization]
+
+        ## Performance Tracking
+        - **Throughput Metrics**: [Processing throughput and capacity]
+        - **Latency Metrics**: [Inference latency and response time]
+        - **Resource Efficiency**: [Resource utilization and cost optimization]
+        - **Optimization History**: [Performance improvement tracking and analysis]
+
+    infrastructure-scaling.md:
+      purpose: "System scaling strategies and load balancing configuration"
+      update_triggers: ["scaling_events", "load_balancing", "capacity_planning"]
+      template_content: |
+        # Infrastructure Scaling & Load Balancing
+
+        ## Scaling Architecture
+        - **Horizontal Scaling**: [Scale-out architecture and strategies]
+        - **Vertical Scaling**: [Scale-up optimization and resource allocation]
+        - **Auto-scaling**: [Automated scaling configuration and optimization]
+        - **Load Distribution**: [Load balancing and traffic distribution]
+
+        ## Capacity Planning
+        - **Resource Planning**: [Capacity forecasting and resource allocation]
+        - **Growth Projections**: [Usage growth and scaling projections]
+        - **Cost Optimization**: [Scaling cost optimization and efficiency]
+        - **Performance Targets**: [Scaling performance targets and SLAs]
+
+        ## Scaling Monitoring
+        - **Scaling Metrics**: [Scaling performance and effectiveness metrics]
+        - **Load Testing**: [Load testing and capacity validation]
+        - **Bottleneck Analysis**: [Scaling bottleneck identification and resolution]
+        - **Optimization Tracking**: [Scaling optimization history and improvements]
+
+    performance-benchmarks.md:
+      purpose: "Performance metrics tracking and optimization history"
+      update_triggers: ["benchmarking", "performance_analysis", "optimization_validation"]
+      template_content: |
+        # Performance Benchmarks & Optimization History
+
+        ## Benchmark Results
+        - **Baseline Performance**: [Initial performance benchmarks and baselines]
+        - **Current Performance**: [Current performance metrics and status]
+        - **Performance Targets**: [Performance goals and improvement targets]
+        - **Comparative Analysis**: [Performance comparison and competitive analysis]
+
+        ## Optimization History
+        - **Optimization Changes**: [Performance optimization changes and improvements]
+        - **Impact Analysis**: [Optimization impact and effectiveness analysis]
+        - **Regression Analysis**: [Performance regression identification and resolution]
+        - **Continuous Improvement**: [Ongoing optimization and improvement tracking]
+
+        ## Performance Analysis
+        - **Trend Analysis**: [Performance trend analysis and predictions]
+        - **Bottleneck Analysis**: [Performance bottleneck identification and resolution]
+        - **Resource Analysis**: [Resource usage analysis and optimization]
+        - **Optimization Recommendations**: [Performance improvement recommendations]
+
+# Memory Pattern Integration
+novel_analysis_integration:
+  memory_continuity: true  # Continuous memory management
+  domain_specialization: true  # Domain-specific specialized context
+  automatic_context_preservation: true  # Automatic context preservation
+  expert_memory_synchronization: true  # Memory synchronization between experts

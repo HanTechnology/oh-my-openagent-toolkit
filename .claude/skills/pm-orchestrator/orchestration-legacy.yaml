@@ -1,0 +1,1796 @@
+version: "2.0"
+name: "Dynamic Task-Based Expert Collaboration Hub"
+description: "Replaces waterfall approach with dynamic expert team and collaborative task management"
+powered_by: "Hans(HanTaek) Lim"
+
+pm_orchestrator:
+  role: "Project Management Orchestrator"
+  mode: "default"
+  responsibilities:
+    - "Overall project coordination and task creation"
+    - "Expert assignment and workflow management"
+    - "Memory management via .memory/ folder"
+    - "Autonomous technical decision making"
+    - "PM Expert task delegation when consultation needed"
+  authority: "autonomous_technical_decisions"
+  user_consultation_boundary: "strategic_business_decisions_only"
+
+globals:
+  input_contracts:
+    user_req: "user_req.yaml"  # path to normalized user requirements
+  core_references:
+    team_config: "team.yaml"  # expert definitions and responsibilities
+    requirements: "user_req.yaml"  # project requirements and constraints
+    workflow_definition: "orchestration.yaml"  # this orchestration definition
+  conventions:
+    task_completion_regex: "\\[TASK_DONE:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+\\]"  # pattern: [TASK_DONE:task_id:expert_id]
+    collaboration_signal: "\\[COLLAB_REQUEST:[a-zA-Z0-9_-]+\\]"  # expert requests collaboration
+    prompt_validation: "\\[PROMPT_LOADED:[a-zA-Z0-9_-]+\\]"  # expert confirms prompt file usage
+    artifact_manifest: ".artifacts.manifest.json"  # manifest of generated artifacts
+    task_registry: ".tasks.registry.json"  # active and completed task tracking
+    collaboration_log: ".collaboration.log.md"  # expert interaction history
+  max_task_instances: 100  # prevent infinite task creation
+  mandatory_notes:
+    - "All experts must continuously reference the three core_references files throughout the project lifecycle"
+    - "All experts must load and actively use their prompts/*.prompt.md files - validation required"
+    - "PM orchestrates dynamic task assignment and expert team based on evolving project needs"
+    - "Experts remain available for re-engagement, collaboration, and iterative refinement throughout project"
+    - ".memory/ folder and Sequential Thinking MCP actively utilized for decision tracking and context preservation"
+
+expert_pool:
+  availability_status: "all_available"  # all experts remain available throughout project
+  active_tasks: []  # dynamically managed task assignments
+  collaboration_active: true  # enables cross-expert collaboration
+
+task_types:
+  requirements_analysis:
+    orchestrator_initiated: true  # PM Orchestrator creates and assigns this task
+    primary_experts: ["pm"]  # PM Expert role when specialized consultation needed
+    collaborative_experts: ["research", "fullstack", "qa", "mcp"]  # can be summoned for consultation
+    prompt_files_required: ["prompts/pm.prompt.md"]
+    workflow:
+      - "PM Orchestrator initiates requirements analysis and assigns PM Expert if specialized consultation needed"
+      - "PM Orchestrator manages .memory/ folder updates throughout process"
+      - "PM Expert provides specialized analysis when summoned by PM Orchestrator"
+    actions:
+      # PHASE 1: Expert Activation and Memory Template Initialization
+      - "Read prompts/pm.prompt.md"
+      - "Output: '✅ PM Expert activated for requirements analysis: [PROMPT_LOADED:pm:VERIFIED]'"
+      - "Initialize project-specific memory system:"
+      - "  - Read memory-templates.yaml"
+      - "  - Read project-detection.yaml to get project type and memory_template"
+      - "  - Extract appropriate memory template (web-app, ai-system, mobile-app, etc.)"
+      - "  - Create project-specific memory files based on template core_files:"
+      - "    - For web application: .memory/ui-components.md, .memory/api-endpoints.md, .memory/user-flows.md"
+      - "    - For AI/ML system: .memory/model-architecture.md, .memory/data-pipeline.md, .memory/training-requirements.md"
+      - "    - For mobile app: .memory/platform-requirements.md, .memory/performance-targets.md"
+      - "    - For data system: .memory/data-flow-architecture.md, .memory/processing-pipeline.md"
+      - "    - For API service: .memory/service-architecture.md, .memory/endpoint-specifications.md"
+      - "    - For desktop app: .memory/platform-integration.md, .memory/ui-framework.md"
+      - "  - Populate each file with template_content from memory-templates.yaml"
+      - "Read .memory/active-context.md to understand current project context"
+
+      # PHASE 2: Requirements Analysis Execution
+      - "Use Sequential Thinking MCP to systematically analyze user requirements:"
+      - "  - Break down user request into functional and non-functional requirements"
+      - "  - Identify ambiguities and assumptions in requirements"
+      - "  - Determine project scope and boundaries"
+      - "  - Assess technical complexity and feasibility"
+
+      # PHASE 3: Cross-Expert Collaboration (if needed)
+      - "If technical feasibility questions arise, execute: '[COLLAB_REQUEST:requirements_analysis]'"
+      - "When collaboration requested:"
+      - "  - Read prompts/research.prompt.md (for market analysis)"
+      - "  - Read prompts/fullstack.prompt.md (for technical feasibility)"
+      - "  - Update .memory/collaboration.log.md with consultation details"
+
+      # PHASE 4: Documentation and Deliverables
+      - "Write workspace/docs/analysis.md with:"
+      - "  - Clear functional requirements list"
+      - "  - Non-functional requirements (performance, security, scalability)"
+      - "  - Identified risks and mitigation strategies"
+      - "  - Technical assumptions and constraints"
+      - "  - Project scope definition and exclusions"
+      - "Write workspace/backlog/epics.yaml with:"
+      - "  - Epic-level user stories"
+      - "  - Priority ordering"
+      - "  - Estimated complexity"
+      - "  - Dependencies between epics"
+
+      # PHASE 5: Memory System Updates
+      - "Edit .memory/active-context.md with:"
+      - "  - Updated current_phase: 'requirements_completed'"
+      - "  - Next milestone: 'architecture_design'"
+      - "  - Key requirements summary"
+      - "Edit .memory/project-state.json expert_engagement_status:"
+      - "  - Update pm.current_tasks with completion status"
+      - "  - Record collaboration effectiveness if applicable"
+      - "Edit .memory/decisions.md with:"
+      - "  - Requirements-related decisions and rationale"
+      - "  - Technical constraint decisions"
+
+    produces:
+      - "workspace/docs/analysis.md"           # Comprehensive requirements analysis
+      - "workspace/backlog/epics.yaml"         # Epic-level project backlog
+      - ".memory/active-context.md"  # Updated project context
+      - ".memory/project-state.json" # Updated expert engagement status
+      - ".memory/decisions.md"       # Requirements-related decisions
+
+    completion_criteria:
+      - "All deliverable files created with actual content (not templates)"
+      - "Requirements clarity achieved (no major ambiguities remaining)"
+      - "Technical feasibility confirmed through expert consultation if needed"
+      - "Memory system updated with requirements analysis results"
+      - "Output: '[TASK_DONE:requirements_analysis:pm]'"
+
+    verification_steps:
+      - "Confirm workspace/docs/analysis.md contains specific, actionable requirements"
+      - "Verify workspace/backlog/epics.yaml has prioritized epic list"
+      - "Check .memory/active-context.md reflects requirements completion"
+      - "Ensure next task (architecture_design) can proceed with clear input"
+
+  research_analysis:
+    primary_experts: ["research"]
+    collaborative_experts: ["pm", "fullstack", "qa", "mcp"]  # can be summoned for consultation
+    prompt_files_required: ["prompts/research.prompt.md"]
+    parallel_allowed: ["requirements_analysis"]  # can run simultaneously with requirements analysis
+    actions:
+      # PHASE 1: Expert Activation and Research Scope Definition
+      - "Read prompts/research.prompt.md"
+      - "Output: '✅ Research Expert activated for strategic analysis: [PROMPT_LOADED:research:VERIFIED]'"
+      - "Read .memory/active-context.md to understand current project context"
+      - "If requirements_analysis is running parallel: Read workspace/docs/analysis.md for requirement context"
+      - "Define research scope based on project type and requirements"
+
+      # PHASE 2: Market and Competitive Analysis
+      - "Conduct comprehensive market research using GitHub MCP and Context7 MCP:"
+      - "  - Search GitHub for similar projects and implementation patterns"
+      - "  - Analyze popular repositories in the project domain"
+      - "  - Research current technology trends and adoption rates"
+      - "  - Identify market leaders and best practices"
+      - "Execute competitive analysis:"
+      - "  - Analyze competitor features and implementation approaches"
+      - "  - Research market positioning and differentiation strategies"
+      - "  - Identify opportunities and competitive advantages"
+      - "  - Document market landscape and target user analysis"
+
+      # PHASE 3: Technology Stack Research and Analysis
+      - "Perform comprehensive technology stack analysis:"
+      - "  - Research framework options and compatibility matrix"
+      - "  - Analyze performance benchmarks and scalability characteristics"
+      - "  - Evaluate learning curve and community support"
+      - "  - Research integration capabilities and ecosystem maturity"
+      - "Execute comparative technology assessment:"
+      - "  - Compare pros/cons of different technology choices"
+      - "  - Analyze cost implications and licensing considerations"
+      - "  - Research security and compliance characteristics"
+      - "  - Document recommended technology stack with rationale"
+
+      # PHASE 4: Architecture Pattern Research
+      - "Research architecture patterns and design approaches:"
+      - "  - Analyze design patterns suitable for project type"
+      - "  - Research scalability and performance patterns"
+      - "  - Study security architecture best practices"
+      - "  - Investigate deployment and infrastructure patterns"
+      - "Execute architecture feasibility analysis:"
+      - "  - Evaluate pattern complexity vs. project requirements"
+      - "  - Research implementation examples and case studies"
+      - "  - Analyze maintainability and evolution considerations"
+      - "  - Document recommended architecture patterns with rationale"
+
+      # PHASE 5: Risk Assessment and Implementation Strategy
+      - "Conduct comprehensive risk assessment:"
+      - "  - Identify technical risks and mitigation strategies"
+      - "  - Analyze timeline and resource allocation risks"
+      - "  - Research market and competitive risks"
+      - "  - Evaluate technology adoption and obsolescence risks"
+      - "Develop implementation methodology recommendations:"
+      - "  - Research development workflow best practices"
+      - "  - Analyze testing and quality assurance strategies"
+      - "  - Study deployment and DevOps methodologies"
+      - "  - Document recommended implementation approach"
+
+      # PHASE 6: Expert Collaboration for Strategic Validation
+      - "Execute '[COLLAB_REQUEST:research_analysis]' for strategic alignment:"
+      - "When collaboration requested:"
+      - "  - With pm expert: Validate business alignment and strategic priorities"
+      - "  - With fullstack expert: Confirm technical feasibility and architecture alignment"
+      - "  - With qa expert: Validate quality and testing strategy recommendations"
+      - "  - With mcp expert: Optimize research tool usage and methodology"
+      - "  - Update .memory/collaboration.log.md with validation discussions"
+
+      # PHASE 7: Cross-Domain Research Validation and Integration
+      - "Validate research findings across expert domains:"
+      - "  - Confirm technology choices align with expert capabilities"
+      - "  - Validate architecture patterns match implementation expertise"
+      - "  - Ensure risk mitigation aligns with project constraints"
+      - "  - Verify implementation methodology fits team skills"
+      - "Integrate research findings with project requirements:"
+      - "  - Align research recommendations with business objectives"
+      - "  - Validate market research supports project positioning"
+      - "  - Ensure competitive analysis informs feature priorities"
+
+      # PHASE 8: Research Documentation and Strategic Recommendations
+      - "Generate comprehensive research documentation:"
+      - "  - Write .memory/market-analysis.md with:"
+      - "    - Market landscape overview and competitive positioning"
+      - "    - Target user analysis and market opportunities"
+      - "    - Competitive feature analysis and differentiation strategies"
+      - "    - Market trends and future considerations"
+      - "  - Write .memory/tech-stack-analysis.md with:"
+      - "    - Technology comparison matrix and evaluation criteria"
+      - "    - Recommended technology stack with detailed rationale"
+      - "    - Performance benchmarks and scalability analysis"
+      - "    - Integration capabilities and ecosystem considerations"
+      - "  - Write .memory/architecture-patterns.md with:"
+      - "    - Recommended architecture patterns and design approaches"
+      - "    - Scalability and performance considerations"
+      - "    - Security and compliance architecture recommendations"
+      - "    - Implementation examples and best practices"
+      - "  - Write .memory/risk-assessment.md with:"
+      - "    - Comprehensive risk analysis and probability assessment"
+      - "    - Mitigation strategies and contingency planning"
+      - "    - Timeline and resource risk evaluation"
+      - "    - Technology and market risk considerations"
+      - "  - Write .memory/implementation-options.md with:"
+      - "    - Development methodology recommendations"
+      - "    - Testing and quality assurance strategy"
+      - "    - Deployment and DevOps approach recommendations"
+      - "    - Team structure and skill requirements"
+      - "  - Write .memory/research-summary.md with:"
+      - "    - Executive summary of key findings and recommendations"
+      - "    - Strategic priorities and implementation roadmap"
+      - "    - Success metrics and validation criteria"
+      - "    - Next steps and decision points"
+      - "Edit .memory/active-context.md with:"
+      - "  - Updated research_phase: 'research_analysis_completed'"
+      - "  - Key research findings and strategic recommendations"
+      - "  - Technology and architecture decisions informed by research"
+      - "Edit .memory/project-state.json expert_engagement_status:"
+      - "  - Update research.current_tasks with completion status"
+      - "  - Record collaboration effectiveness and strategic alignment"
+      - "Edit .memory/decisions.md with:"
+      - "  - Research-based decisions and strategic rationale"
+      - "  - Technology stack and architecture pattern selections"
+
+    produces:
+      - ".memory/market-analysis.md"         # Market landscape and competitive analysis
+      - ".memory/tech-stack-analysis.md"     # Technology evaluation and recommendations
+      - ".memory/architecture-patterns.md"   # Architecture design patterns and approaches
+      - ".memory/risk-assessment.md"         # Risk analysis and mitigation strategies
+      - ".memory/implementation-options.md"  # Development methodology recommendations
+      - ".memory/research-summary.md"        # Executive summary and strategic roadmap
+      - ".memory/active-context.md"           # Updated project context
+      - ".memory/project-state.json"          # Updated expert engagement status
+      - ".memory/decisions.md"                # Research-based decisions
+
+    completion_criteria:
+      - "Comprehensive market and competitive analysis completed"
+      - "Technology stack evaluation and recommendations documented"
+      - "Architecture patterns researched and validated with experts"
+      - "Risk assessment completed with mitigation strategies"
+      - "Implementation methodology recommendations provided"
+      - "All research deliverables generated with expert validation"
+      - "Strategic insights documented and aligned with project objectives"
+      - "Memory system updated with research findings and decisions"
+      - "Output: '[TASK_DONE:research_analysis:research]'"
+
+    verification_steps:
+      - "Confirm all research documents contain actionable insights and recommendations"
+      - "Verify technology and architecture recommendations align with expert capabilities"
+      - "Check risk assessment covers all major project risks with mitigation strategies"
+      - "Ensure research findings support informed decision-making for project progression"
+
+  architecture_design:
+    primary_experts: ["fullstack"]
+    collaborative_experts: ["pm", "backend", "frontend", "systemdev"]
+    prompt_files_required: ["prompts/fullstack.prompt.md"]
+    dependencies: ["requirements_analysis"]
+    actions:
+      # PHASE 1: Expert Activation and Context Loading
+      - "Read prompts/fullstack.prompt.md"
+      - "Output: '✅ Fullstack Expert activated for architecture design: [PROMPT_LOADED:fullstack:VERIFIED]'"
+      - "Read workspace/docs/analysis.md to understand requirements"
+      - "Read workspace/backlog/epics.yaml to understand project scope"
+      - "Read .memory/active-context.md for current project context"
+
+      # PHASE 2: Architecture Analysis and Planning
+      - "Use Sequential Thinking MCP to systematically design architecture:"
+      - "  - Analyze functional requirements for system components"
+      - "  - Determine data flow and integration patterns"
+      - "  - Identify performance and scalability requirements"
+      - "  - Assess security and compliance needs"
+      - "  - Evaluate technology stack suitability"
+
+      # PHASE 3: Component Architecture Design
+      - "Design Frontend Architecture:"
+      - "  - Component hierarchy and routing structure"
+      - "  - State management strategy (if complex state needed)"
+      - "  - UI/UX patterns and responsive design approach"
+      - "  - Performance optimization strategies (code splitting, lazy loading)"
+      - "Design Backend Architecture:"
+      - "  - API endpoint structure and RESTful design"
+      - "  - Database schema and relationships"
+      - "  - Authentication and authorization strategy"
+      - "  - Business logic organization and service layers"
+      - "Design Integration Architecture:"
+      - "  - Frontend-Backend communication patterns"
+      - "  - Error handling and validation strategies"
+      - "  - Real-time communication needs (WebSocket/SSE if needed)"
+      - "  - File upload and media handling (if needed)"
+
+      # PHASE 4: Expert Collaboration for Validation
+      - "Execute '[COLLAB_REQUEST:architecture_design]' for expert validation:"
+      - "When collaboration requested:"
+      - "  - Read prompts/backend.prompt.md for backend feasibility validation"
+      - "  - Read prompts/frontend.prompt.md for frontend feasibility validation"
+      - "  - If complex system requirements detected: Read prompts/system-dev.prompt.md"
+      - "  - Update .memory/collaboration.log.md with validation discussions"
+
+      # PHASE 5: System Development Necessity Evaluation
+      - "Assess if specialized system development is needed:"
+      - "  - Check for AI/ML requirements in requirements analysis"
+      - "  - Check for video processing, 3D conversion, streaming needs"
+      - "  - Check for high-performance computing requirements"
+      - "  - If system development needed: document in architecture for systemdev expert"
+
+      # PHASE 6: Documentation and Specifications
+      - "Write .memory/integration-architecture.md and .memory/service-architecture.md with:"
+      - "  - System overview and component diagram"
+      - "  - Frontend architecture: routing, components, state management"
+      - "  - Backend architecture: API structure, database design, business logic"
+      - "  - Data flow diagrams and integration patterns"
+      - "  - Security architecture and authentication flows"
+      - "  - Deployment architecture and infrastructure requirements"
+      - "  - Performance considerations and optimization strategies"
+      - "  - System development requirements (if applicable)"
+      - "Write workspace/specs/openapi.yaml with:"
+      - "  - Complete API endpoint specifications"
+      - "  - Request/response schemas with validation rules"
+      - "  - Authentication requirements per endpoint"
+      - "  - Error response formats and status codes"
+
+      # PHASE 7: Memory System Updates
+      - "Edit .memory/active-context.md with:"
+      - "  - Updated current_phase: 'architecture_completed'"
+      - "  - Next milestone: 'implementation_ready'"
+      - "  - Architecture decisions summary"
+      - "Edit .memory/project-state.json expert_engagement_status:"
+      - "  - Update fullstack.current_tasks with completion status"
+      - "  - Record collaboration effectiveness with backend/frontend experts"
+      - "Edit .memory/decisions.md with:"
+      - "  - Architecture decisions and rationale"
+      - "  - Technology stack selections and justification"
+      - "  - Integration pattern choices"
+
+    produces:
+      - ".memory/integration-architecture.md and .memory/service-architecture.md"        # Comprehensive system architecture
+      - "workspace/specs/openapi.yaml"          # Complete API specifications
+      - ".memory/active-context.md"   # Updated project context
+      - ".memory/project-state.json"  # Updated expert engagement status
+      - ".memory/decisions.md"        # Architecture decisions
+
+    completion_criteria:
+      - "Architecture document covers all system components with clear design rationale"
+      - "API specifications are complete and implementable"
+      - "Frontend and backend experts have validated architectural feasibility"
+      - "System development requirements identified (if applicable)"
+      - "Memory system updated with architecture decisions"
+      - "Output: '[TASK_DONE:architecture_design:fullstack]'"
+
+    verification_steps:
+      - "Confirm .memory/integration-architecture.md and .memory/service-architecture.md provides clear implementation guidance"
+      - "Verify workspace/specs/openapi.yaml is valid and complete"
+      - "Check that backend/frontend implementation can proceed independently"
+      - "Ensure system development expert can proceed if specialized requirements exist"
+
+  system_development:
+    primary_experts: ["systemdev"]
+    collaborative_experts: ["fullstack", "backend", "devops"]
+    prompt_files_required: ["prompts/system-dev.prompt.md"]
+    dependencies: ["architecture_design"]
+    conditional: true  # only created if system requirements identified
+    actions:
+      # PHASE 1: Expert Activation and System Requirements Assessment
+      - "Read prompts/system-dev.prompt.md"
+      - "Output: '✅ SystemDev Expert activated for system development: [PROMPT_LOADED:systemdev:VERIFIED]'"
+      - "Read .memory/integration-architecture.md and .memory/service-architecture.md to understand system requirements"
+      - "Read .memory/technology-stack.md for technology recommendations (if available)"
+      - "Read .memory/active-context.md for current project context"
+
+      # PHASE 2: System Requirements Verification and Scope Definition
+      - "Analyze and verify system development necessity:"
+      - "  - Check for AI/ML processing requirements (model training, inference, data processing)"
+      - "  - Identify video processing needs (encoding, streaming, real-time processing)"
+      - "  - Assess 3D conversion requirements (model processing, rendering, optimization)"
+      - "  - Evaluate high-performance computing needs (parallel processing, GPU acceleration)"
+      - "  - Determine real-time streaming requirements (WebRTC, media server, CDN integration)"
+      - "If no specialized system requirements identified:"
+      - "  - Output: '⚠️ No specialized system development requirements identified'"
+      - "  - Edit .memory/active-context.md: 'system_development: not_required'"
+      - "  - Output: '[TASK_DONE:system_development:systemdev]' and exit task"
+
+      # PHASE 3: System Architecture Design and Technology Selection
+      - "If system development required, design system architecture:"
+      - "  - Define system service architecture and component interaction"
+      - "  - Select appropriate technologies for identified requirements:"
+      - "    - AI/ML: Python, TensorFlow/PyTorch, scikit-learn, GPU acceleration (CUDA/OpenCL)"
+      - "    - Video Processing: FFmpeg, OpenCV, MediaPipe, streaming protocols"
+      - "    - 3D Processing: Blender API, Three.js, glTF optimization, mesh processing"
+      - "    - Real-time Streaming: WebRTC, MediaSoup, RTMP, adaptive bitrate"
+      - "  - Design data flow and integration patterns with backend services"
+      - "  - Plan resource allocation and performance optimization strategies"
+
+      # PHASE 4: System Service Implementation
+      - "Implement core system services based on requirements:"
+      - "For AI/ML Systems:"
+      - "  - Read .memory/model-architecture.md for AI/ML specifications (if ai-system project)"
+      - "  - Setup Python environment with ML frameworks"
+      - "  - Implement model training/inference pipelines following .memory/model-architecture.md"
+      - "  - Create data preprocessing and feature extraction modules"
+      - "  - Setup model serving and API endpoints"
+      - "For Video Processing Systems:"
+      - "  - Setup FFmpeg processing pipelines"
+      - "  - Implement OpenCV computer vision processing"
+      - "  - Create video encoding and optimization workflows"
+      - "  - Setup streaming protocol implementations"
+      - "For 3D Processing Systems:"
+      - "  - Setup Blender API automation scripts"
+      - "  - Implement glTF model conversion and optimization"
+      - "  - Create mesh processing and file format conversion"
+      - "  - Setup Three.js integration and rendering optimization"
+      - "For Real-time Streaming:"
+      - "  - Setup WebRTC peer connection management"
+      - "  - Implement MediaSoup server architecture"
+      - "  - Configure RTMP streaming and adaptive bitrate"
+      - "  - Setup CDN integration and edge distribution"
+
+      # PHASE 5: Performance Optimization and GPU Acceleration
+      - "Implement performance optimization and acceleration:"
+      - "  - Setup GPU acceleration using CUDA or OpenCL"
+      - "  - Implement parallel processing patterns"
+      - "  - Optimize memory management and resource utilization"
+      - "  - Configure compute shaders and heterogeneous computing"
+      - "  - Setup performance profiling and monitoring"
+      - "Execute system performance testing:"
+      - "  - Benchmark processing performance and throughput"
+      - "  - Test resource utilization and scaling characteristics"
+      - "  - Validate latency and real-time processing requirements"
+      - "  - Optimize bottlenecks and resource allocation"
+
+      # PHASE 6: System Integration and API Development
+      - "Develop system service APIs and integration points:"
+      - "  - Create RESTful APIs for system service communication"
+      - "  - Implement message queues and asynchronous processing"
+      - "  - Setup file upload and processing workflows"
+      - "  - Create real-time communication interfaces (WebSocket/SSE)"
+      - "  - Implement error handling and fallback mechanisms"
+      - "Integrate with backend services:"
+      - "  - Create database models for system service data"
+      - "  - Implement authentication and authorization for system APIs"
+      - "  - Setup request validation and rate limiting"
+      - "  - Configure monitoring and logging for system services"
+
+      # PHASE 7: Expert Collaboration and System Validation
+      - "Execute '[COLLAB_REQUEST:system_development]' for integration validation:"
+      - "When collaboration requested:"
+      - "  - With fullstack expert: Validate system architecture and integration patterns"
+      - "  - With backend expert: Confirm API integration and data flow design"
+      - "  - With devops expert: Plan deployment and infrastructure requirements"
+      - "  - Update .memory/collaboration.log.md with validation results"
+
+      # PHASE 8: Testing and System Validation
+      - "Implement comprehensive system testing:"
+      - "  - Unit tests for system processing modules"
+      - "  - Integration tests for API endpoints and data flow"
+      - "  - Performance tests for processing pipelines"
+      - "  - Load tests for concurrent processing scenarios"
+      - "  - End-to-end tests for complete system workflows"
+      - "Execute system validation:"
+      - "  - Validate processing accuracy and quality"
+      - "  - Test error handling and recovery mechanisms"
+      - "  - Verify performance meets requirements"
+      - "  - Confirm integration with backend services"
+
+      # PHASE 9: Documentation and System Specifications
+      - "Generate comprehensive system documentation:"
+      - "  - Write .memory/system-specs.md with:"
+      - "    - System architecture overview and component diagrams"
+      - "    - API documentation and integration guides"
+      - "    - Performance characteristics and optimization details"
+      - "    - Installation and setup instructions"
+      - "    - Usage examples and workflow documentation"
+      - "    - Troubleshooting guides and monitoring procedures"
+      - "  - Write system/README.md with setup and deployment instructions"
+      - "  - Document system dependencies and environment requirements"
+      - "  - Create API documentation for system service endpoints"
+      - "Edit .memory/active-context.md with:"
+      - "  - Updated current_phase: 'system_development_completed'"
+      - "  - System services implemented and integration points"
+      - "  - Performance characteristics and optimization results"
+      - "Edit .memory/project-state.json expert_engagement_status:"
+      - "  - Update systemdev.current_tasks with completion status"
+      - "  - Record system implementation complexity and performance metrics"
+      - "Edit .memory/decisions.md with:"
+      - "  - System development decisions and technology choices"
+      - "  - Performance optimization strategies and trade-offs"
+
+    produces:
+      - "system/**"                   # Complete system service implementation
+      - ".memory/system-specs.md"        # System architecture and API documentation
+      - "workspace/system/README.md"            # System setup and deployment guide
+      - ".memory/active-context.md"   # Updated project context
+      - ".memory/project-state.json"  # Updated expert engagement status
+      - ".memory/decisions.md"        # System development decisions
+
+    completion_criteria:
+      - "System requirements assessment completed (required or not required determined)"
+      - "If not required: Task completed with proper documentation"
+      - "If required: System services implemented according to specifications"
+      - "Performance optimization and GPU acceleration configured (if applicable)"
+      - "System APIs and integration points working correctly"
+      - "Comprehensive testing passed for all system components"
+      - "System documentation complete and deployment-ready"
+      - "Expert collaboration validation completed successfully"
+      - "Memory system updated with system development status"
+      - "Output: '[TASK_DONE:system_development:systemdev]'"
+
+    verification_steps:
+      - "Confirm system requirements assessment is accurate and complete"
+      - "If system development required: verify all specified services implemented"
+      - "Check system performance meets requirements and optimization targets"
+      - "Ensure system APIs integrate correctly with backend services"
+      - "Validate system documentation is complete and deployment-ready"
+
+  backend_implementation:
+    primary_experts: ["backend"]
+    collaborative_experts: ["fullstack", "systemdev", "qa", "mcp"]
+    prompt_files_required: ["prompts/backend.prompt.md"]
+    dependencies: ["architecture_design"]
+    actions:
+      # PHASE 1: Expert Activation and Architecture Review
+      - "Read prompts/backend.prompt.md"
+      - "Output: '✅ Backend Expert activated for implementation: [PROMPT_LOADED:backend:VERIFIED]'"
+      - "Read .memory/integration-architecture.md and .memory/service-architecture.md to understand backend architecture"
+      - "Read workspace/specs/openapi.yaml to understand API specifications"
+      - "Read .memory/active-context.md for current project context"
+
+      # PHASE 2: Framework Setup and Project Initialization
+      - "Determine backend technology stack based on architecture decisions:"
+      - "  - If Node.js/TypeScript selected: Execute 'nest new backend --package-manager bun --skip-git --language TS --collection @nestjs/schematics'"
+      - "  - If Python selected: Setup FastAPI/Django project structure"
+      - "  - If other stack selected: Setup appropriate framework structure"
+      - "Navigate to backend directory and verify framework initialization"
+      - "Output: '✅ Backend framework initialized successfully'"
+
+      # PHASE 3: Database Setup and Configuration
+      - "Based on architecture specifications, setup database:"
+      - "  - Configure database connection (PostgreSQL/MongoDB/SQLite)"
+      - "  - Setup ORM/ODM (TypeORM/Prisma for Node.js, SQLAlchemy for Python)"
+      - "  - Create database configuration files"
+      - "  - Setup environment variable configuration"
+      - "Execute database connection test and verify setup"
+
+      # PHASE 4: API Implementation
+      - "Read .memory/api-endpoints.md for endpoint specifications (if web/mobile/api project)"
+      - "Implement API endpoints based on workspace/specs/openapi.yaml and .memory/api-endpoints.md:"
+      - "  - Create controller/route modules for each endpoint group"
+      - "  - Implement request/response DTOs with validation"
+      - "  - Setup middleware for CORS, rate limiting, error handling"
+      - "  - Implement authentication and authorization logic"
+      - "  - Create business logic services and data access layers"
+      - "  - Follow API architecture patterns defined in .memory/api-endpoints.md"
+      - "MANDATORY: Implement emoji prohibition across all backend systems:"
+      - "  - Ensure ALL API response messages use text-only format (NO emojis)"
+      - "  - Configure error handlers to return text-only error messages"
+      - "  - Setup logging systems to use text-only format without emoji characters"
+      - "  - Implement input validation to reject emoji characters in API requests"
+      - "  - Ensure database content follows text-only standards for messaging"
+      - "Ensure API implementation matches OpenAPI specifications exactly"
+
+      # PHASE 5: Testing Infrastructure
+      - "Setup comprehensive testing framework:"
+      - "  - Unit tests for business logic services"
+      - "  - Integration tests for API endpoints"
+      - "  - Database testing with test database setup"
+      - "  - Authentication and authorization testing"
+      - "Execute test suite and ensure all tests pass"
+      - "Setup test coverage reporting (target: >80% coverage)"
+
+      # PHASE 6: System Integration (if applicable)
+      - "If system services exist (from systemdev expert):"
+      - "  - Read system/** directory for integration requirements"
+      - "  - Implement system service communication endpoints"
+      - "  - Setup message queues or direct service calls as needed"
+      - "  - Test system integration points"
+
+      # PHASE 7: Quality Gate Validation
+      - "Read quality-standards.json for backend quality requirements:"
+      - "Identify project type from .memory/active-context.md to select appropriate quality framework"
+      - "Execute quality validation based on quality-standards.json specifications:"
+      - "For API/Microservice projects:"
+      - "  - Execute: 'npx tsc --noEmit' for TypeScript validation"
+      - "  - Execute: 'npm run test:coverage' for test coverage validation"
+      - "  - Execute: 'npm audit --audit-level moderate' for security vulnerability scan"
+      - "  - Execute: 'npm run lint && npm run format:check' for code quality validation"
+      - "  - Execute: 'npm run build' for build success validation"
+      - "Compare results against quality standards targets:"
+      - "  - TypeScript coverage: target >95%, minimum >85%"
+      - "  - Test coverage: target >80%, minimum >70%"
+      - "  - Security scan: target 0 high/critical vulnerabilities"
+      - "  - Lint score: target 100%, minimum >95%"
+      - "  - Build success: mandatory requirement"
+      - "  - Emoji prohibition validation: 0 emoji characters in API responses, logs, and error messages"
+      - "Execute emoji prohibition validation:"
+      - "  - Scan all API response schemas and documentation for emoji usage"
+      - "  - Check log files and console output for emoji characters"
+      - "  - Validate error messages and exception handling contain no emoji characters"
+      - "  - Ensure database migration scripts and seed data follow text-only standards"
+      - "If any quality gate fails:"
+      - "  - Output detailed failure analysis with specific metrics"
+      - "  - Block progression to next phase until issues resolved"
+      - "  - Execute '[COLLAB_REQUEST:backend_implementation_quality_fix]' if needed"
+      - "If all quality gates pass:"
+      - "  - Output: '✅ All backend quality gates passed - progression approved'"
+      - "  - Record quality metrics in .memory/project-state.json"
+
+      # PHASE 8: Expert Collaboration and Validation
+      - "Execute '[COLLAB_REQUEST:backend_implementation]' for validation:"
+      - "When collaboration requested:"
+      - "  - With fullstack expert: Verify API contract implementation"
+      - "  - With qa expert: Coordinate API testing strategy"
+      - "  - With systemdev expert: Validate system service integration"
+      - "  - Update .memory/collaboration.log.md with validation results"
+
+      # PHASE 9: Documentation and Final Setup
+      - "Generate comprehensive API documentation:"
+      - "  - Auto-generate Swagger/OpenAPI documentation from code"
+      - "  - Write workspace/docs/api.md with setup instructions and usage examples"
+      - "  - Document authentication flows and error handling"
+      - "  - Create deployment configuration files"
+      - "Setup development environment documentation"
+
+      # PHASE 10: Memory System Updates
+      - "Edit .memory/active-context.md with:"
+      - "  - Updated current_phase: 'backend_implementation_completed'"
+      - "  - API implementation status and endpoint list"
+      - "  - Integration points and dependencies"
+      - "Edit .memory/project-state.json expert_engagement_status:"
+      - "  - Update backend.current_tasks with completion status"
+      - "  - Record collaboration effectiveness and integration points"
+      - "Edit .memory/decisions.md with:"
+      - "  - Backend implementation decisions and rationale"
+      - "  - Technology choices and configuration decisions"
+      - "Update .memory/api-endpoints.md with:"
+      - "  - Implemented API endpoint specifications and request/response patterns"
+      - "  - Authentication and authorization implementation details"
+      - "  - Database integration and business logic documentation"
+
+    produces:
+      - "workspace/backend/**"                # Complete backend application
+      - ".memory/api-endpoints.md"               # API documentation and setup guide
+      - ".memory/active-context.md" # Updated project context
+      - ".memory/project-state.json" # Updated expert engagement status
+      - ".memory/decisions.md"      # Backend implementation decisions
+
+    completion_criteria:
+      - "Backend framework properly initialized and configured"
+      - "All API endpoints implemented according to OpenAPI specifications"
+      - "Database setup complete with proper schema and connections"
+      - "Emoji prohibition enforced across ALL backend systems (API responses, logs, errors)"
+      - "Message standardization implemented with text-only formatting"
+      - "Comprehensive test suite passes with >80% coverage"
+      - "API documentation generated and accessible"
+      - "System integration points working (if applicable)"
+      - "Memory system updated with implementation status"
+      - "Output: '[TASK_DONE:backend_implementation:backend]'"
+
+    verification_steps:
+      - "Verify backend server starts without errors"
+      - "Confirm all API endpoints respond correctly"
+      - "Check database connections and data operations work"
+      - "Ensure test suite passes completely"
+      - "Validate API documentation is accurate and complete"
+
+  frontend_implementation:
+    primary_experts: ["frontend"]
+    collaborative_experts: ["fullstack", "backend", "qa", "mcp"]
+    prompt_files_required: ["prompts/frontend.prompt.md"]
+    dependencies: ["architecture_design"]
+    parallel_allowed: ["backend_implementation"]  # can run simultaneously
+    actions:
+      # PHASE 1: Expert Activation and Architecture Review
+      - "Read prompts/frontend.prompt.md"
+      - "Output: '✅ Frontend Expert activated for implementation: [PROMPT_LOADED:frontend:VERIFIED]'"
+      - "Read .memory/integration-architecture.md and .memory/service-architecture.md to understand frontend architecture"
+      - "Read workspace/specs/openapi.yaml to understand API contracts"
+      - "Read .memory/active-context.md for current project context"
+
+      # PHASE 2: Framework Setup and Project Initialization
+      - "Execute Next.js framework creation using mandatory command:"
+      - "  'bun create next-app frontend --typescript --tailwind --eslint --turbopack --app --src-dir --import-alias \"@/*\"'"
+      - "Navigate to frontend directory and verify framework initialization"
+      - "Output: '✅ Next.js framework initialized successfully'"
+      - "Verify framework-generated structure: src/app/, package.json, tailwind.config.ts"
+      - "Initialize Shadcn/ui component system:"
+      - "  Execute: 'bunx shadcn@latest init' with default configuration"
+      - "  Verify components.json creation and configuration"
+      - "  Install essential Shadcn/ui components: 'bunx shadcn@latest add button card input'"
+      - "Install Lucide Icons package:"
+      - "  Execute: 'bun install lucide-react'"
+      - "  Verify Lucide Icons package in package.json"
+      - "Output: '✅ Shadcn/ui and Lucide Icons trinity stack initialized successfully'"
+
+      # PHASE 3: Project Structure and Component Architecture
+      - "Read .memory/ui-components.md for component specifications (if web/mobile/desktop project)"
+      - "Based on architecture specifications and UI component memory, setup component structure:"
+      - "  - Create src/components/ directory for reusable components"
+      - "  - Create src/components/ui/ directory for Shadcn/ui components"
+      - "  - Create src/lib/ directory for utilities and API client"
+      - "  - Create src/types/ directory for TypeScript type definitions"
+      - "  - Setup API client configuration for backend integration"
+      - "Establish icon usage standards (MANDATORY):"
+      - "  - Create src/components/icons/ directory for icon wrapper components"
+      - "  - Setup Lucide Icons import patterns and usage guidelines"
+      - "  - ENFORCE emoji prohibition in ALL UI components and documentation"
+      - "  - Create icon accessibility wrapper with ARIA labels"
+      - "Configure Shadcn/ui integration:"
+      - "  - Verify components.json configuration matches project theme"
+      - "  - Setup design tokens integration with Tailwind CSS"
+      - "  - Create custom component variants based on design system requirements"
+      - "Implement component architecture based on workspace/docs/architecture.md and .memory/ui-components.md:"
+      - "  - Create page components in src/app/ following App Router conventions"
+      - "  - Implement reusable UI components with proper TypeScript typing"
+      - "  - Setup responsive design system using Tailwind CSS"
+      - "  - Follow component patterns defined in .memory/ui-components.md"
+
+      # PHASE 4: API Integration and Type Safety
+      - "Implement frontend-backend integration:"
+      - "  - Generate TypeScript types from specs/openapi.yaml"
+      - "  - Create API client functions with proper error handling"
+      - "  - Implement authentication state management (if required)"
+      - "  - Setup form validation and data fetching patterns"
+      - "Ensure type safety across all API interactions"
+      - "Implement error boundaries and loading states"
+
+      # PHASE 5: UI Implementation and Styling
+      - "Implement user interface based on architecture design:"
+      - "  - Create responsive layouts using Tailwind CSS with Shadcn/ui components"
+      - "  - Implement navigation and routing structure with Shadcn/ui navigation components"
+      - "  - Build forms with validation and error handling using Shadcn/ui form components"
+      - "  - Create interactive components with proper accessibility using Shadcn/ui patterns"
+      - "  - MANDATORY: Use ONLY Lucide Icons for all icon requirements (NO emojis)"
+      - "  - Implement consistent design system using Shadcn/ui design tokens"
+      - "  - Ensure all icons have proper accessibility labels and semantic meaning"
+      - "Setup SEO optimization:"
+      - "  - Configure metadata API for dynamic SEO"
+      - "  - Implement Open Graph and Twitter Card meta tags"
+      - "  - Setup structured data and sitemap generation"
+
+      # PHASE 6: Performance and Accessibility Implementation
+      - "Implement performance optimizations:"
+      - "  - Setup code splitting and lazy loading for components"
+      - "  - Optimize images using Next.js Image component"
+      - "  - Implement proper caching strategies"
+      - "  - Configure bundle analysis and optimization"
+      - "Implement accessibility compliance (WCAG 2.1 AA):"
+      - "  - Add proper ARIA labels and semantic HTML"
+      - "  - Ensure keyboard navigation support"
+      - "  - Implement proper color contrast and focus management"
+      - "  - Test with screen reader compatibility"
+
+      # PHASE 7: Quality Gate Validation
+      - "Read quality-standards.json for frontend quality requirements:"
+      - "Identify project type from .memory/active-context.md to select appropriate quality framework"
+      - "Execute quality validation based on quality-standards.json specifications:"
+      - "For Web Application projects:"
+      - "  - Execute: 'npx tsc --noEmit && npx typescript-coverage-report' for TypeScript validation"
+      - "  - Execute: 'npm run test:coverage' for test coverage validation"
+      - "  - Execute: 'npm run lint && npm run format:check' for code quality validation"
+      - "  - Execute: 'npm run build' for build success validation"
+      - "  - Execute Lighthouse audit for Core Web Vitals and performance metrics"
+      - "Compare results against quality standards targets:"
+      - "  - TypeScript coverage: target >95%, minimum >85%"
+      - "  - Test coverage: target >80%, minimum >70%"
+      - "  - Lint score: target 100%, minimum >95%"
+      - "  - Build success: mandatory requirement"
+      - "  - Core Web Vitals: LCP<2.5s, FID<100ms, CLS<0.1"
+      - "  - Lighthouse scores: Performance>90, Accessibility>100, Best Practices>100, SEO>100"
+      - "  - Bundle size: target <250KB gzipped"
+      - "If any quality gate fails:"
+      - "  - Output detailed failure analysis with specific metrics and improvement recommendations"
+      - "  - Block progression to next phase until critical issues resolved"
+      - "  - Execute '[COLLAB_REQUEST:frontend_implementation_quality_fix]' if needed"
+      - "If all quality gates pass:"
+      - "  - Output: '✅ All frontend quality gates passed - progression approved'"
+      - "  - Record quality metrics in .memory/project-state.json"
+
+      # PHASE 8: Expert Collaboration and Backend Integration
+      - "Execute '[COLLAB_REQUEST:frontend_implementation]' for validation:"
+      - "When collaboration requested:"
+      - "  - With backend expert: Verify API integration and type safety"
+      - "  - With fullstack expert: Validate architecture implementation"
+      - "  - With qa expert: Coordinate frontend testing strategy"
+      - "  - Update .memory/collaboration.log.md with validation results"
+
+      # PHASE 9: Testing, Documentation, and Final Setup
+      - "Setup comprehensive testing infrastructure:"
+      - "  - Configure unit testing for components and utilities"
+      - "  - Setup integration testing for API interactions"
+      - "  - Implement accessibility testing automation"
+      - "  - Execute all tests and ensure >80% coverage"
+      - "Generate comprehensive documentation:"
+      - "  - Write workspace/docs/ui.md with component documentation and setup guide"
+      - "  - Document styling system and design tokens"
+      - "  - Create deployment and environment setup instructions"
+      - "Execute build validation:"
+      - "  - Run 'npm run build' and ensure successful build"
+      - "  - Run 'npm run lint' and fix any linting issues"
+      - "  - Run TypeScript type checking and resolve any type errors"
+      - "Edit .memory/active-context.md with:"
+      - "  - Updated current_phase: 'frontend_implementation_completed'"
+      - "  - Frontend implementation status and component list"
+      - "  - API integration points and type safety confirmation"
+      - "Edit .memory/project-state.json expert_engagement_status:"
+      - "  - Update frontend.current_tasks with completion status"
+      - "  - Record collaboration effectiveness and integration success"
+      - "Edit .memory/decisions.md with:"
+      - "  - Frontend implementation decisions and rationale"
+      - "  - Component architecture and styling system choices"
+      - "Update .memory/ui-components.md with:"
+      - "  - Implemented component specifications and usage patterns"
+      - "  - Component library structure and reusable patterns"
+      - "  - Design system implementation details"
+      - "Update .memory/user-flows.md with:"
+      - "  - Implemented user interaction flows and navigation patterns"
+      - "  - UX implementation details and user journey completion"
+
+    produces:
+      - "workspace/frontend/**"                # Complete Next.js application
+      - ".memory/ui-components.md"                 # UI documentation and component guide
+      - ".memory/ui-patterns.md"                 # UI component patterns and usage
+      - ".memory/active-context.md"  # Updated project context
+      - ".memory/project-state.json" # Updated expert engagement status
+      - ".memory/decisions.md"       # Frontend implementation decisions
+
+    completion_criteria:
+      - "Next.js framework properly initialized with required dependencies"
+      - "Shadcn/ui component system fully integrated and configured"
+      - "Lucide Icons package installed and icon usage standards enforced"
+      - "All UI components implemented according to architecture specifications using Shadcn/ui"
+      - "NO emoji usage in any UI components or documentation (emoji prohibition enforced)"
+      - "API integration working with proper TypeScript type safety"
+      - "Build process passes without errors (build, lint, typecheck)"
+      - "Accessibility compliance (WCAG 2.1 AA) validated with icon accessibility"
+      - "Performance optimizations implemented (code splitting, image optimization)"
+      - "SEO configuration complete with proper metadata"
+      - "Comprehensive test suite passes with >80% coverage"
+      - "Memory system updated with implementation status"
+      - "Output: '[TASK_DONE:frontend_implementation:frontend]'"
+
+    verification_steps:
+      - "Verify frontend development server starts without errors"
+      - "Confirm all routes and pages render correctly"
+      - "Check API integration and data fetching works properly"
+      - "Ensure build process completes successfully"
+      - "Validate accessibility compliance with automated tools"
+      - "Verify responsive design works across different screen sizes"
+
+  integration_orchestration:
+    primary_experts: ["fullstack"]
+    collaborative_experts: ["backend", "frontend", "systemdev", "qa", "mcp"]
+    prompt_files_required: ["prompts/fullstack.prompt.md"]
+    dependencies: ["backend_implementation", "frontend_implementation"]
+    actions:
+      # PHASE 1: Expert Activation and Integration Assessment
+      - "Read prompts/fullstack.prompt.md"
+      - "Output: '✅ Fullstack Expert activated for integration orchestration: [PROMPT_LOADED:fullstack:VERIFIED]'"
+      - "Read .memory/integration-architecture.md and .memory/service-architecture.md to understand integration requirements"
+      - "Read workspace/backend/** directory to understand backend implementation"
+      - "Read workspace/frontend/** directory to understand frontend implementation"
+      - "Read .memory/active-context.md for current project context"
+
+      # PHASE 2: API Contract Verification and Type Synchronization
+      - "Verify API contract consistency between frontend and backend:"
+      - "  - Compare workspace/specs/openapi.yaml with backend API implementation"
+      - "  - Validate frontend TypeScript types match backend API responses"
+      - "  - Check authentication flow consistency across frontend and backend"
+      - "  - Verify error handling patterns are synchronized"
+      - "Execute integration validation:"
+      - "  - Test all API endpoints from frontend perspective"
+      - "  - Validate request/response data flow"
+      - "  - Confirm CORS configuration and security headers"
+
+      # PHASE 3: Data Flow and State Management Integration
+      - "Implement comprehensive data flow integration:"
+      - "  - Verify data fetching patterns and caching strategies"
+      - "  - Test real-time communication setup (WebSocket/SSE if implemented)"
+      - "  - Validate state management across frontend components"
+      - "  - Ensure data consistency between frontend and backend"
+      - "Setup error boundary and fallback mechanisms:"
+      - "  - Implement comprehensive error handling for API failures"
+      - "  - Setup loading states and fallback UI components"
+      - "  - Validate error propagation and user feedback systems"
+
+      # PHASE 4: System Service Integration (if applicable)
+      - "If system services exist (from systemdev expert):"
+      - "  - Read workspace/system/** directory for integration requirements"
+      - "  - Verify system service communication through backend APIs"
+      - "  - Test system service data flow and processing"
+      - "  - Validate system service error handling and fallbacks"
+      - "If no system services: Document integration architecture completeness"
+
+      # PHASE 5: Performance and Optimization Integration
+      - "Implement system-wide performance optimizations:"
+      - "  - Setup caching layers between frontend and backend"
+      - "  - Optimize API response times and data transfer"
+      - "  - Implement connection pooling and request optimization"
+      - "  - Setup performance monitoring and metrics collection"
+      - "Validate cross-component performance:"
+      - "  - Test application performance under realistic load"
+      - "  - Measure API response times and frontend render performance"
+      - "  - Validate memory usage and resource optimization"
+
+      # PHASE 6: Expert Collaboration for Integration Validation
+      - "Execute '[COLLAB_REQUEST:integration_orchestration]' for comprehensive validation:"
+      - "When collaboration requested:"
+      - "  - With backend expert: Validate API integration and performance"
+      - "  - With frontend expert: Confirm UI integration and user experience"
+      - "  - With systemdev expert: Verify system service integration (if applicable)"
+      - "  - With qa expert: Coordinate end-to-end testing strategy"
+      - "  - Update .memory/collaboration.log.md with validation results"
+
+      # PHASE 7: End-to-End Testing and Validation
+      - "Conduct comprehensive integration testing:"
+      - "  - Test complete user journeys from frontend to backend"
+      - "  - Validate authentication and authorization flows"
+      - "  - Test error scenarios and recovery mechanisms"
+      - "  - Verify data consistency across all system components"
+      - "Execute performance and load testing:"
+      - "  - Test system behavior under concurrent user load"
+      - "  - Validate API rate limiting and throttling"
+      - "  - Test database connection handling under load"
+
+      # PHASE 8: Documentation and Integration Report
+      - "Generate comprehensive integration documentation:"
+      - "  - Write workspace/docs/integration-report.md with:"
+      - "    - Integration architecture overview and data flow diagrams"
+      - "    - API contract verification results and type safety confirmation"
+      - "    - Performance metrics and optimization implementations"
+      - "    - Error handling and fallback mechanism documentation"
+      - "    - System service integration details (if applicable)"
+      - "    - End-to-end testing results and validation outcomes"
+      - "    - Known limitations and future integration considerations"
+      - "Edit .memory/active-context.md with:"
+      - "  - Updated current_phase: 'integration_orchestration_completed'"
+      - "  - Integration status and system-wide functionality confirmation"
+      - "  - Performance metrics and optimization results"
+      - "Edit .memory/project-state.json expert_engagement_status:"
+      - "  - Update fullstack.current_tasks with completion status"
+      - "  - Record collaboration effectiveness across all expert integrations"
+      - "Edit .memory/decisions.md with:"
+      - "  - Integration architecture decisions and rationale"
+      - "  - Performance optimization choices and trade-offs"
+
+    produces:
+      - "workspace/docs/integration-report.md"  # Comprehensive integration analysis and results
+      - ".memory/active-context.md"   # Updated project context
+      - ".memory/project-state.json"  # Updated expert engagement status
+      - ".memory/decisions.md"        # Integration decisions and rationale
+
+    completion_criteria:
+      - "API contracts verified and synchronized between frontend and backend"
+      - "Data flow integration working correctly across all system components"
+      - "Error handling and fallback mechanisms properly implemented"
+      - "System service integration validated (if applicable)"
+      - "Performance optimizations implemented and validated"
+      - "End-to-end testing passes for all major user scenarios"
+      - "Integration documentation complete and comprehensive"
+      - "Memory system updated with integration status"
+      - "Output: '[TASK_DONE:integration_orchestration:fullstack]'"
+
+    verification_steps:
+      - "Confirm all API endpoints work correctly from frontend"
+      - "Verify authentication and authorization flows function properly"
+      - "Check error handling works across all system components"
+      - "Ensure performance metrics meet architecture requirements"
+      - "Validate system service integration (if applicable)"
+      - "Confirm end-to-end user journeys complete successfully"
+
+  deployment_pipeline:
+    primary_experts: ["devops"]
+    collaborative_experts: ["backend", "frontend", "systemdev"]
+    prompt_files_required: ["prompts/devops.prompt.md"]
+    dependencies: ["integration_orchestration"]
+    actions:
+      # PHASE 1: Expert Activation and Deployment Assessment
+      - "Read prompts/devops.prompt.md"
+      - "Output: '✅ DevOps Expert activated for deployment pipeline: [PROMPT_LOADED:devops:VERIFIED]'"
+      - "Read workspace/docs/architecture.md to understand deployment requirements"
+      - "Read workspace/docs/integration-report.md to understand system integration"
+      - "Read workspace/backend/** and workspace/frontend/** directories to assess deployment needs"
+      - "Read .memory/active-context.md for current project context"
+
+      # PHASE 2: Docker Containerization Setup (Primary Focus)
+      - "Setup Docker containerization for all application components:"
+      - "For Frontend (Next.js):"
+      - "  - Create workspace/frontend/Dockerfile with multi-stage build optimization"
+      - "  - Configure Node.js environment and dependency installation"
+      - "  - Setup production build and static file serving"
+      - "  - Optimize image size with appropriate base images"
+      - "For Backend:"
+      - "  - Create workspace/backend/Dockerfile based on technology stack"
+      - "  - Configure runtime environment and dependency management"
+      - "  - Setup database connection and migration handling"
+      - "  - Implement health checks and monitoring endpoints"
+      - "For Database:"
+      - "  - Setup database service configuration (PostgreSQL/MongoDB/etc.)"
+      - "  - Configure persistent volume mounting for data persistence"
+      - "  - Setup initialization scripts and backup procedures"
+
+      # PHASE 3: Docker Compose V2 Orchestration
+      - "Create comprehensive docker-compose.yml configuration with modern standards:"
+      - "  - Define all application services (frontend, backend, database)"
+      - "  - Configure service networking and communication"
+      - "  - Setup environment variable management"
+      - "  - Configure volume mounts for data persistence"
+      - "  - Add reverse proxy service (Nginx) for routing"
+      - "  - Implement security hardening (no-new-privileges, cap_drop, read_only)"
+      - "  - Add comprehensive healthchecks and resource limits"
+      - "Create environment overlay configurations:"
+      - "  - docker-compose.dev.yml for development environment"
+      - "  - docker-compose.prod.yml for production environment"
+      - "  - docker-compose.test.yml for testing environment"
+      - "Use Docker Compose V2 commands exclusively: 'docker compose up', 'docker compose down'"
+      - "Test environment overlays: 'docker compose -f docker-compose.yml -f docker-compose.prod.yml up'"
+
+      # PHASE 4: Environment Configuration and Security
+      - "Setup comprehensive environment variable management:"
+      - "  - Create .env.example with all required variables"
+      - "  - Configure production environment variables securely"
+      - "  - Setup database connection strings and API keys"
+      - "  - Configure security headers and CORS settings"
+      - "Implement Docker latest security standards:"
+      - "  - Container security configurations and non-root users"
+      - "  - Network security and service isolation"
+      - "  - Secrets management and environment variable security"
+      - "  - SSL/TLS configuration for production deployment"
+      - "  - Image signing and verification using Docker Content Trust"
+      - "  - Container vulnerability scanning with 'docker scout cves'"
+      - "  - Implementation of security_opt, cap_drop, and read_only configurations"
+      - "  - Resource limits and restart policies for production stability"
+
+      # PHASE 5: CI/CD Pipeline Setup
+      - "Create GitHub Actions workflow (.github/workflows/ci-cd.yml):"
+      - "  - Setup automated testing pipeline (lint, test, build)"
+      - "  - Configure Docker image building and registry push"
+      - "  - Implement automated deployment triggers"
+      - "  - Setup rollback procedures and deployment validation"
+      - "Configure deployment strategies:"
+      - "  - Blue-green deployment for zero-downtime updates"
+      - "  - Health check validations before traffic routing"
+      - "  - Automated rollback on deployment failures"
+
+      # PHASE 6: Cloud Deployment Configuration (Alternative)
+      - "Setup cloud deployment options as alternatives to Docker:"
+      - "Frontend (Vercel/Netlify):"
+      - "  - Configure build settings and environment variables"
+      - "  - Setup custom domain and SSL configuration"
+      - "  - Configure API routes and edge functions if needed"
+      - "Backend (Railway/Cloud Run/Heroku):"
+      - "  - Configure deployment settings and scaling parameters"
+      - "  - Setup database connections and environment variables"
+      - "  - Configure monitoring and logging services"
+      - "Database (Supabase Optimization):"
+      - "  - Setup Supabase project and database schema migration"
+      - "  - Configure connection pooling and performance optimization"
+      - "  - Implement Row Level Security (RLS) and authentication"
+      - "  - Setup automated backups and point-in-time recovery"
+      - "  - Generate TypeScript types and API client configuration"
+      - "Document deployment options and trade-offs including Supabase integration"
+
+      # PHASE 7: System Service Integration (if applicable)
+      - "If system services exist (from systemdev expert):"
+      - "  - Create Docker configurations for system services"
+      - "  - Setup service discovery and communication"
+      - "  - Configure resource allocation for GPU/compute services"
+      - "  - Implement monitoring and health checks for system services"
+      - "If no system services: Optimize for standard web application deployment"
+
+      # PHASE 8: Expert Collaboration and Deployment Validation
+      - "Execute '[COLLAB_REQUEST:deployment_pipeline]' for validation:"
+      - "When collaboration requested:"
+      - "  - With backend expert: Validate backend deployment configuration"
+      - "  - With frontend expert: Confirm frontend build and deployment settings"
+      - "  - With systemdev expert: Verify system service deployment (if applicable)"
+      - "  - Update .memory/collaboration.log.md with validation results"
+
+      # PHASE 9: Monitoring and Observability Setup
+      - "Implement comprehensive monitoring and logging:"
+      - "  - Setup application performance monitoring (APM)"
+      - "  - Configure logging aggregation and analysis"
+      - "  - Implement health checks and uptime monitoring"
+      - "  - Setup alerting for critical issues and failures"
+      - "Create monitoring dashboard and documentation:"
+      - "  - Document monitoring setup and access procedures"
+      - "  - Create troubleshooting guides and runbooks"
+      - "  - Setup backup and disaster recovery procedures"
+
+      # PHASE 10: Documentation and Final Setup
+      - "Generate comprehensive deployment documentation:"
+      - "  - Write workspace/ops/deployment-guide.md with step-by-step instructions"
+      - "  - Document Docker setup and container management"
+      - "  - Create environment setup and configuration guides"
+      - "  - Document monitoring, logging, and troubleshooting procedures"
+      - "Execute deployment validation:"
+      - "  - Test complete deployment pipeline end-to-end"
+      - "  - Validate all services start and communicate correctly"
+      - "  - Confirm monitoring and logging work properly"
+      - "  - Test rollback and disaster recovery procedures"
+      - "Edit .memory/active-context.md with:"
+      - "  - Updated current_phase: 'deployment_pipeline_completed'"
+      - "  - Deployment configuration and infrastructure status"
+      - "  - Monitoring and observability setup confirmation"
+      - "Edit .memory/project-state.json expert_engagement_status:"
+      - "  - Update devops.current_tasks with completion status"
+      - "  - Record collaboration effectiveness and deployment readiness"
+      - "Edit .memory/decisions.md with:"
+      - "  - Deployment architecture decisions and rationale"
+      - "  - Infrastructure choices and configuration decisions"
+
+    produces:
+      - ".github/workflows/**"        # CI/CD pipeline configurations
+      - "workspace/ops/**"                     # Deployment scripts and configurations
+      - "workspace/docker-compose.yml"         # Production Docker orchestration
+      - "workspace/docker-compose.dev.yml"     # Development Docker setup
+      - "workspace/*/Dockerfile"               # Container configurations for each service
+      - "workspace/ops/deployment-guide.md"    # Comprehensive deployment documentation
+      - ".memory/active-context.md"  # Updated project context
+      - ".memory/project-state.json" # Updated expert engagement status
+      - ".memory/decisions.md"       # Deployment decisions and rationale
+
+    completion_criteria:
+      - "Docker containerization complete for all application components"
+      - "Docker Compose V2 orchestration working with 'docker compose' commands"
+      - "Docker latest manual standards compliance verified (https://docs.docker.com/manuals/)"
+      - "Environment overlay configurations (dev/prod/test) properly implemented"
+      - "Container security hardening applied (no-new-privileges, cap_drop, healthchecks)"
+      - "Image signing and vulnerability scanning implemented for production"
+      - "CI/CD pipeline configured and tested successfully"
+      - "Environment variables and security configurations implemented"
+      - "System service deployment configured (if applicable)"
+      - "Cloud deployment alternatives documented and configured (Vercel/Supabase optimization)"
+      - "Supabase database deployment and connection pooling configured (if applicable)"
+      - "Monitoring and observability systems operational"
+      - "Deployment documentation complete and validated"
+      - "End-to-end deployment testing passed successfully"
+      - "Memory system updated with deployment status"
+      - "Output: '[TASK_DONE:deployment_pipeline:devops]'"
+
+    verification_steps:
+      - "Verify Docker containers build and run successfully"
+      - "Confirm Docker Compose orchestration works correctly"
+      - "Check CI/CD pipeline passes all stages"
+      - "Validate environment variable configuration"
+      - "Ensure monitoring and logging systems function properly"
+      - "Confirm deployment documentation is complete and accurate"
+
+  quality_assurance:
+    primary_experts: ["qa"]
+    collaborative_experts: ["frontend", "backend", "pm", "mcp"]
+    prompt_files_required: ["prompts/qa-testing.prompt.md"]
+    dependencies: ["deployment_pipeline"]
+    actions:
+      # PHASE 1: Expert Activation and Quality Assessment Setup
+      - "Read prompts/qa-testing.prompt.md"
+      - "Output: '✅ QA Expert activated for quality assurance: [PROMPT_LOADED:qa:VERIFIED]'"
+      - "Read workspace/docs/architecture.md to understand quality requirements"
+      - "Read workspace/docs/integration-report.md to understand system functionality"
+      - "Read workspace/ops/deployment-guide.md to understand deployment configuration"
+      - "Read .memory/active-context.md for current project context"
+      - "Read quality-standards.json to establish quality targets and measurement protocols"
+
+      # PHASE 2: Comprehensive Quality Standards Validation and Setup
+      - "Read quality-standards.json and .memory/active-context.md to identify project type:"
+      - "Extract quality framework for detected project type (web_application, ai_ml_system, mobile_application, etc.)"
+      - "Establish quality validation protocol based on project-specific standards:"
+      - "For Web Application projects:"
+      - "  - Code quality targets: TypeScript coverage >95%, test coverage >80%, lint score >95%"
+      - "  - Performance targets: Core Web Vitals (LCP<2.5s, FID<100ms, CLS<0.1), Lighthouse scores >90"
+      - "  - Security targets: 0 high/critical vulnerabilities, authentication compliance, data validation"
+      - "  - Accessibility targets: WCAG 2.1 AA compliance, screen reader compatibility"
+      - "For AI/ML System projects:"
+      - "  - Model performance: accuracy >90%, inference latency <100ms, memory usage <2GB"
+      - "  - Data quality: completeness >95%, accuracy >98%, consistency >99%"
+      - "  - Model reliability: robustness testing, interpretability, ethical compliance"
+      - "For API/Microservice projects:"
+      - "  - API design: REST compliance, complete OpenAPI documentation"
+      - "  - Performance: response time <200ms, throughput >1000 RPS, availability 99.9%"
+      - "  - Security: JWT/OAuth2 authentication, RBAC authorization, encryption compliance"
+      - "Create quality validation checklist with specific measurement commands and thresholds"
+      - "Setup quality gate enforcement: block deployment if critical quality standards fail"
+
+      # PHASE 3: Test Environment Setup and Playwright MCP Configuration
+      - "Setup comprehensive testing environment:"
+      - "  - Configure Playwright MCP for automated E2E testing (never external packages)"
+      - "  - Setup test data and database seeding for consistent testing"
+      - "  - Configure cross-browser testing environments (Chrome, Firefox, Safari)"
+      - "  - Setup mobile device emulation for responsive testing"
+      - "  - Configure test reporting and screenshot capture"
+      - "Collaborate with MCP expert for testing automation optimization:"
+      - "  - Execute '[COLLAB_REQUEST:qa_mcp_setup]' for Playwright MCP configuration"
+      - "  - Optimize test execution performance and reliability"
+
+      # PHASE 4: End-to-End Testing Implementation
+      - "Implement comprehensive E2E testing using Playwright MCP:"
+      - "  - Test all critical user journeys and workflows"
+      - "  - Validate authentication and authorization flows"
+      - "  - Test form submissions and data processing"
+      - "  - Verify navigation and routing functionality"
+      - "  - Test error scenarios and fallback mechanisms"
+      - "Execute cross-browser compatibility testing:"
+      - "  - Test functionality across Chrome, Firefox, Safari, Edge"
+      - "  - Validate consistent behavior and appearance"
+      - "  - Test responsive design across different screen sizes"
+      - "  - Verify mobile device compatibility and touch interactions"
+
+      # PHASE 5: Performance Testing and Core Web Vitals Validation
+      - "Conduct comprehensive performance testing:"
+      - "  - Measure Core Web Vitals (LCP, FID, CLS) using Playwright MCP"
+      - "  - Test page load times and time to interactive"
+      - "  - Analyze bundle sizes and loading performance"
+      - "  - Test performance under various network conditions"
+      - "Execute load testing and stress testing:"
+      - "  - Test API performance under concurrent requests"
+      - "  - Validate database performance under load"
+      - "  - Test system behavior under high traffic scenarios"
+      - "  - Measure response times and resource utilization"
+
+      # PHASE 6: Accessibility Compliance Validation
+      - "Implement comprehensive accessibility testing (WCAG 2.1 AA):"
+      - "  - Automated accessibility scanning using Playwright MCP"
+      - "  - Manual keyboard navigation testing"
+      - "  - Screen reader compatibility testing"
+      - "  - Color contrast and visual accessibility validation"
+      - "  - Focus management and ARIA label verification"
+      - "Generate accessibility compliance report:"
+      - "  - Document compliance level and any violations"
+      - "  - Provide remediation recommendations for accessibility issues"
+      - "  - Validate assistive technology compatibility"
+
+      # PHASE 7: Security Testing and Vulnerability Assessment
+      - "Conduct security testing and vulnerability assessment:"
+      - "  - Test authentication and authorization security"
+      - "  - Validate input sanitization and XSS prevention"
+      - "  - Test SQL injection and data validation security"
+      - "  - Verify CSRF protection and security headers"
+      - "  - Test API security and rate limiting"
+      - "Execute security compliance validation:"
+      - "  - Verify HTTPS implementation and certificate validation"
+      - "  - Test data privacy and GDPR compliance"
+      - "  - Validate session management and logout functionality"
+
+      # PHASE 8: Expert Collaboration for Domain-Specific Testing
+      - "Execute '[COLLAB_REQUEST:quality_assurance]' for expert validation:"
+      - "When collaboration requested:"
+      - "  - With frontend expert: Validate UI/UX functionality and responsive design"
+      - "  - With backend expert: Confirm API testing and data integrity validation"
+      - "  - With pm expert: Review quality findings and business requirement fulfillment"
+      - "  - Update .memory/collaboration.log.md with validation results and expert feedback"
+
+      # PHASE 9: Regression Testing and Integration Validation
+      - "Execute comprehensive regression testing:"
+      - "  - Re-run all critical test scenarios after any changes"
+      - "  - Validate integration points between frontend and backend"
+      - "  - Test data consistency and business logic validation"
+      - "  - Verify deployment pipeline and environment configurations"
+      - "Conduct user acceptance testing simulation:"
+      - "  - Test complete user workflows from start to finish"
+      - "  - Validate business requirements and acceptance criteria"
+      - "  - Test edge cases and error recovery scenarios"
+
+      # PHASE 10: Quality Analysis and Reporting
+      - "Generate comprehensive quality analysis reports:"
+      - "  - Write workspace/reports/test-reports.md with:"
+      - "    - Complete test execution summary and results"
+      - "    - Test coverage analysis and gap identification"
+      - "    - Bug reports and severity classification"
+      - "    - Cross-browser and device compatibility results"
+      - "  - Write workspace/reports/performance-analysis.md with:"
+      - "    - Core Web Vitals measurements and analysis"
+      - "    - Load testing results and performance benchmarks"
+      - "    - Optimization recommendations and bottleneck identification"
+      - "  - Write workspace/reports/accessibility-validation.md with:"
+      - "    - WCAG 2.1 AA compliance assessment"
+      - "    - Accessibility testing results and recommendations"
+      - "    - Screen reader and assistive technology compatibility"
+      - "  - Write workspace/reports/quality-analysis.md with:"
+      - "    - Overall quality assessment and recommendations"
+      - "    - Security testing results and vulnerability assessment"
+      - "    - Quality gate compliance and next steps"
+      - "  - Write workspace/reports/quality-standards-validation.md with:"
+      - "    - Project-specific quality framework compliance results"
+      - "    - Detailed comparison of achieved vs target metrics from quality-standards.json"
+      - "    - Quality gate pass/fail status for each category:"
+      - "      - Code quality metrics (TypeScript coverage, test coverage, lint scores)"
+      - "      - Performance metrics (Core Web Vitals, Lighthouse scores, bundle size)"
+      - "      - Security metrics (vulnerability scan results, authentication compliance)"
+      - "      - Accessibility metrics (WCAG compliance, screen reader compatibility)"
+      - "    - Remediation recommendations for failed quality gates"
+      - "    - Quality improvement roadmap and continuous improvement suggestions"
+
+      # PHASE 11: Final Quality Gate and Project Completion
+      - "Execute final quality gate evaluation based on quality-standards.json:"
+      - "  - Read quality-standards.json for project-specific quality frameworks"
+      - "  - Validate all quality metrics against target and minimum thresholds:"
+      - "    - Execute validation commands specified in quality_frameworks"
+      - "    - Compare results against target/minimum values for each metric"
+      - "    - Document pass/fail status for each quality gate"
+      - "  - Execute comprehensive quality compliance check:"
+      - "    - Code quality: TypeScript coverage, test coverage, lint scores, build success"
+      - "    - Performance: Core Web Vitals, Lighthouse scores, bundle analysis"
+      - "    - Security: Vulnerability scans, authentication compliance, data protection"
+      - "    - Accessibility: WCAG compliance, screen reader compatibility"
+      - "  - Apply quality gate enforcement rules:"
+      - "    - Block deployment if critical quality standards fail"
+      - "    - Require PM approval for quality gate exceptions"
+      - "    - Document quality debt and remediation plans"
+      - "  - Generate final quality certification report with quality-standards.json compliance"
+      - "Collaborate with PM expert for final approval:"
+      - "  - Present quality findings and recommendations to PM expert"
+      - "  - Obtain PM approval for production release or document required fixes"
+      - "  - Update project status and quality certification"
+      - "Edit .memory/active-context.md with:"
+      - "  - Updated current_phase: 'quality_assurance_completed'"
+      - "  - Quality assessment results and certification status"
+      - "  - Final recommendations and next steps"
+      - "Edit .memory/project-state.json expert_engagement_status:"
+      - "  - Update qa.current_tasks with completion status"
+      - "  - Record final quality metrics and compliance status"
+      - "Edit .memory/decisions.md with:"
+      - "  - Quality assurance decisions and testing strategy rationale"
+      - "  - Quality gate results and certification decisions"
+
+    produces:
+      - "workspace/reports/test-reports.md"         # Comprehensive test execution results
+      - "workspace/reports/quality-analysis.md"     # Overall quality assessment and recommendations
+      - "workspace/reports/quality-standards-validation.md" # Quality standards compliance against quality-standards.json
+      - "workspace/reports/accessibility-validation.md" # WCAG compliance and accessibility results
+      - "workspace/reports/performance-analysis.md" # Performance testing and Core Web Vitals results
+      - "workspace/reports/security-assessment.md"  # Security testing and vulnerability assessment
+      - ".memory/active-context.md"       # Updated project context
+      - ".memory/project-state.json"      # Updated expert engagement status
+      - ".memory/decisions.md"            # Quality assurance decisions
+
+    completion_criteria:
+      - "Comprehensive E2E testing completed using Playwright MCP"
+      - "Cross-browser and device compatibility validated"
+      - "Performance testing passed with Core Web Vitals meeting standards"
+      - "Accessibility compliance (WCAG 2.1 AA) validated"
+      - "Security testing completed with vulnerability assessment"
+      - "All quality reports generated and comprehensive"
+      - "Zero critical defects identified or PM approval obtained for exceptions"
+      - "Quality gate compliance confirmed against quality-standards.json requirements"
+      - "Project-specific quality framework validation completed (web_application, ai_ml_system, etc.)"
+      - "All validation commands from quality-standards.json executed successfully"
+      - "Quality metrics meet target thresholds or documented exceptions approved"
+      - "Expert collaboration validation completed successfully"
+      - "Memory system updated with quality assessment results"
+      - "Output: '[TASK_DONE:quality_assurance:qa]'"
+
+    verification_steps:
+      - "Confirm all E2E tests pass across target browsers and devices"
+      - "Verify Core Web Vitals meet established performance standards"
+      - "Check accessibility compliance passes automated and manual testing"
+      - "Ensure security testing identifies no critical vulnerabilities"
+      - "Validate all quality reports are complete and comprehensive"
+      - "Execute final validation commands from quality-standards.json and confirm pass/fail status"
+      - "Verify quality metrics comparison against target/minimum thresholds"
+      - "Validate quality gate enforcement rules have been applied"
+      - "Confirm quality-standards-validation.md report contains comprehensive compliance analysis"
+      - "Confirm PM approval obtained for production release"
+
+  mcp_tool_assistance:
+    primary_experts: ["mcp"]
+    collaborative_experts: ["pm", "backend", "frontend", "qa", "fullstack", "systemdev", "devops"]
+    prompt_files_required: ["prompts/mcp-tools.prompt.md"]
+    dependencies: []  # available throughout project lifecycle
+    continuous: true  # always available for tool assistance
+    actions:
+      # PHASE 1: Expert Activation and MCP Tool Environment Assessment
+      - "Read prompts/mcp-tools.prompt.md"
+      - "Output: '✅ MCP Expert activated for tool assistance: [PROMPT_LOADED:mcp:VERIFIED]'"
+      - "Read .memory/active-context.md to understand current project context and active experts"
+      - "Assess available MCP tools and expert requirements:"
+      - "  - Context7 MCP for documentation and API reference needs"
+      - "  - Sequential Thinking MCP for systematic analysis and problem-solving"
+      - "  - GitHub MCP for repository management and code examples"
+      - "  - Playwright MCP for testing automation and browser interaction"
+
+      # PHASE 2: Expert-Specific MCP Tool Configuration and Support
+      - "Provide specialized MCP tool support based on expert needs:"
+      - "For PM Expert Support:"
+      - "  - Configure Sequential Thinking MCP for strategic analysis and decision-making"
+      - "  - Setup systematic problem-solving workflows for complex scenarios"
+      - "  - Optimize thought process documentation and decision tracking"
+      - "  - Provide guidance on MCP tool integration for requirements analysis"
+      - "For Research Expert Support:"
+      - "  - Configure GitHub MCP for repository analysis and trend research"
+      - "  - Setup Context7 MCP for technology documentation and best practices"
+      - "  - Optimize search patterns for market analysis and competitive research"
+      - "  - Provide advanced MCP tool combinations for comprehensive research workflows"
+      - "For Backend Expert Support:"
+      - "  - Configure GitHub MCP for backend repository management and code examples"
+      - "  - Setup Context7 MCP for API documentation and framework guides"
+      - "  - Optimize MCP tool usage for database and API development patterns"
+      - "  - Provide integration guidance for development workflow automation"
+      - "For Frontend Expert Support:"
+      - "  - Configure Context7 MCP for frontend framework documentation and guides"
+      - "  - Setup GitHub MCP for component libraries and UI pattern research"
+      - "  - Optimize MCP tool usage for accessibility and performance research"
+      - "  - Provide guidance on documentation-driven development workflows"
+      - "For QA Expert Support:"
+      - "  - Configure Playwright MCP for automated testing setup and optimization"
+      - "  - Setup test automation patterns and browser interaction workflows"
+      - "  - Optimize test execution performance and reliability"
+      - "  - Provide troubleshooting guidance for testing automation issues"
+      - "For Fullstack Expert Support:"
+      - "  - Configure comprehensive MCP tool combinations for system integration"
+      - "  - Setup advanced workflows combining multiple MCP tools for architecture analysis"
+      - "  - Optimize cross-domain MCP tool usage patterns"
+      - "  - Provide system-wide MCP tool orchestration guidance"
+      - "For SystemDev Expert Support:"
+      - "  - Configure GitHub MCP for specialized system development repositories"
+      - "  - Setup Context7 MCP for AI/ML and high-performance computing documentation"
+      - "  - Optimize MCP tool usage for system architecture and performance analysis"
+      - "  - Provide guidance on specialized system development workflow automation"
+      - "For DevOps Expert Support:"
+      - "  - Configure GitHub MCP for deployment and infrastructure repositories"
+      - "  - Setup Context7 MCP for containerization and CI/CD documentation"
+      - "  - Optimize MCP tool usage for infrastructure automation patterns"
+      - "  - Provide guidance on deployment workflow optimization"
+
+      # PHASE 3: MCP Tool Integration and Workflow Optimization
+      - "Implement MCP tool integration optimizations:"
+      - "  - Setup efficient MCP tool switching and context management"
+      - "  - Configure optimal tool combinations for specific task types"
+      - "  - Implement performance monitoring for MCP tool usage"
+      - "  - Setup automated MCP tool configuration for common workflows"
+      - "Create standardized MCP workflows:"
+      - "  - Document best practices for each MCP tool usage pattern"
+      - "  - Setup template workflows for common expert collaboration scenarios"
+      - "  - Implement MCP tool performance benchmarking and optimization"
+      - "  - Create troubleshooting guides for common MCP tool issues"
+
+      # PHASE 4: Continuous MCP Tool Monitoring and Support
+      - "Monitor MCP tool usage patterns and performance:"
+      - "  - Track tool usage frequency and effectiveness across experts"
+      - "  - Identify optimization opportunities and performance bottlenecks"
+      - "  - Monitor tool integration issues and provide proactive solutions"
+      - "  - Collect feedback from experts on tool effectiveness and usability"
+      - "Provide ongoing MCP tool support:"
+      - "  - Respond to expert requests for MCP tool assistance immediately"
+      - "  - Troubleshoot integration issues and configuration problems"
+      - "  - Update tool configurations based on evolving project needs"
+      - "  - Provide training and guidance for advanced MCP tool usage patterns"
+
+      # PHASE 5: Expert Collaboration and MCP Tool Orchestration
+      - "Handle expert collaboration requests for MCP tool assistance:"
+      - "When '[COLLAB_REQUEST:{task_id}:mcp_support]' received:"
+      - "  - Assess expert's specific MCP tool needs and context"
+      - "  - Provide immediate technical support and configuration assistance"
+      - "  - Optimize tool setup for the specific task requirements"
+      - "  - Document solutions and best practices for future reference"
+      - "Coordinate complex MCP tool orchestration:"
+      - "  - Setup multi-tool workflows for complex analysis scenarios"
+      - "  - Provide guidance on optimal tool sequencing and integration"
+      - "  - Monitor and optimize cross-expert MCP tool collaboration"
+      - "  - Update .memory/collaboration.log.md with MCP tool assistance provided"
+
+      # PHASE 6: MCP Tool Documentation and Knowledge Management
+      - "Generate comprehensive MCP tool documentation:"
+      - "  - Write workspace/docs/mcp-tool-guide.md with:"
+      - "    - Complete MCP tool setup and configuration instructions"
+      - "    - Expert-specific usage patterns and best practices"
+      - "    - Troubleshooting guides and common issue resolutions"
+      - "    - Performance optimization tips and advanced usage patterns"
+      - "    - Integration workflows and tool combination strategies"
+      - "  - Write workspace/reports/mcp-assistance.md with:"
+      - "    - Summary of MCP tool assistance provided during project"
+      - "    - Expert usage patterns and effectiveness metrics"
+      - "    - Optimization recommendations and lessons learned"
+      - "    - Future MCP tool enhancement suggestions"
+      - "Create MCP tool orchestration tracking:"
+      - "  - Write workspace/reports/mcp-orchestration.json with:"
+      - "    - Tool usage statistics and performance metrics"
+      - "    - Expert collaboration patterns and tool effectiveness"
+      - "    - Configuration optimizations and customizations applied"
+      - "    - Issue tracking and resolution documentation"
+
+      # PHASE 7: Continuous Improvement and Optimization
+      - "Implement continuous MCP tool improvement:"
+      - "  - Analyze tool usage patterns for optimization opportunities"
+      - "  - Develop new workflow templates based on successful patterns"
+      - "  - Update configurations based on expert feedback and performance data"
+      - "  - Research new MCP tool features and integration possibilities"
+      - "Update project memory with MCP tool insights:"
+      - "  - Edit .memory/active-context.md with MCP tool optimization status"
+      - "  - Edit .memory/project-state.json with tool usage effectiveness metrics"
+      - "  - Edit .memory/decisions.md with MCP tool configuration decisions and rationale"
+
+    produces:
+      - "workspace/reports/mcp-orchestration.json"  # MCP tool usage statistics and performance metrics
+      - "workspace/reports/mcp-assistance.md"       # Summary of MCP tool assistance and recommendations
+      - "workspace/docs/mcp-tool-guide.md"         # Comprehensive MCP tool documentation and best practices
+      - ".memory/active-context.md"      # Updated project context with MCP tool status
+      - ".memory/project-state.json"     # Updated tool usage effectiveness metrics
+      - ".memory/decisions.md"           # MCP tool configuration decisions
+
+    completion_criteria:
+      - "MCP tool environment assessed and configured for all active experts"
+      - "Expert-specific MCP tool support provided and optimized"
+      - "MCP tool integration workflows established and documented"
+      - "Continuous monitoring and support systems operational"
+      - "Expert collaboration requests handled effectively"
+      - "Comprehensive MCP tool documentation generated"
+      - "Tool usage optimization and performance improvements implemented"
+      - "Memory system updated with MCP tool insights and metrics"
+      - "Output: '[TASK_DONE:mcp_tool_assistance:mcp]' (when assistance cycle complete)"
+
+    verification_steps:
+      - "Confirm all experts have optimal MCP tool configurations"
+      - "Verify MCP tool integration workflows function correctly"
+      - "Check tool usage monitoring and performance metrics are accurate"
+      - "Ensure expert collaboration requests are handled efficiently"
+      - "Validate MCP tool documentation is comprehensive and up-to-date"
+
+  iterative_refinement:
+    orchestrator_managed: true  # PM Orchestrator handles refinement coordination
+    primary_experts: ["pm"]  # PM Expert role when specialized strategic analysis needed
+    collaborative_experts: ["any"]  # any expert can be re-summoned
+    prompt_files_required: ["prompts/pm.prompt.md"]
+    continuous: true  # always available for task creation
+    workflow:
+      - "PM Orchestrator analyzes user feedback and coordinates refinement strategy"
+      - "PM Orchestrator assigns PM Expert for strategic analysis when needed"
+      - "PM Orchestrator creates new task instances and assigns appropriate experts"
+    actions:
+      # PHASE 1: User Feedback Analysis and Change Request Assessment
+      - "PM Orchestrator: Analyze user feedback and change requests autonomously:"
+      - "  - Read and categorize user feedback (bug reports, feature requests, improvements)"
+      - "  - Assess impact and priority of requested changes"
+      - "  - Identify affected system components and required expert involvement"
+      - "  - Determine scope and complexity of refinement requirements"
+      - "PM Orchestrator: Update .memory/active-context.md with refinement requests"
+
+      # PHASE 2: Strategic Analysis and PM Expert Consultation (if needed)
+      - "PM Orchestrator: Determine if PM Expert consultation is required:"
+      - "  - Complex scope changes requiring strategic analysis"
+      - "  - Significant architecture modifications or technical decisions"
+      - "  - Resource allocation and timeline impact assessment"
+      - "  - Stakeholder alignment and business priority evaluation"
+      - "If PM Expert consultation needed:"
+      - "  - Read prompts/pm.prompt.md"
+      - "  - Output: '✅ PM Expert summoned for refinement analysis: [PROMPT_LOADED:pm:VERIFIED]'"
+      - "  - PM Expert: Use Sequential Thinking MCP for complex refinement scenario analysis"
+      - "  - PM Expert: Assess strategic implications and provide recommendations"
+      - "  - PM Expert: Update .memory/decisions.md with strategic analysis and rationale"
+
+      # PHASE 3: Expert Team Identification and Task Creation Strategy
+      - "PM Orchestrator: Identify required experts for refinement tasks:"
+      - "For UI/UX Changes:"
+      - "  - Frontend expert for interface modifications and component updates"
+      - "  - QA expert for UI testing and accessibility validation"
+      - "For API/Backend Changes:"
+      - "  - Backend expert for API modifications and database changes"
+      - "  - Fullstack expert for integration impact assessment"
+      - "For Architecture Changes:"
+      - "  - Fullstack expert for architecture analysis and system impact"
+      - "  - SystemDev expert if specialized system services affected"
+      - "For Performance/Security Issues:"
+      - "  - Relevant implementation experts (frontend/backend/systemdev)"
+      - "  - QA expert for comprehensive testing and validation"
+      - "For Deployment/Infrastructure Changes:"
+      - "  - DevOps expert for deployment pipeline and infrastructure updates"
+      - "  - Fullstack expert for system integration validation"
+
+      # PHASE 4: Dynamic Task Instance Creation and Assignment
+      - "PM Orchestrator: Create specific refinement tasks based on requirements:"
+      - "  - Generate task instances with clear scope and deliverables"
+      - "  - Assign primary and collaborative experts based on change requirements"
+      - "  - Set dependencies and priority ordering for multiple refinement tasks"
+      - "  - Create task IDs and tracking mechanisms in .memory/project-state.json"
+      - "PM Orchestrator: Configure task parameters:"
+      - "  - Set completion criteria specific to refinement requirements"
+      - "  - Establish quality gates and validation requirements"
+      - "  - Configure collaboration protocols for expert coordination"
+      - "  - Setup progress tracking and milestone definition"
+
+      # PHASE 5: Expert Re-engagement and Task Execution Coordination
+      - "PM Orchestrator: Coordinate expert re-engagement for refinement tasks:"
+      - "For each created refinement task:"
+      - "  - Summon primary expert and provide refined task context"
+      - "  - Ensure expert loads appropriate prompt file and validates with [PROMPT_LOADED:{expert}]"
+      - "  - Provide access to current project state and change requirements"
+      - "  - Monitor task execution and provide coordination support"
+      - "Handle expert collaboration requests:"
+      - "  - Process '[COLLAB_REQUEST:{task_id}]' signals from refinement tasks"
+      - "  - Coordinate cross-expert collaboration for refinement validation"
+      - "  - Update .memory/collaboration.log.md with refinement coordination"
+
+      # PHASE 6: Quality Validation and Integration Coordination
+      - "PM Orchestrator: Ensure quality validation for all refinements:"
+      - "  - Coordinate QA expert involvement for testing refined features"
+      - "  - Validate that changes meet original requirements and quality standards"
+      - "  - Ensure integration testing covers modified system components"
+      - "  - Confirm performance and security implications are addressed"
+      - "PM Orchestrator: Coordinate integration of multiple refinement changes:"
+      - "  - Manage dependencies between concurrent refinement tasks"
+      - "  - Ensure system-wide consistency after multiple changes"
+      - "  - Coordinate deployment pipeline updates for refined features"
+
+      # PHASE 7: User Feedback Loop and Approval Management
+      - "PM Orchestrator: Manage user feedback and approval process:"
+      - "  - Present completed refinements to user for validation"
+      - "  - Collect user feedback on implemented changes"
+      - "  - Assess if additional refinements are needed"
+      - "  - Document user approval or additional refinement requirements"
+      - "If additional refinements needed:"
+      - "  - Return to Phase 1 with new feedback and requirements"
+      - "  - Create new refinement task instances"
+      - "  - Continue iterative improvement cycle"
+
+      # PHASE 8: Completion Assessment and Project State Updates
+      - "PM Orchestrator: Assess refinement completion and release readiness:"
+      - "  - Validate all user requirements have been addressed"
+      - "  - Confirm system quality and performance standards are met"
+      - "  - Ensure documentation and deployment readiness"
+      - "  - Assess overall project completion status"
+      - "Update project memory and state:"
+      - "  - Edit .memory/active-context.md with refinement completion status"
+      - "  - Update .memory/project-state.json with final expert engagement metrics"
+      - "  - Edit .memory/decisions.md with refinement decisions and outcomes"
+      - "  - Document lessons learned and improvement recommendations"
+      - "If PM Expert was involved:"
+      - "  - PM Expert: Output '[TASK_DONE:iterative_refinement:pm]'"
+      - "PM Orchestrator: Continue availability for future refinement cycles"
+
+    produces:
+      - "Dynamic task creation based on refinement needs"    # Refinement-specific task instances
+      - "Updated system components per refinement scope"     # Modified code and configurations
+      - ".memory/active-context.md"                         # Updated project context with refinements
+      - ".memory/project-state.json"                        # Updated expert engagement and task metrics
+      - ".memory/decisions.md"                              # Refinement decisions and strategic analysis
+      - ".memory/collaboration.log.md"                      # Refinement coordination and expert collaboration
+
+    completion_criteria:
+      - "User feedback analyzed and refinement requirements clearly defined"
+      - "Strategic analysis completed (if PM Expert consultation required)"
+      - "Appropriate experts identified and refinement tasks created"
+      - "Dynamic task instances executed successfully with expert coordination"
+      - "Quality validation completed for all refinement changes"
+      - "User approval obtained or additional refinement cycle initiated"
+      - "Project state updated with refinement outcomes and lessons learned"
+      - "System maintains continuous availability for future refinement cycles"
+      - "PM Expert outputs [TASK_DONE:iterative_refinement:pm] if strategic analysis provided"
+      - "PM Orchestrator maintains continuous refinement coordination capability"
+
+    verification_steps:
+      - "Confirm user feedback is accurately captured and categorized"
+      - "Verify appropriate experts are engaged for refinement scope"
+      - "Check that refinement tasks maintain system quality and consistency"
+      - "Ensure user approval process is properly managed and documented"
+      - "Validate continuous refinement capability remains operational"
+
+collaboration_protocols:
+  expert_summoning:
+    process: "Primary expert requests collaboration via [COLLAB_REQUEST:task_id]"
+    response: "Collaborative experts must acknowledge and engage within task context"
+    shared_context: "All experts access shared .collaboration.log.md for context"
+  
+  cross_domain_consultation:
+    architecture_questions: "fullstack ↔ backend/frontend/systemdev consultation"
+    implementation_validation: "implementation experts ↔ mcp testing validation"
+    requirement_clarification: "pm ↔ any expert for scope/feasibility consultation"
+  
+  iterative_engagement:
+    re_engagement: "Experts can be re-summoned for refinements, updates, reviews"
+    continuous_availability: "All experts remain available throughout project lifecycle"
+    dynamic_task_creation: "New tasks created based on emerging needs"
+
+  existing_project_analysis:
+    orchestrator_initiated: true
+    primary_experts: ["pm", "fullstack"]
+    collaborative_experts: ["frontend", "backend", "qa", "research", "mcp"]
+    prompt_files_required: ["prompts/pm.prompt.md", "prompts/fullstack.prompt.md"]
+    description: "Analyze existing project structure and plan progressive enhancement with zero user confirmations"
+    workflow:
+      - "PM Orchestrator detects existing project in workspace"
+      - "Automatic project type detection and expert team assembly"
+      - "Fullstack Expert analyzes existing architecture and codebase"
+      - "PM Expert creates enhancement roadmap with complete autonomy"
+    actions:
+      # PHASE 1: Existing Project Detection and Automatic Backup
+      - "Detect existing project files and structure in workspace/"
+      - "Read project-detection.yaml to classify existing project type"
+      - "Create automatic backup without user confirmation:"
+      - "  - Create backup folder: workspace/.backup/YYYYMMDD-HHMMSS/"
+      - "  - Copy all existing files to backup location"
+      - "  - Generate backup manifest: .backup/backup-manifest.json"
+      - "Initialize memory system for existing project enhancement"
+
+      # PHASE 2: Progressive Enhancement Planning (Zero-Confirmation)
+      - "Fullstack Expert analyzes existing codebase automatically:"
+      - "  - Identify current technology stack and architecture"
+      - "  - Assess code quality and technical debt"
+      - "  - Map existing features and functionality"
+      - "  - Identify enhancement opportunities"
+      - "PM Expert creates enhancement roadmap automatically:"
+      - "  - Prioritize improvements by impact and risk"
+      - "  - Plan incremental enhancement phases"
+      - "  - Define quality improvement targets"
+      - "  - Document enhancement strategy in .memory/enhancement-plan.md"
+
+      # PHASE 3: Risk Assessment and Validation Strategy
+      - "QA Expert defines validation strategy automatically:"
+      - "  - Create backup validation tests"
+      - "  - Plan regression testing approach"
+      - "  - Design hot-swap validation protocols"
+      - "Research Expert analyzes enhancement patterns:"
+      - "  - Study similar project enhancement cases"
+      - "  - Identify best practices and potential pitfalls"
+      - "  - Recommend enhancement methodologies"
+
+  progressive_enhancement:
+    orchestrator_initiated: true
+    primary_experts: ["fullstack"]
+    collaborative_experts: ["frontend", "backend", "qa", "devops", "mcp"]
+    prompt_files_required: ["prompts/fullstack.prompt.md"]
+    description: "Execute progressive enhancement with continuous validation and zero user confirmations"
+    workflow:
+      - "Execute planned enhancements in safe, incremental phases"
+      - "Continuous validation and rollback readiness"
+      - "Real-time collaboration for conflict resolution"
+      - "Complete autonomy - no user confirmations required"
+    actions:
+      # PHASE 1: Safe Enhancement Execution (Automated)
+      - "Execute enhancement phase based on .memory/enhancement-plan.md"
+      - "Apply changes incrementally with validation checkpoints"
+      - "Frontend Expert: Enhance UI/UX components safely"
+      - "Backend Expert: Improve API and database performance"
+      - "DevOps Expert: Optimize deployment and infrastructure"
+
+      # PHASE 2: Continuous Validation and Hot-Swap
+      - "QA Expert: Run continuous validation tests automatically"
+      - "  - Verify existing functionality preserved"
+      - "  - Validate new enhancements work correctly"
+      - "  - Monitor performance and quality metrics"
+      - "Implement hot-swap validation automatically:"
+      - "  - Test changes in isolated environment"
+      - "  - Verify backward compatibility"
+      - "  - Prepare immediate rollback if issues detected"
+
+      # PHASE 3: Quality Assurance and Integration
+      - "Apply quality standards from quality-standards.json automatically"
+      - "Run comprehensive test suite and quality checks"
+      - "Update documentation and memory files"
+      - "Complete enhancement without user confirmation"
+
+task_lifecycle:
+  creation:
+    trigger: "PM analyzes requirements and creates initial task pool"
+    dynamic: "Additional tasks created based on expert collaboration requests"
+  
+  assignment:
+    primary: "Task assigned to primary expert(s) based on expertise mapping"
+    collaborative: "Collaborative experts notified and available for summoning"
+  
+  execution:
+    prompt_validation: "Expert must load and validate prompt file usage"
+    collaboration: "Expert can request collaboration via standard protocols"
+    progress_tracking: "Task progress logged in .tasks.registry.json"
+  
+  completion:
+    validation: "Task completion validated by relevant collaborative experts"
+    handoff: "Context and deliverables shared via collaboration log"
+    availability: "Expert returns to available pool for re-engagement"

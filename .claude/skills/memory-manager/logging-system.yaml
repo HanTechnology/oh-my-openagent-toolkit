@@ -1,0 +1,339 @@
+version: "1.0"
+name: "File-based Logging System"
+description: "Comprehensive logging system for Development AI Agent Team operations"
+powered_by: "Hans(HanTaek) Lim - Logging System Pattern"
+
+# Logging System Configuration
+logging_system:
+  enabled: true
+  base_directory: ".logs"
+  file_rotation: true
+  compression: false
+  retention_days: 30
+
+# Log Directory Structure
+directory_structure:
+  base: ".logs/"
+  session_logs: ".logs/sessions/"
+  expert_logs: ".logs/experts/"
+  collaboration_logs: ".logs/collaboration/"
+  quality_logs: ".logs/quality/"
+  performance_logs: ".logs/performance/"
+  error_logs: ".logs/errors/"
+  system_logs: ".logs/system/"
+
+# Session-level Logging
+session_logging:
+  session_log_format: "session-{YYYYMMDD}-{HHMMSS}.log"
+  session_summary_format: "session-summary-{YYYYMMDD}-{HHMMSS}.md"
+
+  session_log_content:
+    - "System initialization events"
+    - "Project detection results"
+    - "Expert activation sequence"
+    - "Memory system initialization"
+    - "Task creation and assignment"
+    - "Quality gate checkpoints"
+    - "System shutdown events"
+
+  session_summary_content:
+    - "Project type and expert team"
+    - "Total task completion count"
+    - "Quality metrics achievements"
+    - "Collaboration effectiveness"
+    - "Performance statistics"
+    - "Key decisions made"
+    - "Issues encountered and resolved"
+
+# Expert-specific Logging
+expert_logging:
+  pm_logs:
+    file_format: "pm-{YYYYMMDD}.log"
+    content_types:
+      - "Requirements analysis decisions"
+      - "Strategic planning activities"
+      - "Cross-expert coordination"
+      - "Quality gate management"
+      - "Memory management actions"
+
+  frontend_logs:
+    file_format: "frontend-{YYYYMMDD}.log"
+    content_types:
+      - "Component development activities"
+      - "UI/UX decisions"
+      - "Performance optimizations"
+      - "Accessibility implementations"
+      - "Design system decisions"
+
+  backend_logs:
+    file_format: "backend-{YYYYMMDD}.log"
+    content_types:
+      - "API architecture decisions"
+      - "Database schema changes"
+      - "Security implementations"
+      - "Performance optimizations"
+      - "Integration patterns"
+
+  fullstack_logs:
+    file_format: "fullstack-{YYYYMMDD}.log"
+    content_types:
+      - "System architecture decisions"
+      - "Integration orchestration"
+      - "Cross-domain coordination"
+      - "Performance architecture"
+      - "Technology integration choices"
+
+  systemdev_logs:
+    file_format: "systemdev-{YYYYMMDD}.log"
+    content_types:
+      - "AI/ML system development"
+      - "High-performance computing"
+      - "GPU optimization decisions"
+      - "System-level optimizations"
+      - "Infrastructure decisions"
+
+  qa_logs:
+    file_format: "qa-{YYYYMMDD}.log"
+    content_types:
+      - "Test strategy decisions"
+      - "Quality validation results"
+      - "Accessibility compliance checks"
+      - "Performance testing results"
+      - "Security testing outcomes"
+
+  devops_logs:
+    file_format: "devops-{YYYYMMDD}.log"
+    content_types:
+      - "Deployment pipeline setup"
+      - "Infrastructure decisions"
+      - "Container configuration"
+      - "CI/CD optimization"
+      - "Monitoring setup"
+
+  research_logs:
+    file_format: "research-{YYYYMMDD}.log"
+    content_types:
+      - "Market analysis results"
+      - "Technology research findings"
+      - "Competitive analysis"
+      - "Strategic recommendations"
+      - "Innovation opportunities"
+
+  mcp_logs:
+    file_format: "mcp-{YYYYMMDD}.log"
+    content_types:
+      - "Tool orchestration activities"
+      - "MCP usage patterns"
+      - "Workflow automation"
+      - "Performance optimizations"
+      - "Integration support actions"
+
+# Collaboration Logging
+collaboration_logging:
+  request_logs:
+    file_format: "collab-requests-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      requesting_expert: "Expert who initiated collaboration"
+      target_experts: "List of experts requested"
+      task_id: "Unique task identifier"
+      collaboration_type: "Type of collaboration needed"
+      context: "Collaboration context and purpose"
+      urgency: "Collaboration urgency level"
+
+  response_logs:
+    file_format: "collab-responses-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      responding_expert: "Expert who responded"
+      task_id: "Related task identifier"
+      response_time: "Time taken to respond"
+      response_type: "Accept/Decline/Defer"
+      contribution: "Nature of contribution provided"
+      outcome: "Collaboration outcome"
+
+  conversation_logs:
+    file_format: "collab-conversations-{YYYYMMDD}.log"
+    content_structure:
+      session_id: "Collaboration session identifier"
+      participants: "List of participating experts"
+      duration: "Total collaboration duration"
+      messages: "Conversation thread"
+      decisions: "Key decisions made"
+      artifacts: "Artifacts created or modified"
+      follow_up: "Follow-up actions required"
+
+# Quality Metrics Logging
+quality_logging:
+  metrics_logs:
+    file_format: "quality-metrics-{YYYYMMDD}.log"
+    tracking_frequency: "every_change"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      project_type: "Type of project"
+      metric_name: "Name of quality metric"
+      previous_value: "Previous metric value"
+      current_value: "Current metric value"
+      target_value: "Target metric value"
+      trend: "Improvement/Degradation/Stable"
+      trigger_event: "Event that caused the change"
+
+  quality_gates_logs:
+    file_format: "quality-gates-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      gate_name: "Name of quality gate"
+      gate_status: "Pass/Warning/Fail"
+      criteria_results: "Individual criteria results"
+      blocking_issues: "Issues preventing progression"
+      resolution_actions: "Actions taken to resolve issues"
+      expert_responsible: "Expert handling the gate"
+
+  compliance_logs:
+    file_format: "compliance-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      compliance_type: "Type of compliance check"
+      standard: "Standard being checked against"
+      compliance_level: "Level of compliance achieved"
+      violations: "Any violations found"
+      remediation: "Remediation actions taken"
+      verification: "Verification of remediation"
+
+# Performance Logging
+performance_logging:
+  timing_logs:
+    file_format: "timing-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      operation: "Operation being timed"
+      expert: "Expert performing operation"
+      start_time: "Operation start time"
+      end_time: "Operation end time"
+      duration: "Total duration"
+      efficiency_score: "Efficiency rating"
+
+  efficiency_logs:
+    file_format: "efficiency-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      task_type: "Type of task performed"
+      expert_team: "Experts involved"
+      complexity_score: "Task complexity rating"
+      time_estimated: "Originally estimated time"
+      time_actual: "Actual time taken"
+      efficiency_ratio: "Actual vs estimated ratio"
+      bottlenecks: "Performance bottlenecks identified"
+      optimizations: "Optimizations applied"
+
+  resource_logs:
+    file_format: "resources-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      resource_type: "Type of resource used"
+      expert: "Expert using resource"
+      usage_amount: "Amount of resource used"
+      usage_duration: "Duration of usage"
+      efficiency: "Resource usage efficiency"
+      optimization_suggestions: "Suggestions for optimization"
+
+# Error and Warning Logging
+error_logging:
+  error_logs:
+    file_format: "errors-{YYYYMMDD}.log"
+    severity_levels: ["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+    content_structure:
+      timestamp: "ISO 8601 format"
+      severity: "Error severity level"
+      expert: "Expert where error occurred"
+      operation: "Operation being performed"
+      error_type: "Classification of error"
+      error_message: "Detailed error message"
+      stack_trace: "Technical stack trace if available"
+      context: "Contextual information"
+      resolution_attempted: "Resolution attempts made"
+      resolution_successful: "Whether resolution was successful"
+      impact: "Impact on project progress"
+
+  warning_logs:
+    file_format: "warnings-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      warning_type: "Type of warning"
+      expert: "Expert issuing warning"
+      description: "Warning description"
+      potential_impact: "Potential impact if not addressed"
+      recommendation: "Recommended action"
+      auto_resolution: "Whether auto-resolution was attempted"
+      follow_up_required: "Whether follow-up is needed"
+
+# System Event Logging
+system_logging:
+  system_events:
+    file_format: "system-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      event_type: "Type of system event"
+      component: "System component involved"
+      description: "Event description"
+      parameters: "Event parameters"
+      result: "Event result"
+      impact: "Impact on system operation"
+
+  memory_operations:
+    file_format: "memory-ops-{YYYYMMDD}.log"
+    content_structure:
+      timestamp: "ISO 8601 format"
+      operation: "Memory operation type"
+      file_path: "Memory file affected"
+      expert: "Expert performing operation"
+      changes: "Changes made"
+      reason: "Reason for change"
+      validation: "Validation performed"
+
+# Log Analysis and Reporting
+log_analysis:
+  automated_analysis: true
+  analysis_frequency: "daily"
+
+  daily_reports:
+    file_format: "daily-report-{YYYYMMDD}.md"
+    content_sections:
+      - "Project progress summary"
+      - "Expert performance metrics"
+      - "Collaboration effectiveness"
+      - "Quality achievements"
+      - "Issues and resolutions"
+      - "Performance trends"
+      - "Recommendations for improvement"
+
+  weekly_reports:
+    file_format: "weekly-report-{YYYY}-W{WW}.md"
+    content_sections:
+      - "Weekly progress overview"
+      - "Expert utilization analysis"
+      - "Quality trend analysis"
+      - "Performance optimization opportunities"
+      - "System improvement recommendations"
+
+# Log Maintenance
+maintenance:
+  automatic_cleanup: true
+  retention_policy:
+    session_logs: "30 days"
+    expert_logs: "90 days"
+    collaboration_logs: "60 days"
+    quality_logs: "180 days"
+    performance_logs: "90 days"
+    error_logs: "180 days"
+    system_logs: "60 days"
+
+  archival:
+    enabled: true
+    archive_format: "compressed"
+    archive_location: ".logs/archive/"
+
+  backup:
+    enabled: true
+    backup_frequency: "weekly"
+    backup_location: ".logs/backup/"
