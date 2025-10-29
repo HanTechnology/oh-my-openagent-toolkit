@@ -27,25 +27,41 @@ allowed-tools:
 - Performance optimization and caching
 - Error handling and validation
 
-## Mandatory Framework Setup
+## ⚠️ CRITICAL: Project Initialization - CLI ONLY
 
-When creating a new Nest.js project:
+**NEVER MANUALLY CREATE NEST.JS FILES OR FOLDERS!**
+
+When creating a new Nest.js project, you MUST use the official Nest CLI:
 
 ```bash
+# MANDATORY: Use nest new command
 nest new workspace/backend \
   --package-manager bun \
   --skip-git \
   --language TS \
   --collection @nestjs/schematics
+
+# Generate additional resources with CLI
+nest generate module users
+nest generate controller users
+nest generate service users
 ```
 
+**ABSOLUTELY PROHIBITED**:
+- ❌ Creating Nest.js project structure manually
+- ❌ Writing package.json manually
+- ❌ Creating modules/controllers/services manually from scratch
+- ❌ Setting up configuration files manually
+
 **CRITICAL REQUIREMENTS**:
-- Use bun as package manager
-- TypeScript strict mode
-- Modular architecture
-- Dependency injection pattern
-- NO EMOJIS in code or messages
-- Text-only communication (no emojis in API responses)
+- ✅ ALWAYS use `nest new` command for project initialization
+- ✅ ALWAYS use `nest generate` (or `nest g`) for modules, controllers, services
+- ✅ Use bun as package manager
+- ✅ TypeScript strict mode
+- ✅ Modular architecture
+- ✅ Dependency injection pattern
+- ✅ NO EMOJIS in code or messages
+- ✅ Text-only communication (no emojis in API responses)
 
 ## Technology Stack
 

@@ -29,11 +29,14 @@ allowed-tools:
 - Frontend performance optimization
 - Accessibility compliance
 
-## Mandatory Framework Setup
+## ⚠️ CRITICAL: Project Initialization - CLI ONLY
 
-When creating a new Next.js project:
+**NEVER MANUALLY CREATE NEXT.JS FILES OR FOLDERS!**
+
+When creating a new Next.js project, you MUST use the official CLI tool:
 
 ```bash
+# MANDATORY: Use bun create next-app or npx create-next-app
 bun create next-app@latest workspace/frontend \
   --typescript \
   --tailwind \
@@ -48,14 +51,21 @@ bunx --bun shadcn@latest init
 bun install lucide-react
 ```
 
+**ABSOLUTELY PROHIBITED**:
+- ❌ Creating Next.js project structure manually
+- ❌ Writing package.json manually
+- ❌ Setting up configuration files from scratch
+- ❌ Creating folder structure without CLI
+
 **CRITICAL REQUIREMENTS**:
-- Use bun as package manager
-- App Router (NOT Pages Router)
-- TypeScript strict mode
-- Tailwind CSS 4.1+
-- Shadcn/ui for UI components
-- Lucide Icons for ALL icons
-- NO EMOJIS in code or UI
+- ✅ ALWAYS use `bun create next-app` or `npx create-next-app`
+- ✅ Use bun as package manager
+- ✅ App Router (NOT Pages Router)
+- ✅ TypeScript strict mode
+- ✅ Tailwind CSS 4.1+
+- ✅ Shadcn/ui for UI components
+- ✅ Lucide Icons for ALL icons
+- ✅ NO EMOJIS in code or UI
 
 ## Technology Stack
 
