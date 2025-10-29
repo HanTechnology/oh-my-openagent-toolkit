@@ -154,43 +154,78 @@ Track in `.memory/metrics.md`:
 - Accessibility compliance: Target 100% (WCAG AA)
 - State management bug rate: Target <10% of total bugs
 
-## ⚠️ CRITICAL: Project Initialization - CLI ONLY
+## ⚠️ CRITICAL: Project Initialization - CLI ONLY (Non-Interactive)
 
 **NEVER MANUALLY CREATE NEXT.JS FILES OR FOLDERS!**
 
-When creating a new Next.js project, you MUST use the official CLI tool:
+### Non-Interactive Initialization (MANDATORY)
+
+**CRITICAL**: Project initialization MUST be 100% non-interactive. Interactive prompts BREAK Zero-Confirmation autonomy.
 
 ```bash
-# MANDATORY: Use bun create next-app or npx create-next-app
-bun create next-app@latest workspace/frontend \
+# MANDATORY: Non-interactive command with --yes flag
+npx create-next-app@latest workspace/frontend --yes \
   --typescript \
   --tailwind \
   --eslint \
-  --turbopack \
   --app \
   --src-dir \
-  --import-alias "@/*"
+  --use-npm
 
 cd workspace/frontend
-bunx --bun shadcn@latest init
-bun install lucide-react
+npx shadcn@latest init -y
+npm install lucide-react
 ```
 
-**ABSOLUTELY PROHIBITED**:
+### Required Flags Explanation
+
+- `--yes`: **🔴 CRITICAL** - Use defaults without prompting (enables non-interactive mode)
+- `--typescript`: TypeScript project (required, default)
+- `--tailwind`: Tailwind CSS (required, default)
+- `--eslint`: ESLint configuration (required for quality)
+- `--app`: App Router (required, NOT Pages Router)
+- `--src-dir`: Create src/ directory (organizational standard)
+- `--use-npm`: Use npm package manager (or `--use-pnpm`/`--use-yarn`/`--use-bun` based on project)
+
+**Alternative Package Managers**:
+```bash
+# Using pnpm
+npx create-next-app@latest workspace/frontend --yes --typescript --tailwind --eslint --app --src-dir --use-pnpm
+
+# Using yarn
+npx create-next-app@latest workspace/frontend --yes --typescript --tailwind --eslint --app --src-dir --use-yarn
+
+# Using bun
+npx create-next-app@latest workspace/frontend --yes --typescript --tailwind --eslint --app --src-dir --use-bun
+```
+
+### ❌ ABSOLUTELY PROHIBITED
+
+**Manual Creation**:
 - ❌ Creating Next.js project structure manually
 - ❌ Writing package.json manually
 - ❌ Setting up configuration files from scratch
 - ❌ Creating folder structure without CLI
 
-**CRITICAL REQUIREMENTS**:
-- ✅ ALWAYS use `bun create next-app` or `npx create-next-app`
-- ✅ Use bun as package manager
+**Interactive Commands** (These will prompt for user input - FORBIDDEN):
+```bash
+❌ npx create-next-app@latest                    # Prompts for project name and config
+❌ npx create-next-app workspace/frontend         # Prompts for TypeScript, Tailwind, etc.
+❌ npx create-next-app workspace/frontend --typescript  # Still prompts for other options
+```
+
+**Rationale**: Interactive prompts require user confirmation, violating Zero-Confirmation principle. The `--yes` flag is NON-NEGOTIABLE for autonomous operation.
+
+### ✅ CRITICAL REQUIREMENTS
+
+- ✅ ALWAYS use `npx create-next-app@latest` with `--yes` flag
 - ✅ App Router (NOT Pages Router)
 - ✅ TypeScript strict mode
 - ✅ Tailwind CSS 4.1+
 - ✅ Shadcn/ui for UI components
 - ✅ Lucide Icons for ALL icons
 - ✅ NO EMOJIS in code or UI
+- ✅ 100% non-interactive initialization
 
 ## Technology Stack
 

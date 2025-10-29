@@ -152,19 +152,20 @@ Track in `.memory/metrics.md`:
 - Type safety coverage: Target >90% (DTO validation)
 - Transaction success rate: Target >99.5%
 
-## ⚠️ CRITICAL: Project Initialization - CLI ONLY
+## ⚠️ CRITICAL: Project Initialization - CLI ONLY (Non-Interactive)
 
 **NEVER MANUALLY CREATE NEST.JS FILES OR FOLDERS!**
 
-When creating a new Nest.js project, you MUST use the official Nest CLI:
+### Non-Interactive Initialization (MANDATORY)
+
+**CRITICAL**: Project initialization MUST be 100% non-interactive. Interactive prompts BREAK Zero-Confirmation autonomy.
 
 ```bash
-# MANDATORY: Use nest new command
+# MANDATORY: Non-interactive command with --package-manager flag
 nest new workspace/backend \
-  --package-manager bun \
+  --package-manager npm \
   --skip-git \
-  --language TS \
-  --collection @nestjs/schematics
+  --language TS
 
 # Generate additional resources with CLI
 nest generate module users
@@ -172,21 +173,61 @@ nest generate controller users
 nest generate service users
 ```
 
-**ABSOLUTELY PROHIBITED**:
+### Required Flags Explanation
+
+- `--package-manager npm`: **🔴 CRITICAL** - Specify package manager without prompting (enables non-interactive mode)
+- `--skip-git`: Skip git initialization (project may already have git, or initialize later)
+- `--language TS`: TypeScript language (required)
+
+**Alias Version** (shorter syntax):
+```bash
+nest new workspace/backend -p npm -g -l TS
+```
+
+**Alternative Package Managers**:
+```bash
+# Using pnpm
+nest new workspace/backend --package-manager pnpm --skip-git --language TS
+
+# Using yarn
+nest new workspace/backend --package-manager yarn --skip-git --language TS
+
+# Using bun
+nest new workspace/backend --package-manager bun --skip-git --language TS
+
+# Using aliases
+nest new workspace/backend -p pnpm -g -l TS
+nest new workspace/backend -p yarn -g -l TS
+nest new workspace/backend -p bun -g -l TS
+```
+
+### ❌ ABSOLUTELY PROHIBITED
+
+**Manual Creation**:
 - ❌ Creating Nest.js project structure manually
 - ❌ Writing package.json manually
 - ❌ Creating modules/controllers/services manually from scratch
 - ❌ Setting up configuration files manually
 
-**CRITICAL REQUIREMENTS**:
-- ✅ ALWAYS use `nest new` command for project initialization
+**Interactive Commands** (These will prompt for package manager - FORBIDDEN):
+```bash
+❌ nest new workspace/backend                    # Prompts for package manager selection
+❌ nest n workspace/backend                      # Prompts for package manager selection
+❌ nest new workspace/backend --language TS      # Still prompts for package manager
+```
+
+**Rationale**: Interactive prompts require user confirmation, violating Zero-Confirmation principle. The `--package-manager` flag is NON-NEGOTIABLE for autonomous operation.
+
+### ✅ CRITICAL REQUIREMENTS
+
+- ✅ ALWAYS use `nest new` with `--package-manager` flag
 - ✅ ALWAYS use `nest generate` (or `nest g`) for modules, controllers, services
-- ✅ Use bun as package manager
 - ✅ TypeScript strict mode
 - ✅ Modular architecture
 - ✅ Dependency injection pattern
 - ✅ NO EMOJIS in code or messages
 - ✅ Text-only communication (no emojis in API responses)
+- ✅ 100% non-interactive initialization
 
 ## Technology Stack
 

@@ -854,6 +854,63 @@ quality-controller enforces standards from quality-standards.json:
 
 ## Mandatory Standards & Best Practices
 
+### Project Initialization (ALL Frameworks)
+
+**CRITICAL SYSTEM-WIDE POLICY**: All framework and project initialization MUST be 100% non-interactive to maintain Zero-Confirmation autonomy.
+
+**Core Principle**: Interactive CLI prompts BREAK autonomous operation by requiring user input. This violates the Zero-Confirmation Decision Framework and prevents complete automation.
+
+#### Non-Interactive Requirements
+
+**MANDATORY for all skills**:
+- ✅ **Always use non-interactive flags** when initializing projects via CLI
+- ✅ **Never use interactive commands** that prompt for user input
+- ✅ **Specify all options explicitly** via command-line flags
+- ❌ **NEVER rely on prompts** for package manager, TypeScript, configuration choices
+
+#### Framework-Specific Commands
+
+**Next.js** (frontend-nextjs):
+```bash
+# CORRECT: Non-interactive with --yes flag
+npx create-next-app@latest project-name --yes --typescript --tailwind --eslint --app --src-dir --use-npm
+
+# WRONG: Interactive (prompts for options)
+❌ npx create-next-app@latest project-name
+```
+
+**NestJS** (backend-nestjs):
+```bash
+# CORRECT: Non-interactive with --package-manager flag
+nest new project-name --package-manager npm --skip-git --language TS
+
+# WRONG: Interactive (prompts for package manager)
+❌ nest new project-name
+```
+
+**FastAPI** (backend-fastapi):
+```bash
+# CORRECT: Direct project structure creation (no CLI prompts)
+mkdir -p project-name/app && cd project-name
+python -m venv venv
+source venv/bin/activate  # or `venv\Scripts\activate` on Windows
+pip install fastapi uvicorn
+
+# Create project structure programmatically via Write tool
+```
+
+**General Rule**: If a framework has a CLI initialization tool, research and use its non-interactive flags via Context7 MCP before executing.
+
+#### Rationale
+
+Interactive prompts require human intervention, which:
+1. Breaks Zero-Confirmation autonomy principle
+2. Prevents CI/CD automation
+3. Causes workflow interruptions
+4. Violates "Complete project delivery from user request to finished code" promise
+
+**Success Criteria**: User should NEVER see a CLI prompt during project initialization. All decisions must be made autonomously using best practices and explicit flags.
+
 ### Frontend Development (frontend-nextjs)
 
 **CRITICAL RULES**:
