@@ -1023,6 +1023,444 @@ pm-orchestrator reads: workflows/01-requirements-analysis.md
 
 ---
 
+## Continuous Development & Release Management
+
+### Lifecycle State Machine
+
+The system operates with **three lifecycle states** that determine workflow routing:
+
+**State Transitions**:
+```
+initial_development → continuous_development → major_version_development
+         ↓                      ↓                          ↓
+    [v1.0.0]              [v1.1.0-v1.x.x]             [v2.0.0]
+```
+
+**State Definitions**:
+
+1. **initial_development**:
+   - **When**: New project, no v1.0.0 released yet
+   - **Workflows**: 01 → 02 → 03 → [04] → Implementation → 06 → 07 → 08 → v1.0.0 release
+   - **Goal**: Build and release v1.0.0 (foundational version)
+   - **Transition**: After v1.0.0 released → continuous_development
+
+2. **continuous_development**:
+   - **When**: v1.0.0+ released, ongoing feature development
+   - **Workflows**: 09-continuous-development.md + 8 sub-workflows (infinite loop)
+   - **Goal**: Continuous improvement (features, bugs, performance, security)
+   - **Version Range**: v1.1.0 through v1.x.x (MINOR and PATCH releases)
+   - **Transition**: When breaking changes needed → major_version_development
+
+3. **major_version_development**:
+   - **When**: Breaking changes, complete rewrites, fundamental architecture changes
+   - **Workflows**: Return to 01-03 for re-architecture → Implementation → 06-08 → v2.0.0 release
+   - **Goal**: Major version release (v2.0.0, v3.0.0, etc.)
+   - **Version**: MAJOR version bump
+   - **Transition**: After vX.0.0 released → continuous_development
+
+**State Tracking**:
+- Stored in `.memory/project-state.json` → `lifecycle_state` field
+- pm-orchestrator reads state on every session start
+- Determines which workflows to use
+
+### Hybrid Circular Architecture
+
+**Four-Tier Workflow System**:
+
+**Tier 1: Foundational Workflows** (One-time or Major Versions):
+- 01-requirements-analysis.md
+- 02-research-analysis.md
+- 03-architecture-design.md
+- 04-system-development.md (conditional: AI/ML, GPU, Video Processing)
+- **Used**: initial_development state, major_version_development state
+
+**Tier 2: Continuous Pipeline** (Every Release):
+- 06-integration.md (system integration, cross-component testing)
+- 07-deployment.md (Docker, cloud, CI/CD, staging deployment)
+- 08-quality-assurance.md (comprehensive QA, E2E testing, performance validation)
+- **Used**: ALL states (every release goes through 06→07→08)
+
+**Tier 3: Continuous Development** (Infinite Loop):
+- 09-continuous-development.md (work intake, routing, version management)
+- 8 sub-workflows: feature-development, bug-fix, hotfix, enhancement, refactoring, performance-optimization, security-patch, version-upgrade
+- **Used**: continuous_development state (post v1.0.0 release)
+
+**Tier 4: Support Workflows**:
+- release-management.md (staged rollout, monitoring, success criteria)
+- direction-adjustment.md (future: pivots, major strategic changes)
+
+### Continuous Development Workflow (09)
+
+**Entry Point**: Production environment with v1.0.0+ released
+
+**Workflow**: pm-orchestrator/workflows/09-continuous-development.md
+
+**Purpose**: Infinite loop handling all post-v1.0.0 development work
+
+**Phases**:
+
+**Phase 1: Work Intake & Classification**:
+- User requests: "Add feature X", "Fix bug Y", "Improve performance"
+- Production issues: Monitoring alerts, user feedback, incident reports
+- Planned improvements: Technical debt, refactoring, upgrades
+
+**Phase 2: Work Type Detection**:
+- **Feature Development**: Entirely new functionality
+- **Bug Fix**: Functional defects, incorrect behavior
+- **Hotfix**: CRITICAL production issues (expedited)
+- **Enhancement**: UX improvements, better error messages
+- **Refactoring**: Code quality improvements (ZERO behavior changes)
+- **Performance Optimization**: Speed/resource improvements
+- **Security Patch**: CVE fixes, security improvements
+- **Version Upgrade**: Framework/dependency major version upgrades
+
+**Phase 3: Sub-Workflow Routing**:
+Based on work type, route to appropriate sub-workflow:
+- Feature → `workflows/continuous/feature-development.md`
+- Bug → `workflows/continuous/bug-fix.md`
+- Hotfix → `workflows/continuous/hotfix.md`
+- Enhancement → `workflows/continuous/enhancement.md`
+- Refactoring → `workflows/continuous/refactoring.md`
+- Performance → `workflows/continuous/performance-optimization.md`
+- Security → `workflows/continuous/security-patch.md`
+- Version Upgrade → `workflows/continuous/version-upgrade.md`
+
+**Phase 4: Version Impact Decision**:
+pm-orchestrator decides version bump based on work type:
+- **MAJOR (v1.x.x → v2.0.0)**: Breaking changes, API incompatibilities
+- **MINOR (v1.2.x → v1.3.0)**: New features, backward-compatible additions
+- **PATCH (v1.2.3 → v1.2.4)**: Bug fixes, performance improvements, security patches
+
+**Phase 5: Return to Integration Pipeline**:
+After sub-workflow completes, all work returns to:
+- 06-integration.md → 07-deployment.md → 08-quality-assurance.md → release-management.md
+
+**Circular Pattern**:
+```
+Production
+    ↓
+09-continuous-development (work intake + routing)
+    ↓
+Sub-workflow (feature/bug/enhancement/etc.)
+    ↓
+06-integration.md (testing, validation)
+    ↓
+07-deployment.md (staging deployment)
+    ↓
+08-quality-assurance.md (comprehensive QA)
+    ↓
+release-management.md (production rollout)
+    ↓
+Production (monitoring, feedback collection)
+    ↓
+09-continuous-development (next work item)
+    ↓
+[INFINITE LOOP]
+```
+
+### Sub-Workflows (8 Types)
+
+All sub-workflows follow **8-phase pattern**:
+
+1. **Analysis/Assessment Phase**: Understand the work, complexity, impact
+2. **Impact Assessment/Research Phase**: Dependencies, risks, scope
+3. **Design/Planning Phase**: Solution design, implementation plan
+4. **Implementation Phase**: Code changes, guided by domain skills
+5. **Verification/Testing Phase**: Validation, quality checks
+6. **Documentation Phase**: Update docs, comments, changelog
+7. **Memory System Updates Phase**: Update .memory/ files with context
+8. **Return to Integration Pipeline Phase**: Hand off to 06-integration.md
+
+**Sub-Workflow Details**:
+
+**feature-development.md**:
+- New functionality that didn't exist before
+- Version: MINOR (v1.2.0 → v1.3.0)
+- Phases: Requirements → Design → Implementation → Testing → Docs → Memory → Integration
+- Example: "Add email notification system"
+
+**bug-fix.md**:
+- Fix functional defects in existing features
+- Version: PATCH (v1.2.3 → v1.2.4)
+- Phases: Reproduction → Root cause → Fix → Testing → Verification → Memory → Integration
+- Example: "Fix login timeout issue"
+
+**hotfix.md**:
+- CRITICAL production issues requiring immediate fix
+- Version: PATCH (v1.2.3 → v1.2.4)
+- Priority: Highest - expedited pipeline
+- Phases: Triage → Quick fix → Deploy → Monitor → Post-mortem → Memory → Integration
+- Example: "Database connection leak causing outages"
+
+**enhancement.md**:
+- Improve existing features without adding entirely new functionality
+- Version: MINOR (if significant value) or PATCH (if minor UX improvement)
+- Phases: UX Analysis → A/B Testing → Implementation → Validation → Docs → Memory → Integration
+- Example: "Improve search UX with better filtering"
+
+**refactoring.md**:
+- Code quality improvements with ZERO behavior changes
+- Version: PATCH (v1.2.3 → v1.2.4)
+- Critical Principle: If tests need modification, it's NOT refactoring
+- Phases: Test coverage → Refactor → Verify (tests unchanged) → Docs → Memory → Integration
+- Example: "Extract duplicated validation logic to shared utility"
+
+**performance-optimization.md**:
+- Speed, scalability, resource usage improvements
+- Version: MINOR (if significant improvement) or PATCH (if minor)
+- Phases: Baseline → Profile → Optimize → Verify improvement → Docs → Memory → Integration
+- Pattern: Requires quantifiable metrics (e.g., "Dashboard load time reduced from 3.2s to 1.8s - 44% improvement")
+- Example: "Optimize database queries for dashboard"
+
+**security-patch.md**:
+- CVE fixes, security vulnerability remediation
+- Version: PATCH (v1.2.3 → v1.2.4)
+- Priority: HIGH (CRITICAL issues use hotfix.md instead)
+- Phases: CVE analysis → Patch → Security testing → Disclosure → Docs → Memory → Integration
+- Example: "Fix SQL injection vulnerability in user search"
+
+**version-upgrade.md**:
+- Framework, language, or dependency major version upgrades
+- Version: PATCH (minor deps), MINOR (framework), or MAJOR (breaking changes)
+- Phases: Assessment → Research → Migration → Testing → Docs → Memory → Integration
+- Example: "Upgrade Next.js 13 → 14 (App Router migration)"
+
+### Release Management
+
+**Workflow**: pm-orchestrator/workflows/release-management.md
+
+**Purpose**: Staged production deployment with monitoring and rollback capability
+
+**Phases**:
+
+**Phase 1: Pre-Release Preparation**:
+- Final quality gates validation
+- Release notes generation (from .memory/version-history.md)
+- Stakeholder notification
+- Rollback plan confirmation
+
+**Phase 2: Staged Rollout**:
+- **Canary Deployment** (10% traffic):
+  - Deploy to 10% of users
+  - Monitor for 2-4 hours
+  - Check error rates, performance metrics
+  - Decision: Proceed or rollback
+
+- **Gradual Rollout** (50% traffic):
+  - Expand to 50% of users
+  - Monitor for 4-8 hours
+  - Validate success metrics
+  - Decision: Proceed or rollback
+
+- **Full Deployment** (100% traffic):
+  - Complete rollout to all users
+  - Monitor for 24 hours
+  - Collect user feedback
+
+**Phase 3: Post-Release Monitoring**:
+- Track production metrics (.memory/production-metrics.md)
+- Monitor error rates, performance, user feedback
+- Respond to incidents (route to hotfix.md if critical)
+
+**Phase 4: Release Validation**:
+- Verify success criteria met
+- Document lessons learned
+- Update .memory/version-history.md with release results
+
+**Phase 5: Return to Continuous Development**:
+- Transition back to 09-continuous-development.md for next work item
+- Infinite loop continues
+
+### Version Management
+
+**Semantic Versioning**: MAJOR.MINOR.PATCH (e.g., v1.3.2)
+
+**Version Bump Rules**:
+
+**MAJOR (v1.x.x → v2.0.0)**:
+- Breaking API changes
+- Incompatible with previous version
+- Major architecture redesign
+- Requires migration guide
+- Triggers: major_version_development state
+- Example: React 17 → 18 (breaking changes in ReactDOM.render)
+
+**MINOR (v1.2.x → v1.3.0)**:
+- New features (backward-compatible)
+- Significant enhancements
+- New API endpoints
+- No breaking changes
+- Example: Add email notification system
+
+**PATCH (v1.2.3 → v1.2.4)**:
+- Bug fixes
+- Performance improvements
+- Security patches
+- Refactoring (no behavior changes)
+- Minor dependency upgrades
+- Example: Fix login timeout issue
+
+**Version Tracking**:
+- Current version: `.memory/version-history.md`
+- Release planning: `.memory/release-plan.md`
+- pm-orchestrator automatically bumps version based on work type
+
+### Memory System Extensions
+
+**Continuous Development Memory Files**:
+
+All files in `.memory/` directory:
+
+**Core Files** (All Projects):
+- active-context.md
+- decisions.md
+- collaboration.log.md
+- project-state.json
+- session-history.json
+- artifacts.manifest.json
+
+**Continuous Development Files** (initialized when transitioning to continuous_development state):
+- **version-history.md**: Version changelog with semantic versioning
+- **release-plan.md**: Release planning and tracking
+- **production-metrics.md**: Live application performance (Core Web Vitals, API metrics, error rates)
+- **user-feedback.md**: Feature requests, bug reports, enhancement suggestions, NPS
+- **technical-debt.md**: Identified debt items, refactoring opportunities, completed improvements
+- **ci-cd-metrics.md**: Build success rates, deployment frequency, test metrics, DORA metrics
+- **incident-log.md**: Production incidents, post-mortems, lessons learned
+
+**Memory Update Triggers**:
+- Every sub-workflow updates relevant memory files
+- pm-orchestrator maintains .memory/active-context.md
+- memory-manager ensures consistency and session continuity
+
+### Workflow Routing Examples
+
+**Example 1: New Feature Request**
+```
+User: "Add dark mode to the application"
+→ lifecycle_state = continuous_development (v1.2.0 already released)
+→ pm-orchestrator invokes: 09-continuous-development.md
+→ Work type: Feature Development
+→ Route to: workflows/continuous/feature-development.md
+→ Version decision: MINOR (v1.2.0 → v1.3.0)
+→ Implementation by frontend-nextjs + backend-nestjs
+→ Return to: 06-integration.md → 07-deployment.md → 08-quality-assurance.md
+→ Release: release-management.md → Production v1.3.0
+→ Loop: Back to 09-continuous-development.md for next work
+```
+
+**Example 2: Bug Fix**
+```
+User: "Login button doesn't work on mobile Safari"
+→ lifecycle_state = continuous_development
+→ pm-orchestrator invokes: 09-continuous-development.md
+→ Work type: Bug Fix
+→ Route to: workflows/continuous/bug-fix.md
+→ Version decision: PATCH (v1.3.2 → v1.3.3)
+→ Implementation by mobile-react-native
+→ Return to: 06-integration.md → 07-deployment.md → 08-quality-assurance.md
+→ Release: release-management.md → Production v1.3.3
+→ Loop: Back to 09-continuous-development.md
+```
+
+**Example 3: Critical Production Issue**
+```
+Monitoring Alert: "Database connection pool exhausted"
+→ lifecycle_state = continuous_development
+→ pm-orchestrator invokes: 09-continuous-development.md
+→ Work type: HOTFIX (CRITICAL severity)
+→ Route to: workflows/continuous/hotfix.md (EXPEDITED)
+→ Version decision: PATCH (v1.3.3 → v1.3.4)
+→ Immediate fix by backend-nestjs (increase pool size, add monitoring)
+→ Expedited pipeline: 06-integration.md (fast-tracked) → 07-deployment.md (immediate) → 08-quality-assurance.md (post-deployment validation)
+→ Release: release-management.md (emergency deployment) → Production v1.3.4
+→ Post-mortem: Document in .memory/incident-log.md
+→ Loop: Back to 09-continuous-development.md
+```
+
+**Example 4: Framework Upgrade**
+```
+User: "Upgrade Next.js 14 to Next.js 15"
+→ lifecycle_state = continuous_development
+→ pm-orchestrator invokes: 09-continuous-development.md
+→ Work type: Version Upgrade
+→ Route to: workflows/continuous/version-upgrade.md
+→ Version decision: MINOR (v1.4.2 → v1.5.0) - framework upgrade, some new features
+→ Implementation by frontend-nextjs (migration, breaking change fixes)
+→ Extensive testing: 06-integration.md → 07-deployment.md (staged rollout) → 08-quality-assurance.md (comprehensive QA)
+→ Release: release-management.md → Production v1.5.0
+→ Loop: Back to 09-continuous-development.md
+```
+
+**Example 5: Major Version (Breaking Changes)**
+```
+User: "Completely redesign authentication system with OAuth 2.0 (breaking existing API)"
+→ lifecycle_state = continuous_development
+→ pm-orchestrator analyzes: Breaking changes required
+→ State transition: continuous_development → major_version_development
+→ pm-orchestrator invokes: 01-requirements-analysis.md (re-architecture)
+→ Full foundational workflow: 01 → 02 → 03 → Implementation → 06 → 07 → 08
+→ Version: v1.8.3 → v2.0.0 (MAJOR version bump)
+→ Release: release-management.md → Production v2.0.0
+→ State transition: major_version_development → continuous_development
+→ Loop: Back to 09-continuous-development.md for v2.x.x development
+```
+
+### Quality Gates for Continuous Development
+
+**Continuous Development Quality Standards**:
+
+quality-controller enforces standards at each stage:
+
+**Pre-Development** (Phase 1 of sub-workflows):
+- Requirements clarity achieved
+- Impact assessment complete
+- Design documented
+
+**Development** (Phase 4 of sub-workflows):
+- Code review passing
+- Unit tests added/updated (maintain coverage targets)
+- Type checking passing (TypeScript strict mode)
+
+**Pre-Integration** (Phase 5 of sub-workflows):
+- All tests passing (unit + integration)
+- Performance benchmarks met (no regressions)
+- Security scan clean (0 new critical/high vulnerabilities)
+
+**Pre-Deployment** (08-quality-assurance.md):
+- E2E tests passing
+- Accessibility compliance (WCAG 2.1 AA)
+- Cross-browser testing complete
+- Performance validation (Core Web Vitals met)
+
+**Pre-Release** (release-management.md):
+- Canary deployment successful
+- Error rates within SLA (<1%)
+- Performance metrics stable
+- User feedback positive
+
+### Success Criteria
+
+**Continuous Development Metrics**:
+
+**Velocity**:
+- MINOR releases: Every 2-3 weeks
+- PATCH releases: Weekly or as needed
+- MAJOR releases: Every 3-6 months
+
+**Quality**:
+- Release rollback rate: <5%
+- Critical bugs per release: <2
+- Test coverage: Backend 80%+, Frontend 70%+
+- Performance: No regressions
+
+**Efficiency**:
+- Time from commit to production: <4 hours (for PATCH)
+- Time from feature start to release: <2 weeks (for MINOR)
+- Deployment success rate: >95%
+
+---
+
 ## System Configuration Files
 
 ### Core Configuration Reference

@@ -632,13 +632,307 @@ Mention **quality-controller** skill for:
    - Monitoring configured
    - Support prepared
 
-## Next Steps
+## Next Steps & Circular Routing
 
-**Production Launch**:
-- Final stakeholder review
-- Production deployment (if not already deployed)
-- User communication and onboarding
-- Post-launch monitoring
+### Lifecycle State-Based Routing
+
+pm-orchestrator reads `.memory/project-state.json` → `lifecycle_state` field to determine next steps:
+
+---
+
+### Route 1: Initial Development State
+
+**Condition**: `lifecycle_state = "initial_development"` (v1.0.0 release)
+
+**After QA Passes** → **Production Launch (v1.0.0)**:
+
+1. **Final Preparation**:
+   - Stakeholder final review
+   - Production deployment checklist complete
+   - User communication prepared
+   - Support team briefed
+
+2. **Production Deployment**:
+   - Deploy to production environment
+   - Verify deployment successful
+   - Enable monitoring and alerting
+   - Activate user analytics
+
+3. **v1.0.0 Release**:
+   - Update `.memory/project-state.json`:
+     - `current_version: "1.0.0"`
+     - `lifecycle_state: "continuous_development"` ← **STATE TRANSITION**
+   - Update `.memory/version-history.md` with v1.0.0 release
+   - Celebrate launch!
+
+4. **Post-Launch Activities**:
+   - User onboarding and communication
+   - Monitor production metrics closely (first 48 hours)
+   - Collect user feedback
+   - Address any immediate issues
+
+5. **Transition to Continuous Development**:
+   - Initialize continuous development memory files:
+     - `.memory/production-metrics.md`
+     - `.memory/user-feedback.md`
+     - `.memory/technical-debt.md`
+     - `.memory/ci-cd-metrics.md`
+     - `.memory/incident-log.md`
+     - `.memory/release-plan.md`
+   - System now in **continuous_development state**
+   - Ready for ongoing improvements
+
+**Next Workflow**: Production → 09-continuous-development.md (infinite loop begins)
+
+---
+
+### Route 2: Continuous Development State
+
+**Condition**: `lifecycle_state = "continuous_development"` (v1.x.x releases)
+
+**After QA Passes** → **release-management.md** → **Production** → **09-continuous-development.md**:
+
+1. **Hand Off to Release Management**:
+   - pm-orchestrator routes to: `workflows/release-management.md`
+   - Purpose: Staged production rollout with monitoring
+
+2. **Release Management Workflow** (Automated):
+   - **Pre-Release Preparation**:
+     - Generate release notes from `.memory/version-history.md`
+     - Notify stakeholders
+     - Confirm rollback plan
+
+   - **Staged Rollout**:
+     - Canary deployment (10% traffic) → Monitor 2-4 hours
+     - Gradual rollout (50% traffic) → Monitor 4-8 hours
+     - Full deployment (100% traffic) → Monitor 24 hours
+
+   - **Post-Release Monitoring**:
+     - Track production metrics (`.memory/production-metrics.md`)
+     - Monitor error rates, performance
+     - Collect user feedback (`.memory/user-feedback.md`)
+
+   - **Release Validation**:
+     - Verify success criteria met
+     - Document lessons learned
+     - Update `.memory/version-history.md`
+
+3. **Return to Continuous Development**:
+   - After release validated and stable (24-48 hours)
+   - pm-orchestrator routes to: `09-continuous-development.md`
+   - **INFINITE LOOP**: Production → Work Intake → Sub-workflow → 06→07→08→ release → Production
+
+**Circular Pattern**:
+```
+Production (v1.x.x stable)
+    ↓
+User feedback, monitoring, feature requests
+    ↓
+09-continuous-development.md (work intake + routing)
+    ↓
+Sub-workflow (feature/bug/enhancement/refactoring/performance/security/upgrade)
+    ↓
+06-integration.md (integration testing)
+    ↓
+07-deployment.md (staging deployment)
+    ↓
+08-quality-assurance.md (comprehensive QA) ← YOU ARE HERE
+    ↓
+release-management.md (staged production rollout)
+    ↓
+Production (v1.x+1.x deployed)
+    ↓
+[LOOP CONTINUES INFINITELY]
+```
+
+---
+
+### Route 3: Major Version Development State
+
+**Condition**: `lifecycle_state = "major_version_development"` (v2.0.0, v3.0.0, etc.)
+
+**After QA Passes** → **release-management.md** → **Production vX.0.0** → **Transition to continuous_development**:
+
+1. **Major Release Management**:
+   - More cautious rollout strategy
+   - Extended monitoring periods
+   - Migration guide published
+   - Backward compatibility warnings
+
+2. **Production Deployment (vX.0.0)**:
+   - Canary: 5% traffic → 24 hours monitoring
+   - Gradual: 25% → 48 hours monitoring
+   - Full: 100% → 7 days close monitoring
+   - User migration support active
+
+3. **State Transition After Major Release**:
+   - Update `.memory/project-state.json`:
+     - `current_version: "2.0.0"` (or v3.0.0, etc.)
+     - `lifecycle_state: "continuous_development"` ← **STATE TRANSITION**
+   - Update `.memory/version-history.md` with vX.0.0 release
+   - Document breaking changes and migration
+
+4. **Return to Continuous Development**:
+   - After major version stable
+   - pm-orchestrator routes to: `09-continuous-development.md`
+   - Now developing v2.x.x releases (MINOR and PATCH)
+   - Infinite loop continues for v2.x.x lifecycle
+
+---
+
+### Quality Gate Enforcement
+
+**Before Routing to Release**:
+
+quality-controller performs **final validation**:
+
+```yaml
+final_quality_gate:
+  e2e_testing:
+    status: PASS
+    coverage: ">90%"
+    critical_paths: "100%"
+
+  performance:
+    core_web_vitals: GREEN
+    lighthouse_scores: ">90"
+    api_response_time: "<200ms p95"
+
+  accessibility:
+    wcag_compliance: "AA"
+    keyboard_navigation: PASS
+    screen_reader: COMPATIBLE
+
+  security:
+    critical_vulnerabilities: 0
+    high_vulnerabilities: 0
+    security_headers: CONFIGURED
+
+  cross_browser:
+    chrome: COMPATIBLE
+    firefox: COMPATIBLE
+    safari: COMPATIBLE
+    edge: COMPATIBLE
+
+  code_quality:
+    typescript_coverage: ">95%"
+    test_coverage_backend: ">80%"
+    test_coverage_frontend: ">70%"
+    linting_errors: 0
+```
+
+**If ANY criterion fails**: QA workflow does NOT complete. Return to implementation or issue remediation.
+
+**If ALL criteria pass**: Proceed to release management or production launch based on lifecycle state.
+
+---
+
+### Memory System Updates Before Routing
+
+pm-orchestrator ensures `.memory/` files are up-to-date:
+
+**Required Updates**:
+1. **`.memory/project-state.json`**:
+   - Update `current_phase: "release"`
+   - Update `active_workflow: "release-management.md"` (or direct launch for v1.0.0)
+   - Update `current_version` (pending release)
+
+2. **`.memory/version-history.md`**:
+   - Add new version entry with release notes
+   - Document all changes (Added/Changed/Fixed/Security/Performance)
+
+3. **`.memory/active-context.md`**:
+   - Clear current work
+   - Update status: "Ready for release"
+
+4. **Quality Metrics**:
+   - Update `.memory/test-coverage.md` (QA skill)
+   - Update `.memory/quality-metrics.md` (QA skill)
+   - Record final QA results
+
+---
+
+### Decision Matrix
+
+| Lifecycle State | After QA Passes | Next Workflow | Version Example | Loop Behavior |
+|----------------|-----------------|---------------|-----------------|---------------|
+| initial_development | Production launch v1.0.0 | Transition to continuous_development → 09-continuous-development.md | v0.9.5 → v1.0.0 | Loop starts after v1.0.0 |
+| continuous_development | release-management.md | 09-continuous-development.md | v1.2.4 → v1.2.5 (PATCH) or v1.2.0 → v1.3.0 (MINOR) | Infinite loop |
+| major_version_development | release-management.md | Transition to continuous_development → 09-continuous-development.md | v1.8.3 → v2.0.0 | New loop for v2.x.x |
+
+---
+
+### Automatic Routing
+
+**pm-orchestrator automatically determines routing**:
+
+```javascript
+// Pseudocode for pm-orchestrator routing logic
+const projectState = readJSON('.memory/project-state.json')
+const lifecycleState = projectState.lifecycle_state
+const currentVersion = projectState.current_version
+
+if (lifecycleState === 'initial_development') {
+  // First-time production launch
+  deployToProduction()
+  updateVersion('1.0.0')
+  transitionState('continuous_development')
+  initializeContinuousDevelopmentMemory()
+  routeTo('09-continuous-development.md')
+}
+else if (lifecycleState === 'continuous_development') {
+  // Ongoing MINOR/PATCH releases
+  routeTo('release-management.md')
+  // After release-management.md completes, it routes back to 09-continuous-development.md
+}
+else if (lifecycleState === 'major_version_development') {
+  // Major version release
+  routeTo('release-management.md')
+  // After major release stable, transition to continuous_development
+  transitionState('continuous_development')
+  routeTo('09-continuous-development.md')
+}
+```
+
+---
+
+### Post-QA Communication
+
+**For Continuous Development** (infinite loop):
+
+"Quality Assurance PASSED ✅
+
+**Ready for Release**: v{current_version} → v{next_version}
+
+**Next Step**: Routing to release-management.md for staged production rollout.
+
+After deployment, the system will return to 09-continuous-development.md for the next work item.
+
+**Continuous Development Cycle**: This release is part of the ongoing development loop. After production deployment and monitoring, we'll continue with the next feature, bug fix, or improvement."
+
+---
+
+**For Initial Development** (v1.0.0 launch):
+
+"Quality Assurance PASSED ✅
+
+**Ready for Production Launch**: v1.0.0 🎉
+
+**Next Step**: Final preparation and production deployment.
+
+After successful launch, the system will transition to **continuous_development state** and begin the infinite improvement loop via 09-continuous-development.md."
+
+---
+
+**For Major Version** (v2.0.0, v3.0.0):
+
+"Quality Assurance PASSED ✅
+
+**Ready for Major Release**: v{old_major}.x.x → v{new_major}.0.0
+
+**Next Step**: Routing to release-management.md with extended monitoring periods.
+
+After major version is stable, the system will transition back to **continuous_development state** for v{new_major}.x.x development cycle."
 
 ## Common Issues and Resolutions
 

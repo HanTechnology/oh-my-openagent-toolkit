@@ -352,9 +352,25 @@ Update memory after each major milestone by coordinating with memory-manager ski
 
 Execute workflows by reading the corresponding file from `workflows/` directory and following the detailed phase instructions.
 
-### Workflow Execution Order
+### Lifecycle State Machine
+
+The system operates as a state machine with three lifecycle states:
+
+**Lifecycle States**:
+1. **initial_development**: v1.0 development (workflows 01→08, one-time)
+2. **continuous_development**: Post-v1.0 iterative development (workflow 09 + sub-workflows, infinite loop)
+3. **major_version_development**: Major architecture changes (v2.0, v3.0 - revisit foundational workflows)
+
+**State Transitions**:
+- New project → **initial_development** (starts at 01-requirements-analysis.md)
+- 08-quality-assurance.md completes v1.0 → **continuous_development** (transitions to 09-continuous-development.md)
+- Major version planned (v2.0) → **major_version_development** (re-executes 03-architecture-design.md)
+- Major version deployed → **continuous_development** (returns to 09-continuous-development.md)
+
+### Workflow Execution Order - Initial Development (v1.0)
 
 ```
+[INITIAL DEVELOPMENT - One Time for v1.0]
 START
   ↓
 ┌─────────────────────────────────────────┐
@@ -382,6 +398,7 @@ START
 │ frontend-nextjs executes autonomously   │
 │ backend-nestjs executes autonomously    │
 │ backend-fastapi executes autonomously   │
+│ mobile-react-native executes autonomously│
 └─────────────────────────────────────────┘
   ↓
 ┌─────────────────────────────────────────┐
@@ -402,8 +419,188 @@ START
 │ 08-quality-assurance.md                 │  Primary: qa-testing
 └─────────────────────────────────────────┘
   ↓
-COMPLETE
+┌─────────────────────────────────────────┐
+│ Phase 8: Release Management             │
+├─────────────────────────────────────────┤
+│ release-management.md                   │  Primary: pm-orchestrator
+└─────────────────────────────────────────┘
+  ↓
+v1.0 PRODUCTION
+  ↓
+[TRANSITION TO CONTINUOUS DEVELOPMENT]
 ```
+
+### Workflow Execution Order - Continuous Development (v1.1+)
+
+```
+[CONTINUOUS DEVELOPMENT - Infinite Loop]
+
+     ┌─────────────────────────────────────────┐
+     │    Production (v1.0, v1.1, v1.2...)    │
+     └─────────────────────────────────────────┘
+                        ↓
+     ┌─────────────────────────────────────────┐
+     │   09-continuous-development.md          │
+     │   (Monitoring & Work Item Triage)       │
+     ├─────────────────────────────────────────┤
+     │ - Production monitoring                 │
+     │ - User feedback collection              │
+     │ - Work item prioritization              │
+     │ - Version planning (MAJOR/MINOR/PATCH)  │
+     │ - Route to appropriate sub-workflow     │
+     └─────────────────────────────────────────┘
+                        ↓
+     ┌─────────────────────────────────────────┐
+     │   Sub-Workflow Selection                │
+     ├─────────────────────────────────────────┤
+     │ → workflows/continuous/feature-development.md (MINOR)
+     │ → workflows/continuous/bug-fix.md (PATCH)
+     │ → workflows/continuous/hotfix.md (CRITICAL PATCH)
+     │ → workflows/continuous/enhancement.md (MINOR/PATCH)
+     │ → workflows/continuous/refactoring.md (PATCH)
+     │ → workflows/continuous/performance-optimization.md (PATCH)
+     │ → workflows/continuous/security-patch.md (PATCH)
+     │ → workflows/continuous/version-upgrade.md (PATCH)
+     │
+     │ Special: MAJOR version → 03-architecture-design.md
+     └─────────────────────────────────────────┘
+                        ↓
+     ┌─────────────────────────────────────────┐
+     │   Sub-Workflow Execution                │
+     │   (Implementation + Testing)            │
+     └─────────────────────────────────────────┘
+                        ↓
+     ┌─────────────────────────────────────────┐
+     │   06-integration.md                     │
+     │   (Integration Testing)                 │
+     └─────────────────────────────────────────┘
+                        ↓
+     ┌─────────────────────────────────────────┐
+     │   07-deployment.md                      │
+     │   (Staging Deployment)                  │
+     └─────────────────────────────────────────┘
+                        ↓
+     ┌─────────────────────────────────────────┐
+     │   08-quality-assurance.md               │
+     │   (Quality Gates)                       │
+     └─────────────────────────────────────────┘
+                        ↓
+     ┌─────────────────────────────────────────┐
+     │   release-management.md                 │
+     │   (Production Release)                  │
+     ├─────────────────────────────────────────┤
+     │ - Version bump (MAJOR/MINOR/PATCH)      │
+     │ - Changelog generation                  │
+     │ - Production deployment                 │
+     │ - Post-release verification             │
+     └─────────────────────────────────────────┘
+                        ↓
+     ┌─────────────────────────────────────────┐
+     │    Production (v1.1, v1.2, v1.3...)    │
+     └─────────────────────────────────────────┘
+                        ↓
+          [LOOP BACK TO 09-continuous-development.md]
+```
+
+### State Machine Routing Logic
+
+**pm-orchestrator operates as an intelligent router** based on project lifecycle state.
+
+**Session Initialization Pattern**:
+
+1. **New Project** (no .memory/project-state.json):
+   ```
+   User: "Create a Next.js todo app"
+   → pm-orchestrator invoked
+   → No project state found
+   → Initialize: lifecycle_state = "initial_development"
+   → Route to: 01-requirements-analysis.md
+   ```
+
+2. **Existing Project - Resume Initial Development**:
+   ```
+   User: "Continue working on my project"
+   → pm-orchestrator invoked
+   → Read .memory/project-state.json
+   → lifecycle_state = "initial_development"
+   → currentPhase = "architecture_design"
+   → Route to: 03-architecture-design.md (resume)
+   ```
+
+3. **Existing Project - Continuous Development**:
+   ```
+   User: "Add email notifications to my app"
+   → pm-orchestrator invoked
+   → Read .memory/project-state.json
+   → lifecycle_state = "continuous_development"
+   → version.current = "1.2.3"
+   → Route to: 09-continuous-development.md
+   → 09 analyzes request → routes to feature-development.md
+   ```
+
+4. **Production Hotfix Request**:
+   ```
+   User: "Production is down - fix immediately!"
+   → pm-orchestrator invoked
+   → Read .memory/project-state.json
+   → lifecycle_state = "continuous_development"
+   → Critical priority detected
+   → Route to: 09-continuous-development.md
+   → 09 routes to: hotfix.md (expedited)
+   ```
+
+**Routing Decision Tree**:
+
+```
+pm-orchestrator invoked
+    ↓
+Read .memory/project-state.json
+    ↓
+┌──────────────────────────────────────┐
+│ lifecycle_state?                     │
+├──────────────────────────────────────┤
+│ → initial_development                │
+│   - Route to current workflow        │
+│   - Follow 01→08 sequence            │
+│   - On 08 complete: Transition to    │
+│     continuous_development           │
+├──────────────────────────────────────┤
+│ → continuous_development             │
+│   - Route to 09-continuous-development.md
+│   - 09 analyzes work type            │
+│   - 09 routes to sub-workflow        │
+│   - Sub-workflow → 06→07→08→release  │
+│   - Loop back to 09                  │
+├──────────────────────────────────────┤
+│ → major_version_development          │
+│   - Route to 03-architecture-design.md
+│   - After architecture: transition   │
+│     to continuous_development        │
+│   - Proceed with v2.0 development    │
+└──────────────────────────────────────┘
+```
+
+**Version Management Integration**:
+
+pm-orchestrator enforces semantic versioning:
+
+- **MAJOR version (v2.0.0)**: Breaking changes
+  - Detected when: Architecture redesign needed, breaking API changes
+  - Action: Transition to major_version_development state
+  - Route to: 03-architecture-design.md
+  - After completion: Return to continuous_development with v2.0.0
+
+- **MINOR version (v1.3.0)**: New features
+  - Detected when: User requests new feature, roadmap feature planned
+  - Action: Stay in continuous_development
+  - Route to: 09-continuous-development.md → feature-development.md
+  - Version bump: Update version.next_planned to v1.3.0
+
+- **PATCH version (v1.2.4)**: Bug fixes, security patches
+  - Detected when: Bug reported, security vulnerability found
+  - Action: Stay in continuous_development
+  - Route to: 09-continuous-development.md → bug-fix.md or hotfix.md
+  - Version bump: Update version.next_planned to v1.2.4
 
 ### How to Use Workflows
 
