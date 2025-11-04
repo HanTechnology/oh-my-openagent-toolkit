@@ -2,13 +2,13 @@
 
 **Complete Application Lifecycle Automation**
 
-13 autonomous AI skills that build your v1.0.0, then continuously evolve it with features, bug fixes, performance optimizations, and major version upgrades—all with zero confirmations.
+14 autonomous AI skills that build your v1.0.0, then continuously evolve it with features, bug fixes, performance optimizations, and major version upgrades—all with zero confirmations.
 
 **From idea → v1.0.0 → v1.x.x → v2.0.0 → ∞**
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-blue.svg)](https://claude.ai/claude-code)
-[![Skills](https://img.shields.io/badge/Skills-13-brightgreen.svg)](.claude/skills/)
+[![Skills](https://img.shields.io/badge/Skills-14-brightgreen.svg)](.claude/skills/)
 [![Lifecycle States](https://img.shields.io/badge/Lifecycle%20States-3-purple.svg)](.claude/CLAUDE.md)
 [![Workflows](https://img.shields.io/badge/Workflows-9%20core%20%2B%208%20continuous-blue.svg)](.claude/skills/pm-orchestrator/workflows/)
 [![Automation](https://img.shields.io/badge/Automation-100%25-success.svg)](CLAUDE.md)
@@ -92,7 +92,7 @@ Every complex decision uses **Sequential Thinking MCP** for systematic analysis:
 
 | Category | Metric | Value |
 |----------|--------|-------|
-| **System Scale** | Total Skills | 13 (4 infrastructure + 9 domain) |
+| **System Scale** | Total Skills | 14 (4 infrastructure + 10 domain) |
 | | Project Types Supported | 6 (web, AI/ML, mobile, API, data, desktop) |
 | | Lifecycle States | 3 (initial → continuous → major version) |
 | | Core Workflows | 9 (foundational + pipeline + support) |
@@ -155,8 +155,8 @@ v1.0.0 Released to Production ✅
 **Result**: Complete, tested, deployed application in 10-60 minutes
 
 **Workflows Used**:
-- 01-goal-and-scope
-- 02-requirements-analysis
+- 01-requirements-analysis
+- 02-research-analysis
 - 03-architecture-design
 - [Implementation Phase]
 - 06-integration
@@ -499,6 +499,7 @@ PostgreSQL database, and comprehensive documentation"
 
 **Domain Skills** (Contextually Invoked):
 - **frontend-nextjs**: Next.js 15.5+ with App Router, Tailwind CSS 4.1+, Shadcn/ui, TypeScript strict
+- **mobile-react-native**: Cross-platform mobile app development (iOS/Android) with React Native and Expo
 - **backend-nestjs**: NestJS with TypeScript, PostgreSQL, TypeORM, JWT auth, OpenAPI documentation
 - **backend-fastapi**: FastAPI with Python async, Pydantic v2, SQLAlchemy, JWT auth, OpenAPI automatic
 - **fullstack-integration**: End-to-end system architecture, API contracts, type-safe integration
@@ -918,7 +919,7 @@ Agentic Dev AI Team uses a **4-Tier Hybrid Circular Architecture** that combines
 │                    TIER 1: FOUNDATIONAL                         │
 │            (Linear - One-time or Major Versions)                │
 │                                                                 │
-│  01-goal-and-scope → 02-requirements → 03-architecture → [04]  │
+│  01-requirements → 02-research → 03-architecture → [04-system] │
 │                                                                 │
 │  Used: initial_development, major_version_development states   │
 └─────────────────────────────────────────────────────────────────┘
@@ -968,11 +969,11 @@ Agentic Dev AI Team uses a **4-Tier Hybrid Circular Architecture** that combines
 ```
 User Request
     ↓
-TIER 1 (Foundational): 01 → 02 → 03 → [04 if AI/ML]
+TIER 1 (Foundational): 01-requirements-analysis → 02-research-analysis → 03-architecture-design → [04-system-development if AI/ML]
     ↓
 Implementation (Frontend, Backend, Tests)
     ↓
-TIER 2 (Pipeline): 06 → 07 → 08
+TIER 2 (Pipeline): 06-integration → 07-deployment → 08-quality-assurance
     ↓
 TIER 4 (Support): release-management
     ↓
@@ -1006,11 +1007,11 @@ Breaking Changes Needed
     ↓
 State Transition: continuous → major_version
     ↓
-TIER 1 (Re-Architecture): 01 → 02 → 03
+TIER 1 (Re-Architecture): 01-requirements-analysis → 02-research-analysis → 03-architecture-design
     ↓
 Implementation (with Breaking Changes)
     ↓
-TIER 2 (Pipeline): 06 → 07 → 08
+TIER 2 (Pipeline): 06-integration → 07-deployment → 08-quality-assurance
     ↓
 TIER 4: release-management + Migration Guide
     ↓
@@ -1096,11 +1097,11 @@ User Request: "Create a Next.js todo app with authentication"
 │ Phase 4: TASK START (immediate)                        │
 │ ┌──────────────────────────────────────────────────┐   │
 │ │ pm-orchestrator begins:                          │   │
-│ │ workflows/01-goal-and-scope.md                   │   │
-│ │ → Establish project goals                        │   │
+│ │ workflows/01-requirements-analysis.md            │   │
+│ │ → Gather requirements                            │   │
 │ │ → Define success criteria                        │   │
 │ │ → Set quality gates (quality-controller)         │   │
-│ │ → Move to 02-requirements-analysis.md            │   │
+│ │ → Move to 02-research-analysis.md                │   │
 │ └──────────────────────────────────────────────────┘   │
 └────────────────────────────────────────────────────────┘
      ↓
@@ -1459,8 +1460,8 @@ Breaking Changes Analysis
 State Transition (continuous → major_version)
     ↓
 TIER 1 Foundational Workflows (Re-Architecture)
-    01-goal-and-scope (OAuth 2.0 requirements, migration plan)
-    02-requirements-analysis (Provider comparison, backward compat)
+    01-requirements-analysis (OAuth 2.0 requirements, migration plan)
+    02-research-analysis (Provider comparison, backward compat)
     03-architecture-design (OAuth flow, token management, migration strategy)
     ↓
 Implementation
@@ -1702,8 +1703,8 @@ Resume TIER 3 Continuous Development for v2.x.x ♾️
 **Core Workflows** (9 total):
 
 *Tier 1: Foundational (Linear)*:
-- [01-goal-and-scope.md](.claude/skills/pm-orchestrator/workflows/01-goal-and-scope.md)
-- [02-requirements-analysis.md](.claude/skills/pm-orchestrator/workflows/02-requirements-analysis.md)
+- [01-requirements-analysis.md](.claude/skills/pm-orchestrator/workflows/01-requirements-analysis.md)
+- [02-research-analysis.md](.claude/skills/pm-orchestrator/workflows/02-research-analysis.md)
 - [03-architecture-design.md](.claude/skills/pm-orchestrator/workflows/03-architecture-design.md)
 - [04-system-development.md](.claude/skills/pm-orchestrator/workflows/04-system-development.md) (conditional: AI/ML, GPU, Video)
 
@@ -1876,7 +1877,7 @@ cp .claude/settings.json ~/.claude/
 ### Current Version: 1.0 (Complete Lifecycle Support) ✅
 
 **Active Features**:
-- ✅ 13 autonomous skills (4 infrastructure + 9 domain)
+- ✅ 14 autonomous skills (4 infrastructure + 10 domain)
 - ✅ 3 lifecycle states (initial → continuous → major version)
 - ✅ Hybrid Circular Model (4-tier workflow architecture)
 - ✅ Deep Thinking Protocol (Category A-D with Sequential Thinking MCP)
@@ -2108,6 +2109,6 @@ This skills-based architecture represents a novel approach to AI-driven developm
 
 **Ready to build production-ready applications with complete lifecycle management and zero confirmations?**
 
-Install the skills, describe your project to Claude, and watch as 13 autonomous AI skills collaborate to deliver complete, tested, deployed applications—then continuously evolve them with features, optimizations, and major version upgrades!
+Install the skills, describe your project to Claude, and watch as 14 autonomous AI skills collaborate to deliver complete, tested, deployed applications—then continuously evolve them with features, optimizations, and major version upgrades!
 
 **From idea → v1.0.0 → v1.x.x → v2.0.0 → ∞**
