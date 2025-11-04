@@ -2,14 +2,14 @@
 
 **Claude Code Specialized Guidelines for Skills-Based Development System**
 
-> **System Architecture**: 13 autonomous skills with contextual invocation
+> **System Architecture**: 14 autonomous skills with contextual invocation
 > **Powered by**: Hans(HanTaek) Lim - Transformed for Claude Code Agent Skills
 
 ---
 
 ## System Overview
 
-This is an autonomous development system consisting of 13 specialized skills that work together through contextual invocation. Unlike traditional explicit-signal-based systems, skills are automatically invoked by Claude based on context matching.
+This is an autonomous development system consisting of 14 specialized skills that work together through contextual invocation. Unlike traditional explicit-signal-based systems, skills are automatically invoked by Claude based on context matching.
 
 ### Core Architecture Principles
 
@@ -21,7 +21,7 @@ This is an autonomous development system consisting of 13 specialized skills tha
 
 **Skills Organization**:
 - **4 Infrastructure Skills**: pm-orchestrator, project-detector, memory-manager, quality-controller
-- **9 Domain Skills**: frontend-nextjs, backend-nestjs, backend-fastapi, fullstack-integration, systemdev-specialist, devops-deployment, qa-testing, research-analysis, mcp-tools-orchestrator
+- **10 Domain Skills**: frontend-nextjs, mobile-react-native, backend-nestjs, backend-fastapi, fullstack-integration, systemdev-specialist, devops-deployment, qa-testing, research-analysis, mcp-tools-orchestrator
 
 ---
 
@@ -67,7 +67,7 @@ This is an autonomous development system consisting of 13 specialized skills tha
 2. **Skill Team by Project Type**:
    - **Web Application**: frontend-nextjs, backend-nestjs OR backend-fastapi, fullstack-integration, qa-testing, devops-deployment
    - **AI/ML System**: systemdev-specialist, research-analysis, backend-nestjs OR backend-fastapi, qa-testing
-   - **Mobile App**: frontend-nextjs, backend-nestjs OR backend-fastapi, devops-deployment, qa-testing
+   - **Mobile App**: mobile-react-native, backend-nestjs OR backend-fastapi, fullstack-integration, devops-deployment, qa-testing
    - **API Service**: backend-nestjs OR backend-fastapi, fullstack-integration, devops-deployment, qa-testing
    - **Data Processing**: systemdev-specialist, backend-nestjs OR backend-fastapi, research-analysis, devops-deployment
    - **Desktop App**: frontend-nextjs, systemdev-specialist, devops-deployment, qa-testing
@@ -102,7 +102,7 @@ This is an autonomous development system consisting of 13 specialized skills tha
 2. **Project-Type-Specific Files**:
    - **Web App**: ui-components.md, api-endpoints.md, user-flows.md, performance-targets.md
    - **AI/ML**: model-architecture.md, data-pipeline.md, training-requirements.md, performance-metrics.md
-   - **Mobile**: platform-requirements.md, performance-targets.md
+   - **Mobile**: platform-requirements.md (iOS/Android versions, device support), performance-targets.md (startup time, memory, fps), app-store-metadata.md (descriptions, screenshots), native-modules.md (custom native code tracking)
    - **API**: service-architecture.md, endpoint-specifications.md
    - **Data**: data-flow-architecture.md, processing-pipeline.md
    - **Desktop**: platform-integration.md, ui-framework.md
@@ -113,6 +113,7 @@ This is an autonomous development system consisting of 13 specialized skills tha
    - Research: research-findings.md, technology-analysis.md, market-analysis.md, risk-assessment.md
    - SystemDev: system-performance.md, gpu-optimization.md, infrastructure-scaling.md
    - Frontend: component-library.md, design-system.md, ui-patterns.md
+   - Mobile: component-library.md (reusable mobile components), navigation-structure.md (screen hierarchy), platform-integration.md (native module usage), performance-metrics.md (app metrics)
    - Backend: api-documentation.md, database-schema.md, service-architecture.md
    - Fullstack: integration-architecture.md, system-design.md, technology-stack.md
    - MCP: tool-usage-optimization.md, automation-workflows.md, integration-patterns.md
@@ -334,6 +335,7 @@ Skills with complex technical implementations:
 | Skill | Why STRONGLY RECOMMENDED |
 |-------|--------------------------|
 | **frontend-nextjs** | React patterns, performance optimization complex; simple CRUD straightforward |
+| **mobile-react-native** | Navigation architecture, native modules, performance optimization complex; simple screens straightforward |
 | **backend-nestjs** | DI patterns, microservices complex; standard REST endpoints straightforward |
 | **backend-fastapi** | Async architecture, high-performance design complex; basic endpoints straightforward |
 | **devops-deployment** | Security, scaling strategies complex; basic deployment standardized |
@@ -899,6 +901,15 @@ pip install fastapi uvicorn
 # Create project structure programmatically via Write tool
 ```
 
+**React Native / Expo** (mobile-react-native):
+```bash
+# CORRECT: Non-interactive with --template and --yes flags
+npx create-expo-app@latest project-name --template blank-typescript --yes
+
+# WRONG: Interactive (prompts for template selection)
+❌ npx create-expo-app@latest project-name
+```
+
 **General Rule**: If a framework has a CLI initialization tool, research and use its non-interactive flags via Context7 MCP before executing.
 
 #### Rationale
@@ -942,6 +953,21 @@ Interactive prompts require human intervention, which:
 - ✅ **Security**: Passwords with bcrypt, JWT secrets in environment only
 - ✅ **Docker**: Exec-form CMD for graceful shutdown (CRITICAL)
 - ✅ **Testing**: pytest with httpx.AsyncClient, 80%+ coverage
+
+### Mobile Development (mobile-react-native)
+
+**CRITICAL RULES**:
+- ❌ **NO EMOJIS**: Anywhere in code, UI, or messages
+- ✅ **TypeScript Strict**: Always enabled (TypeScript 5.x+)
+- ✅ **React Native 0.82+**: New Architecture (Fabric + TurboModules + JSI)
+- ✅ **Hermes Engine**: Mandatory JavaScript engine
+- ✅ **Platform Guidelines**: iOS HIG + Android Material Design compliance
+- ✅ **Type-Safe Navigation**: Typed routes and navigation params
+- ✅ **Performance**: Cold start <3s, warm start <1s, 60fps UI, memory <150MB
+- ✅ **Testing**: Jest + React Native Testing Library + Detox
+- ✅ **EAS Build**: For app store builds (not manual Xcode/Android Studio)
+- ✅ **Security**: Secure storage for sensitive data, HTTPS only, no hardcoded secrets
+- ✅ **Accessibility**: Screen reader support, minimum touch targets 44x44pt/48x48dp
 
 ### Testing (qa-testing)
 

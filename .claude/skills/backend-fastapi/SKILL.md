@@ -548,7 +548,8 @@ This skill provides comprehensive production-ready examples:
 
 **Related Skills**:
 - **fullstack-integration**: System architecture and API contract design
-- **frontend-nextjs**: Frontend API consumption and integration
+- **frontend-nextjs**: Frontend API consumption and integration (web)
+- **mobile-react-native**: Mobile API consumption and integration (iOS/Android)
 - **systemdev-specialist**: AI/ML model serving and scientific computing
 - **devops-deployment**: Docker, uvicorn, and production deployment
 - **qa-testing**: Testing strategy and quality validation

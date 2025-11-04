@@ -231,7 +231,7 @@ When starting a new project:
 - Based on detected project type, coordinate required skills:
   - **web_application**: frontend-nextjs, backend-nestjs, fullstack-integration, qa-testing, devops-deployment
   - **ai_ml_system**: systemdev-specialist, research-analysis, backend-nestjs, qa-testing
-  - **mobile_application**: frontend-nextjs (React Native), backend-nestjs, devops-deployment, qa-testing
+  - **mobile_application**: mobile-react-native, backend-nestjs OR backend-fastapi, fullstack-integration, devops-deployment, qa-testing
   - **api_microservice**: backend-nestjs, fullstack-integration, devops-deployment, qa-testing
   - **data_processing_system**: systemdev-specialist, backend-nestjs, research-analysis, devops-deployment
   - **desktop_application**: frontend-nextjs, systemdev-specialist, devops-deployment, qa-testing

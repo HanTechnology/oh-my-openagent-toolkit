@@ -207,8 +207,10 @@ Creates comprehensive architecture documentation in:
 ## Related Skills
 
 - **pm-orchestrator**: Strategic architecture decisions
-- **frontend-nextjs**: Frontend integration patterns
+- **frontend-nextjs**: Frontend integration patterns (web)
+- **mobile-react-native**: Mobile integration patterns (iOS/Android)
 - **backend-nestjs**: Backend architecture validation
+- **backend-fastapi**: Async backend architecture
 - **systemdev-specialist**: Complex system integration
 - **devops-deployment**: Deployment architecture
 - **qa-testing**: Integration testing strategy

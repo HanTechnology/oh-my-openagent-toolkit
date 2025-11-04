@@ -437,7 +437,8 @@ Coordinate with **quality-controller** skill to validate:
 
 ## Related Skills
 
-- **frontend-nextjs**: API integration client
+- **frontend-nextjs**: API integration client (web)
+- **mobile-react-native**: API integration client (mobile)
 - **fullstack-integration**: System architecture
 - **qa-testing**: API testing
 - **quality-controller**: Code quality validation

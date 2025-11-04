@@ -179,8 +179,10 @@ Works closely with **quality-controller** skill:
 ## Related Skills
 
 - **quality-controller**: Quality standards enforcement
-- **frontend-nextjs**: UI component testing
+- **frontend-nextjs**: UI component testing (web)
+- **mobile-react-native**: Mobile app testing (Jest, RNTL, Detox)
 - **backend-nestjs**: API endpoint testing
+- **backend-fastapi**: Async API testing
 - **devops-deployment**: Production testing
 - **pm-orchestrator**: Test planning coordination
 

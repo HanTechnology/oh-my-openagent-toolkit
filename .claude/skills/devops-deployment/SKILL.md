@@ -240,7 +240,9 @@ volumes:
 - **qa-testing**: Pre-deployment validation
 - **quality-controller**: Production readiness checks
 - **backend-nestjs**: Backend deployment
-- **frontend-nextjs**: Frontend deployment
+- **backend-fastapi**: Python backend deployment
+- **frontend-nextjs**: Frontend deployment (web)
+- **mobile-react-native**: Mobile deployment (EAS Build, app stores)
 
 ## Examples
 
