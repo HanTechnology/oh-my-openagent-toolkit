@@ -27,140 +27,14 @@ This is an autonomous development system consisting of 14 specialized skills tha
 
 ## PHASE 1-4 Project Initialization Protocol
 
-### PHASE 1: Project Type Detection (AUTO-TRIGGERED)
+**4-Phase Automatic Initialization** (user provides description → production-ready system):
 
-**When**: User provides initial project description
-**Primary Skill**: project-detector
-**Process**:
-
-1. **Keyword Analysis**:
-   - Extract keywords from user request (lowercase conversion)
-   - Match against 6 project types: web_application, ai_ml_system, mobile_application, api_microservice, data_processing_system, desktop_application
-
-2. **Scoring Algorithm**:
-   - Keywords: 40 points
-   - Frameworks: 35 points
-   - Technologies: 25 points
-   - Minimum threshold: 30 points
-
-3. **Type Selection**:
-   - Highest scoring type selected
-   - Fallback to web_application if score < 30
-
-4. **Skill Recommendations**:
-   - project-detector outputs recommended skills based on detected type
-   - pm-orchestrator receives recommendations
-
-**Output**: "Project type: {type} (score: {score}/100), Recommended skills: {skills}"
-
-### PHASE 2: Skill Team Assembly (AUTO-COORDINATED)
-
-**When**: Immediately after project detection
-**Primary Skill**: pm-orchestrator
-**Process**:
-
-1. **Skill Activation**:
-   - pm-orchestrator mentions recommended skills in natural language
-   - Example: "The frontend-nextjs skill will handle UI development"
-   - Claude automatically invokes mentioned skills
-
-2. **Skill Team by Project Type**:
-   - **Web Application**: frontend-nextjs, backend-nestjs OR backend-fastapi, fullstack-integration, qa-testing, devops-deployment
-   - **AI/ML System**: systemdev-specialist, research-analysis, backend-nestjs OR backend-fastapi, qa-testing
-   - **Mobile App**: mobile-react-native, backend-nestjs OR backend-fastapi, fullstack-integration, devops-deployment, qa-testing
-   - **API Service**: backend-nestjs OR backend-fastapi, fullstack-integration, devops-deployment, qa-testing
-   - **Data Processing**: systemdev-specialist, backend-nestjs OR backend-fastapi, research-analysis, devops-deployment
-   - **Desktop App**: frontend-nextjs, systemdev-specialist, devops-deployment, qa-testing
-
-   **Backend Selection Criteria**:
-   - **backend-nestjs**: TypeScript full-stack, enterprise architecture, Angular-style DI, GraphQL primary
-   - **backend-fastapi**: Python ecosystem, AI/ML integration, async performance, scientific computing
-
-3. **Coordination Matrix**:
-   - All skills remain available throughout project lifecycle
-   - Skills can mention each other for collaboration
-   - pm-orchestrator maintains overall coordination
-
-**Output**: "Activated skills: {skill_list}"
-
-### PHASE 3: Memory System Initialization (AUTO-EXECUTED)
-
-**When**: After team assembly
-**Primary Skill**: memory-manager
-**Process**:
-
-1. **Memory Structure Creation**:
-   - Create `.memory/` directory
-   - Initialize core memory files:
-     - active-context.md (current project status)
-     - decisions.md (decision history)
-     - collaboration.log.md (skill coordination)
-     - project-state.json (comprehensive metrics)
-     - session-history.json (session continuity)
-     - artifacts.manifest.json (generated files tracking)
-
-2. **Project-Type-Specific Files**:
-   - **Web App**: ui-components.md, api-endpoints.md, user-flows.md, performance-targets.md
-   - **AI/ML**: model-architecture.md, data-pipeline.md, training-requirements.md, performance-metrics.md
-   - **Mobile**: platform-requirements.md (iOS/Android versions, device support), performance-targets.md (startup time, memory, fps), app-store-metadata.md (descriptions, screenshots), native-modules.md (custom native code tracking)
-   - **API**: service-architecture.md, endpoint-specifications.md
-   - **Data**: data-flow-architecture.md, processing-pipeline.md
-   - **Desktop**: platform-integration.md, ui-framework.md
-
-3. **Skill-Specific Memory**:
-   - QA: test-coverage.md, quality-metrics.md, security-testing.md, performance-validation.md
-   - DevOps: deployment-config.md, infrastructure-state.md, ci-cd-workflows.md, monitoring-metrics.md
-   - Research: research-findings.md, technology-analysis.md, market-analysis.md, risk-assessment.md
-   - SystemDev: system-performance.md, gpu-optimization.md, infrastructure-scaling.md
-   - Frontend: component-library.md, design-system.md, ui-patterns.md
-   - Mobile: component-library.md (reusable mobile components), navigation-structure.md (screen hierarchy), platform-integration.md (native module usage), performance-metrics.md (app metrics)
-   - Backend: api-documentation.md, database-schema.md, service-architecture.md
-   - Fullstack: integration-architecture.md, system-design.md, technology-stack.md
-   - MCP: tool-usage-optimization.md, automation-workflows.md, integration-patterns.md
-
-4. **Logging System Initialization**:
-   - Create `.logs/` directory structure:
-     - sessions/ (session-level logs)
-     - skills/ (skill activity logs)
-     - collaboration/ (cross-skill coordination)
-     - quality/ (quality metrics evolution)
-     - performance/ (performance tracking)
-     - errors/ (error logs)
-     - system/ (system events)
-
-5. **Memory-Logging Integration**:
-   - Configure automatic triggers: memory updates → log entries
-   - Set up feedback mechanisms: log analysis → memory optimization
-   - Activate hybrid complementary system
-
-**Output**: "Memory system initialized for {project_type}"
-
-### PHASE 4: First Task Initiation (AUTO-STARTED)
-
-**When**: After memory initialization
-**Primary Skill**: pm-orchestrator
-**Process**:
-
-1. **Workflow Selection**:
-   - pm-orchestrator references workflows/ directory
-   - Selects first workflow: typically "01-requirements-analysis.md"
-
-2. **Task Execution**:
-   - pm-orchestrator (or designated skill) begins task
-   - Follows workflow steps from workflows/ directory
-   - Updates memory system throughout execution
-
-3. **Quality Standards Setup**:
-   - pm-orchestrator mentions quality-controller
-   - quality-controller establishes project-type-specific standards
-   - Quality gates configured for continuous validation
-
-4. **Progress Tracking**:
-   - Real-time updates to .memory/active-context.md
-   - Collaboration logged in .memory/collaboration.log.md
-   - Metrics tracked in .memory/project-state.json
-
-**Output**: "Starting {task_name} workflow"
+| Phase | Skill | Process | Output |
+|-------|-------|---------|--------|
+| **1: Type Detection** | project-detector | Keyword analysis (40pts) + frameworks (35pts) + tech (25pts) → 6 types: web/AI-ML/mobile/API/data/desktop (threshold: 30) | "Project type: {type} (score/100), Skills: {list}" |
+| **2: Team Assembly** | pm-orchestrator | Natural language skill mentions → auto-invoke. **Teams**: Web (frontend+backend+fullstack+QA+devops), AI/ML (systemdev+research+backend+QA), Mobile (mobile-rn+backend+fullstack+devops+QA), API (backend+fullstack+devops+QA), Data (systemdev+backend+research+devops), Desktop (frontend+systemdev+devops+QA). **Backend**: nestjs (TS/enterprise/DI/GraphQL) vs fastapi (Python/AI-ML/async) | "Activated: {skills}" |
+| **3: Memory Init** | memory-manager | Create `.memory/` (6 core files: active-context, decisions, collaboration.log, project-state.json, session-history.json, artifacts.manifest.json) + project-type files (Web: ui-components/api-endpoints/user-flows/performance; AI/ML: model-architecture/data-pipeline/training/metrics; Mobile: platform-req/performance/app-store/native-modules; API: service-arch/endpoints; Data: data-flow/processing; Desktop: platform-integration/ui-framework) + skill-specific (QA: test-coverage/quality/security/performance; DevOps: deployment/infrastructure/ci-cd/monitoring; Research: findings/tech-analysis/market/risk; SystemDev: performance/gpu/scaling; Frontend: components/design-system/patterns; Backend: api-docs/db-schema/service-arch; Fullstack: integration-arch/system-design/tech-stack; MCP: tool-optimization/automation/integration). Init `.logs/` (sessions, skills, collaboration, quality, performance, errors, system) | "Memory init for {type}" |
+| **4: Task Start** | pm-orchestrator | Select workflow (typically 01-requirements-analysis.md) → execute → quality-controller sets standards → track in .memory/ | "Starting {task}" |
 
 ---
 
@@ -295,393 +169,123 @@ frontend-nextjs updates: .memory/component-library.md
 
 ## Deep Thinking Protocol
 
-### Protocol Overview
+**Purpose**: Systematic analysis for complex decisions using Sequential Thinking MCP + ultrathink mode. Ensures quality while maintaining Zero-Confirmation autonomy.
 
-This system implements a **Deep Thinking Protocol** combining Sequential Thinking MCP with Claude Code's ultrathink mode to ensure highest quality autonomous decisions. Based on extensive testing, this combination consistently produces superior results with 50-100% quality improvement and 40-60% bug reduction compared to standard analysis approaches.
-
-**Core Principle**: Complex decisions require systematic, multi-dimensional analysis before implementation. Deep Thinking Protocol provides structured methodology ensuring thorough evaluation while maintaining Zero-Confirmation autonomy.
-
-**Relationship to Zero-Confirmation Framework**: Deep Thinking Protocol IS the quality assurance mechanism for autonomous decisions. Skills make decisions independently (no user confirmation), but use Deep Thinking to ensure decision quality meets production standards.
-
-**Key Benefits**:
-- Reduced decision revision rate (<10% vs 30-40% baseline)
-- Higher first-time-right implementation rate (>70%)
-- Fewer post-production issues (-40-60% bugs)
-- Better long-term architecture (lower technical debt)
-- Faster overall time-to-production (despite upfront thinking time)
+**Key Results**: +50-100% quality improvement, -40-60% bugs, <10% decision revision rate (vs 30-40% baseline).
 
 ### Skill Categorization
 
-All 13 skills are categorized based on decision complexity and impact scope:
+| Category | Skills | When Required | Expected Impact |
+|----------|--------|---------------|-----------------|
+| **A: MANDATORY** | pm-orchestrator, systemdev-specialist, fullstack-integration, research-analysis, quality-controller | Strategic/architectural decisions, project-wide impact | +80-100% quality, -50-60% bugs |
+| **B: STRONGLY RECOMMENDED** | frontend-nextjs, mobile-react-native, backend-nestjs, backend-fastapi, devops-deployment | Complex technical implementations | +50-70% quality, -40-50% bugs |
+| **C: CONDITIONAL** | qa-testing, mcp-tools-orchestrator, project-detector | Complex scenarios only | +30-50% quality (when applied) |
+| **D: OPTIONAL** | memory-manager | Already structured CRUD operations | Minimal impact |
 
-#### Category A: MANDATORY Deep Thinking
+### Complexity Assessment
 
-Skills where complex strategic/architectural decisions are mission-critical:
+**7 Indicators** (determines if Deep Thinking required):
+1. Multiple valid approaches exist (2+ technically sound solutions)
+2. Long-term implications significant (affects project lifetime, high change cost)
+3. Cross-skill dependencies complex (multiple skills, coordination required)
+4. Performance critical (key success factor, hard to fix later)
+5. Security sensitive (breach has severe consequences)
+6. Novel problem domain (existing patterns don't apply)
+7. High cost of failure (wrong decision leads to project failure)
 
-| Skill | Why MANDATORY |
-|-------|---------------|
-| **pm-orchestrator** | Project-wide coordination, workflow management, strategic decisions affect entire project |
-| **systemdev-specialist** | AI/ML, GPU, video processing architectures require upfront optimization (no trial-and-error) |
-| **fullstack-integration** | System architecture decisions are hard to reverse, foundation for all implementation |
-| **research-analysis** | Technology selection and market strategy require thorough analysis |
-| **quality-controller** | Quality standards definition affects entire project quality assurance |
+**Decision Matrix**:
 
-**Expected Impact**: +80-100% quality improvement, -50-60% bug reduction
+| Indicators | Complexity | Requirement |
+|-----------|------------|-------------|
+| 3+ | Very High | MANDATORY |
+| 2 | High | STRONGLY RECOMMENDED |
+| 1 | Medium | CONDITIONAL |
+| 0 | Low | OPTIONAL (skip protocol) |
 
-#### Category B: STRONGLY RECOMMENDED
+**Examples**:
+- AI video platform architecture (4 indicators) → MANDATORY
+- OAuth/JWT auth system (2 indicators) → STRONGLY RECOMMENDED
+- Database query optimization (1 indicator) → CONDITIONAL
+- Basic CRUD endpoint (0 indicators) → OPTIONAL
 
-Skills with complex technical implementations:
+**Skip When**: Standard patterns, low-impact decisions, established conventions, prototyping, emergencies (act first, analyze within 48h).
 
-| Skill | Why STRONGLY RECOMMENDED |
-|-------|--------------------------|
-| **frontend-nextjs** | React patterns, performance optimization complex; simple CRUD straightforward |
-| **mobile-react-native** | Navigation architecture, native modules, performance optimization complex; simple screens straightforward |
-| **backend-nestjs** | DI patterns, microservices complex; standard REST endpoints straightforward |
-| **backend-fastapi** | Async architecture, high-performance design complex; basic endpoints straightforward |
-| **devops-deployment** | Security, scaling strategies complex; basic deployment standardized |
+### Standard Protocol (5 Phases)
 
-**Expected Impact**: +50-70% quality improvement, -40-50% bug reduction
+**Phase 1: Problem Framing** (1-2 thoughts)
+- Activate ultrathink mode
+- Define problem, constraints, success criteria
+- List knowns and critical unknowns
 
-#### Category C: CONDITIONAL
+**Phase 2: Alternative Generation** (2-4 thoughts)
+- Invoke Sequential Thinking MCP
+- Brainstorm 3-5 distinct approaches
+- For each: concept, pros/cons, complexity
+- Research with Context7 MCP if needed
 
-Skills where Deep Thinking needed only for complex scenarios:
+**Phase 3: Multi-Dimensional Evaluation** (3-6 thoughts)
+- Evaluate across: Technical feasibility, Performance, Maintainability, Security, Cost, Risk
+- Create evaluation matrix (1-5 scale per dimension)
+- Identify deal-breakers
 
-| Skill | When to Apply |
-|-------|---------------|
-| **qa-testing** | Complex test strategies, performance/security testing; standard tests follow patterns |
-| **mcp-tools-orchestrator** | Novel multi-tool coordination (3+ tools); single tool usage straightforward |
-| **project-detector** | Ambiguous/hybrid project types; clear types match patterns |
+**Phase 4: Decision Synthesis** (2-3 thoughts)
+- Select optimal solution
+- Justify with evidence
+- Acknowledge tradeoffs, plan for risks
 
-**Expected Impact**: +30-50% quality improvement for complex cases
+**Phase 5: Implementation Strategy** (2-4 thoughts)
+- Break into phases/milestones
+- Identify dependencies, validation checkpoints
+- Define monitoring/rollback strategy
 
-#### Category D: OPTIONAL
+**Thought Investment**: Very High (15-25) | High (10-15) | Medium (5-10) | Low (1-3 or skip)
 
-Skills with already structured operations:
+### Documentation
 
-| Skill | Why OPTIONAL |
-|-------|--------------|
-| **memory-manager** | Memory operations follow clear templates and file structures (mostly CRUD) |
+**Record in `.memory/decisions.md`**:
 
-**Note**: Each skill's SKILL.md provides specific Deep Thinking guidelines and examples for its domain.
+**Category A** (MANDATORY - Full Documentation):
+- Problem Statement, Alternatives Considered, Evaluation Criteria, Decision Made, Rationale, Tradeoffs, Risks & Mitigations
 
-### When to Apply Deep Thinking
-
-Use the **Complexity Indicators** to determine when Deep Thinking is required:
-
-#### 7 Complexity Indicators
-
-1. **Multiple Valid Approaches Exist**: 2+ technically sound solutions, requiring systematic evaluation
-2. **Long-term Implications Significant**: Decision affects project lifetime, high change cost
-3. **Cross-Skill Dependencies Complex**: Multiple skills involved, requires coordination
-4. **Performance Critical**: Performance is key success factor, issues hard to fix later
-5. **Security Sensitive**: Security breach has severe consequences, one mistake can compromise system
-6. **Novel Problem Domain**: New to team/system, existing patterns don't apply
-7. **High Cost of Failure**: Wrong decision leads to project failure, very difficult to reverse
-
-#### Task Complexity Matrix
-
-| Complexity Level | Indicators Present | Deep Thinking Requirement |
-|-----------------|-------------------|---------------------------|
-| **Very High** | 3+ indicators | MANDATORY |
-| **High** | 2 indicators | STRONGLY RECOMMENDED |
-| **Medium** | 1 indicator | CONDITIONAL |
-| **Low** | 0 indicators | OPTIONAL |
-
-#### Examples by Complexity Level
-
-**Very High Complexity** (3+ indicators - MANDATORY):
-```
-Task: "Design system architecture for AI-powered video processing platform"
-Indicators: Multiple approaches ✓, Long-term implications ✓, Performance critical ✓, Novel domain ✓
-Requirement: MANDATORY Deep Thinking
-```
-
-**High Complexity** (2 indicators - STRONGLY RECOMMENDED):
-```
-Task: "Implement authentication system with OAuth and JWT"
-Indicators: Long-term implications ✓, Security sensitive ✓
-Requirement: STRONGLY RECOMMENDED Deep Thinking
-```
-
-**Medium Complexity** (1 indicator - CONDITIONAL):
-```
-Task: "Optimize database query performance for user dashboard"
-Indicators: Performance critical ✓
-Requirement: CONDITIONAL Deep Thinking
-```
-
-**Low Complexity** (0 indicators - OPTIONAL):
-```
-Task: "Create basic CRUD endpoint for user profile"
-Indicators: None (standard pattern)
-Requirement: OPTIONAL (standard implementation sufficient)
-```
-
-#### When NOT to Use Deep Thinking
-
-- **Standard patterns** with established best practices
-- **Low-impact decisions** that are easily reversible
-- **Following existing** team conventions
-- **Exploratory prototyping** phase (exploration over optimization)
-- **Emergency situations** (production down - act first, analyze later within 48 hours)
-
-### How to Apply: Standard Protocol
-
-**5-Phase Deep Thinking Approach**
-
-All skills follow this standardized protocol when Deep Thinking is required:
-
-#### Phase 1: Problem Framing (1-2 thoughts)
-**Purpose**: Clear problem definition, constraints identification, success criteria
-
-**Steps**:
-1. Activate **ultrathink mode** in Claude Code
-2. State problem clearly and concisely
-3. Identify constraints (technical, business, time, resource)
-4. Define success criteria and metrics
-5. List known information and critical unknowns
-
-**Output**: Clear problem statement
-
-#### Phase 2: Alternative Generation (2-4 thoughts)
-**Purpose**: Identify all viable approaches, explore creative solutions
-
-**Steps**:
-1. Invoke **Sequential Thinking MCP** for systematic analysis
-2. Brainstorm 3-5 distinct approaches
-3. For each approach, outline:
-   - Core concept and key technologies
-   - Preliminary pros and cons
-   - Implementation complexity estimate
-4. Research best practices using Context7 MCP if needed
-
-**Output**: 3-5 documented alternatives
-
-#### Phase 3: Multi-Dimensional Evaluation (3-6 thoughts)
-**Purpose**: Systematic evaluation across critical dimensions
-
-**Evaluation Dimensions**:
-- **Technical Feasibility**: Implementation complexity, technology maturity, team expertise
-- **Performance**: Speed, scalability, resource usage
-- **Maintainability**: Code complexity, documentation, community support
-- **Security**: Vulnerability surface, compliance, best practices
-- **Cost**: Development time, infrastructure, maintenance
-- **Risk**: Failure probability, failure impact, mitigation options
-
-**Steps**:
-1. Create evaluation matrix
-2. Score each alternative (1-5 scale) per dimension
-3. Identify deal-breakers
-4. Apply weighted scoring if priorities clear
-
-**Output**: Detailed evaluation matrix
-
-#### Phase 4: Decision Synthesis (2-3 thoughts)
-**Purpose**: Select optimal solution with clear justification
-
-**Steps**:
-1. Compare evaluation results
-2. Consider project-specific priorities
-3. Identify recommended approach
-4. Justify decision with evidence
-5. Acknowledge tradeoffs explicitly
-6. Plan for identified risks
-
-**Output**: Clear decision with rationale
-
-#### Phase 5: Implementation Strategy (2-4 thoughts)
-**Purpose**: Actionable implementation plan
-
-**Steps**:
-1. Break down into phases/milestones
-2. Identify dependencies
-3. Plan validation checkpoints
-4. Document implementation guidelines
-5. Define monitoring/rollback strategy
-
-**Output**: Actionable implementation plan
-
-**Total Thought Investment by Complexity**:
-- Very High Complexity: 15-25 thoughts
-- High Complexity: 10-15 thoughts
-- Medium Complexity: 5-10 thoughts
-- Low Complexity: 1-3 thoughts (or skip protocol)
-
-#### Documentation Requirements
-
-After completing Deep Thinking, document in **`.memory/decisions.md`**:
-
-**Required Fields** (Category A - MANDATORY):
-1. **Problem Statement**: What was being decided
-2. **Alternatives Considered**: What options were evaluated
-3. **Evaluation Criteria**: What dimensions were assessed
-4. **Decision Made**: What was chosen
-5. **Rationale**: Why this choice was optimal
-6. **Tradeoffs**: What was sacrificed
-7. **Risks & Mitigations**: Known risks and mitigation plans
-
-**Simplified Fields** (Category B - STRONGLY RECOMMENDED):
+**Category B** (Simplified):
 - Problem, Decision, Rationale only
 
-**Example Documentation**:
+**Example**:
 ```markdown
-## Decision: 2025-01-15 - Authentication System Architecture
+## Decision: 2025-01-15 - Authentication System
+**Skill**: backend-nestjs | **Complexity**: High (2 indicators) | **Thinking**: 12 thoughts
 
-**Skill**: backend-nestjs
-**Complexity**: High (2 indicators: Long-term implications, Security sensitive)
-**Deep Thinking**: 12 thoughts via Sequential Thinking MCP
-
-**Problem**: Design authentication for multi-tenant SaaS platform
-
-**Alternatives Considered**:
-1. JWT with session storage
-2. OAuth 2.0 with external provider
-3. Custom token system with Redis
-
-**Evaluation**: [matrix with scores across 6 dimensions]
-
-**Decision**: JWT with session storage + OAuth fallback
-
-**Rationale**: Primary users prefer username/password (80%), OAuth needed
-for enterprise (20%). JWT provides security-simplicity balance.
-
-**Tradeoffs**: Maintaining two auth systems increases complexity, but better
-UX for majority while meeting enterprise requirements.
-
-**Risks & Mitigations**:
-- JWT secret compromise → Monthly rotation, short expiry
-- Session storage overhead → Redis with auto-cleanup
-
-**Implementation**: See workspace/backlog/auth-epic.yaml
+**Problem**: Multi-tenant SaaS auth design
+**Alternatives**: 1) JWT+session 2) OAuth external 3) Custom+Redis
+**Decision**: JWT+session + OAuth fallback
+**Rationale**: 80% users prefer username/password, 20% enterprise need OAuth
+**Tradeoffs**: Dual systems increase complexity, better UX for majority
+**Risks**: JWT compromise→monthly rotation; Session overhead→Redis auto-cleanup
 ```
 
-#### Adoption Strategy
+### Integration & Metrics
 
-**Progressive Implementation**: Start with Category A skills (MANDATORY), expand to Category B after 2 weeks, full system-wide adoption after 4 weeks.
+**System Integration**:
+- **Zero-Confirmation**: Deep Thinking executes automatically (no user approval)
+- **Quality Gates**: Pre-validation (Deep Thinking) + Post-validation (Quality Gates)
+- **Memory System**: All decisions documented in `.memory/decisions.md`, metrics tracked in `.memory/metrics.md`
+- **Workflows**: Applied at key points (01-requirements, 02-research MANDATORY, 03-architecture MANDATORY, 04-system ML MANDATORY, 06-integration, 07-deployment, 08-QA)
+- **MCP Tools**: Sequential Thinking MCP (primary), Context7 MCP (research), GitHub MCP (code patterns)
+- **Cross-Skill**: pm-orchestrator coordinates complex multi-skill Deep Thinking sessions
 
-**Learning Support**: Each skill's SKILL.md provides concrete examples, templates, and detailed guidelines for applying Deep Thinking Protocol in specific contexts.
+**Success Metrics** (tracked in `.memory/metrics.md`):
 
-### Integration with System Components
-
-Deep Thinking Protocol integrates seamlessly with existing system architecture:
-
-#### 1. Zero-Confirmation Decision Framework
-**Relationship**: Deep Thinking is the quality assurance mechanism for autonomous decisions
-
-- Maintains Zero-Confirmation principle: Deep Thinking executes automatically, no user approval needed
-- Each skill retains decision authority in its domain
-- Difference: Systematic analysis replaces simple heuristics
-
-#### 2. Quality Gate System
-**Relationship**: Pre-validation (Deep Thinking) + Post-validation (Quality Gates)
-
-- **Pre-Development**: Requirements clarity + Deep Thinking for architecture
-- **Development**: Code review + Continuous testing
-- **Pre-Deployment**: E2E tests + Deep Thinking for deployment strategy
-- **Post-Deployment**: Monitoring + Performance tracking
-
-Deep Thinking prevents quality issues; Quality Gates catch remaining issues.
-
-#### 3. Memory System
-**Relationship**: Decision transparency and session continuity
-
-- `.memory/decisions.md`: All Deep Thinking results documented
-- Session restoration: Previous decision rationale available
-- Learning: Historical decisions inform future choices
-- Metrics tracking: Decision outcomes measured in `.memory/metrics.md`
-
-#### 4. Workflow System
-**Relationship**: Deep Thinking applied at key decision points in workflows
-
-- **01-requirements-analysis.md**: Requirement prioritization, scope decisions
-- **02-research-analysis.md**: Technology evaluation (MANDATORY)
-- **03-architecture-design.md**: System architecture (MANDATORY), database design
-- **04-system-development.md**: ML model selection (if AI/ML - MANDATORY)
-- **Implementation Phase**: Complex component architecture
-- **06-integration.md**: Integration patterns
-- **07-deployment.md**: Infrastructure architecture, security strategy
-- **08-quality-assurance.md**: Test strategy design
-
-#### 5. MCP Tool Integration Strategy
-**Relationship**: Sequential Thinking MCP is core Deep Thinking tool
-
-- **Sequential Thinking MCP**: Primary tool for structured analysis
-- **Context7 MCP**: Supporting research during Deep Thinking
-- **GitHub MCP**: Code pattern research during Deep Thinking
-- All MCP tools used autonomously by skills during Deep Thinking process
-
-#### 6. Cross-Skill Coordination Patterns
-**Relationship**: pm-orchestrator leads complex cross-skill Deep Thinking
-
-- **Single-skill decisions**: Skill performs own Deep Thinking
-- **Cross-skill decisions**: pm-orchestrator coordinates unified Deep Thinking session
-- Prevents duplicate analysis across skills
-- Documented as cross-skill decision in `.memory/decisions.md`
-
-**Example**: Real-time collaboration feature architecture involves frontend, backend, and fullstack skills → pm-orchestrator leads unified Deep Thinking with all stakeholders.
-
-### Success Metrics
-
-Deep Thinking Protocol effectiveness is measured through comprehensive metrics tracked in **`.memory/metrics.md`**:
-
-#### Decision Quality Metrics
-
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **Decision Revision Rate** | <10% | % of decisions changed after initial choice (tracked in .memory/decisions.md) |
-| **Alternative Evaluation Coverage** | 3-5 alternatives | Avg number of alternatives evaluated per high-complexity decision |
-| **Rationale Completeness** | 100% | % of Category A decisions with complete documentation |
-
-**Baseline (without Deep Thinking)**: 30-40% revision rate, 1-2 alternatives, 40-50% completeness
-
-#### Implementation Quality Metrics
-
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **First-Time-Right Rate** | >70% | % of implementations reaching production without major refactoring |
-| **Bug Density Reduction** | -40% to -60% | Bugs per 1000 LOC compared to baseline |
-| **Performance Target Achievement** | >80% | % of performance-critical features meeting targets on first implementation |
-
-**Baseline**: 40-50% first-time-right, standard bug density, 50-60% performance target achievement
-
-#### Process Efficiency Metrics
-
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **Iteration Cycles** | 2-3 cycles | Avg iterations from requirements to completion |
-| **Technical Debt** | <50% of baseline | "TODO/FIXME/HACK" comments + known architectural issues |
-| **Time-to-Production** | 80-85% of baseline | Despite upfront thinking, reduced rework speeds overall delivery |
-
-**Baseline**: 4-6 iteration cycles, high technical debt, 100% time reference
-
-#### Tracking and Review
-
-- **Continuous Tracking**: Metrics updated throughout project in `.memory/metrics.md`
-- **Quality Gate Reviews**: Metrics reviewed at each Quality Gate checkpoint
-- **Continuous Improvement**: Patterns analyzed to refine categorization and guidelines
-- **Skill-specific Tuning**: Adjust MANDATORY vs RECOMMENDED based on outcomes
-
-**Example `.memory/metrics.md`**:
-```markdown
-# Deep Thinking Protocol Metrics
-
-## Decision Quality (Target: High)
-- Decision Revision Rate: 8% ✅ (Target: <10%)
-- Avg Alternatives Evaluated: 4.2 ✅ (Target: 3-5)
-- Rationale Completeness: 98% ✅ (Target: 100%)
-
-## Implementation Quality (Target: High)
-- First-Time-Right Rate: 75% ✅ (Target: >70%)
-- Bug Density: 0.5X baseline ✅ (Target: 0.4-0.6X)
-- Performance Achievement: 85% ✅ (Target: >80%)
-
-## Process Efficiency (Target: Optimal)
-- Avg Iteration Cycles: 2.5 ✅ (Target: 2-3)
-- Technical Debt: 40% of baseline ✅ (Target: <50%)
-- Time-to-Production: 82% ✅ (Target: 80-85%)
-
-Last Updated: 2025-01-15
-```
+| Category | Metric | Target | Baseline |
+|----------|--------|--------|----------|
+| **Decision Quality** | Revision Rate | <10% | 30-40% |
+| | Alternative Coverage | 3-5 alternatives | 1-2 |
+| | Rationale Completeness | 100% | 40-50% |
+| **Implementation** | First-Time-Right Rate | >70% | 40-50% |
+| | Bug Density Reduction | -40% to -60% | 0% |
+| | Performance Achievement | >80% | 50-60% |
+| **Process** | Iteration Cycles | 2-3 | 4-6 |
+| | Technical Debt | <50% baseline | 100% |
+| | Time-to-Production | 80-85% baseline | 100% |
 
 ---
 
@@ -856,134 +460,29 @@ quality-controller enforces standards from quality-standards.json:
 
 ## Mandatory Standards & Best Practices
 
-### Project Initialization (ALL Frameworks)
+**CRITICAL**: ALL initialization MUST be 100% non-interactive (maintains Zero-Confirmation autonomy). Interactive prompts break automation.
 
-**CRITICAL SYSTEM-WIDE POLICY**: All framework and project initialization MUST be 100% non-interactive to maintain Zero-Confirmation autonomy.
+### Non-Interactive Init Commands
 
-**Core Principle**: Interactive CLI prompts BREAK autonomous operation by requiring user input. This violates the Zero-Confirmation Decision Framework and prevents complete automation.
+| Framework | Correct Command |
+|-----------|----------------|
+| **Next.js** | `npx create-next-app@latest name --yes --typescript --tailwind --eslint --app --src-dir --use-npm` |
+| **NestJS** | `nest new name --package-manager npm --skip-git --language TS` |
+| **FastAPI** | `mkdir -p name/app && python -m venv venv && pip install fastapi uvicorn` (programmatic structure via Write) |
+| **Expo** | `npx create-expo-app@latest name --template blank-typescript --yes` |
 
-#### Non-Interactive Requirements
+**Rule**: Research non-interactive flags via Context7 MCP before executing. NO CLI prompts allowed.
 
-**MANDATORY for all skills**:
-- ✅ **Always use non-interactive flags** when initializing projects via CLI
-- ✅ **Never use interactive commands** that prompt for user input
-- ✅ **Specify all options explicitly** via command-line flags
-- ❌ **NEVER rely on prompts** for package manager, TypeScript, configuration choices
+### Framework Standards
 
-#### Framework-Specific Commands
-
-**Next.js** (frontend-nextjs):
-```bash
-# CORRECT: Non-interactive with --yes flag
-npx create-next-app@latest project-name --yes --typescript --tailwind --eslint --app --src-dir --use-npm
-
-# WRONG: Interactive (prompts for options)
-❌ npx create-next-app@latest project-name
-```
-
-**NestJS** (backend-nestjs):
-```bash
-# CORRECT: Non-interactive with --package-manager flag
-nest new project-name --package-manager npm --skip-git --language TS
-
-# WRONG: Interactive (prompts for package manager)
-❌ nest new project-name
-```
-
-**FastAPI** (backend-fastapi):
-```bash
-# CORRECT: Direct project structure creation (no CLI prompts)
-mkdir -p project-name/app && cd project-name
-python -m venv venv
-source venv/bin/activate  # or `venv\Scripts\activate` on Windows
-pip install fastapi uvicorn
-
-# Create project structure programmatically via Write tool
-```
-
-**React Native / Expo** (mobile-react-native):
-```bash
-# CORRECT: Non-interactive with --template and --yes flags
-npx create-expo-app@latest project-name --template blank-typescript --yes
-
-# WRONG: Interactive (prompts for template selection)
-❌ npx create-expo-app@latest project-name
-```
-
-**General Rule**: If a framework has a CLI initialization tool, research and use its non-interactive flags via Context7 MCP before executing.
-
-#### Rationale
-
-Interactive prompts require human intervention, which:
-1. Breaks Zero-Confirmation autonomy principle
-2. Prevents CI/CD automation
-3. Causes workflow interruptions
-4. Violates "Complete project delivery from user request to finished code" promise
-
-**Success Criteria**: User should NEVER see a CLI prompt during project initialization. All decisions must be made autonomously using best practices and explicit flags.
-
-### Frontend Development (frontend-nextjs)
-
-**CRITICAL RULES**:
-- ❌ **NO EMOJIS**: Anywhere in code or UI
-- ✅ **Lucide Icons ONLY**: No other icon libraries allowed
-- ✅ **TypeScript Strict**: Always enabled
-- ✅ **Tailwind CSS**: All styling (no inline styles)
-- ✅ **Shadcn/ui**: Component base
-- ✅ **App Router**: Next.js App Router only (not Pages Router)
-
-### Backend Development (backend-nestjs)
-
-**CRITICAL RULES**:
-- ❌ **NO EMOJIS**: In messages or API responses
-- ✅ **Text-Only**: All communication text-based
-- ✅ **TypeScript Strict**: Always enabled
-- ✅ **Validation**: All inputs validated (class-validator)
-- ✅ **Documentation**: OpenAPI/Swagger specs required
-
-### Backend Development (backend-fastapi)
-
-**CRITICAL RULES**:
-- ❌ **NO EMOJIS**: In messages or API responses
-- ✅ **Text-Only**: All communication text-based
-- ✅ **Type Hints**: 100% coverage with mypy strict mode
-- ✅ **Async-First**: All endpoints use async def
-- ✅ **Validation**: Pydantic v2 models for all inputs
-- ✅ **Documentation**: OpenAPI/Swagger automatic generation
-- ✅ **Security**: Passwords with bcrypt, JWT secrets in environment only
-- ✅ **Docker**: Exec-form CMD for graceful shutdown (CRITICAL)
-- ✅ **Testing**: pytest with httpx.AsyncClient, 80%+ coverage
-
-### Mobile Development (mobile-react-native)
-
-**CRITICAL RULES**:
-- ❌ **NO EMOJIS**: Anywhere in code, UI, or messages
-- ✅ **TypeScript Strict**: Always enabled (TypeScript 5.x+)
-- ✅ **React Native 0.82+**: New Architecture (Fabric + TurboModules + JSI)
-- ✅ **Hermes Engine**: Mandatory JavaScript engine
-- ✅ **Platform Guidelines**: iOS HIG + Android Material Design compliance
-- ✅ **Type-Safe Navigation**: Typed routes and navigation params
-- ✅ **Performance**: Cold start <3s, warm start <1s, 60fps UI, memory <150MB
-- ✅ **Testing**: Jest + React Native Testing Library + Detox
-- ✅ **EAS Build**: For app store builds (not manual Xcode/Android Studio)
-- ✅ **Security**: Secure storage for sensitive data, HTTPS only, no hardcoded secrets
-- ✅ **Accessibility**: Screen reader support, minimum touch targets 44x44pt/48x48dp
-
-### Testing (qa-testing)
-
-**CRITICAL RULES**:
-- ✅ **Playwright MCP ONLY**: No external testing packages
-- ✅ **WCAG 2.1 AA**: Accessibility compliance minimum
-- ✅ **Security**: Vulnerability scanning mandatory
-- ✅ **Cross-Browser**: Chrome, Firefox, Safari, Edge
-
-### Deployment (devops-deployment)
-
-**CRITICAL RULES**:
-- ✅ **Docker Latest**: Modern Docker standards compliance
-- ✅ **Compose V2**: Latest Docker Compose specification
-- ✅ **Automated Backups**: Before any production changes
-- ✅ **Health Checks**: All containers must have health checks
+| Framework | Critical Rules |
+|-----------|----------------|
+| **frontend-nextjs** | NO EMOJIS. Lucide Icons only. TypeScript strict. Tailwind CSS (no inline). Shadcn/ui. App Router only. |
+| **backend-nestjs** | NO EMOJIS. Text-only. TypeScript strict. class-validator. OpenAPI/Swagger required. |
+| **backend-fastapi** | NO EMOJIS. Text-only. mypy strict 100%. async def all endpoints. Pydantic v2. OpenAPI auto. bcrypt passwords. JWT env-only. Exec-form CMD. pytest+httpx.AsyncClient 80%+. |
+| **mobile-react-native** | NO EMOJIS. TypeScript 5+ strict. RN 0.82+ (Fabric+TurboModules+JSI). Hermes. HIG+Material Design. Type-safe navigation. Performance (cold <3s, warm <1s, 60fps, <150MB). Jest+RNTL+Detox. EAS Build. Secure storage, HTTPS, no hardcoded secrets. WCAG (screen reader, 44x44pt/48x48dp). |
+| **qa-testing** | Playwright MCP only. WCAG 2.1 AA. Vulnerability scanning. Cross-browser (Chrome/Firefox/Safari/Edge). |
+| **devops-deployment** | Docker latest. Compose V2. Automated backups. Health checks required. |
 
 ---
 
@@ -1160,70 +659,18 @@ Production (monitoring, feedback collection)
 
 ### Sub-Workflows (8 Types)
 
-All sub-workflows follow **8-phase pattern**:
+**All follow 8-phase pattern**: Analysis → Impact Assessment → Design → Implementation → Testing → Documentation → Memory Update → Integration Pipeline
 
-1. **Analysis/Assessment Phase**: Understand the work, complexity, impact
-2. **Impact Assessment/Research Phase**: Dependencies, risks, scope
-3. **Design/Planning Phase**: Solution design, implementation plan
-4. **Implementation Phase**: Code changes, guided by domain skills
-5. **Verification/Testing Phase**: Validation, quality checks
-6. **Documentation Phase**: Update docs, comments, changelog
-7. **Memory System Updates Phase**: Update .memory/ files with context
-8. **Return to Integration Pipeline Phase**: Hand off to 06-integration.md
-
-**Sub-Workflow Details**:
-
-**feature-development.md**:
-- New functionality that didn't exist before
-- Version: MINOR (v1.2.0 → v1.3.0)
-- Phases: Requirements → Design → Implementation → Testing → Docs → Memory → Integration
-- Example: "Add email notification system"
-
-**bug-fix.md**:
-- Fix functional defects in existing features
-- Version: PATCH (v1.2.3 → v1.2.4)
-- Phases: Reproduction → Root cause → Fix → Testing → Verification → Memory → Integration
-- Example: "Fix login timeout issue"
-
-**hotfix.md**:
-- CRITICAL production issues requiring immediate fix
-- Version: PATCH (v1.2.3 → v1.2.4)
-- Priority: Highest - expedited pipeline
-- Phases: Triage → Quick fix → Deploy → Monitor → Post-mortem → Memory → Integration
-- Example: "Database connection leak causing outages"
-
-**enhancement.md**:
-- Improve existing features without adding entirely new functionality
-- Version: MINOR (if significant value) or PATCH (if minor UX improvement)
-- Phases: UX Analysis → A/B Testing → Implementation → Validation → Docs → Memory → Integration
-- Example: "Improve search UX with better filtering"
-
-**refactoring.md**:
-- Code quality improvements with ZERO behavior changes
-- Version: PATCH (v1.2.3 → v1.2.4)
-- Critical Principle: If tests need modification, it's NOT refactoring
-- Phases: Test coverage → Refactor → Verify (tests unchanged) → Docs → Memory → Integration
-- Example: "Extract duplicated validation logic to shared utility"
-
-**performance-optimization.md**:
-- Speed, scalability, resource usage improvements
-- Version: MINOR (if significant improvement) or PATCH (if minor)
-- Phases: Baseline → Profile → Optimize → Verify improvement → Docs → Memory → Integration
-- Pattern: Requires quantifiable metrics (e.g., "Dashboard load time reduced from 3.2s to 1.8s - 44% improvement")
-- Example: "Optimize database queries for dashboard"
-
-**security-patch.md**:
-- CVE fixes, security vulnerability remediation
-- Version: PATCH (v1.2.3 → v1.2.4)
-- Priority: HIGH (CRITICAL issues use hotfix.md instead)
-- Phases: CVE analysis → Patch → Security testing → Disclosure → Docs → Memory → Integration
-- Example: "Fix SQL injection vulnerability in user search"
-
-**version-upgrade.md**:
-- Framework, language, or dependency major version upgrades
-- Version: PATCH (minor deps), MINOR (framework), or MAJOR (breaking changes)
-- Phases: Assessment → Research → Migration → Testing → Docs → Memory → Integration
-- Example: "Upgrade Next.js 13 → 14 (App Router migration)"
+| Workflow | Purpose | Version | Key Phases | Example |
+|----------|---------|---------|------------|---------|
+| **feature-development.md** | New functionality | MINOR | Requirements → Design → Implement → Test | "Add email notifications" |
+| **bug-fix.md** | Fix defects | PATCH | Reproduce → Root cause → Fix → Verify | "Fix login timeout" |
+| **hotfix.md** | CRITICAL prod issues | PATCH (expedited) | Triage → Quick fix → Deploy → Post-mortem | "DB connection leak" |
+| **enhancement.md** | Improve existing | MINOR/PATCH | UX analysis → A/B test → Implement | "Better search filters" |
+| **refactoring.md** | Code quality (NO behavior changes) | PATCH | Test coverage → Refactor → Verify (tests unchanged) | "Extract validation logic" |
+| **performance-optimization.md** | Speed/resource improvements | MINOR/PATCH | Baseline → Profile → Optimize → Verify (quantifiable) | "Dashboard 3.2s→1.8s" |
+| **security-patch.md** | CVE fixes | PATCH | CVE analysis → Patch → Security test | "Fix SQL injection" |
+| **version-upgrade.md** | Framework/dep upgrades | PATCH/MINOR/MAJOR | Assessment → Research → Migration → Test | "Next.js 13→14" |
 
 ### Release Management
 
@@ -1335,129 +782,37 @@ All files in `.memory/` directory:
 
 ### Workflow Routing Examples
 
-**Example 1: New Feature Request**
-```
-User: "Add dark mode to the application"
-→ lifecycle_state = continuous_development (v1.2.0 already released)
-→ pm-orchestrator invokes: 09-continuous-development.md
-→ Work type: Feature Development
-→ Route to: workflows/continuous/feature-development.md
-→ Version decision: MINOR (v1.2.0 → v1.3.0)
-→ Implementation by frontend-nextjs + backend-nestjs
-→ Return to: 06-integration.md → 07-deployment.md → 08-quality-assurance.md
-→ Release: release-management.md → Production v1.3.0
-→ Loop: Back to 09-continuous-development.md for next work
-```
+**Example 1: Feature** - "Add dark mode" → 09-continuous-development → feature-development.md → MINOR (v1.2.0→v1.3.0) → frontend+backend → 06→07→08 → release → v1.3.0
 
-**Example 2: Bug Fix**
-```
-User: "Login button doesn't work on mobile Safari"
-→ lifecycle_state = continuous_development
-→ pm-orchestrator invokes: 09-continuous-development.md
-→ Work type: Bug Fix
-→ Route to: workflows/continuous/bug-fix.md
-→ Version decision: PATCH (v1.3.2 → v1.3.3)
-→ Implementation by mobile-react-native
-→ Return to: 06-integration.md → 07-deployment.md → 08-quality-assurance.md
-→ Release: release-management.md → Production v1.3.3
-→ Loop: Back to 09-continuous-development.md
-```
+**Example 2: Hotfix** - "DB pool exhausted" → 09-continuous-development → hotfix.md (EXPEDITED) → PATCH (v1.3.3→v1.3.4) → backend fix → fast-track 06→07→08 → emergency deploy → v1.3.4 → post-mortem
 
-**Example 3: Critical Production Issue**
-```
-Monitoring Alert: "Database connection pool exhausted"
-→ lifecycle_state = continuous_development
-→ pm-orchestrator invokes: 09-continuous-development.md
-→ Work type: HOTFIX (CRITICAL severity)
-→ Route to: workflows/continuous/hotfix.md (EXPEDITED)
-→ Version decision: PATCH (v1.3.3 → v1.3.4)
-→ Immediate fix by backend-nestjs (increase pool size, add monitoring)
-→ Expedited pipeline: 06-integration.md (fast-tracked) → 07-deployment.md (immediate) → 08-quality-assurance.md (post-deployment validation)
-→ Release: release-management.md (emergency deployment) → Production v1.3.4
-→ Post-mortem: Document in .memory/incident-log.md
-→ Loop: Back to 09-continuous-development.md
-```
+**Example 3: Major Version** - "Redesign auth (breaking API)" → continuous_development → major_version_development state → 01→02→03→Implementation→06→07→08 → MAJOR (v1.8.3→v2.0.0) → v2.0.0 → continuous_development state
 
-**Example 4: Framework Upgrade**
-```
-User: "Upgrade Next.js 14 to Next.js 15"
-→ lifecycle_state = continuous_development
-→ pm-orchestrator invokes: 09-continuous-development.md
-→ Work type: Version Upgrade
-→ Route to: workflows/continuous/version-upgrade.md
-→ Version decision: MINOR (v1.4.2 → v1.5.0) - framework upgrade, some new features
-→ Implementation by frontend-nextjs (migration, breaking change fixes)
-→ Extensive testing: 06-integration.md → 07-deployment.md (staged rollout) → 08-quality-assurance.md (comprehensive QA)
-→ Release: release-management.md → Production v1.5.0
-→ Loop: Back to 09-continuous-development.md
-```
+### Quality Gates & Success Criteria
 
-**Example 5: Major Version (Breaking Changes)**
-```
-User: "Completely redesign authentication system with OAuth 2.0 (breaking existing API)"
-→ lifecycle_state = continuous_development
-→ pm-orchestrator analyzes: Breaking changes required
-→ State transition: continuous_development → major_version_development
-→ pm-orchestrator invokes: 01-requirements-analysis.md (re-architecture)
-→ Full foundational workflow: 01 → 02 → 03 → Implementation → 06 → 07 → 08
-→ Version: v1.8.3 → v2.0.0 (MAJOR version bump)
-→ Release: release-management.md → Production v2.0.0
-→ State transition: major_version_development → continuous_development
-→ Loop: Back to 09-continuous-development.md for v2.x.x development
-```
+**Quality Standards** (quality-controller enforced):
 
-### Quality Gates for Continuous Development
+| Stage | Requirements |
+|-------|--------------|
+| Pre-Development | Requirements clear, impact assessed, design documented |
+| Development | Code review pass, unit tests added, TypeScript strict pass |
+| Pre-Integration | All tests pass, no performance regressions, 0 new critical vulnerabilities |
+| Pre-Deployment | E2E pass, WCAG 2.1 AA, cross-browser, Core Web Vitals met |
+| Pre-Release | Canary success, error rate <1%, metrics stable, feedback positive |
 
-**Continuous Development Quality Standards**:
+**Success Metrics**:
 
-quality-controller enforces standards at each stage:
-
-**Pre-Development** (Phase 1 of sub-workflows):
-- Requirements clarity achieved
-- Impact assessment complete
-- Design documented
-
-**Development** (Phase 4 of sub-workflows):
-- Code review passing
-- Unit tests added/updated (maintain coverage targets)
-- Type checking passing (TypeScript strict mode)
-
-**Pre-Integration** (Phase 5 of sub-workflows):
-- All tests passing (unit + integration)
-- Performance benchmarks met (no regressions)
-- Security scan clean (0 new critical/high vulnerabilities)
-
-**Pre-Deployment** (08-quality-assurance.md):
-- E2E tests passing
-- Accessibility compliance (WCAG 2.1 AA)
-- Cross-browser testing complete
-- Performance validation (Core Web Vitals met)
-
-**Pre-Release** (release-management.md):
-- Canary deployment successful
-- Error rates within SLA (<1%)
-- Performance metrics stable
-- User feedback positive
-
-### Success Criteria
-
-**Continuous Development Metrics**:
-
-**Velocity**:
-- MINOR releases: Every 2-3 weeks
-- PATCH releases: Weekly or as needed
-- MAJOR releases: Every 3-6 months
-
-**Quality**:
-- Release rollback rate: <5%
-- Critical bugs per release: <2
-- Test coverage: Backend 80%+, Frontend 70%+
-- Performance: No regressions
-
-**Efficiency**:
-- Time from commit to production: <4 hours (for PATCH)
-- Time from feature start to release: <2 weeks (for MINOR)
-- Deployment success rate: >95%
+| Category | Metric | Target |
+|----------|--------|--------|
+| **Velocity** | MINOR releases | Every 2-3 weeks |
+| | PATCH releases | Weekly or as needed |
+| | MAJOR releases | Every 3-6 months |
+| **Quality** | Rollback rate | <5% |
+| | Critical bugs/release | <2 |
+| | Test coverage | Backend 80%+, Frontend 70%+ |
+| **Efficiency** | Commit→Production (PATCH) | <4 hours |
+| | Feature→Release (MINOR) | <2 weeks |
+| | Deployment success | >95% |
 
 ---
 
