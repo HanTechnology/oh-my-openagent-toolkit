@@ -179,6 +179,8 @@ Works closely with **quality-controller** skill:
 ## Related Skills
 
 - **quality-controller**: Quality standards enforcement
+- **database-specialist**: Database performance testing, query optimization validation
+- **security-specialist**: Security testing, vulnerability scanning, penetration testing
 - **frontend-nextjs**: UI component testing (web)
 - **mobile-react-native**: Mobile app testing (Jest, RNTL, Detox)
 - **backend-nestjs**: API endpoint testing
@@ -207,3 +209,22 @@ The following examples demonstrate comprehensive testing strategies using Playwr
 Each example demonstrates testing workflows using Playwright MCP tools coordinated with GitHub MCP for issue tracking and reporting.
 
 Refer to reference.md for complete QA testing guidelines.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Testing Standards](../ENTERPRISE-STANDARDS.md#testing-standards) - coverage targets, test naming, AAA pattern
+- [Code Conventions](../ENTERPRISE-STANDARDS.md#code-conventions) - test file naming
+- [Performance Standards](../ENTERPRISE-STANDARDS.md#performance-standards) - Core Web Vitals, API latency
+- [Accessibility Standards](../ENTERPRISE-STANDARDS.md#accessibility-standards) - WCAG 2.1 AA verification
+- [Git Conventions](../ENTERPRISE-STANDARDS.md#git-conventions) - test type commits
+
+**Domain-Specific Standards** (see Success Metrics section in this document):
+- Test coverage > 80% (critical paths)
+- Bug detection rate > 90% (pre-production)
+- Test reliability < 5% flakiness rate
+- Playwright MCP exclusive usage (E2E)

@@ -629,6 +629,117 @@ This skill includes:
 - **quality-controller**: Integrates quality metrics into memory system
 - All domain skills: Update their expert-specific memory files
 
+## Atomic Write Protocol (CRITICAL for Data Integrity)
+
+**Purpose**: Prevent data corruption during concurrent memory operations, especially when multiple skills write to memory files simultaneously.
+
+### Problem: Race Condition Risk
+
+When multiple skills update memory files concurrently:
+```
+Skill A reads .memory/active-context.md (v1)
+Skill B reads .memory/active-context.md (v1)
+Skill A writes changes → (v2)
+Skill B writes changes (based on v1) → OVERWRITES Skill A's changes!
+```
+
+### Solution: Atomic Write Pattern
+
+**MANDATORY for all memory file updates**:
+
+```bash
+# Atomic write pattern (temp file → fsync → rename)
+1. Write content to temporary file: .memory/.{filename}.tmp
+2. Call fsync() to ensure data is flushed to disk
+3. Atomic rename: mv .memory/.{filename}.tmp → .memory/{filename}
+4. Verify final file exists and is readable
+```
+
+### Implementation Protocol
+
+**For Claude Code Write/Edit Operations**:
+
+When updating any `.memory/` file, follow this sequence:
+
+1. **Read Current State**: Always read the latest version before modification
+2. **Compute Changes**: Merge your updates with current state
+3. **Write Atomically**: Use the pattern below
+
+**Atomic Write Sequence**:
+```
+# Step 1: Write to temporary file
+Write content to: .memory/.{original-filename}.tmp.{timestamp}
+
+# Step 2: Verify temporary file
+Read back .memory/.{original-filename}.tmp.{timestamp}
+Confirm content matches expected output
+
+# Step 3: Atomic rename (overwrite original)
+Rename .memory/.{original-filename}.tmp.{timestamp} → .memory/{original-filename}
+
+# Step 4: Cleanup on success
+Temporary file automatically replaced by rename
+```
+
+### Lock-Free Conflict Resolution
+
+**When parallel writes occur** (detected by timestamp comparison):
+
+1. **Optimistic Concurrency**: Assume no conflict, proceed with write
+2. **Post-Write Validation**: After atomic rename, verify expected state
+3. **Conflict Detection**: If final state != expected (another skill wrote):
+   - Re-read the current state
+   - Merge your changes with the new state
+   - Retry atomic write (max 3 retries)
+4. **Conflict Resolution**: If conflict persists after retries:
+   - Log conflict in `.logs/errors/memory-conflicts-{date}.log`
+   - Preserve both versions: `{filename}.conflict.{timestamp}`
+   - Alert pm-orchestrator for manual resolution
+
+### File-Level Granularity Guidelines
+
+**To minimize conflicts, use appropriate file granularity**:
+
+| Scenario | Recommendation |
+|----------|----------------|
+| High-frequency updates (active-context) | Single atomic file, frequent small updates |
+| Parallel skill updates | Separate files per skill domain |
+| Shared state (project-state.json) | Atomic JSON patches, not full rewrites |
+| Append-only data (collaboration.log) | Append-only writes with timestamps |
+
+### Memory File Update Categories
+
+**Category A: Single-Writer Files** (no atomic complexity needed):
+- `.memory/session-history.json` - memory-manager only
+- `.memory/artifacts.manifest.json` - memory-manager only
+
+**Category B: Multi-Writer Files** (MUST use atomic pattern):
+- `.memory/active-context.md` - All skills update
+- `.memory/decisions.md` - Multiple skills record decisions
+- `.memory/project-state.json` - Progress updates from many skills
+- `.memory/collaboration.log.md` - All skills log interactions
+
+**Category C: Append-Only Files** (atomic append, never overwrite):
+- `.logs/**/*.log` - Always append with timestamp, never modify existing
+
+### Validation Checklist
+
+Before completing any memory write operation, verify:
+- [ ] Read latest state before modification
+- [ ] Temporary file created successfully
+- [ ] Atomic rename completed
+- [ ] Final file readable and contains expected content
+- [ ] No `.tmp.*` files left behind (cleanup)
+
+### Error Recovery
+
+**If atomic write fails**:
+1. Check for leftover `.tmp` files → Clean up
+2. Verify original file still intact → Preserve
+3. Log failure in `.logs/errors/`
+4. Retry with fresh read (handle stale state)
+5. If persistent failure → Alert pm-orchestrator
+
 ## Memory Preservation Best Practices
 
 1. **Update Frequently**: Keep memory current, don't batch updates
@@ -637,3 +748,4 @@ This skill includes:
 4. **Maintain Relationships**: Link decisions to requirements and impacts
 5. **Preserve Context**: Include enough context for future restoration
 6. **Use Timestamps**: Always timestamp changes for historical analysis
+7. **Use Atomic Writes**: Follow atomic write protocol for all multi-writer files (CRITICAL)

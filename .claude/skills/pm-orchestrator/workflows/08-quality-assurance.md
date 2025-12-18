@@ -3,7 +3,7 @@
 ## Overview
 
 - **Primary Skill**: qa-testing
-- **Supporting Skills**: pm-orchestrator, quality-controller, frontend-nextjs, backend-nestjs
+- **Supporting Skills**: pm-orchestrator, quality-controller, frontend-nextjs, backend-nestjs, backend-fastapi, database-specialist, security-specialist
 - **Dependencies**: integration (must be complete), deployment (recommended)
 - **Parallel Execution**: Can start during deployment, comprehensive testing after deployment
 
@@ -193,7 +193,7 @@
 
 ### Phase 5: Security Testing
 
-**Objective**: Validate security implementation
+**Objective**: Validate security implementation (coordinate with **security-specialist**)
 
 **Actions**:
 1. **Authentication Security**:

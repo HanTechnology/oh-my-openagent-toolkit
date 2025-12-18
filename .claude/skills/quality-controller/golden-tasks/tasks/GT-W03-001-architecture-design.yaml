@@ -1,0 +1,103 @@
+# yaml-language-server: $schema=../golden-task.schema.json
+# Golden Task: Architecture Design Workflow
+# Tests 03-architecture-design workflow execution
+
+id: GT-W03-001
+name: Architecture Design Workflow
+version: "1.0.0"
+category: workflow
+description: |
+  Workflow test for 03-architecture-design.md.
+  Verifies that architecture design produces valid
+  integration architecture and API contracts.
+
+input:
+  user_prompt: "Design the architecture for an e-commerce platform"
+  project_type: web_application
+  initial_state:
+    # Simulates completion of requirements analysis
+    memory:
+      core/project.json:
+        schema_version: "2.0"
+        project:
+          name: "ecommerce-platform"
+          type: "web_application"
+        lifecycle:
+          state: "initial_development"
+      core/state.json:
+        schema_version: "2.0"
+        phase:
+          current: "architecture"
+          workflow: "03-architecture-design"
+        progress:
+          overall: 20
+          by_phase:
+            requirements: 100
+            research: 100
+            architecture: 0
+
+expectations:
+  skills_invoked:
+    - pm-orchestrator
+    - fullstack-integration
+  workflows_executed:
+    - 03-architecture-design
+  artifacts_created:
+    - workspace/docs/
+  memory_updates:
+    - .memory/core/state.json
+    - .memory/core/decisions.md
+    - .memory/domains/backend.md
+  quality_gates: {}
+
+validation:
+  required_outputs:
+    - path: .memory/domains/backend.md
+      type: file
+      contains:
+        - "## Architecture"
+        - "## API Endpoints"
+    
+    - path: .memory/core/decisions.md
+      type: file
+      contains:
+        - "## "  # At least one decision recorded
+    
+    - path: .memory/core/state.json
+      type: file
+
+  forbidden_outputs: []
+
+  content_checks:
+    - path: .memory/core/state.json
+      rule: json_schema
+      value:
+        type: object
+        properties:
+          phase:
+            type: object
+            properties:
+              current:
+                enum: ["architecture", "implementation"]
+          progress:
+            type: object
+            properties:
+              by_phase:
+                type: object
+                properties:
+                  architecture:
+                    minimum: 50
+      error_message: "Architecture phase not progressing correctly"
+    
+    - path: .memory/domains/backend.md
+      rule: contains
+      value: "Endpoints"
+      error_message: "API endpoints not documented"
+
+  timing_budget_ms: 60000  # 1 minute
+
+metadata:
+  created: 2025-01-15
+  last_run: null
+  pass_rate: null
+  avg_duration_ms: null

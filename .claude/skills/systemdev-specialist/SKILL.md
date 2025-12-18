@@ -265,3 +265,25 @@ The following examples demonstrate advanced system development patterns:
 Each example provides production-ready implementations for computationally intensive or specialized system requirements.
 
 Refer to reference.md for complete system development guidelines.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Code Conventions](../ENTERPRISE-STANDARDS.md#code-conventions) - TypeScript/Python naming, file structure
+- [Type Safety](../ENTERPRISE-STANDARDS.md#type-safety) - TypeScript strict, Python mypy strict
+- [Error Handling](../ENTERPRISE-STANDARDS.md#error-handling) - exception handling patterns
+- [Testing Standards](../ENTERPRISE-STANDARDS.md#testing-standards) - unit/integration tests
+- [Logging Standards](../ENTERPRISE-STANDARDS.md#logging-standards) - structured logging
+- [Git Conventions](../ENTERPRISE-STANDARDS.md#git-conventions) - branch naming, commit messages
+- [Documentation Standards](../ENTERPRISE-STANDARDS.md#documentation-standards) - code comments, API docs
+
+**Domain-Specific Standards**:
+- System-level performance optimization patterns
+- Worker Threads, Streams API usage
+- Large-scale data processing memory management
+- FFmpeg, media processing pipelines
+- GPU acceleration patterns (CUDA, WebGPU)

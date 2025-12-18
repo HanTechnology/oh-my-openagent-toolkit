@@ -2,14 +2,14 @@
 
 **Claude Code Specialized Guidelines for Skills-Based Development System**
 
-> **System Architecture**: 14 autonomous skills with contextual invocation
+> **System Architecture**: 16 autonomous skills with contextual invocation
 > **Powered by**: Hans(HanTaek) Lim - Transformed for Claude Code Agent Skills
 
 ---
 
 ## System Overview
 
-This is an autonomous development system consisting of 14 specialized skills that work together through contextual invocation. Unlike traditional explicit-signal-based systems, skills are automatically invoked by Claude based on context matching.
+This is an autonomous development system consisting of 16 specialized skills that work together through contextual invocation. Unlike traditional explicit-signal-based systems, skills are automatically invoked by Claude based on context matching.
 
 ### Core Architecture Principles
 
@@ -21,7 +21,7 @@ This is an autonomous development system consisting of 14 specialized skills tha
 
 **Skills Organization**:
 - **4 Infrastructure Skills**: pm-orchestrator, project-detector, memory-manager, quality-controller
-- **10 Domain Skills**: frontend-nextjs, mobile-react-native, backend-nestjs, backend-fastapi, fullstack-integration, systemdev-specialist, devops-deployment, qa-testing, research-analysis, mcp-tools-orchestrator
+- **12 Domain Skills**: frontend-nextjs, mobile-react-native, backend-nestjs, backend-fastapi, database-specialist, security-specialist, fullstack-integration, systemdev-specialist, devops-deployment, qa-testing, research-analysis, mcp-tools-orchestrator
 
 ---
 
@@ -32,7 +32,7 @@ This is an autonomous development system consisting of 14 specialized skills tha
 | Phase | Skill | Process | Output |
 |-------|-------|---------|--------|
 | **1: Type Detection** | project-detector | Keyword analysis (40pts) + frameworks (35pts) + tech (25pts) → 6 types: web/AI-ML/mobile/API/data/desktop (threshold: 30) | "Project type: {type} (score/100), Skills: {list}" |
-| **2: Team Assembly** | pm-orchestrator | Natural language skill mentions → auto-invoke. **Teams**: Web (frontend+backend+fullstack+QA+devops), AI/ML (systemdev+research+backend+QA), Mobile (mobile-rn+backend+fullstack+devops+QA), API (backend+fullstack+devops+QA), Data (systemdev+backend+research+devops), Desktop (frontend+systemdev+devops+QA). **Backend**: nestjs (TS/enterprise/DI/GraphQL) vs fastapi (Python/AI-ML/async) | "Activated: {skills}" |
+| **2: Team Assembly** | pm-orchestrator | Natural language skill mentions → auto-invoke. **Teams**: Web (frontend+backend+database+security+fullstack+QA+devops), AI/ML (systemdev+research+backend+database+QA), Mobile (mobile-rn+backend+database+security+fullstack+devops+QA), API (backend+database+security+fullstack+devops+QA), Data (systemdev+backend+database+research+devops), Desktop (frontend+systemdev+devops+QA). **Backend**: nestjs (TS/enterprise/DI/GraphQL) vs fastapi (Python/AI-ML/async). **Specialists**: database-specialist (schema, migrations, optimization) + security-specialist (auth, OWASP, encryption) | "Activated: {skills}" |
 | **3: Memory Init** | memory-manager | Create `.memory/` (6 core files: active-context, decisions, collaboration.log, project-state.json, session-history.json, artifacts.manifest.json) + project-type files (Web: ui-components/api-endpoints/user-flows/performance; AI/ML: model-architecture/data-pipeline/training/metrics; Mobile: platform-req/performance/app-store/native-modules; API: service-arch/endpoints; Data: data-flow/processing; Desktop: platform-integration/ui-framework) + skill-specific (QA: test-coverage/quality/security/performance; DevOps: deployment/infrastructure/ci-cd/monitoring; Research: findings/tech-analysis/market/risk; SystemDev: performance/gpu/scaling; Frontend: components/design-system/patterns; Backend: api-docs/db-schema/service-arch; Fullstack: integration-arch/system-design/tech-stack; MCP: tool-optimization/automation/integration). Init `.logs/` (sessions, skills, collaboration, quality, performance, errors, system) | "Memory init for {type}" |
 | **4: Task Start** | pm-orchestrator | Select workflow (typically 01-requirements-analysis.md) → execute → quality-controller sets standards → track in .memory/ | "Starting {task}" |
 
@@ -177,8 +177,8 @@ frontend-nextjs updates: .memory/component-library.md
 
 | Category | Skills | When Required | Expected Impact |
 |----------|--------|---------------|-----------------|
-| **A: MANDATORY** | pm-orchestrator, systemdev-specialist, fullstack-integration, research-analysis, quality-controller | Strategic/architectural decisions, project-wide impact | +80-100% quality, -50-60% bugs |
-| **B: STRONGLY RECOMMENDED** | frontend-nextjs, mobile-react-native, backend-nestjs, backend-fastapi, devops-deployment | Complex technical implementations | +50-70% quality, -40-50% bugs |
+| **A: MANDATORY** | pm-orchestrator, systemdev-specialist, fullstack-integration, research-analysis, quality-controller, database-specialist (for schema design), security-specialist (for auth architecture) | Strategic/architectural decisions, project-wide impact | +80-100% quality, -50-60% bugs |
+| **B: STRONGLY RECOMMENDED** | frontend-nextjs, mobile-react-native, backend-nestjs, backend-fastapi, devops-deployment, database-specialist (for optimization), security-specialist (for implementation) | Complex technical implementations | +50-70% quality, -40-50% bugs |
 | **C: CONDITIONAL** | qa-testing, mcp-tools-orchestrator, project-detector | Complex scenarios only | +30-50% quality (when applied) |
 | **D: OPTIONAL** | memory-manager | Already structured CRUD operations | Minimal impact |
 
@@ -562,6 +562,152 @@ initial_development → continuous_development → major_version_development
 - pm-orchestrator reads state on every session start
 - Determines which workflows to use
 
+### State Transition Checklists (CRITICAL)
+
+**These checklists MUST be verified before transitioning between lifecycle states.**
+
+#### Transition 1: initial_development → continuous_development
+
+**Trigger**: v1.0.0 successfully deployed to production
+
+**Pre-Transition Checklist** (ALL must be checked):
+```
+[ ] v1.0.0 deployed to production environment
+[ ] All critical quality gates passed (08-quality-assurance.md)
+[ ] 0 critical/high security vulnerabilities
+[ ] Core Web Vitals / performance targets met
+[ ] User authentication and authorization working
+[ ] Error monitoring configured (Sentry/similar)
+[ ] Production database seeded with initial data
+[ ] CI/CD pipeline operational
+[ ] Rollback procedure tested
+[ ] Basic documentation complete (README, API docs)
+```
+
+**Actions on Transition**:
+1. Update `.memory/project-state.json`:
+   ```json
+   {
+     "lifecycle_state": "continuous_development",
+     "current_version": "1.0.0",
+     "first_release_date": "[YYYY-MM-DD]"
+   }
+   ```
+2. Initialize continuous development memory files (memory-manager):
+   - `.memory/version-history.md` (init with v1.0.0 entry)
+   - `.memory/release-plan.md` (plan for v1.1.0)
+   - `.memory/production-metrics.md`
+   - `.memory/user-feedback.md`
+   - `.memory/technical-debt.md`
+   - `.memory/ci-cd-metrics.md`
+   - `.memory/incident-log.md`
+3. Update `.memory/active-context.md` with continuous development status
+4. Log transition in `.logs/system/state-transitions.log`
+
+**Post-Transition Validation**:
+```
+[ ] lifecycle_state = "continuous_development" in project-state.json
+[ ] All 7 continuous development memory files created
+[ ] Production monitoring showing data
+[ ] Ready to receive feature requests and bug reports
+```
+
+---
+
+#### Transition 2: continuous_development → major_version_development
+
+**Trigger**: Breaking changes required (API incompatibility, major redesign)
+
+**Pre-Transition Checklist** (ALL must be checked):
+```
+[ ] Breaking change necessity documented in .memory/decisions.md
+[ ] Current stable version tagged and documented
+[ ] Migration path outlined for existing users
+[ ] Stakeholder approval for breaking changes (if applicable)
+[ ] Technical debt assessment for major version
+[ ] Resource and timeline estimate for major version
+[ ] Backward compatibility strategy defined (deprecation period)
+```
+
+**Actions on Transition**:
+1. Update `.memory/project-state.json`:
+   ```json
+   {
+     "lifecycle_state": "major_version_development",
+     "previous_stable_version": "1.x.x",
+     "target_major_version": "2.0.0",
+     "major_version_reason": "[Description of breaking changes]"
+   }
+   ```
+2. Create `.memory/migration-guide.md` (draft)
+3. Archive current version documentation
+4. Return to foundational workflows (01-03)
+
+**Post-Transition Validation**:
+```
+[ ] lifecycle_state = "major_version_development" in project-state.json
+[ ] Breaking changes documented clearly
+[ ] Migration guide draft started
+[ ] Foundational workflow (01-03) ready to execute
+```
+
+---
+
+#### Transition 3: major_version_development → continuous_development
+
+**Trigger**: vX.0.0 (major version) successfully deployed to production
+
+**Pre-Transition Checklist** (ALL must be checked):
+```
+[ ] vX.0.0 deployed to production environment
+[ ] Migration guide complete and tested
+[ ] Deprecation notices sent to affected users (if applicable)
+[ ] All breaking changes documented in CHANGELOG
+[ ] Backward compatibility layer working (if provided)
+[ ] All critical quality gates passed
+[ ] Production monitoring showing stable metrics
+[ ] User migration support in place (if needed)
+```
+
+**Actions on Transition**:
+1. Update `.memory/project-state.json`:
+   ```json
+   {
+     "lifecycle_state": "continuous_development",
+     "current_version": "X.0.0",
+     "previous_major_version": "(X-1).y.z",
+     "major_release_date": "[YYYY-MM-DD]"
+   }
+   ```
+2. Update `.memory/version-history.md` with major version entry
+3. Reset `.memory/release-plan.md` for vX.1.0
+4. Archive migration guide to `/docs/migrations/`
+5. Return to 09-continuous-development.md workflow
+
+**Post-Transition Validation**:
+```
+[ ] lifecycle_state = "continuous_development" in project-state.json
+[ ] Major version entry in version-history.md
+[ ] Ready for continuous improvement cycle
+[ ] Migration support operational (if applicable)
+```
+
+---
+
+#### State Transition Logging
+
+All state transitions MUST be logged in `.logs/system/state-transitions.log`:
+
+```
+[YYYY-MM-DD HH:MM:SS] STATE_TRANSITION
+  From: initial_development
+  To: continuous_development
+  Trigger: v1.0.0 production deployment
+  Checklist: All 10 items verified
+  Memory Files Created: 7
+  Initiated By: pm-orchestrator
+```
+
 ### Hybrid Circular Architecture
 
 **Four-Tier Workflow System**:
@@ -893,4 +1039,17 @@ All files in `.memory/` directory:
 
 ---
 
-**Ready to Build**: All 13 skills configured and ready. Simply describe your project to Claude, and the skills will coordinate automatically to deliver production-ready code with ZERO user confirmations required.
+**Ready to Build**: All 16 skills configured and ready. Simply describe your project to Claude, and the skills will coordinate automatically to deliver production-ready code with ZERO user confirmations required.
+
+### Skill Summary (16 Total)
+
+**Infrastructure (4)**: pm-orchestrator, project-detector, memory-manager, quality-controller
+**Frontend/Mobile (2)**: frontend-nextjs, mobile-react-native
+**Backend (2)**: backend-nestjs, backend-fastapi
+**Data & Security (2)**: database-specialist, security-specialist
+**Architecture (1)**: fullstack-integration
+**Specialized (1)**: systemdev-specialist
+**Operations (1)**: devops-deployment
+**Quality (1)**: qa-testing
+**Research (1)**: research-analysis
+**Tools (1)**: mcp-tools-orchestrator

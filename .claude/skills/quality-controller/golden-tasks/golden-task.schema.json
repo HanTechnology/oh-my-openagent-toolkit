@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agentic-dev-ai-team/golden-task.schema.json",
+  "title": "Golden Task Definition",
+  "description": "Schema for Agentic Dev AI Team golden task test definitions",
+  "type": "object",
+  "required": ["id", "name", "version", "category", "description", "input", "expectations", "validation", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^GT-(S[0-9]{2}|W[0-9]{2}|I[0-9]{2}|E2E)-[0-9]{3}$",
+      "description": "Unique identifier (e.g., GT-E2E-001, GT-S01-001)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable task name"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Task version (semver)"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["skill_unit", "workflow", "integration", "e2e"],
+      "description": "Task category"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this task tests"
+    },
+    "input": {
+      "type": "object",
+      "required": ["user_prompt", "project_type"],
+      "properties": {
+        "user_prompt": {
+          "type": "string",
+          "description": "The user request that triggers the task"
+        },
+        "project_type": {
+          "type": "string",
+          "enum": ["web_application", "api_microservice", "mobile_application", "ai_ml_system", "cli_tool", "library"],
+          "description": "Expected project type detection"
+        },
+        "initial_state": {
+          "type": ["object", "null"],
+          "description": "Pre-existing memory state (if any)"
+        }
+      }
+    },
+    "expectations": {
+      "type": "object",
+      "properties": {
+        "skills_invoked": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Skills expected to be invoked"
+        },
+        "workflows_executed": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Workflows expected to run"
+        },
+        "artifacts_created": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Files/directories that should be created"
+        },
+        "memory_updates": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Memory files that should be updated"
+        },
+        "quality_gates": {
+          "type": "object",
+          "properties": {
+            "typescript_errors": { "type": "integer", "minimum": 0 },
+            "lint_errors": { "type": "integer", "minimum": 0 },
+            "test_coverage_min": { "type": "number", "minimum": 0, "maximum": 100 },
+            "lighthouse_performance_min": { "type": "number", "minimum": 0, "maximum": 100 },
+            "security_critical": { "type": "integer", "minimum": 0 },
+            "security_high": { "type": "integer", "minimum": 0 },
+            "no_emojis": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "required_outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "type"],
+            "properties": {
+              "path": { "type": "string" },
+              "type": { "type": "string", "enum": ["file", "directory"] },
+              "min_size_bytes": { "type": ["integer", "null"] },
+              "max_size_bytes": { "type": ["integer", "null"] },
+              "contains": {
+                "type": ["array", "null"],
+                "items": { "type": "string" }
+              },
+              "not_contains": {
+                "type": ["array", "null"],
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "forbidden_outputs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "content_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "rule"],
+            "properties": {
+              "path": { "type": "string" },
+              "rule": {
+                "type": "string",
+                "enum": ["regex", "contains", "json_schema", "typescript_valid", "no_emojis"]
+              },
+              "value": {},
+              "error_message": { "type": "string" }
+            }
+          }
+        },
+        "timing_budget_ms": {
+          "type": "integer",
+          "minimum": 1000,
+          "description": "Maximum execution time in milliseconds"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["created"],
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date",
+          "description": "Creation date"
+        },
+        "last_run": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "pass_rate": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "avg_duration_ms": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

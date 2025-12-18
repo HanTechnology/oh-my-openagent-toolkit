@@ -1,0 +1,117 @@
+# yaml-language-server: $schema=../golden-task.schema.json
+# Golden Task: Create Todo App (Web Application)
+# Tests full web application creation flow
+
+id: GT-E2E-001
+name: Create Todo App (Web Application)
+version: "1.0.0"
+category: e2e
+description: |
+  End-to-end test of web application creation.
+  Validates project detection, team assembly, memory initialization,
+  architecture design, and implementation scaffolding.
+
+input:
+  user_prompt: "Create a simple todo app with user authentication"
+  project_type: web_application
+  initial_state: null
+
+expectations:
+  skills_invoked:
+    - pm-orchestrator
+    - project-detector
+    - memory-manager
+    - frontend-nextjs
+    - backend-nestjs
+    - fullstack-integration
+    - quality-controller
+  workflows_executed:
+    - 01-requirements-analysis
+    - 03-architecture-design
+  artifacts_created:
+    - workspace/frontend/
+    - workspace/backend/
+    - .memory/
+  memory_updates:
+    - .memory/core/project.json
+    - .memory/core/state.json
+    - .memory/core/decisions.md
+    - .memory/domains/frontend.md
+    - .memory/domains/backend.md
+  quality_gates:
+    typescript_errors: 0
+    lint_errors: 0
+    no_emojis: true
+
+validation:
+  required_outputs:
+    # Frontend structure
+    - path: workspace/frontend/package.json
+      type: file
+      contains:
+        - "next"
+        - "typescript"
+        - "tailwindcss"
+    - path: workspace/frontend/tsconfig.json
+      type: file
+    - path: workspace/frontend/src/app/
+      type: directory
+    
+    # Backend structure
+    - path: workspace/backend/package.json
+      type: file
+      contains:
+        - "@nestjs/core"
+        - "typescript"
+    - path: workspace/backend/tsconfig.json
+      type: file
+    - path: workspace/backend/src/
+      type: directory
+    
+    # Memory files
+    - path: .memory/core/project.json
+      type: file
+    - path: .memory/core/state.json
+      type: file
+
+  forbidden_outputs:
+    - workspace/frontend/src/**/*.js  # Should be TypeScript only
+    - workspace/backend/src/**/*.js   # Should be TypeScript only
+
+  content_checks:
+    - path: workspace/frontend/package.json
+      rule: no_emojis
+      error_message: "Emojis not allowed in code"
+    
+    - path: .memory/core/project.json
+      rule: json_schema
+      value:
+        type: object
+        required:
+          - schema_version
+          - project
+          - lifecycle
+        properties:
+          schema_version:
+            const: "2.0"
+          project:
+            type: object
+            required:
+              - name
+              - type
+            properties:
+              type:
+                const: web_application
+      error_message: "Invalid project.json structure"
+    
+    - path: workspace/frontend/src/app/layout.tsx
+      rule: typescript_valid
+      error_message: "Layout component has TypeScript errors"
+
+  timing_budget_ms: 120000  # 2 minutes
+
+metadata:
+  created: 2025-01-15
+  last_run: null
+  pass_rate: null
+  avg_duration_ms: null

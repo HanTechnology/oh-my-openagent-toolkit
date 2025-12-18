@@ -237,6 +237,8 @@ volumes:
 ## Related Skills
 
 - **fullstack-integration**: Deployment architecture
+- **database-specialist**: Database provisioning, migrations, backup configuration
+- **security-specialist**: Secrets management, TLS configuration, security hardening
 - **qa-testing**: Pre-deployment validation
 - **quality-controller**: Production readiness checks
 - **backend-nestjs**: Backend deployment
@@ -265,3 +267,22 @@ The following examples demonstrate production-ready deployment patterns:
 Each example provides complete, production-ready deployment configurations following security and reliability best practices.
 
 Refer to reference.md for complete deployment guidelines.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Code Conventions](../ENTERPRISE-STANDARDS.md#code-conventions) - Terraform, YAML naming conventions
+- [Security Standards](../ENTERPRISE-STANDARDS.md#security-standards) - secrets management, TLS configuration
+- [Logging Standards](../ENTERPRISE-STANDARDS.md#logging-standards) - infrastructure logging, metrics collection
+- [Git Conventions](../ENTERPRISE-STANDARDS.md#git-conventions) - GitOps patterns, infrastructure commits
+- [CI/CD Standards](../ENTERPRISE-STANDARDS.md#ci-cd-standards) - pipeline stages, required checks
+
+**Domain-Specific Standards** (see Success Metrics section in this document):
+- Deployment success rate > 95%
+- Rollback time < 5 minutes
+- Zero security incidents
+- Zero-downtime deployment strategy

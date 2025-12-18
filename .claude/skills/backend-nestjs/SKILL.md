@@ -18,6 +18,8 @@ allowed-tools:
 
 ## Core Responsibilities
 
+**CRITICAL**: All backend code MUST be placed in `workspace/backend/` directory.
+
 - Nest.js API development with TypeScript
 - RESTful API design and implementation
 - Database schema design and integration
@@ -440,6 +442,8 @@ Coordinate with **quality-controller** skill to validate:
 - **frontend-nextjs**: API integration client (web)
 - **mobile-react-native**: API integration client (mobile)
 - **fullstack-integration**: System architecture
+- **database-specialist**: Database schema design, query optimization, migrations
+- **security-specialist**: Authentication/authorization, OWASP compliance, security headers
 - **qa-testing**: API testing
 - **quality-controller**: Code quality validation
 - **devops-deployment**: Docker and deployment
@@ -539,3 +543,25 @@ Each example includes:
 - Cross-references to related examples
 
 Refer to reference.md for complete backend development guidelines.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Code Conventions](../ENTERPRISE-STANDARDS.md#code-conventions) - TypeScript naming, NestJS file structure, import order
+- [Type Safety](../ENTERPRISE-STANDARDS.md#type-safety) - strict mode, prohibited patterns
+- [Error Handling](../ENTERPRISE-STANDARDS.md#error-handling) - Exception Filters, standard error response format
+- [Testing Standards](../ENTERPRISE-STANDARDS.md#testing-standards) - 80% coverage target, AAA pattern
+- [Logging Standards](../ENTERPRISE-STANDARDS.md#logging-standards) - structured JSON logging, Interceptor pattern
+- [Git Conventions](../ENTERPRISE-STANDARDS.md#git-conventions) - branch naming, commit messages
+- [Security Standards](../ENTERPRISE-STANDARDS.md#security-standards) - auth/authz, input validation
+- [Performance Standards](../ENTERPRISE-STANDARDS.md#performance-standards) - API latency targets
+
+**Domain-Specific Standards**:
+- NestJS module structure patterns
+- TypeORM/Prisma entity conventions
+- Guards, Interceptors, Pipes patterns
+- Swagger/OpenAPI documentation standards

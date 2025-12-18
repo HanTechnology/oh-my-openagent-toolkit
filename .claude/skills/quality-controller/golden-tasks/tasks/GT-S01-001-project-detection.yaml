@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=../golden-task.schema.json
+# Golden Task: Project Detection - Web Application
+# Tests project-detector skill in isolation
+
+id: GT-S01-001
+name: Project Detection - Web Application
+version: "1.0.0"
+category: skill_unit
+description: |
+  Unit test for project-detector skill.
+  Verifies correct identification of web application project type
+  based on keywords, frameworks, and requirements.
+
+input:
+  user_prompt: "Build a dashboard with React frontend and Node.js backend, with PostgreSQL database"
+  project_type: web_application
+  initial_state: null
+
+expectations:
+  skills_invoked:
+    - project-detector
+  workflows_executed: []
+  artifacts_created: []
+  memory_updates: []
+  quality_gates: {}
+
+validation:
+  required_outputs: []
+  forbidden_outputs: []
+  
+  content_checks:
+    - path: __skill_output__
+      rule: contains
+      value: "web_application"
+      error_message: "Failed to detect web_application project type"
+    
+    - path: __skill_output__
+      rule: regex
+      value: "score.*[7-9][0-9]|100"
+      error_message: "Detection confidence score too low"
+
+  timing_budget_ms: 5000  # 5 seconds
+
+metadata:
+  created: 2025-01-15
+  last_run: null
+  pass_rate: null
+  avg_duration_ms: null

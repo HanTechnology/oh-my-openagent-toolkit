@@ -338,3 +338,22 @@ The following examples demonstrate comprehensive research methodologies using mu
 Each example demonstrates multi-source research patterns combining GitHub MCP, Context7 MCP, WebSearch, and Sequential Thinking MCP for comprehensive, evidence-based analysis.
 
 Refer to reference.md for complete research analysis guidelines.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Documentation Standards](../ENTERPRISE-STANDARDS.md#documentation-standards) - Research report formatting, evidence documentation
+- [Logging Standards](../ENTERPRISE-STANDARDS.md#logging-standards) - Research decision logging
+- [Git Conventions](../ENTERPRISE-STANDARDS.md#git-conventions) - Research artifact commits
+- [Code Conventions](../ENTERPRISE-STANDARDS.md#code-conventions) - Consistent naming in research outputs
+
+**Domain-Specific Standards** (see Deep Thinking Protocol section in this document):
+- 3-5 alternatives evaluated with evidence for major decisions
+- Evidence quality documented (primary/secondary/tertiary sources)
+- Confidence level specified (High/Medium/Low) with justification
+- 3-year TCO calculated for major technology decisions
+- POC plan established if Medium/Low confidence on critical factors

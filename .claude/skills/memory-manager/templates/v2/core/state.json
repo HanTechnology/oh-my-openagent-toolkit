@@ -1,0 +1,52 @@
+{
+  "schema_version": "2.0",
+  "updated_at": "{{UPDATED_AT}}",
+  "phase": {
+    "current": "requirements",
+    "workflow": "01-requirements-analysis",
+    "sub_phase": null
+  },
+  "progress": {
+    "overall": 0,
+    "by_phase": {
+      "requirements": 0,
+      "research": 0,
+      "architecture": 0,
+      "implementation": 0,
+      "integration": 0,
+      "qa": 0,
+      "deployment": 0
+    }
+  },
+  "active": {
+    "tasks": [],
+    "next_milestones": [
+      "Complete requirements analysis",
+      "Finalize project scope"
+    ]
+  },
+  "session": {
+    "id": "{{SESSION_ID}}",
+    "started_at": "{{SESSION_STARTED}}",
+    "last_activity": "{{LAST_ACTIVITY}}",
+    "work_completed": []
+  },
+  "metrics": {
+    "quality": {
+      "test_coverage": 0,
+      "type_coverage": 0,
+      "lint_score": 0,
+      "security_issues": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    "performance": {
+      "api_latency_p95_ms": 0,
+      "page_load_ms": 0,
+      "lighthouse_score": 0
+    }
+  }
+}

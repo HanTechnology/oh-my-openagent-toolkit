@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0",
+  "project": {
+    "name": "{{PROJECT_NAME}}",
+    "type": "{{PROJECT_TYPE}}",
+    "created_at": "{{CREATED_AT}}",
+    "description": "{{PROJECT_DESCRIPTION}}"
+  },
+  "lifecycle": {
+    "state": "initial_development",
+    "current_version": "0.0.0",
+    "first_release_date": null
+  },
+  "stack": {
+    "frontend": null,
+    "backend": null,
+    "database": null,
+    "mobile": null,
+    "system": null
+  },
+  "team": {
+    "active_skills": [],
+    "primary_skill": "pm-orchestrator"
+  },
+  "config": {
+    "quality_profile": "strict",
+    "deployment_target": null,
+    "ci_cd": null
+  }
+}

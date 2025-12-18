@@ -19,6 +19,8 @@ allowed-tools:
 
 ## Core Responsibilities
 
+**CRITICAL**: All mobile code MUST be placed in `workspace/mobile/` directory.
+
 - React Native 0.82+ application development with New Architecture (Fabric + TurboModules + JSI)
 - Cross-platform mobile development for iOS 15+ and Android 8+
 - TypeScript 5.x+ strict mode development
@@ -761,3 +763,25 @@ Each example includes:
 - Cross-references to related examples
 
 Refer to reference.md for complete mobile development guidelines.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Code Conventions](../ENTERPRISE-STANDARDS.md#code-conventions) - TypeScript/React naming, import order
+- [Type Safety](../ENTERPRISE-STANDARDS.md#type-safety) - strict mode, prohibited patterns
+- [Error Handling](../ENTERPRISE-STANDARDS.md#error-handling) - Error Boundaries, API error handling
+- [Testing Standards](../ENTERPRISE-STANDARDS.md#testing-standards) - coverage targets, test structure
+- [Logging Standards](../ENTERPRISE-STANDARDS.md#logging-standards) - structured logging
+- [Git Conventions](../ENTERPRISE-STANDARDS.md#git-conventions) - branch naming, commit messages
+- [Performance Standards](../ENTERPRISE-STANDARDS.md#performance-standards) - 60fps UI, memory optimization
+
+**Domain-Specific Standards**:
+- React Native New Architecture (Fabric, TurboModules)
+- Latest Expo SDK patterns
+- Platform-specific native code conventions (Swift/Kotlin)
+- Mobile testing strategy (Jest, RNTL, Detox)
+- App store deployment checklist

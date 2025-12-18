@@ -506,6 +506,16 @@ python test_fairness.py
 - Pre-deployment quality gate validation
 - Ensures quality standards met before production deployment
 
+### Database Specialist
+- Database schema quality validation
+- Query performance benchmarking
+- Migration rollback verification
+
+### Security Specialist
+- Security vulnerability assessment
+- OWASP Top 10 compliance verification
+- Authentication/authorization testing validation
+
 ## Quality Reporting
 
 When quality validation is requested:

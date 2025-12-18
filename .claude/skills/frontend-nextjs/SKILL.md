@@ -20,6 +20,8 @@ allowed-tools:
 
 ## Core Responsibilities
 
+**CRITICAL**: All frontend code MUST be placed in `workspace/frontend/` directory.
+
 - Next.js 15.5+ application development with App Router
 - React 19 component development
 - Tailwind CSS 4.1+ styling
@@ -503,3 +505,25 @@ Each example includes:
 - Cross-references to related examples
 
 Refer to reference.md for complete frontend development guidelines.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Code Conventions](../ENTERPRISE-STANDARDS.md#code-conventions) - TypeScript/React naming, file structure, import order
+- [Type Safety](../ENTERPRISE-STANDARDS.md#type-safety) - strict mode, prohibited patterns
+- [Error Handling](../ENTERPRISE-STANDARDS.md#error-handling) - Error Boundaries, API error handling
+- [Testing Standards](../ENTERPRISE-STANDARDS.md#testing-standards) - coverage targets, test structure
+- [Logging Standards](../ENTERPRISE-STANDARDS.md#logging-standards) - structured logging
+- [Git Conventions](../ENTERPRISE-STANDARDS.md#git-conventions) - branch naming, commit messages
+- [Performance Standards](../ENTERPRISE-STANDARDS.md#performance-standards) - Core Web Vitals
+- [Accessibility Standards](../ENTERPRISE-STANDARDS.md#accessibility-standards) - WCAG 2.1 AA
+
+**Domain-Specific Standards**:
+- Next.js App Router patterns (see "Core Capabilities" section)
+- React Server Components optimization
+- Tailwind CSS utility class conventions
+- Zustand/TanStack Query state management patterns

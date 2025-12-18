@@ -403,6 +403,20 @@ This skill operates with **complete autonomy**, requiring **zero user confirmati
 - Error handling and validation messages
 - CORS configuration for development and production
 
+**database-specialist:**
+- Database schema design with SQLAlchemy models
+- Migration strategies with Alembic
+- Query optimization for async database access
+- Connection pooling configuration
+- Index design for performance
+
+**security-specialist:**
+- Authentication architecture (OAuth2, JWT)
+- Password hashing best practices (bcrypt/passlib)
+- Security headers configuration
+- Input validation with Pydantic
+- OWASP Top 10 compliance
+
 **systemdev-specialist:**
 - AI/ML model serving with FastAPI endpoints
 - Async inference handling with background tasks
@@ -563,3 +577,25 @@ This skill provides comprehensive production-ready examples:
 ---
 
 This skill provides autonomous FastAPI backend development with Python 3.10+, Pydantic v2, SQLAlchemy 2.x async, and production-ready deployment patterns.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Code Conventions](../ENTERPRISE-STANDARDS.md#code-conventions) - Python snake_case, file structure, import order
+- [Type Safety](../ENTERPRISE-STANDARDS.md#type-safety) - mypy strict mode, 100% type hints
+- [Error Handling](../ENTERPRISE-STANDARDS.md#error-handling) - Exception Handlers, standard error response
+- [Testing Standards](../ENTERPRISE-STANDARDS.md#testing-standards) - pytest, 80% coverage target
+- [Logging Standards](../ENTERPRISE-STANDARDS.md#logging-standards) - structured JSON logging
+- [Git Conventions](../ENTERPRISE-STANDARDS.md#git-conventions) - branch naming, commit messages
+- [Code Quality](../ENTERPRISE-STANDARDS.md#code-quality) - ruff, black, isort
+- [Documentation Standards](../ENTERPRISE-STANDARDS.md#documentation-standards) - Google style docstrings
+
+**Domain-Specific Standards** (see Quality Standards section in this document):
+- Pydantic v2 schema patterns
+- SQLAlchemy 2.x async patterns
+- FastAPI dependency injection
+- OpenAPI 3.0 auto-generation

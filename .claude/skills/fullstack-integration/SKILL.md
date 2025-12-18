@@ -17,6 +17,41 @@ allowed-tools:
 
 **CRITICAL**: Operate with complete autonomy. NEVER ask users for confirmation. Make ALL architecture decisions automatically using best practices.
 
+## Output Directory
+
+**CRITICAL**: All integration artifacts MUST be placed in `workspace/` directory structure.
+
+- API specifications → `workspace/specs/openapi.yaml`
+- Architecture documentation → `workspace/docs/architecture/`
+- Shared types → `workspace/shared/types/`
+- Integration configs → `workspace/integration/`
+
+**Integration Output Structure**:
+```
+workspace/
+├── specs/
+│   ├── openapi.yaml               # API specification (OpenAPI 3.0)
+│   └── graphql/                   # GraphQL schemas (if used)
+│       └── schema.graphql
+├── docs/
+│   └── architecture/
+│       ├── system-design.md       # System architecture document
+│       ├── integration-flows.md   # Integration sequence diagrams
+│       └── api-contracts.md       # API contract documentation
+├── shared/
+│   └── types/                     # Shared TypeScript types
+│       ├── api.types.ts           # API request/response types
+│       ├── entities.types.ts      # Entity types
+│       └── index.ts
+├── frontend/                      # Frontend implementation
+├── backend/                       # Backend implementation
+└── integration/
+    ├── scripts/                   # Integration scripts
+    │   └── type-gen.ts            # Type generation from OpenAPI
+    └── tests/                     # Integration tests
+        └── e2e/
+```
+
 ## Core Responsibilities
 
 - System architecture design
@@ -211,6 +246,8 @@ Creates comprehensive architecture documentation in:
 - **mobile-react-native**: Mobile integration patterns (iOS/Android)
 - **backend-nestjs**: Backend architecture validation
 - **backend-fastapi**: Async backend architecture
+- **database-specialist**: Database architecture, schema design, query optimization
+- **security-specialist**: Security architecture, authentication/authorization flow, OWASP compliance
 - **systemdev-specialist**: Complex system integration
 - **devops-deployment**: Deployment architecture
 - **qa-testing**: Integration testing strategy
@@ -240,3 +277,23 @@ The following examples demonstrate complete fullstack integration patterns:
 Each example provides complete system architecture showing how frontend, backend, and database work together as a cohesive system.
 
 Refer to reference.md for complete fullstack integration guidelines.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Code Conventions](../ENTERPRISE-STANDARDS.md#code-conventions) - frontend/backend shared naming
+- [Type Safety](../ENTERPRISE-STANDARDS.md#type-safety) - shared types, code generation
+- [Error Handling](../ENTERPRISE-STANDARDS.md#error-handling) - cross-layer error handling
+- [Testing Standards](../ENTERPRISE-STANDARDS.md#testing-standards) - integration tests, E2E tests
+- [Logging Standards](../ENTERPRISE-STANDARDS.md#logging-standards) - distributed tracing
+- [Documentation Standards](../ENTERPRISE-STANDARDS.md#documentation-standards) - OpenAPI 3.0 spec
+
+**Domain-Specific Standards** (see Success Metrics section in this document):
+- API contract change rate < 10%
+- Type safety coverage > 95%
+- Frontend-backend alignment score > 90%
+- Integration bug ratio < 20%

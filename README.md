@@ -2,13 +2,13 @@
 
 **Complete Application Lifecycle Automation**
 
-14 autonomous AI skills that build your v1.0.0, then continuously evolve it with features, bug fixes, performance optimizations, and major version upgrades—all with zero confirmations.
+16 autonomous AI skills that build your v1.0.0, then continuously evolve it with features, bug fixes, performance optimizations, and major version upgrades—all with zero confirmations.
 
 **From idea → v1.0.0 → v1.x.x → v2.0.0 → ∞**
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-blue.svg)](https://claude.ai/claude-code)
-[![Skills](https://img.shields.io/badge/Skills-14-brightgreen.svg)](.claude/skills/)
+[![Skills](https://img.shields.io/badge/Skills-16-brightgreen.svg)](.claude/skills/)
 [![Lifecycle States](https://img.shields.io/badge/Lifecycle%20States-3-purple.svg)](.claude/CLAUDE.md)
 [![Workflows](https://img.shields.io/badge/Workflows-9%20core%20%2B%208%20continuous-blue.svg)](.claude/skills/pm-orchestrator/workflows/)
 [![Automation](https://img.shields.io/badge/Automation-100%25-success.svg)](CLAUDE.md)
@@ -17,7 +17,7 @@
 
 ## What is This?
 
-Imagine having **13 specialized AI developers** working together autonomously to build your application—from requirements to production deployment to continuous iteration—while you simply describe what you want. No configuration. No manual coordination. No constant confirmations.
+Imagine having **16 specialized AI developers** working together autonomously to build your application—from requirements to production deployment to continuous iteration—while you simply describe what you want. No configuration. No manual coordination. No constant confirmations.
 
 **That's Agentic Dev AI Team.**
 
@@ -92,7 +92,7 @@ Every complex decision uses **Sequential Thinking MCP** for systematic analysis:
 
 | Category | Metric | Value |
 |----------|--------|-------|
-| **System Scale** | Total Skills | 14 (4 infrastructure + 10 domain) |
+| **System Scale** | Total Skills | 16 (4 infrastructure + 12 domain) |
 | | Project Types Supported | 6 (web, AI/ML, mobile, API, data, desktop) |
 | | Lifecycle States | 3 (initial → continuous → major version) |
 | | Core Workflows | 9 (foundational + pipeline + support) |
@@ -259,7 +259,7 @@ The system **automatically determines** which workflow to use based on:
 
 **Problem 2: Single AI Doing Everything**
 - Traditional: One AI tries to handle frontend, backend, testing, deployment (jack of all trades, master of none)
-- **Our Solution**: 13 specialized autonomous skills, each expert in their domain, coordinating seamlessly.
+- **Our Solution**: 16 specialized autonomous skills, each expert in their domain, coordinating seamlessly.
 
 **Problem 3: Context Loss Between Sessions**
 - Traditional: "What were we working on?" starts every session
@@ -285,7 +285,7 @@ The system **automatically determines** which workflow to use based on:
 
 | Feature | Traditional AI | Agentic Dev AI Team |
 |---------|---------------|---------------------|
-| **Specialization** | Single general AI | 13 specialized expert skills |
+| **Specialization** | Single general AI | 16 specialized expert skills |
 | **Context Management** | Session-based only | Memory-logging hybrid system |
 | **Confirmation Required** | Constant ("Should I...?") | Zero confirmations |
 | **Code Quality** | Prototype-level | Production-ready (tests, Docker, CI/CD) |
@@ -341,7 +341,7 @@ The system **automatically determines** which workflow to use based on:
 ✅ **Production Quality**: Tests, Docker, CI/CD, monitoring included
 ✅ **Zero Lock-in**: Standard frameworks (Next.js, NestJS, FastAPI)
 ✅ **Complete Autonomy**: No constant decision-making fatigue
-✅ **Expert Specialization**: 13 skills, each expert in their domain
+✅ **Expert Specialization**: 16 skills, each expert in their domain
 ✅ **Session Continuity**: Never lose context, perfect restoration
 ✅ **Infinite Improvement**: Continuous development loop (v1.0.0 → ∞)
 ✅ **Open Source**: MIT License, free to use and modify
@@ -489,7 +489,7 @@ PostgreSQL database, and comprehensive documentation"
 
 ## Key Features
 
-### 🤖 13 Autonomous Skills
+### 🤖 16 Autonomous Skills
 
 **Infrastructure Skills** (Always Active):
 - **pm-orchestrator**: Project coordination, workflow management, team orchestration, lifecycle state transitions
@@ -502,6 +502,8 @@ PostgreSQL database, and comprehensive documentation"
 - **mobile-react-native**: Cross-platform mobile app development (iOS/Android) with React Native and Expo
 - **backend-nestjs**: NestJS with TypeScript, PostgreSQL, TypeORM, JWT auth, OpenAPI documentation
 - **backend-fastapi**: FastAPI with Python async, Pydantic v2, SQLAlchemy, JWT auth, OpenAPI automatic
+- **database-specialist**: Database schema design, migrations, query optimization, PostgreSQL/MySQL/MongoDB
+- **security-specialist**: Application security, authentication/authorization, OWASP compliance, vulnerability assessment
 - **fullstack-integration**: End-to-end system architecture, API contracts, type-safe integration
 - **systemdev-specialist**: AI/ML systems, video processing, GPU computing, high-performance systems
 - **devops-deployment**: Docker containerization, CI/CD with GitHub Actions, cloud deployment (Railway/Heroku/AWS)
@@ -771,7 +773,7 @@ Every release goes through **staged rollout** with monitoring and rollback capab
 
 ---
 
-## The 13 Autonomous Skills
+## The 16 Autonomous Skills
 
 ### Infrastructure Skills (Always Active)
 
@@ -847,6 +849,26 @@ Every release goes through **staged rollout** with monitoring and rollback capab
 - Python scientific computing stack integration
 - Automatic OpenAPI documentation
 **When Invoked**: AI/ML systems, data processing, API microservice projects (Python preference)
+
+#### database-specialist
+**Role**: Database Architecture and Optimization Expert
+**Tech Stack**: PostgreSQL, MySQL, MongoDB, Redis, migrations, query optimization
+**Responsibilities**:
+- Database schema design and normalization (3NF+)
+- Migration strategy and execution
+- Query optimization and indexing
+- Database security and backup strategies
+**When Invoked**: Complex data models, performance optimization, multi-database projects
+
+#### security-specialist
+**Role**: Application Security Expert
+**Tech Stack**: OWASP Top 10, JWT/OAuth2, bcrypt, security headers, vulnerability scanning
+**Responsibilities**:
+- Authentication and authorization architecture
+- Security vulnerability assessment
+- Secure coding practices enforcement
+- Encryption and secrets management
+**When Invoked**: Authentication systems, sensitive data handling, security audits
 
 #### fullstack-integration
 **Role**: System Architecture and Integration Coordinator
@@ -1758,6 +1780,10 @@ Located in `.claude/skills/pm-orchestrator/workflows/continuous/`:
   - [REFERENCE.md](.claude/skills/frontend-nextjs/REFERENCE.md): Technical guidelines and best practices
   - [examples/](.claude/skills/frontend-nextjs/examples/): Production-ready implementation patterns
 
+**Mobile Development**:
+- **[mobile-react-native](.claude/skills/mobile-react-native/SKILL.md)**: React Native, Expo, cross-platform iOS/Android
+  - [examples/](.claude/skills/mobile-react-native/examples/): Mobile app implementation patterns
+
 **Backend Development**:
 - **[backend-nestjs](.claude/skills/backend-nestjs/SKILL.md)**: NestJS, TypeScript, PostgreSQL, TypeORM
   - [REFERENCE.md](.claude/skills/backend-nestjs/REFERENCE.md): API design, database patterns, authentication
@@ -1765,6 +1791,10 @@ Located in `.claude/skills/pm-orchestrator/workflows/continuous/`:
 - **[backend-fastapi](.claude/skills/backend-fastapi/SKILL.md)**: FastAPI, Python async, Pydantic v2, SQLAlchemy
   - [REFERENCE.md](.claude/skills/backend-fastapi/REFERENCE.md): Async patterns, AI/ML integration, Docker best practices
   - [examples/](.claude/skills/backend-fastapi/examples/): Production API patterns
+
+**Data & Security**:
+- **[database-specialist](.claude/skills/database-specialist/SKILL.md)**: Database schema design, migrations, query optimization
+- **[security-specialist](.claude/skills/security-specialist/SKILL.md)**: Application security, authentication/authorization, OWASP compliance
 
 **Integration & Architecture**:
 - **[fullstack-integration](.claude/skills/fullstack-integration/SKILL.md)**: System architecture, API contracts, type-safe integration
@@ -1877,7 +1907,7 @@ cp .claude/settings.json ~/.claude/
 ### Current Version: 1.0 (Complete Lifecycle Support) ✅
 
 **Active Features**:
-- ✅ 14 autonomous skills (4 infrastructure + 10 domain)
+- ✅ 16 autonomous skills (4 infrastructure + 12 domain)
 - ✅ 3 lifecycle states (initial → continuous → major version)
 - ✅ Hybrid Circular Model (4-tier workflow architecture)
 - ✅ Deep Thinking Protocol (Category A-D with Sequential Thinking MCP)
@@ -1971,7 +2001,7 @@ Submit feature requests via [GitHub Issues](https://github.com/HanTechnology/age
 **Q: Do I need to configure anything manually?**
 A: No! Just install the skills in Claude Code and describe your project. Everything else is automatic.
 
-**Q: Can I use only some skills, not all 13?**
+**Q: Can I use only some skills, not all 16?**
 A: Yes! Skills are contextually invoked. Only relevant skills activate for your project type.
 
 **Q: What if I want to use a different backend framework (not NestJS/FastAPI)?**
@@ -2109,6 +2139,6 @@ This skills-based architecture represents a novel approach to AI-driven developm
 
 **Ready to build production-ready applications with complete lifecycle management and zero confirmations?**
 
-Install the skills, describe your project to Claude, and watch as 14 autonomous AI skills collaborate to deliver complete, tested, deployed applications—then continuously evolve them with features, optimizations, and major version upgrades!
+Install the skills, describe your project to Claude, and watch as 16 autonomous AI skills collaborate to deliver complete, tested, deployed applications—then continuously evolve them with features, optimizations, and major version upgrades!
 
 **From idea → v1.0.0 → v1.x.x → v2.0.0 → ∞**

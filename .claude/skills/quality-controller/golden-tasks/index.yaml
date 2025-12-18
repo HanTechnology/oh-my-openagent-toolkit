@@ -1,0 +1,89 @@
+# Golden Tasks Index
+# Master list of all golden tasks in the regression suite
+
+version: "1.0.0"
+updated: 2025-01-15
+
+# Suite configuration
+config:
+  parallel_execution: true
+  max_parallel_tasks: 4
+  default_timeout_ms: 120000
+  retry_flaky: true
+  max_retries: 2
+
+# Task categories with their tasks
+categories:
+  skill_unit:
+    description: "Unit tests for individual skills"
+    tasks:
+      - GT-S01-001  # Project Detection - Web Application
+      # Future tasks:
+      # - GT-S01-002  # Project Detection - AI/ML System
+      # - GT-S01-003  # Project Detection - Mobile Application
+      # - GT-S02-001  # Memory Manager - Initialization
+      # - GT-S02-002  # Memory Manager - Context Restoration
+      # - GT-S03-001  # Frontend NextJS - Project Scaffold
+      # - GT-S04-001  # Backend NestJS - Module Generation
+  
+  workflow:
+    description: "Tests for complete workflow execution"
+    tasks:
+      - GT-W03-001  # Architecture Design Workflow
+      # Future tasks:
+      # - GT-W01-001  # Requirements Analysis Workflow
+      # - GT-W05-001  # Implementation Workflow
+      # - GT-W06-001  # Integration Workflow
+      # - GT-W08-001  # Quality Assurance Workflow
+  
+  integration:
+    description: "Tests for skill-to-skill coordination"
+    tasks:
+      - GT-I01-001  # Skill Coordination Integration
+      # Future tasks:
+      # - GT-I02-001  # Memory Sharing Integration
+      # - GT-I03-001  # Quality Gate Integration
+  
+  e2e:
+    description: "End-to-end project creation tests"
+    tasks:
+      - GT-E2E-001  # Create Todo App (Web Application)
+      # Future tasks:
+      # - GT-E2E-002  # Create AI Image Classifier
+      # - GT-E2E-003  # Create Mobile Expense Tracker
+      # - GT-E2E-004  # Create REST API Service
+
+# CI/CD configuration
+ci:
+  # Tasks to run on every PR
+  pr_suite:
+    - GT-S01-001
+    - GT-I01-001
+  
+  # Tasks to run on merge to main
+  main_suite:
+    - GT-S01-001
+    - GT-W03-001
+    - GT-I01-001
+    - GT-E2E-001
+  
+  # Full suite for releases
+  release_suite: all
+
+# Quality thresholds
+thresholds:
+  pr_pass_rate: 100      # PRs must have 100% pass rate
+  main_pass_rate: 95     # Main branch must maintain 95%+
+  release_pass_rate: 100 # Releases require 100%
+
+# Notification settings
+notifications:
+  on_failure:
+    - type: github_comment
+      enabled: true
+    - type: slack
+      enabled: false
+      channel: "#dev-alerts"
+  on_flaky:
+    - type: github_label
+      label: "flaky-test"

@@ -205,3 +205,22 @@ The following examples demonstrate advanced MCP tool orchestration patterns:
 These examples represent meta-level patterns showing how to combine multiple MCP tools effectively. Use these when individual tool usage is insufficient and complex multi-tool coordination is needed.
 
 Refer to reference.md for complete MCP tools guidelines.
+
+---
+
+## Enterprise Standards Compliance
+
+This skill follows team-wide enterprise standards.
+
+**Required References** (`../ENTERPRISE-STANDARDS.md`):
+- [Documentation Standards](../ENTERPRISE-STANDARDS.md#documentation-standards) - MCP pattern documentation
+- [Logging Standards](../ENTERPRISE-STANDARDS.md#logging-standards) - MCP usage logging, performance metrics
+- [Error Handling](../ENTERPRISE-STANDARDS.md#error-handling) - MCP tool error handling
+- [Git Conventions](../ENTERPRISE-STANDARDS.md#git-conventions) - MCP pattern commits
+
+**Domain-Specific Standards** (see Deep Thinking Protocol section in this document):
+- Tool coordination reduces redundancy (>30% efficiency gain)
+- Pattern documented for team reuse
+- Performance improvement measurable
+- No unnecessary tool invocations
+- API call reduction target >40% through optimization

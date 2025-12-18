@@ -260,16 +260,20 @@ When starting a new project:
 
 ### 3. Expert Team Assembly
 - Based on detected project type, coordinate required skills:
-  - **web_application**: frontend-nextjs, backend-nestjs, fullstack-integration, qa-testing, devops-deployment
-  - **ai_ml_system**: systemdev-specialist, research-analysis, backend-nestjs, qa-testing
-  - **mobile_application**: mobile-react-native, backend-nestjs OR backend-fastapi, fullstack-integration, devops-deployment, qa-testing
-  - **api_microservice**: backend-nestjs, fullstack-integration, devops-deployment, qa-testing
-  - **data_processing_system**: systemdev-specialist, backend-nestjs, research-analysis, devops-deployment
+  - **web_application**: frontend-nextjs, backend-nestjs, database-specialist, security-specialist, fullstack-integration, qa-testing, devops-deployment
+  - **ai_ml_system**: systemdev-specialist, research-analysis, backend-nestjs OR backend-fastapi, database-specialist, qa-testing
+  - **mobile_application**: mobile-react-native, backend-nestjs OR backend-fastapi, database-specialist, security-specialist, fullstack-integration, devops-deployment, qa-testing
+  - **api_microservice**: backend-nestjs OR backend-fastapi, database-specialist, security-specialist, fullstack-integration, devops-deployment, qa-testing
+  - **data_processing_system**: systemdev-specialist, backend-nestjs OR backend-fastapi, database-specialist, research-analysis, devops-deployment
   - **desktop_application**: frontend-nextjs, systemdev-specialist, devops-deployment, qa-testing
 
 **Backend Selection Criteria**:
 - **backend-nestjs**: TypeScript full-stack projects, enterprise architecture, GraphQL primary, Angular-style DI patterns
 - **backend-fastapi**: Python ecosystem projects, AI/ML integration, async performance critical, scientific computing, data processing
+
+**Specialist Skill Activation Criteria**:
+- **database-specialist**: Always include for projects with database requirements (schema design, migrations, query optimization)
+- **security-specialist**: Always include for projects with authentication, authorization, or handling sensitive data
 
 **Mobile Development Considerations**:
 - For mobile projects, backend choice depends on app requirements
@@ -296,29 +300,38 @@ Workflow:
 
 ### Architecture Design
 **Primary**: fullstack-integration
-**Support**: frontend-nextjs, mobile-react-native, backend-nestjs, systemdev-specialist (if needed)
+**Support**: frontend-nextjs, mobile-react-native, backend-nestjs, backend-fastapi, database-specialist, security-specialist, systemdev-specialist (if needed)
 
 Coordination:
 1. Mention fullstack-integration skill to design system architecture
 2. Full stack will coordinate with frontend, mobile, and backend skills as needed
-3. If AI/ML/GPU requirements detected, mention systemdev-specialist
-4. Ensure quality-controller validates architectural decisions
+3. Mention **database-specialist** for database schema design, entity relationships, indexing strategy
+4. Mention **security-specialist** for authentication/authorization architecture, security headers, encryption strategy
+5. If AI/ML/GPU requirements detected, mention systemdev-specialist
+6. Ensure quality-controller validates architectural decisions
 
 ### Implementation Phase
-**Primary**: Domain-specific skills (frontend-nextjs, mobile-react-native, backend-nestjs, backend-fastapi, systemdev-specialist)
+**Primary**: Domain-specific skills (frontend-nextjs, mobile-react-native, backend-nestjs, backend-fastapi, database-specialist, security-specialist, systemdev-specialist)
 **Support**: qa-testing, quality-controller
 
 Coordination:
 1. Frontend, mobile, and backend can work in parallel after API contracts defined
-2. Mention qa-testing skill periodically for validation
-3. Mention quality-controller skill for quality gate checks
-4. Update memory-manager with implementation progress
+2. Mention **database-specialist** for database implementation (migrations, complex queries, performance tuning)
+3. Mention **security-specialist** for authentication/authorization implementation, input validation, security headers
+4. Mention qa-testing skill periodically for validation
+5. Mention quality-controller skill for quality gate checks
+6. Update memory-manager with implementation progress
 
 **Mobile Development Coordination**:
 - When mobile_application project detected, coordinate mobile-react-native with backend team
 - Ensure API design accommodates mobile-specific needs (offline sync, push notifications, deep linking)
 - Mobile and backend work in parallel after API contract and platform capabilities defined
 - Special coordination for platform-specific features (iOS/Android differences, native modules)
+
+**Database and Security Coordination**:
+- Coordinate database-specialist with backend skills for schema implementation and migrations
+- Coordinate security-specialist with backend skills for authentication module and security middleware
+- Both specialists provide guidance and review, backend skills implement
 
 ### Deployment Phase
 **Primary**: devops-deployment
@@ -332,36 +345,40 @@ Coordination:
 
 ## Related Skills
 
-**Infrastructure Skills**:
+**Infrastructure Skills** (4 skills):
 - **project-detector**: Project type detection and skill recommendations
 - **memory-manager**: Context management and session continuity
 - **quality-controller**: Quality standards enforcement
+- **mcp-tools-orchestrator**: Advanced MCP tool coordination
 
-**Frontend & Mobile Skills**:
+**Frontend & Mobile Skills** (2 skills):
 - **frontend-nextjs**: Next.js frontend development for web applications
 - **mobile-react-native**: Cross-platform mobile app development (iOS/Android) with React Native and Expo
 
-**Backend Skills**:
+**Backend Skills** (2 skills):
 - **backend-nestjs**: Nest.js API development with TypeScript, enterprise architecture, GraphQL
 - **backend-fastapi**: FastAPI Python backend development, ideal for AI/ML integration and async operations
 
-**Integration & Architecture**:
+**Data & Security Specialists** (2 skills):
+- **database-specialist**: Database architecture, schema design, query optimization, migrations, replication
+- **security-specialist**: Application security, OWASP Top 10, authentication/authorization, vulnerability assessment
+
+**Integration & Architecture** (1 skill):
 - **fullstack-integration**: System architecture and integration
 
-**Specialized Development**:
+**Specialized Development** (1 skill):
 - **systemdev-specialist**: AI/ML, video processing, GPU computing
 
-**Deployment & Operations**:
+**Deployment & Operations** (1 skill):
 - **devops-deployment**: Docker, cloud deployment, CI/CD
 
-**Quality Assurance**:
+**Quality Assurance** (1 skill):
 - **qa-testing**: End-to-end testing and quality assurance
 
-**Research & Strategy**:
+**Research & Strategy** (1 skill):
 - **research-analysis**: Strategic research and market analysis
 
-**Tool Orchestration**:
-- **mcp-tools-orchestrator**: Advanced MCP tool coordination
+**Total**: 16 skills coordinated by pm-orchestrator
 
 ## Workflow System
 
@@ -1106,10 +1123,10 @@ When executing a project phase:
 
 #### 03-architecture-design.md
 - **Primary**: fullstack-integration
-- **Supporting**: pm-orchestrator, backend-nestjs, backend-fastapi, frontend-nextjs, mobile-react-native (for mobile projects), systemdev-specialist (if AI/ML)
+- **Supporting**: pm-orchestrator, backend-nestjs, backend-fastapi, frontend-nextjs, mobile-react-native (for mobile projects), database-specialist (for DB design), security-specialist (for auth architecture), systemdev-specialist (if AI/ML)
 - **Dependencies**: requirements-analysis (must complete)
 - **Parallel**: No
-- **Deliverables**: workspace/docs/architecture.md, API contracts
+- **Deliverables**: workspace/docs/architecture.md, API contracts, database schema design, security architecture
 
 #### 04-system-development.md
 - **Primary**: systemdev-specialist
@@ -1128,10 +1145,10 @@ When executing a project phase:
 
 #### 06-integration.md
 - **Primary**: fullstack-integration
-- **Supporting**: pm-orchestrator, frontend-nextjs, mobile-react-native (for mobile projects), backend-nestjs, backend-fastapi, qa-testing
+- **Supporting**: pm-orchestrator, frontend-nextjs, mobile-react-native (for mobile projects), backend-nestjs, backend-fastapi, database-specialist, security-specialist, qa-testing
 - **Dependencies**: implementation (must complete), system-development (if applicable)
 - **Parallel**: No
-- **Deliverables**: Integration tests, API validation
+- **Deliverables**: Integration tests, API validation, database integration verification, security integration testing
 
 #### 07-deployment.md
 - **Primary**: devops-deployment
@@ -1142,10 +1159,10 @@ When executing a project phase:
 
 #### 08-quality-assurance.md
 - **Primary**: qa-testing
-- **Supporting**: pm-orchestrator, quality-controller, frontend-nextjs, mobile-react-native (for mobile testing), backend-nestjs, backend-fastapi
+- **Supporting**: pm-orchestrator, quality-controller, frontend-nextjs, mobile-react-native (for mobile testing), backend-nestjs, backend-fastapi, database-specialist (for DB performance testing), security-specialist (for security testing)
 - **Dependencies**: integration (must complete), deployment (recommended)
 - **Parallel**: Can start during deployment
-- **Deliverables**: workspace/tests/, test reports, quality validation
+- **Deliverables**: workspace/tests/, test reports, quality validation, security audit report, database performance report
 
 #### 09-continuous-development.md
 - **Primary**: pm-orchestrator

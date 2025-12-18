@@ -1,0 +1,84 @@
+# yaml-language-server: $schema=../golden-task.schema.json
+# Golden Task: Skill Coordination Integration
+# Tests skill-to-skill coordination via natural language mentions
+
+id: GT-I01-001
+name: Skill Coordination Integration
+version: "1.0.0"
+category: integration
+description: |
+  Integration test for skill coordination.
+  Verifies that pm-orchestrator correctly routes work to
+  appropriate domain skills and that handoffs work correctly.
+
+input:
+  user_prompt: "Create a user registration feature with email validation"
+  project_type: web_application
+  initial_state:
+    memory:
+      core/project.json:
+        schema_version: "2.0"
+        project:
+          name: "test-app"
+          type: "web_application"
+        lifecycle:
+          state: "initial_development"
+      core/state.json:
+        schema_version: "2.0"
+        phase:
+          current: "implementation"
+          workflow: "05-implementation"
+        progress:
+          overall: 40
+          by_phase:
+            requirements: 100
+            research: 100
+            architecture: 100
+            implementation: 0
+
+expectations:
+  skills_invoked:
+    - pm-orchestrator
+    - backend-nestjs
+    - frontend-nextjs
+  workflows_executed: []
+  artifacts_created:
+    - workspace/backend/src/auth/
+    - workspace/frontend/src/
+  memory_updates:
+    - .memory/core/journal.md
+    - .memory/domains/backend.md
+    - .memory/domains/frontend.md
+  quality_gates:
+    typescript_errors: 0
+
+validation:
+  required_outputs:
+    # Backend auth module
+    - path: workspace/backend/src/auth/
+      type: directory
+    
+    # Frontend auth components
+    - path: workspace/frontend/src/
+      type: directory
+
+  forbidden_outputs: []
+
+  content_checks:
+    - path: .memory/core/journal.md
+      rule: contains
+      value: "backend-nestjs"
+      error_message: "Backend skill not logged in journal"
+    
+    - path: .memory/core/journal.md
+      rule: contains
+      value: "frontend-nextjs"
+      error_message: "Frontend skill not logged in journal"
+
+  timing_budget_ms: 90000  # 1.5 minutes
+
+metadata:
+  created: 2025-01-15
+  last_run: null
+  pass_rate: null
+  avg_duration_ms: null

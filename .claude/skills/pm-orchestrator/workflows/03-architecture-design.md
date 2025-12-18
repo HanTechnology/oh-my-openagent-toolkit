@@ -3,7 +3,7 @@
 ## Overview
 
 - **Primary Skill**: fullstack-integration
-- **Supporting Skills**: pm-orchestrator, backend-nestjs, frontend-nextjs, systemdev-specialist
+- **Supporting Skills**: pm-orchestrator, backend-nestjs, backend-fastapi, frontend-nextjs, database-specialist, security-specialist, systemdev-specialist
 - **Dependencies**: requirements-analysis (must be complete)
 - **Parallel Execution**: Cannot run in parallel (requires requirements)
 
@@ -49,11 +49,13 @@
    - Determine component boundaries
    - Plan inter-component communication
 
-3. **Data Architecture Planning**:
+3. **Data Architecture Planning** (coordinate with **database-specialist**):
    - Entity relationship design
    - Data flow patterns
    - Storage requirements
    - Caching strategy
+   - Indexing strategy
+   - Migration planning
 
 ### Phase 3: Frontend Architecture Design
 
@@ -109,17 +111,21 @@
    - Versioning strategy
    - Endpoint organization
 
-2. **Database Schema Design**:
+2. **Database Schema Design** (coordinate with **database-specialist**):
    - Entity models and relationships
-   - Indexing strategy
-   - Migration planning
+   - Indexing strategy (primary keys, foreign keys, composite indexes)
+   - Migration planning (zero-downtime migrations, rollback strategy)
    - Data validation rules
+   - Query optimization considerations
+   - Normalization vs denormalization decisions
 
-3. **Authentication & Authorization**:
+3. **Authentication & Authorization** (coordinate with **security-specialist**):
    - Authentication strategy (JWT, session-based)
    - Authorization model (RBAC, ABAC)
    - Token management
-   - Security best practices
+   - Security best practices (OWASP Top 10)
+   - Security headers configuration
+   - Encryption strategy (at rest, in transit)
 
 4. **Business Logic Organization**:
    - Service layer architecture
@@ -216,24 +222,37 @@
 1. **Backend Validation**:
    - Mention **backend-nestjs** skill for:
      - API design feasibility
-     - Database schema validation
+     - Module organization
      - Performance feasibility
-     - Security implementation validation
 
-2. **Frontend Validation**:
+2. **Database Validation**:
+   - Mention **database-specialist** skill for:
+     - Database schema validation
+     - Query performance analysis
+     - Indexing strategy review
+     - Migration feasibility
+
+3. **Security Validation**:
+   - Mention **security-specialist** skill for:
+     - Authentication/authorization architecture review
+     - OWASP Top 10 compliance check
+     - Security headers validation
+     - Encryption strategy review
+
+4. **Frontend Validation**:
    - Mention **frontend-nextjs** skill for:
      - Component architecture feasibility
      - State management approach validation
      - Performance optimization validation
      - UX pattern validation
 
-3. **System Development Validation** (if needed):
+5. **System Development Validation** (if needed):
    - Mention **systemdev-specialist** skill for:
      - Specialized technology feasibility
      - Integration pattern validation
      - Performance requirement validation
 
-4. **Collaboration Documentation**:
+6. **Collaboration Documentation**:
    - Update .memory/collaboration.log.md with validation results
    - Record architectural decisions in .memory/decisions.md
    - Track validation effectiveness
