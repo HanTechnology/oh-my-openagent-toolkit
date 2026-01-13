@@ -1,6 +1,103 @@
 ---
 name: devops-deployment
-description: "Docker containerization, cloud deployment, CI/CD automation, and infrastructure management. Use when: containerizing applications, setting up Docker configurations, deploying to cloud platforms, configuring CI/CD pipelines, managing infrastructure, setting up monitoring. Ensures production-ready deployment."
+version: "1.0.0"
+description: |
+  DevOps and infrastructure specialist for containerization, cloud deployment, and CI/CD automation.
+
+  This skill is automatically invoked when:
+  - User mentions: "Docker", "deploy", "CI/CD", "pipeline", "Kubernetes", "AWS", "Vercel", "Railway"
+  - Project requires: Containerization, cloud deployment, CI/CD setup, infrastructure provisioning
+  - Context involves: Dockerfile, docker-compose, GitHub Actions, Terraform, monitoring, scaling
+
+  Core expertise:
+  - Docker containerization (multi-stage builds, optimization, security hardening)
+  - Docker Compose V2 orchestration (local development, production configs)
+  - Cloud deployment (Vercel, Railway, Heroku, AWS ECS/Fargate, GCP Cloud Run)
+  - CI/CD pipelines (GitHub Actions, automated testing, deployment strategies)
+  - Infrastructure as Code (Terraform, CloudFormation)
+  - Monitoring and observability (Prometheus, Grafana, logging)
+  - Security architecture (secrets management, network isolation, TLS)
+  - Scaling strategies (auto-scaling, load balancing, zero-downtime deployment)
+  - Rust deployment (musl static binaries, cross-compilation, multi-stage Docker)
+
+  Technology stack:
+  - Docker, Docker Compose V2, Kubernetes (optional)
+  - GitHub Actions (CI/CD), Terraform
+  - Vercel (frontend), Railway (backend), AWS ECS
+  - Prometheus, Grafana (monitoring)
+  - nginx, Traefik (reverse proxy)
+
+  Related skills: backend-nestjs (backend deploy), backend-fastapi (Python deploy), frontend-nextjs (frontend deploy), rust-systems (Rust deploy), security-specialist (TLS, secrets), database-specialist (DB provisioning)
+
+category: domain
+
+triggers:
+  keywords:
+    - "Docker"
+    - "deploy"
+    - "CI/CD"
+    - "pipeline"
+    - "Kubernetes"
+    - "AWS"
+    - "Vercel"
+    - "Railway"
+    - "container"
+    - "infrastructure"
+  file_patterns:
+    - "Dockerfile"
+    - "docker-compose*.yml"
+    - ".github/workflows/**/*"
+    - "terraform/**/*"
+    - "*.tf"
+  project_types:
+    - "web_application"
+    - "api_microservice"
+    - "mobile_application"
+    - "rust_systems"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "project_context"
+      type: "memory_ref"
+      description: "Project state from .memory/"
+  optional:
+    - name: "target_platform"
+      type: "string"
+      description: "Target deployment platform (Vercel, Railway, AWS, etc.)"
+
+outputs:
+  artifacts:
+    - name: "docker_configs"
+      type: "directory"
+      path: "workspace/docker/"
+    - name: "ci_cd_pipelines"
+      type: "directory"
+      path: "workspace/.github/workflows/"
+    - name: "infrastructure"
+      type: "directory"
+      path: "workspace/infrastructure/"
+  memory_updates:
+    - ".memory/ops/deployment.md"
+    - ".memory/core/decisions.md"
+
+dependencies:
+  skills:
+    - skill: "security-specialist"
+      relationship: "recommends"
+      reason: "Security configuration for deployment"
+    - skill: "database-specialist"
+      relationship: "recommends"
+      reason: "Database provisioning"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: medium
+execution_mode: autonomous
+parallel_safe: true
+idempotent: true
+
 allowed-tools:
   - Read
   - Write
@@ -362,6 +459,241 @@ services:
 - **AWS**: Enterprise-scale infrastructure
 - **Supabase**: Database and backend services
 
+## Rust Deployment Patterns
+
+### Multi-Stage Docker Build for Rust
+```dockerfile
+# workspace/docker/rust-backend.Dockerfile
+# Build stage - uses full Rust toolchain
+FROM rust:1.75-alpine AS builder
+
+# Install musl-dev for static linking
+RUN apk add --no-cache musl-dev
+
+WORKDIR /app
+
+# Cache dependencies
+COPY Cargo.toml Cargo.lock ./
+RUN mkdir src && echo "fn main() {}" > src/main.rs
+RUN cargo build --release --target x86_64-unknown-linux-musl
+RUN rm -rf src
+
+# Build actual application
+COPY src ./src
+RUN touch src/main.rs  # Force rebuild
+RUN cargo build --release --target x86_64-unknown-linux-musl
+
+# Production stage - minimal image
+FROM scratch AS production
+
+# Copy CA certificates for HTTPS
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
+# Copy static binary
+COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/app /app
+
+# Non-root user (numeric for scratch)
+USER 1000:1000
+
+EXPOSE 8080
+ENTRYPOINT ["/app"]
+```
+
+### Static Binary Compilation (musl target)
+```bash
+# Install musl target
+rustup target add x86_64-unknown-linux-musl
+
+# Build static binary
+cargo build --release --target x86_64-unknown-linux-musl
+
+# Verify static linking
+file target/x86_64-unknown-linux-musl/release/app
+# Output: "statically linked"
+```
+
+### Cross-Compilation Matrix
+```bash
+# Common targets
+rustup target add x86_64-unknown-linux-gnu      # Linux (glibc)
+rustup target add x86_64-unknown-linux-musl     # Linux (static)
+rustup target add x86_64-apple-darwin           # macOS Intel
+rustup target add aarch64-apple-darwin          # macOS Apple Silicon
+rustup target add x86_64-pc-windows-msvc        # Windows
+
+# Cross-compile for different platforms
+cargo build --release --target x86_64-unknown-linux-musl
+cargo build --release --target aarch64-apple-darwin
+```
+
+### Release Profile Optimization
+```toml
+# Cargo.toml - Production optimizations
+[profile.release]
+opt-level = 3           # Maximum optimization
+lto = "fat"             # Link-time optimization (smaller binary)
+codegen-units = 1       # Better optimization (slower compile)
+panic = "abort"         # Smaller binary, no unwinding
+strip = true            # Remove symbols
+
+[profile.release-debug]
+inherits = "release"
+debug = true            # Keep debug info for profiling
+strip = false
+```
+
+### CI/CD Pipeline for Rust
+```yaml
+# workspace/.github/workflows/rust-ci.yml
+name: Rust CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+      
+      - name: Format check
+        run: cargo fmt --all -- --check
+      
+      - name: Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      
+      - name: Security audit
+        run: |
+          cargo install cargo-audit
+          cargo audit
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      
+      - name: Run tests
+        run: cargo test --all-features
+      
+      - name: Run doc tests
+        run: cargo test --doc
+
+  build:
+    needs: [check, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-musl
+      
+      - name: Install musl tools
+        run: sudo apt-get install -y musl-tools
+      
+      - uses: Swatinem/rust-cache@v2
+      
+      - name: Build static binary
+        run: cargo build --release --target x86_64-unknown-linux-musl
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rust-binary
+          path: target/x86_64-unknown-linux-musl/release/app
+
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Login to Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/rust-backend.Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+```
+
+### Docker Compose for Rust Services
+```yaml
+# workspace/docker-compose.rust.yml
+version: '3.8'
+services:
+  rust-api:
+    build:
+      context: ./backend
+      dockerfile: ../docker/rust-backend.Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=postgres://user:pass@db:5432/app
+      - RUST_LOG=info
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 256M  # Rust is memory-efficient
+        reservations:
+          memory: 64M
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_USER=user
+      - POSTGRES_DB=app
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+```
+
+### Rust Deployment Checklist
+- [ ] Static binary compiled with musl target
+- [ ] LTO enabled for smaller binary size
+- [ ] Security audit passed (cargo audit)
+- [ ] Clippy warnings resolved
+- [ ] Docker image uses scratch/distroless base
+- [ ] Health check endpoint implemented
+- [ ] Graceful shutdown handling
+- [ ] Environment-based configuration (dotenvy)
+- [ ] Structured logging (tracing + tracing-subscriber)
+- [ ] Metrics endpoint for monitoring (prometheus crate)
+
 ## Related Skills
 
 - **fullstack-integration**: Deployment architecture
@@ -373,6 +705,7 @@ services:
 - **backend-fastapi**: Python backend deployment
 - **frontend-nextjs**: Frontend deployment (web)
 - **mobile-react-native**: Mobile deployment (EAS Build, app stores)
+- **rust-systems**: Rust binary deployment, static compilation, cross-compilation
 
 ## Examples
 

@@ -1,6 +1,100 @@
 ---
 name: fullstack-integration
-description: "Full-stack system architecture and integration coordination between frontend, backend, and infrastructure. Use when: designing system architecture, coordinating frontend-backend integration, planning deployment architecture, integrating multiple services, establishing API contracts, defining data flow patterns. Ensures cohesive system design."
+version: "1.0.0"
+description: |
+  Full-stack system architecture and integration coordination specialist.
+
+  This skill is automatically invoked when:
+  - User mentions: "architecture", "integration", "API contract", "system design", "data flow", "full-stack"
+  - Project requires: System architecture, frontend-backend coordination, API design, deployment planning
+  - Context involves: OpenAPI specs, type sharing, real-time communication, microservices coordination
+
+  Core expertise:
+  - System architecture design (monolith vs microservices, serverless, edge)
+  - API contract definition (OpenAPI 3.0, GraphQL schema design)
+  - Frontend-backend integration (shared types, API versioning, error contracts)
+  - Data flow architecture (request/response patterns, caching strategies)
+  - Authentication flow design (token flow, session management, SSO)
+  - Real-time patterns (WebSocket, SSE, polling strategies)
+  - Performance architecture (CDN, caching layers, load balancing)
+  - Repository strategy (polyrepo default, monorepo when requested)
+
+  Technology stack:
+  - OpenAPI 3.0 (specs/openapi.yaml)
+  - TypeScript shared types (workspace/shared/types/)
+  - GraphQL (optional, schema.graphql)
+  - Sequence diagrams (integration-flows.md)
+  - Architecture Decision Records (ADRs)
+
+  Related skills: pm-orchestrator (strategic coordination), frontend-nextjs (frontend implementation), backend-nestjs (backend implementation), backend-fastapi (Python backend), rust-systems (high-performance services), devops-deployment (infrastructure), all domain skills (integration targets)
+
+category: domain
+
+triggers:
+  keywords:
+    - "architecture"
+    - "integration"
+    - "API contract"
+    - "system design"
+    - "data flow"
+    - "full-stack"
+    - "OpenAPI"
+    - "microservice"
+  file_patterns:
+    - "workspace/specs/**/*"
+    - "workspace/shared/**/*"
+    - "workspace/docs/architecture/**/*"
+  project_types:
+    - "web_application"
+    - "api_microservice"
+    - "mobile_application"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "project_context"
+      type: "memory_ref"
+      description: "Project state from .memory/"
+  optional:
+    - name: "architecture_requirements"
+      type: "string"
+      description: "Specific architecture requirements or constraints"
+
+outputs:
+  artifacts:
+    - name: "api_spec"
+      type: "file"
+      path: "workspace/specs/openapi.yaml"
+    - name: "architecture_doc"
+      type: "file"
+      path: "workspace/docs/architecture/system-design.md"
+    - name: "shared_types"
+      type: "directory"
+      path: "workspace/shared/types/"
+  memory_updates:
+    - ".memory/core/decisions.md"
+    - ".memory/domains/architecture.md"
+
+dependencies:
+  skills:
+    - skill: "pm-orchestrator"
+      relationship: "serves"
+      reason: "Architecture decisions for project planning"
+    - skill: "frontend-nextjs"
+      relationship: "coordinates"
+      reason: "Frontend API integration"
+    - skill: "backend-nestjs"
+      relationship: "coordinates"
+      reason: "Backend API implementation"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: medium
+execution_mode: autonomous
+parallel_safe: true
+idempotent: true
+
 allowed-tools:
   - Read
   - Write

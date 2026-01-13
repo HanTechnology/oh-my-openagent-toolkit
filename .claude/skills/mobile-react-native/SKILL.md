@@ -1,6 +1,95 @@
 ---
 name: mobile-react-native
-description: "React Native mobile app development for iOS and Android with Expo, New Architecture, TypeScript, and cross-platform best practices. Use when: building native mobile apps, creating cross-platform applications, implementing mobile UI/UX, developing iOS/Android features, optimizing mobile performance, integrating native modules. Specializes in modern React Native patterns and mobile architecture."
+version: "1.0.0"
+description: |
+  React Native mobile development specialist for cross-platform iOS and Android applications.
+
+  This skill is automatically invoked when:
+  - User mentions: "React Native", "mobile app", "iOS", "Android", "Expo", "cross-platform", "native app"
+  - Project requires: Mobile application, cross-platform development, native features, app store deployment
+  - Context involves: New Architecture (Fabric, TurboModules, JSI), EAS Build, native modules, mobile UI
+
+  Core expertise:
+  - React Native 0.82+ with New Architecture (Fabric renderer, TurboModules, JSI)
+  - Expo SDK integration (managed and bare workflows)
+  - Cross-platform development (iOS 15+, Android 8+, unified codebase)
+  - Navigation architecture (React Navigation 6.x, Expo Router)
+  - State management (TanStack Query, Redux Toolkit, Zustand)
+  - Native module integration (camera, location, biometrics, push notifications)
+  - Performance optimization (startup time, memory, 60fps UI, battery)
+  - App Store deployment (EAS Build, EAS Submit, OTA updates)
+
+  Technology stack:
+  - React Native 0.82+, Expo SDK 52+, TypeScript 5.x strict mode
+  - React Navigation 6.x / Expo Router
+  - TanStack Query, Redux Toolkit/Zustand
+  - EAS Build, EAS Submit, EAS Update
+  - Jest, React Native Testing Library, Detox (E2E)
+
+  Related skills: backend-nestjs (API), backend-fastapi (API), fullstack-integration (architecture), devops-deployment (CI/CD), qa-testing (testing), security-specialist (mobile security)
+
+category: domain
+
+triggers:
+  keywords:
+    - "React Native"
+    - "mobile app"
+    - "iOS"
+    - "Android"
+    - "Expo"
+    - "cross-platform"
+    - "native app"
+    - "mobile"
+    - "app store"
+  file_patterns:
+    - "app.json"
+    - "app.config.*"
+    - "eas.json"
+    - "metro.config.js"
+    - "**/*.native.tsx"
+  project_types:
+    - "mobile_application"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "project_context"
+      type: "memory_ref"
+      description: "Project state from .memory/"
+  optional:
+    - name: "platform_targets"
+      type: "array"
+      description: "Target platforms (ios, android, or both)"
+
+outputs:
+  artifacts:
+    - name: "mobile_app"
+      type: "directory"
+      path: "workspace/mobile/"
+  memory_updates:
+    - ".memory/domains/mobile.md"
+    - ".memory/core/decisions.md"
+
+dependencies:
+  skills:
+    - skill: "fullstack-integration"
+      relationship: "recommends"
+      reason: "API contract coordination"
+    - skill: "devops-deployment"
+      relationship: "recommends"
+      reason: "EAS Build and deployment"
+    - skill: "security-specialist"
+      relationship: "recommends"
+      reason: "Mobile security (secure storage, biometrics)"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: medium
+execution_mode: autonomous
+parallel_safe: true
+idempotent: false
+
 allowed-tools:
   - Read
   - Write

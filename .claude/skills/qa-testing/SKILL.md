@@ -1,6 +1,94 @@
 ---
 name: qa-testing
-description: "Quality assurance and comprehensive testing with Playwright MCP for E2E testing, performance validation, accessibility compliance, and security testing. Use when: performing end-to-end testing, validating user flows, testing accessibility, checking performance, conducting security testing, validating cross-browser compatibility. Ensures production quality."
+version: "1.0.0"
+description: |
+  Quality assurance and testing specialist using Playwright MCP for comprehensive validation.
+
+  This skill is automatically invoked when:
+  - User mentions: "test", "E2E", "end-to-end", "Playwright", "accessibility", "performance test", "QA"
+  - Project requires: E2E testing, performance validation, accessibility compliance, security testing
+  - Context involves: User flow testing, cross-browser testing, Core Web Vitals, WCAG compliance
+
+  Core expertise:
+  - End-to-end testing (Playwright MCP - MANDATORY for all E2E tests)
+  - Performance testing (Core Web Vitals, Lighthouse scores, load testing)
+  - Accessibility testing (WCAG 2.1 AA compliance, axe-core integration)
+  - Security testing (vulnerability scanning, penetration testing guidance)
+  - Cross-browser testing (Chrome, Firefox, Safari, Edge)
+  - Integration testing (API testing, component integration)
+  - Test automation (CI/CD integration, scheduled test runs)
+  - Visual regression testing (screenshot comparison)
+
+  Technology stack:
+  - Playwright MCP (MANDATORY - NO external testing packages for E2E)
+  - Lighthouse (performance)
+  - axe-core (accessibility)
+  - Jest, Vitest (unit testing)
+  - GitHub Actions (CI integration)
+
+  Related skills: frontend-nextjs (frontend testing), backend-nestjs (API testing), quality-controller (metrics), security-specialist (security testing), devops-deployment (CI/CD)
+
+category: domain
+
+triggers:
+  keywords:
+    - "test"
+    - "E2E"
+    - "end-to-end"
+    - "Playwright"
+    - "accessibility"
+    - "performance test"
+    - "QA"
+    - "cross-browser"
+  file_patterns:
+    - "workspace/tests/**/*"
+    - "**/*.spec.ts"
+    - "**/*.test.ts"
+    - "playwright.config.*"
+  project_types:
+    - "web_application"
+    - "mobile_application"
+    - "api_microservice"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "project_context"
+      type: "memory_ref"
+      description: "Project state from .memory/"
+  optional:
+    - name: "test_scope"
+      type: "string"
+      description: "Specific testing scope (E2E, performance, accessibility)"
+
+outputs:
+  artifacts:
+    - name: "test_suite"
+      type: "directory"
+      path: "workspace/tests/"
+    - name: "test_reports"
+      type: "directory"
+      path: "workspace/tests/reports/"
+  memory_updates:
+    - ".memory/ops/quality.json"
+
+dependencies:
+  skills:
+    - skill: "quality-controller"
+      relationship: "serves"
+      reason: "Provides test metrics for quality gates"
+    - skill: "frontend-nextjs"
+      relationship: "tests"
+      reason: "Frontend E2E testing"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: low
+execution_mode: autonomous
+parallel_safe: true
+idempotent: true
+
 allowed-tools:
   - Read
   - Write

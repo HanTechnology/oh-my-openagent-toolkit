@@ -1,6 +1,96 @@
 ---
 name: backend-nestjs
-description: "Nest.js backend API development with TypeScript, database integration, authentication, and microservices patterns. Use when: building REST APIs, implementing authentication and authorization, designing database schemas, creating backend services, developing GraphQL APIs, implementing business logic. Specializes in scalable API architecture."
+version: "1.0.0"
+description: |
+  NestJS backend development specialist for enterprise-grade TypeScript APIs and microservices.
+
+  This skill is automatically invoked when:
+  - User mentions: "NestJS", "Nest.js", "backend", "API", "REST", "GraphQL", "TypeScript backend"
+  - Project requires: Backend API, microservices, authentication, database integration, business logic
+  - Context involves: Dependency injection, modules, controllers, services, guards, interceptors
+
+  Core expertise:
+  - NestJS 10.x framework (modules, controllers, providers, middleware)
+  - RESTful API design (OpenAPI/Swagger documentation)
+  - GraphQL APIs (code-first with @nestjs/graphql)
+  - Authentication/Authorization (JWT, Passport.js, Guards, RBAC)
+  - Database integration (TypeORM, Prisma, PostgreSQL, MongoDB)
+  - Microservices patterns (RabbitMQ, Kafka, gRPC, Redis)
+  - Caching strategies (Redis, in-memory cache)
+  - Background jobs (Bull/BullMQ queue processing)
+  - Validation (class-validator, class-transformer)
+
+  Technology stack:
+  - NestJS 10.x, TypeScript 5.x strict mode, Node.js 20+
+  - TypeORM / Prisma, PostgreSQL, Redis
+  - Passport.js, JWT, bcrypt
+  - Bull/BullMQ (queues), RabbitMQ/Kafka (messaging)
+  - Jest (unit), Supertest (E2E), Swagger (docs)
+
+  Related skills: frontend-nextjs (API consumer), mobile-react-native (API consumer), database-specialist (schema), security-specialist (auth), fullstack-integration (architecture), devops-deployment (containerization)
+
+category: domain
+
+triggers:
+  keywords:
+    - "NestJS"
+    - "Nest.js"
+    - "backend"
+    - "API"
+    - "REST"
+    - "GraphQL"
+    - "TypeScript backend"
+    - "microservice"
+  file_patterns:
+    - "nest-cli.json"
+    - "**/*.module.ts"
+    - "**/*.controller.ts"
+    - "**/*.service.ts"
+    - "**/*.guard.ts"
+  project_types:
+    - "web_application"
+    - "api_microservice"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "project_context"
+      type: "memory_ref"
+      description: "Project state from .memory/"
+  optional:
+    - name: "api_spec"
+      type: "file"
+      description: "OpenAPI specification if available"
+
+outputs:
+  artifacts:
+    - name: "backend_app"
+      type: "directory"
+      path: "workspace/backend/"
+  memory_updates:
+    - ".memory/domains/backend.md"
+    - ".memory/core/decisions.md"
+
+dependencies:
+  skills:
+    - skill: "database-specialist"
+      relationship: "recommends"
+      reason: "Schema design and migrations"
+    - skill: "security-specialist"
+      relationship: "recommends"
+      reason: "Authentication and security"
+    - skill: "fullstack-integration"
+      relationship: "recommends"
+      reason: "API contract coordination"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: medium
+execution_mode: autonomous
+parallel_safe: true
+idempotent: false
+
 allowed-tools:
   - Read
   - Write

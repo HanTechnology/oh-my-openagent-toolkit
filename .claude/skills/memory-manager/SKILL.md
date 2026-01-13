@@ -1,6 +1,96 @@
 ---
 name: memory-manager
-description: "Project memory and logging system management for context preservation and session continuity. Use when: initializing new projects, restoring project context after breaks, updating project state and decisions, preserving context before session ends, managing project memory and history. Maintains the hybrid memory-logging system for real-time state and historical analysis."
+version: "1.0.0"
+description: |
+  Project memory and context preservation specialist for session continuity and state management.
+
+  This skill is automatically invoked when:
+  - User mentions: "restore context", "save progress", "session", "memory", "history", "continue project"
+  - Project requires: Context initialization, session restoration, state persistence, decision tracking
+  - Context involves: .memory/ folder operations, .logs/ folder operations, project state management
+
+  Core expertise:
+  - Memory system management (.memory/ folder - real-time active state)
+  - Logging system management (.logs/ folder - historical audit trails)
+  - Session continuity (context preservation, restoration after breaks)
+  - Decision tracking (architectural decisions, technical choices documentation)
+  - Quality state tracking (metrics, coverage, performance data)
+  - Collaboration logging (skill invocations, handoffs, coordination)
+  - File manifest management (project structure tracking)
+  - Hybrid memory-logging integration (automatic cross-system updates)
+
+  Technology stack:
+  - .memory/ folder structure (core/, domains/, ops/)
+  - .logs/ folder structure (sessions/, decisions/, performance/)
+  - JSON for structured data (project.json, quality.json)
+  - Markdown for human-readable state (decisions.md, active-context.md)
+  - YAML for configuration (memory-logging-integration.yaml)
+
+  Related skills: pm-orchestrator (coordination), quality-controller (metrics), all domain skills (state consumers)
+
+category: core
+
+triggers:
+  keywords:
+    - "restore context"
+    - "save progress"
+    - "session"
+    - "memory"
+    - "history"
+    - "continue project"
+    - "context"
+    - "state"
+    - "decisions"
+  file_patterns:
+    - ".memory/**/*"
+    - ".logs/**/*"
+  project_types:
+    - "web_application"
+    - "mobile_application"
+    - "api_microservice"
+    - "ai_ml_system"
+    - "data_processing_system"
+    - "desktop_application"
+    - "rust_systems"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "operation_type"
+      type: "enum"
+      description: "Type of memory operation (init, restore, update, persist)"
+      values: ["init", "restore", "update", "persist"]
+  optional:
+    - name: "target_files"
+      type: "array"
+      description: "Specific memory files to operate on"
+
+outputs:
+  artifacts:
+    - name: "memory_state"
+      type: "directory"
+      path: ".memory/"
+    - name: "log_entries"
+      type: "directory"
+      path: ".logs/"
+  memory_updates:
+    - ".memory/core/active-context.md"
+    - ".memory/core/project.json"
+
+dependencies:
+  skills:
+    - skill: "pm-orchestrator"
+      relationship: "serves"
+      reason: "Provides context for project coordination"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: low
+execution_mode: autonomous
+parallel_safe: false
+idempotent: true
+
 allowed-tools:
   - Read
   - Write

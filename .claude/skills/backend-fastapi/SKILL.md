@@ -1,5 +1,6 @@
 ---
 name: backend-fastapi
+version: "1.0.0"
 description: |
   FastAPI backend specialist for async Python API development.
 
@@ -26,7 +27,77 @@ description: |
   - uvicorn (ASGI server), Docker containerization
   - pytest, httpx, mypy, ruff/black
 
-  Related skills: fullstack-integration, frontend-nextjs, systemdev-specialist (AI/ML), devops-deployment, qa-testing, backend-nestjs (alternative)
+  Related skills: fullstack-integration, frontend-nextjs, systemdev-specialist (AI/ML), devops-deployment, qa-testing, backend-nestjs (alternative), rust-systems (PyO3 native extensions)
+
+category: domain
+
+triggers:
+  keywords:
+    - "FastAPI"
+    - "Python backend"
+    - "Python API"
+    - "async Python"
+    - "Pydantic"
+    - "SQLAlchemy"
+    - "uvicorn"
+    - "ASGI"
+    - "Python microservice"
+  file_patterns:
+    - "main.py"
+    - "app/**/*.py"
+    - "routers/**/*.py"
+    - "services/**/*.py"
+    - "requirements.txt"
+    - "pyproject.toml"
+    - "alembic.ini"
+  project_types:
+    - "web_application"
+    - "api_microservice"
+    - "ai_ml_system"
+    - "data_processing_system"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "project_context"
+      type: "memory_ref"
+      description: "Project state from .memory/"
+  optional:
+    - name: "api_spec"
+      type: "file"
+      description: "OpenAPI specification if available"
+
+outputs:
+  artifacts:
+    - name: "backend_app"
+      type: "directory"
+      path: "workspace/backend/"
+  memory_updates:
+    - ".memory/domains/backend.md"
+    - ".memory/core/decisions.md"
+
+dependencies:
+  skills:
+    - skill: "database-specialist"
+      relationship: "recommends"
+      reason: "Schema design and SQLAlchemy patterns"
+    - skill: "security-specialist"
+      relationship: "recommends"
+      reason: "Authentication and security"
+    - skill: "fullstack-integration"
+      relationship: "recommends"
+      reason: "API contract coordination"
+    - skill: "rust-systems"
+      relationship: "optional"
+      reason: "PyO3 native extensions for performance bottlenecks"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: medium
+execution_mode: autonomous
+parallel_safe: true
+idempotent: false
 
 allowed-tools:
   - Read
@@ -37,6 +108,7 @@ allowed-tools:
   - Grep
   - mcp__context7__resolve-library-id
   - mcp__context7__get-library-docs
+  - mcp__github__*
 
 examples:
   - path: examples/01-complete-fastapi-setup.md
@@ -460,6 +532,18 @@ This skill operates with **complete autonomy**, requiring **zero user confirmati
 - API gateway integration
 - Service-to-service authentication
 - Technology stack selection guidance
+
+**rust-systems (high-performance complement):**
+- PyO3 Python extension development for performance-critical code
+- Rust implementation for CPU-intensive operations (10-100x speedup)
+- Shared library generation (.so/.dll) for FastAPI integration
+- Type conversion across FFI boundary (pyo3 + maturin)
+- GIL-free parallel processing for heavy computation
+- When to delegate to rust-systems:
+  - Image/video processing bottlenecks
+  - Cryptographic operations
+  - Data parsing/serialization at scale
+  - Scientific computing requiring maximum performance
 
 ---
 

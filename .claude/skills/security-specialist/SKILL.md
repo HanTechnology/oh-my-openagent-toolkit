@@ -1,7 +1,33 @@
 ---
 name: security-specialist
 version: "1.0.0"
-description: "Application security expert for vulnerability assessment, secure coding practices, and security architecture. Use when: implementing authentication/authorization, handling sensitive data, fixing security vulnerabilities, conducting security reviews, or configuring security headers."
+description: |
+  Application security expert for vulnerability assessment, secure coding, and security architecture.
+
+  This skill is automatically invoked when:
+  - User mentions: "security", "authentication", "authorization", "vulnerability", "OWASP", "JWT", "encryption"
+  - Project requires: Auth implementation, security review, vulnerability fixing, secrets management
+  - Context involves: OWASP Top 10, XSS/CSRF prevention, SQL injection, TLS, security headers
+
+  Core expertise:
+  - Authentication systems (OAuth 2.0, OpenID Connect, JWT, MFA)
+  - Authorization patterns (RBAC, ABAC, permissions, guards)
+  - OWASP Top 10 coverage (injection, broken auth, XSS, CSRF, etc.)
+  - Vulnerability assessment (dependency scanning, code review, penetration testing guidance)
+  - Secure coding practices (input validation, output encoding, parameterized queries)
+  - Cryptography (password hashing, encryption at rest/transit, key management)
+  - Security headers (CSP, CORS, HSTS, X-Frame-Options)
+  - Secrets management (environment variables, vaults, rotation)
+
+  Technology stack:
+  - bcrypt/argon2 (password hashing), JWT (tokens)
+  - Helmet.js (Node.js headers), CORS middleware
+  - npm audit, pip-audit, cargo audit (dependency scanning)
+  - ring, rustls, argon2 (Rust cryptography)
+  - OWASP ZAP, Snyk (security tools)
+
+  Related skills: backend-nestjs (auth guards), backend-fastapi (security deps), rust-systems (memory-safe crypto), devops-deployment (TLS, WAF), database-specialist (encryption at rest)
+
 category: domain
 
 triggers:
@@ -75,6 +101,9 @@ dependencies:
     - skill: "devops-deployment"
       relationship: "recommends"
       reason: "Security configuration in deployment"
+    - skill: "rust-systems"
+      relationship: "recommends"
+      reason: "Memory-safe cryptographic implementations (ring, rustls, argon2)"
   workflows: []
   memory_files:
     - ".memory/core/project.json"
@@ -633,6 +662,57 @@ Track in `.memory/metrics.md`:
 - Encryption at rest
 - Access control
 - Audit logging
+
+### With rust-systems
+- **Memory-Safe Cryptography**: Rust's memory safety prevents buffer overflows and use-after-free vulnerabilities in security-critical code
+- **Ring Crate**: High-performance cryptographic primitives (AES-GCM, SHA-256, HMAC, ECDSA, Ed25519)
+- **Rustls**: TLS implementation without OpenSSL dependency, reducing attack surface
+- **Argon2**: Memory-hard password hashing resistant to GPU/ASIC attacks
+- **jsonwebtoken**: JWT creation/validation with algorithm enforcement
+- **Secrets Management**: secrecy crate for zeroizing sensitive data from memory
+
+**Rust Security Patterns**:
+```rust
+use argon2::{Argon2, PasswordHash, PasswordHasher, PasswordVerifier};
+use argon2::password_hash::SaltString;
+use rand_core::OsRng;
+
+// Secure password hashing with Argon2id
+pub fn hash_password(password: &str) -> Result<String, argon2::password_hash::Error> {
+    let salt = SaltString::generate(&mut OsRng);
+    let argon2 = Argon2::default(); // Argon2id variant
+    let hash = argon2.hash_password(password.as_bytes(), &salt)?;
+    Ok(hash.to_string())
+}
+
+pub fn verify_password(password: &str, hash: &str) -> Result<bool, argon2::password_hash::Error> {
+    let parsed_hash = PasswordHash::new(hash)?;
+    Ok(Argon2::default().verify_password(password.as_bytes(), &parsed_hash).is_ok())
+}
+```
+
+```rust
+use rustls::{ClientConfig, RootCertStore};
+use std::sync::Arc;
+
+// TLS client without OpenSSL
+pub fn create_tls_config() -> Arc<ClientConfig> {
+    let root_store = RootCertStore::from_iter(
+        webpki_roots::TLS_SERVER_ROOTS.iter().cloned()
+    );
+    
+    Arc::new(ClientConfig::builder()
+        .with_root_certificates(root_store)
+        .with_no_client_auth())
+}
+```
+
+**When to Collaborate with rust-systems**:
+- Performance-critical cryptographic operations
+- TLS termination without OpenSSL dependency
+- Password hashing for high-traffic authentication
+- Native extensions requiring security guarantees
+- WebAssembly security modules for browser
 
 ## Memory Updates
 

@@ -1,6 +1,85 @@
 ---
 name: mcp-tools-orchestrator
-description: "Advanced MCP tool coordination and optimization for complex multi-tool scenarios, tool performance optimization, and cross-tool integration patterns. Use when: complex operations require multiple MCP tools, advanced MCP usage patterns needed, tool performance optimization required, troubleshooting MCP tool issues, developing new MCP usage patterns. Enhances tool utilization efficiency."
+version: "1.0.0"
+description: |
+  Advanced MCP tool coordination and optimization specialist for complex multi-tool scenarios.
+
+  This skill is automatically invoked when:
+  - User mentions: "MCP", "tool", "coordination", "automation", "workflow", "multi-tool"
+  - Project requires: Complex MCP orchestration (3+ tools), tool performance optimization, pattern development
+  - Context involves: Sequential Thinking + Context7 + GitHub coordination, cross-tool dependencies
+
+  Core expertise:
+  - Multi-tool coordination (3+ MCP tools with dependencies)
+  - MCP pattern development (reusable workflow patterns)
+  - Tool performance optimization (reducing redundant API calls)
+  - Cross-tool integration (Context7 → GitHub → Playwright workflows)
+  - Troubleshooting (MCP tool issues, connection problems)
+  - Expert tool support (assisting other skills with tool usage)
+  - Automation scripts (setup, deploy, maintenance)
+  - Best practices documentation (tool usage patterns)
+
+  Technology stack:
+  - Sequential Thinking MCP (deep reasoning)
+  - Context7 MCP (documentation lookup)
+  - GitHub MCP (repository operations)
+  - Playwright MCP (browser automation)
+  - Custom workflow patterns
+
+  Related skills: all domain skills (tool consumers), pm-orchestrator (coordination), qa-testing (Playwright)
+
+category: domain
+
+triggers:
+  keywords:
+    - "MCP"
+    - "tool"
+    - "coordination"
+    - "automation"
+    - "workflow"
+    - "multi-tool"
+    - "orchestration"
+  file_patterns:
+    - "workspace/ops/mcp-patterns/**/*"
+    - "workspace/ops/automation/**/*"
+  project_types:
+    - "web_application"
+    - "api_microservice"
+    - "ai_ml_system"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "coordination_request"
+      type: "string"
+      description: "Description of multi-tool coordination needed"
+  optional:
+    - name: "tools_involved"
+      type: "array"
+      description: "List of MCP tools involved"
+
+outputs:
+  artifacts:
+    - name: "mcp_patterns"
+      type: "directory"
+      path: "workspace/ops/mcp-patterns/"
+    - name: "automation_scripts"
+      type: "directory"
+      path: "workspace/ops/automation/"
+  memory_updates:
+    - ".memory/ops/tools.md"
+
+dependencies:
+  skills: []
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: low
+execution_mode: autonomous
+parallel_safe: true
+idempotent: true
+
 allowed-tools:
   - Read
   - Write

@@ -1,6 +1,100 @@
 ---
 name: quality-controller
-description: "Quality standards enforcement and validation for project-type-specific quality metrics. Use when: validating code quality and standards, checking performance metrics, enforcing quality gates, measuring compliance with quality frameworks, validating TypeScript coverage, Core Web Vitals, test coverage, security standards. Ensures projects meet defined quality thresholds before progression."
+version: "1.0.0"
+description: |
+  Quality standards enforcement and validation specialist for project-type-specific quality metrics.
+
+  This skill is automatically invoked when:
+  - User mentions: "quality", "standards", "coverage", "lint", "test", "validate", "metrics", "performance"
+  - Project requires: Quality gate enforcement, metrics validation, standards compliance, deployment readiness
+  - Context involves: TypeScript coverage, test coverage, Core Web Vitals, security scanning, accessibility
+
+  Core expertise:
+  - Quality framework selection (web app, mobile, API, AI/ML specific standards)
+  - Threshold definition (target vs minimum values, blocking vs warning gates)
+  - Code quality validation (TypeScript strict mode, ESLint/Prettier, rustfmt/clippy)
+  - Test coverage enforcement (Jest, Vitest, pytest, cargo-tarpaulin thresholds)
+  - Performance validation (Lighthouse scores, Core Web Vitals, load testing)
+  - Security scanning (npm audit, pip-audit, cargo audit, Snyk)
+  - Accessibility compliance (WCAG 2.1 A/AA/AAA, axe-core)
+  - Quality automation (CI/CD integration, pre-commit hooks, automated reporting)
+
+  Technology stack:
+  - TypeScript compiler (tsc --strict) for type coverage
+  - Jest/Vitest/pytest for test coverage measurement
+  - Lighthouse for web performance metrics
+  - axe-core for accessibility testing
+  - npm audit/pip-audit/cargo audit for security
+  - ESLint, Prettier, rustfmt, clippy for code style
+  - GitHub Actions for CI/CD quality gates
+
+  Related skills: pm-orchestrator (gate coordination), qa-testing (test execution), security-specialist (security standards), all domain skills (quality consumers)
+
+category: core
+
+triggers:
+  keywords:
+    - "quality"
+    - "standards"
+    - "coverage"
+    - "lint"
+    - "test"
+    - "validate"
+    - "metrics"
+    - "performance"
+    - "accessibility"
+    - "security scan"
+    - "audit"
+  file_patterns:
+    - ".memory/ops/quality.json"
+    - "jest.config.*"
+    - "vitest.config.*"
+    - ".eslintrc*"
+    - "tsconfig.json"
+  project_types:
+    - "web_application"
+    - "mobile_application"
+    - "api_microservice"
+    - "ai_ml_system"
+    - "rust_systems"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "project_context"
+      type: "memory_ref"
+      description: "Project state from .memory/"
+  optional:
+    - name: "quality_framework"
+      type: "string"
+      description: "Specific quality framework to apply"
+
+outputs:
+  artifacts:
+    - name: "quality_report"
+      type: "file"
+      path: ".memory/ops/quality.json"
+  memory_updates:
+    - ".memory/ops/quality.json"
+    - ".memory/core/decisions.md"
+
+dependencies:
+  skills:
+    - skill: "pm-orchestrator"
+      relationship: "serves"
+      reason: "Provides quality gates for project progression"
+    - skill: "qa-testing"
+      relationship: "recommends"
+      reason: "Test execution for coverage metrics"
+  workflows: []
+  memory_files:
+    - ".memory/ops/quality.json"
+
+risk_level: low
+execution_mode: autonomous
+parallel_safe: true
+idempotent: true
+
 allowed-tools:
   - Read
   - Bash

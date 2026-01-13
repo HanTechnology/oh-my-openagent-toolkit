@@ -1,6 +1,86 @@
 ---
 name: research-analysis
-description: "Strategic research and market analysis for technology evaluation, competitive analysis, architecture patterns, and implementation strategies. Use when: researching technology stacks, analyzing market landscape, evaluating architecture patterns, conducting competitive analysis, identifying best practices, assessing risks and opportunities. Provides data-driven insights."
+version: "1.0.0"
+description: |
+  Strategic research and technology evaluation specialist for data-driven decision making.
+
+  This skill is automatically invoked when:
+  - User mentions: "research", "evaluate", "compare", "analyze", "benchmark", "best practice", "market"
+  - Project requires: Technology evaluation, competitive analysis, architecture research, risk assessment
+  - Context involves: Framework comparison, market positioning, vendor selection, performance benchmarks
+
+  Core expertise:
+  - Technology stack evaluation (framework comparison, performance benchmarks)
+  - Market intelligence (competitive landscape, user research, market trends)
+  - Architecture pattern research (design patterns, scalability analysis)
+  - Risk assessment (technical and business risks, mitigation strategies)
+  - Vendor/service selection (payment processors, cloud platforms, APIs)
+  - GitHub repository research (similar projects, code patterns, examples)
+  - Data-driven recommendations (evidence-based strategic decisions)
+  - Documentation research (official docs, community resources)
+
+  Technology stack:
+  - Context7 MCP (library documentation)
+  - GitHub MCP (repository research, code examples)
+  - Sequential Thinking MCP (deep analysis)
+  - Comparative analysis frameworks
+  - Risk assessment matrices
+
+  Related skills: pm-orchestrator (strategic decisions), fullstack-integration (architecture), all domain skills (technology consumers)
+
+category: domain
+
+triggers:
+  keywords:
+    - "research"
+    - "evaluate"
+    - "compare"
+    - "analyze"
+    - "benchmark"
+    - "best practice"
+    - "market"
+    - "competitive"
+  file_patterns:
+    - "workspace/docs/research/**/*"
+  project_types:
+    - "web_application"
+    - "api_microservice"
+    - "ai_ml_system"
+    - "mobile_application"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "research_topic"
+      type: "string"
+      description: "Topic or question to research"
+  optional:
+    - name: "constraints"
+      type: "string"
+      description: "Constraints or requirements for the research"
+
+outputs:
+  artifacts:
+    - name: "research_report"
+      type: "directory"
+      path: "workspace/docs/research/"
+  memory_updates:
+    - ".memory/core/decisions.md"
+
+dependencies:
+  skills:
+    - skill: "pm-orchestrator"
+      relationship: "serves"
+      reason: "Provides research for strategic decisions"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: low
+execution_mode: autonomous
+parallel_safe: true
+idempotent: true
+
 allowed-tools:
   - Read
   - Write

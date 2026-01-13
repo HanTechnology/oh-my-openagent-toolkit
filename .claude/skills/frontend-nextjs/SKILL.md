@@ -1,6 +1,98 @@
 ---
 name: frontend-nextjs
-description: "Next.js frontend development with React 19, App Router, Server Components, Tailwind CSS, and Shadcn/ui. Use when: building UI components, creating web interfaces, implementing responsive design, developing user experiences, optimizing frontend performance, setting up Next.js projects. Specializes in modern React patterns and component architecture."
+version: "1.0.0"
+description: |
+  Next.js frontend development specialist for modern React applications with App Router architecture.
+
+  This skill is automatically invoked when:
+  - User mentions: "Next.js", "React", "frontend", "UI", "component", "Tailwind", "Shadcn", "web interface"
+  - Project requires: Web UI development, React components, responsive design, SSR/SSG, performance optimization
+  - Context involves: App Router, Server Components, Client Components, Tailwind CSS, component libraries
+
+  Core expertise:
+  - Next.js 15.x App Router architecture (layouts, pages, loading, error boundaries)
+  - React 19 patterns (Server Components, Client Components, Suspense, streaming)
+  - Tailwind CSS 4.x utility-first styling (responsive, dark mode, custom themes)
+  - Shadcn/ui component integration (MANDATORY component library)
+  - Lucide Icons (MANDATORY icon library - NO other icon libraries)
+  - State management (TanStack Query, Zustand, Context API)
+  - Form handling (React Hook Form, Zod validation)
+  - Performance optimization (Image optimization, lazy loading, bundle splitting)
+  - Accessibility (WCAG 2.1 AA compliance, semantic HTML, ARIA)
+
+  Technology stack:
+  - Next.js 15.x, React 19, TypeScript 5.x strict mode
+  - Tailwind CSS 4.x, Shadcn/ui, Lucide Icons
+  - TanStack Query (data fetching), Zustand (client state)
+  - React Hook Form, Zod (validation)
+  - Playwright MCP (E2E testing), Vitest (unit testing)
+
+  Related skills: backend-nestjs (API integration), backend-fastapi (API integration), fullstack-integration (architecture), rust-systems (WASM modules), qa-testing (E2E testing), devops-deployment (Vercel deployment)
+
+category: domain
+
+triggers:
+  keywords:
+    - "Next.js"
+    - "React"
+    - "frontend"
+    - "UI"
+    - "component"
+    - "Tailwind"
+    - "Shadcn"
+    - "web interface"
+    - "responsive"
+    - "SSR"
+    - "SSG"
+  file_patterns:
+    - "next.config.*"
+    - "tailwind.config.*"
+    - "app/**/*.tsx"
+    - "components/**/*.tsx"
+    - "package.json"
+  project_types:
+    - "web_application"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "project_context"
+      type: "memory_ref"
+      description: "Project state from .memory/"
+  optional:
+    - name: "design_system"
+      type: "string"
+      description: "Design system or brand guidelines"
+
+outputs:
+  artifacts:
+    - name: "frontend_app"
+      type: "directory"
+      path: "workspace/frontend/"
+  memory_updates:
+    - ".memory/domains/frontend.md"
+    - ".memory/core/decisions.md"
+
+dependencies:
+  skills:
+    - skill: "fullstack-integration"
+      relationship: "recommends"
+      reason: "API contract coordination"
+    - skill: "qa-testing"
+      relationship: "recommends"
+      reason: "E2E testing with Playwright MCP"
+    - skill: "rust-systems"
+      relationship: "optional"
+      reason: "WebAssembly modules for browser performance"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: medium
+execution_mode: autonomous
+parallel_safe: true
+idempotent: false
+
 allowed-tools:
   - Read
   - Write
@@ -378,6 +470,15 @@ Works with **qa-testing** skill for:
 - **quality-controller**: Code quality validation
 - **devops-deployment**: Production deployment
 - **pm-orchestrator**: Requirements and planning
+- **rust-systems**: WebAssembly modules for browser performance
+  - Offload heavy computation to WASM (image processing, data parsing)
+  - wasm-bindgen for JavaScript interop
+  - Size-optimized WASM modules (wasm-opt)
+  - When to use rust-systems for WASM:
+    - Client-side image/video processing
+    - Complex calculations (cryptography, compression)
+    - Data-heavy operations (CSV parsing, JSON processing)
+    - Game logic or physics simulations
 
 ## Development Workflow
 

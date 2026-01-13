@@ -1,7 +1,31 @@
 ---
 name: database-specialist
 version: "1.0.0"
-description: "Database architecture, optimization, and management specialist. Use when: designing database schemas, optimizing queries, planning migrations, configuring replication, troubleshooting performance issues, or implementing data access patterns."
+description: |
+  Database architecture, optimization, and management specialist for relational and NoSQL systems.
+
+  This skill is automatically invoked when:
+  - User mentions: "database", "schema", "SQL", "PostgreSQL", "MongoDB", "migration", "query", "index"
+  - Project requires: Schema design, query optimization, migrations, replication, performance tuning
+  - Context involves: ORM configuration, N+1 prevention, connection pooling, data modeling
+
+  Core expertise:
+  - Schema design (normalization, denormalization decisions, ER modeling)
+  - Query optimization (EXPLAIN ANALYZE, index strategies, query rewriting)
+  - Migration management (zero-downtime migrations, rollback planning, versioning)
+  - Performance tuning (slow query resolution, connection pooling, caching)
+  - High availability (replication, failover, sharding strategies)
+  - PostgreSQL advanced features (JSONB, full-text search, partitioning, CTEs)
+  - ORM integration (TypeORM, Prisma, SQLAlchemy, SQLx, Diesel)
+
+  Technology stack:
+  - PostgreSQL 16+ (primary), MySQL/MariaDB, MongoDB, Redis
+  - TypeORM (NestJS), Prisma, SQLAlchemy 2.x async (FastAPI)
+  - SQLx (Rust compile-time checks), Diesel (Rust type-safe ORM)
+  - pgAdmin, DBeaver (tools), Alembic (migrations)
+
+  Related skills: backend-nestjs (TypeORM), backend-fastapi (SQLAlchemy), rust-systems (SQLx/Diesel), devops-deployment (provisioning), security-specialist (encryption)
+
 category: domain
 
 triggers:
@@ -66,6 +90,9 @@ dependencies:
     - skill: "backend-fastapi"
       relationship: "recommends"
       reason: "Database changes often require backend updates"
+    - skill: "rust-systems"
+      relationship: "recommends"
+      reason: "SQLx compile-time query verification, Diesel type-safe ORM"
   workflows: []
   memory_files:
     - ".memory/core/project.json"
@@ -175,6 +202,8 @@ workspace/
 - **TypeORM** (NestJS): Entities, migrations, query builder
 - **Prisma**: Schema definition, migrations, client generation
 - **SQLAlchemy** (FastAPI): Models, alembic migrations
+- **SQLx** (Rust): Compile-time verified async SQL, migrations
+- **Diesel** (Rust): Type-safe ORM with schema inference
 
 ### Spatial Data & Graph Storage
 
@@ -495,6 +524,118 @@ const users = await userRepository
 ### With quality-controller
 - Query performance testing
 - Data integrity validation
+
+### With rust-systems
+- **SQLx**: Compile-time verified SQL queries with full PostgreSQL/MySQL/SQLite support
+- **Diesel**: Type-safe ORM with schema inference and migration system
+- **Connection Pooling**: deadpool-postgres, bb8 for async connection management
+- **Migrations**: sqlx-cli, diesel_cli for database migrations
+
+**SQLx Compile-Time Query Verification**:
+```rust
+use sqlx::{PgPool, FromRow};
+
+#[derive(Debug, FromRow)]
+struct User {
+    id: i64,
+    email: String,
+    name: Option<String>,
+    created_at: chrono::DateTime<chrono::Utc>,
+}
+
+// Compile-time verified - won't compile if SQL is invalid or types mismatch
+pub async fn get_user_by_email(pool: &PgPool, email: &str) -> Result<Option<User>, sqlx::Error> {
+    sqlx::query_as!(
+        User,
+        r#"
+        SELECT id, email, name, created_at
+        FROM users
+        WHERE email = $1
+        "#,
+        email
+    )
+    .fetch_optional(pool)
+    .await
+}
+
+// Runtime query with type safety
+pub async fn search_users(pool: &PgPool, query: &str) -> Result<Vec<User>, sqlx::Error> {
+    sqlx::query_as::<_, User>(
+        "SELECT id, email, name, created_at FROM users WHERE name ILIKE $1"
+    )
+    .bind(format!("%{}%", query))
+    .fetch_all(pool)
+    .await
+}
+```
+
+**Diesel Type-Safe ORM**:
+```rust
+use diesel::prelude::*;
+
+// Schema generated from database
+table! {
+    users (id) {
+        id -> Int8,
+        email -> Varchar,
+        name -> Nullable<Varchar>,
+        created_at -> Timestamptz,
+    }
+}
+
+#[derive(Queryable, Selectable)]
+#[diesel(table_name = users)]
+struct User {
+    id: i64,
+    email: String,
+    name: Option<String>,
+    created_at: chrono::DateTime<chrono::Utc>,
+}
+
+#[derive(Insertable)]
+#[diesel(table_name = users)]
+struct NewUser<'a> {
+    email: &'a str,
+    name: Option<&'a str>,
+}
+
+pub fn create_user(conn: &mut PgConnection, email: &str, name: Option<&str>) -> QueryResult<User> {
+    diesel::insert_into(users::table)
+        .values(&NewUser { email, name })
+        .returning(User::as_returning())
+        .get_result(conn)
+}
+```
+
+**Connection Pooling for High Performance**:
+```rust
+use deadpool_postgres::{Config, Pool, Runtime};
+use tokio_postgres::NoTls;
+
+pub async fn create_pool() -> Result<Pool, deadpool_postgres::CreatePoolError> {
+    let mut cfg = Config::new();
+    cfg.host = Some("localhost".to_string());
+    cfg.port = Some(5432);
+    cfg.dbname = Some("app".to_string());
+    cfg.user = Some("user".to_string());
+    cfg.password = Some("password".to_string());
+    
+    cfg.pool = Some(deadpool_postgres::PoolConfig {
+        max_size: 16,
+        timeouts: deadpool_postgres::Timeouts::wait_millis(5000),
+        ..Default::default()
+    });
+    
+    cfg.create_pool(Some(Runtime::Tokio1), NoTls)
+}
+```
+
+**When to Collaborate with rust-systems**:
+- High-performance database access requirements
+- Compile-time SQL query verification needs
+- Type-safe schema migrations
+- Connection pooling for async Rust backends
+- Complex query building with Diesel QueryDSL
 
 ## Memory Updates
 

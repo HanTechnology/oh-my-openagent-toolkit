@@ -1,6 +1,91 @@
 ---
 name: project-detector
-description: "Automatic project type detection and skill team recommendation based on user requirements. Use when: starting new projects, analyzing project requirements to determine technology stack, identifying which development skills are needed, unclear project classification. Analyzes keywords, frameworks, and technologies to score and classify projects."
+version: "1.0.0"
+description: |
+  Automatic project type detection and skill team assembly specialist.
+
+  This skill is automatically invoked when:
+  - User mentions: "new project", "build", "create", "develop", unclear project description
+  - Project requires: Type classification, technology stack identification, skill team recommendation
+  - Context involves: Keyword analysis, framework detection, hybrid project handling
+
+  Core expertise:
+  - Project type classification (7 types: web, mobile, API, AI/ML, data, desktop, Rust)
+  - Keyword-based scoring algorithm (keywords 40%, frameworks 35%, technologies 25%)
+  - Hybrid project detection (multiple types >40 score, primary-secondary handling)
+  - Skill team assembly (auto_experts mapping based on detected type)
+  - Technology stack inference (framework → technology → project type)
+  - Ambiguity resolution (Deep Thinking for <50 score projects)
+  - File pattern recognition (package.json, Cargo.toml, requirements.txt)
+
+  Technology stack:
+  - project-detection.yaml configuration file
+  - Scoring algorithm (minimum threshold: 30 points)
+  - Fallback type handling (web_application default)
+  - Multi-type detection support
+
+  Related skills: pm-orchestrator (receives classification), all domain skills (assembly targets)
+
+category: core
+
+triggers:
+  keywords:
+    - "new project"
+    - "build"
+    - "create"
+    - "develop"
+    - "start"
+    - "setup"
+  file_patterns:
+    - "package.json"
+    - "Cargo.toml"
+    - "requirements.txt"
+    - "pyproject.toml"
+    - "pubspec.yaml"
+  project_types:
+    - "web_application"
+    - "mobile_application"
+    - "api_microservice"
+    - "ai_ml_system"
+    - "data_processing_system"
+    - "desktop_application"
+    - "rust_systems"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "user_request"
+      type: "string"
+      description: "User's project description or requirements"
+  optional:
+    - name: "existing_files"
+      type: "array"
+      description: "Existing project files for pattern matching"
+
+outputs:
+  artifacts:
+    - name: "detected_type"
+      type: "string"
+      description: "Classified project type"
+    - name: "recommended_skills"
+      type: "array"
+      description: "List of recommended skills for the project"
+  memory_updates:
+    - ".memory/core/project.json"
+
+dependencies:
+  skills:
+    - skill: "pm-orchestrator"
+      relationship: "serves"
+      reason: "Provides classification for team assembly"
+  workflows: []
+  memory_files: []
+
+risk_level: low
+execution_mode: autonomous
+parallel_safe: true
+idempotent: true
+
 allowed-tools:
   - Read
 ---

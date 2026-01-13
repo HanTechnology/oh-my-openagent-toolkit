@@ -1,6 +1,105 @@
 ---
 name: pm-orchestrator
-description: "Project management and development team coordination. Use when: starting new projects, coordinating multiple development tasks, strategic planning and requirements analysis, orchestrating expert collaboration, managing project workflows, making technical and strategic decisions. This skill serves as the central coordinator for all development activities."
+version: "1.0.0"
+description: |
+  Central project orchestrator and development team coordinator for the Agentic Dev AI Team system.
+
+  This skill is automatically invoked when:
+  - User mentions: "new project", "start project", "project setup", "coordinate", "plan", "requirements"
+  - Project requires: Multi-skill coordination, strategic planning, workflow orchestration, team assembly
+  - Context involves: Project initialization, phase transitions, quality gates, decision making, lifecycle management
+
+  Core expertise:
+  - Project initialization (type detection, skill assembly, memory setup)
+  - Strategic planning (requirements analysis, roadmaps, milestone definition)
+  - Team coordination (skill invocation, workflow sequencing, parallel execution)
+  - Quality management (gate enforcement via quality-controller coordination)
+  - Decision making (technical decisions, architecture choices, technology selection)
+  - Lifecycle management (initial → continuous → major version transitions)
+  - Risk assessment (technical and business risk identification, mitigation)
+  - Progress tracking (milestone monitoring, blocker resolution)
+
+  Technology stack:
+  - Sequential Thinking MCP for strategic decisions
+  - Context7 MCP for technology research
+  - GitHub MCP for repository management
+  - TodoWrite for task tracking
+  - Memory system integration (.memory/)
+
+  Related skills: project-detector (type classification), memory-manager (context), quality-controller (standards), fullstack-integration (architecture), all domain skills (coordination target)
+
+category: core
+
+triggers:
+  keywords:
+    - "new project"
+    - "start project"
+    - "project setup"
+    - "coordinate"
+    - "orchestrate"
+    - "plan"
+    - "requirements"
+    - "strategic"
+    - "team"
+    - "workflow"
+    - "milestone"
+    - "roadmap"
+  file_patterns:
+    - ".memory/core/project.json"
+    - ".memory/core/decisions.md"
+  project_types:
+    - "web_application"
+    - "mobile_application"
+    - "api_microservice"
+    - "ai_ml_system"
+    - "data_processing_system"
+    - "desktop_application"
+    - "rust_systems"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "user_request"
+      type: "string"
+      description: "User's project request or requirements"
+  optional:
+    - name: "existing_context"
+      type: "memory_ref"
+      description: "Existing project context from .memory/"
+
+outputs:
+  artifacts:
+    - name: "project_plan"
+      type: "file"
+      path: ".memory/core/project.json"
+    - name: "decisions"
+      type: "file"
+      path: ".memory/core/decisions.md"
+  memory_updates:
+    - ".memory/core/project.json"
+    - ".memory/core/decisions.md"
+    - ".memory/core/active-context.md"
+
+dependencies:
+  skills:
+    - skill: "project-detector"
+      relationship: "requires"
+      reason: "Project type classification before team assembly"
+    - skill: "memory-manager"
+      relationship: "requires"
+      reason: "Context initialization and preservation"
+    - skill: "quality-controller"
+      relationship: "recommends"
+      reason: "Quality standards enforcement"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: low
+execution_mode: autonomous
+parallel_safe: true
+idempotent: true
+
 allowed-tools:
   - Read
   - Write

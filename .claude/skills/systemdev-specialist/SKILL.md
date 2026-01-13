@@ -1,6 +1,97 @@
 ---
 name: systemdev-specialist
-description: "Specialized system development for AI/ML, video processing, 3D graphics, GPU computing, and high-performance systems. Use when: building AI models, processing video streams, converting 3D models, implementing GPU acceleration, creating real-time streaming systems, developing high-performance computing solutions. Conditional skill for specialized requirements."
+version: "1.0.0"
+description: |
+  Specialized system development expert for AI/ML, computer vision, GPU computing, and high-performance systems.
+
+  This skill is automatically invoked when:
+  - User mentions: "AI", "ML", "machine learning", "OpenCV", "GPU", "CUDA", "video processing", "3D model"
+  - Project requires: Model training, inference, computer vision, video processing, GPU acceleration
+  - Context involves: TensorFlow, PyTorch, OpenCV, FFmpeg, CUDA, real-time streaming, high-performance computing
+
+  Core expertise:
+  - AI/ML systems (model training, inference optimization, data pipelines)
+  - Computer vision (OpenCV, image analysis, document/blueprint analysis, spatial analysis)
+  - Video processing (FFmpeg, transcoding, thumbnails, real-time video)
+  - 3D model conversion (glTF, FBX, mesh processing, optimization)
+  - GPU computing (CUDA, OpenCL, parallel processing, kernel optimization)
+  - Real-time streaming (WebRTC, MediaSoup, RTMP, low-latency)
+  - High-performance systems (memory optimization, SIMD, profiling, benchmarking)
+  - Spatial analysis (NetworkX graphs, topology, connectivity)
+
+  Technology stack:
+  - Python (TensorFlow, PyTorch, OpenCV, scikit-image, NetworkX)
+  - FFmpeg, GStreamer (video)
+  - CUDA, OpenCL (GPU)
+  - WebRTC, MediaSoup (streaming)
+  - NumPy, Pandas (data processing)
+
+  Related skills: backend-fastapi (API serving), rust-systems (high-performance Rust), research-analysis (ML research), devops-deployment (GPU infrastructure), database-specialist (spatial data)
+
+category: domain
+
+triggers:
+  keywords:
+    - "AI"
+    - "ML"
+    - "machine learning"
+    - "OpenCV"
+    - "GPU"
+    - "CUDA"
+    - "video processing"
+    - "3D model"
+    - "computer vision"
+    - "deep learning"
+    - "inference"
+  file_patterns:
+    - "workspace/specialized/**/*"
+    - "**/*.ipynb"
+    - "**/models/**/*"
+    - "**/cuda/**/*"
+  project_types:
+    - "ai_ml_system"
+    - "data_processing_system"
+  explicit_mention: false
+
+inputs:
+  required:
+    - name: "project_context"
+      type: "memory_ref"
+      description: "Project state from .memory/"
+  optional:
+    - name: "hardware_requirements"
+      type: "string"
+      description: "GPU/hardware specifications if applicable"
+
+outputs:
+  artifacts:
+    - name: "specialized_code"
+      type: "directory"
+      path: "workspace/specialized/"
+  memory_updates:
+    - ".memory/domains/specialized.md"
+    - ".memory/core/decisions.md"
+
+dependencies:
+  skills:
+    - skill: "backend-fastapi"
+      relationship: "recommends"
+      reason: "Model serving API"
+    - skill: "rust-systems"
+      relationship: "optional"
+      reason: "High-performance Rust components"
+    - skill: "devops-deployment"
+      relationship: "recommends"
+      reason: "GPU infrastructure deployment"
+  workflows: []
+  memory_files:
+    - ".memory/core/project.json"
+
+risk_level: high
+execution_mode: supervised
+parallel_safe: true
+idempotent: false
+
 allowed-tools:
   - Read
   - Write
@@ -342,6 +433,12 @@ Track in `.memory/metrics.md`:
 
 - **backend-nestjs**: API integration for system services
 - **backend-fastapi**: Python API integration for ML/CV services
+- **rust-systems**: High-performance Rust services for extreme throughput and memory-safe systems
+  - GPU computing wrappers (CUDA bindings in Rust)
+  - High-performance data processing pipelines
+  - PyO3 Python extensions for performance bottlenecks
+  - Real-time video/image processing with zero-copy memory
+  - Scientific computing with ndarray
 - **fullstack-integration**: System architecture coordination
 - **devops-deployment**: Infrastructure, deployment, and Git remote setup
 - **research-analysis**: Technology research
