@@ -1,0 +1,45 @@
+# route-domain
+
+Use this local command as a documentation-only router for phase 1. It gives a fast first-pass classification, points to the right local packs, suggests the best harness category, and names the built-in helpers that fit. It does not create plans, own task flow, track status, or run a lifecycle.
+
+## Command intent
+
+1. Classify the request into one of the six fixed routing buckets.
+2. Point to the matching local expert pack or pack pair.
+3. Suggest the preferred harness category.
+4. Add built-in helpers only where they help.
+5. For UI work, layer the curated `impeccable` imports explicitly when anti-slop refinement is part of the ask.
+
+## Routing buckets
+
+1. architecture/integration
+2. web/mobile UI
+3. backend/API
+4. systems/performance
+5. data/security
+6. QA/deployment
+
+## Fast routing recipe
+
+1. If the request is mostly about system shape, contracts, or cross-stack coordination, route to `architecture/integration`.
+2. If it is mostly about screens, flows, interaction quality, or app UX, route to `web/mobile UI`.
+3. If it centers on services, endpoints, auth, or server-side integrations, route to `backend/API`.
+4. If it centers on native code, runtime behavior, profiling, or throughput, route to `systems/performance`.
+5. If it centers on data platforms, storage, ML systems, or security posture, route to `data/security`.
+6. If it centers on verification, release readiness, rollout, or operational handoff, route to `QA/deployment`.
+
+## Output format
+
+Return a short routing note with these fields:
+
+| Field | What to include |
+| --- | --- |
+| bucket | One of the six fixed buckets |
+| local packs | Primary pack, plus one adjacent pack if truly needed |
+| harness category | Preferred starting category |
+| built-in helpers | Only the helpers that directly support the request |
+| impeccable layering | `none` for non-UI work, or the exact UI refinement imports to add |
+
+## Authoritative source
+
+Use `../reference/routing-matrix.md` as the source of truth for request shapes, pack mapping, harness categories, built-in helpers, and explicit `impeccable` layering.
