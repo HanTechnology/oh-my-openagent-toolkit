@@ -7,7 +7,7 @@ description: Deliver application and platform security guidance for auth, authz,
 
 Use this pack for security-sensitive work: authentication, authorization, secure coding, secrets and key handling, vulnerability analysis, security review, and hardening across application and service boundaries.
 
-This is the general security pack for the repo. Use the overlay in `reference/auth-owasp-secrets.md` to sharpen authentication, OWASP-style review, and secrets decisions while keeping the core guidance language-agnostic and portable.
+This is the general security pack for the repo. Use the overlays in `reference/auth-owasp-secrets.md` and `reference/supply-chain-cloud-security.md` to sharpen authentication, OWASP-style review, secrets, provenance, builder identity, artifact verification, trust-boundary rules, and cloud-security choices while keeping the core guidance language-agnostic and portable.
 
 ## Core focus
 
@@ -30,7 +30,7 @@ This is the general security pack for the repo. Use the overlay in `reference/au
 ## Default workflow
 
 1. Inspect trust boundaries, identity flows, sensitive data paths, and the current attack surface.
-2. Choose the security overlay in `reference/auth-owasp-secrets.md` when auth, OWASP, or secrets decisions dominate the task.
+2. Choose the relevant security overlay or overlay set: `reference/auth-owasp-secrets.md` for authentication, OWASP, and secrets work, or `reference/supply-chain-cloud-security.md` for dependency trust, provenance, builder or deploy identity, artifact verification, exception policy, and cloud-control exposure.
 3. Define the auth model, authz rules, secret handling, and verification approach before broad implementation.
 4. Implement controls, validation, logging hygiene, and remediation together so the defense story stays coherent.
 5. Run `review-work` after substantial security-sensitive changes.
@@ -46,6 +46,7 @@ This is the general security pack for the repo. Use the overlay in `reference/au
 ## Overlays
 
 - `reference/auth-owasp-secrets.md` for authentication fundamentals, session and re-authentication rules, MFA and TLS posture, secrets lifecycle, and leak-prevention guidance.
+- `reference/supply-chain-cloud-security.md` for dependency and artifact trust, provenance, builder and deploy identity, artifact-verification gates, registry posture, exception handling, and cloud-control hardening concerns.
 
 ## Guardrails
 
