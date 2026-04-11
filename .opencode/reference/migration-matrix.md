@@ -8,9 +8,10 @@ This document is the authoritative legacy-to-OpenCode mapping for phase 1 of the
 - Phase 1 has no local custom agents. Orchestration stays with harness built-ins plus thin local routing docs and one routing command.
 - `.memory/` is a hard delete. It is not archived, mirrored, or preserved as an active target behavior.
 - `.logs/` continuation and audit expectations are also dropped in phase 1 because they exist only to support the legacy `.memory/` runtime.
-- The target model is exactly 17 expert packs plus 23 local-integrated `impeccable` skills, for 40 total local skills.
+- The target model is exactly 17 expert packs plus 23 local-integrated `impeccable` skills, for 40 total local skills in the frozen phase-1 core inventory.
 - The `impeccable` layer is a vendored-snapshot companion import, supplementary to the 17 expert packs and not a replacement for them.
 - Deprecated wrappers `frontend-design` and `teach-impeccable` are included for completeness, but remain non-primary routing choices.
+- The live repo currently carries the planned adjacent packs `release-engineering`, `documentation-sdk`, and `developer-experience`, and the manifest models them as `planned` adjacent packs. They remain outside the frozen 17/23/40 phase-1 core and do not change that core count.
 - `impeccable-vendor-policy.md` and `workspace-model.md` are part of the authoritative Task 1 governance freeze and should be kept consistent with this matrix.
 
 ## Classification legend
@@ -127,10 +128,11 @@ These 23 local-integrated `impeccable` skills are the only approved phase-1 `imp
 
 ## Notes for downstream tasks
 
-- `README.md`, `AGENTS.md`, and the local routing docs now reflect the finished 17 expert packs + 23 local-integrated `impeccable` skills = 40 total local skills state.
+- `README.md` should keep the finished 17 expert packs + 23 local-integrated `impeccable` skills = 40 total local skills phase-1 core explicit, while `AGENTS.md` and the local routing docs should stay aligned with that support-safe model without needing to restate the full inventory count.
 - This matrix and `impeccable-vendor-policy.md` remain the authoritative migration/governance freeze for inventory and import-policy questions; treat legacy `.claude/CLAUDE.md` as source-history evidence rather than current-state runtime authority.
 - The legacy runtime expects both `.memory/` and `.logs/` to exist together. Phase 1 intentionally preserves neither runtime surface.
 - Shared QA/reference source families already confirmed during inventory: `pm-orchestrator/workflows/08-quality-assurance.md`, `quality-controller/examples/01-quality-gate-validation.md`, `quality-controller/validation-scripts/*`, and `qa-testing/examples/*`.
 - New top-level packs such as `backend-jvm`, `backend-dotnet`, `backend-go`, `systems-c-cpp`, `functional-platform`, and `php-ruby-platform` are deliberate taxonomy additions to close legacy coverage gaps instead of forcing a naive 1:1 Claude port.
+- The live repo currently carries the planned adjacent packs `release-engineering`, `documentation-sdk`, and `developer-experience`. Treat them as manifest-declared planned surfaces outside the frozen 40-skill phase-1 core, not as a silent change to the 17/23/40 freeze.
 - The authoritative current-state freeze for the full local `impeccable` import now lives in this matrix plus `impeccable-vendor-policy.md`, and current bundle docs should stay aligned with that finished 17/23/40 state.
 - The authoritative workspace convention now lives in `workspace-model.md`: repo root remains the control/execution root, greenfield outputs default to `workspace/{project-name}-{domain}`, existing projects remain in place, and the rule is a documented bundle convention rather than a native runtime feature.

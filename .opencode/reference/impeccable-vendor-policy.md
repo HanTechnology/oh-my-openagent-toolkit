@@ -1,6 +1,6 @@
 # Impeccable Vendor Policy
 
-This document freezes the local governance model for the full `impeccable` import in `agentic-dev-ai-team`. It is authoritative for the upstream source, pinned snapshot, local-integrated import policy, sync expectations, deprecated-wrapper handling, and the frozen counts for the bundle.
+This document freezes the local governance model for the full `impeccable` import in `agentic-dev-ai-team`. It is authoritative for the upstream source, pinned snapshot, local-integrated import policy, sync expectations, deprecated-wrapper handling, and the frozen counts for the phase-1 core of the bundle.
 
 ## Upstream snapshot freeze
 
@@ -43,7 +43,7 @@ The local `impeccable` layer is frozen at exactly 23 skills:
 - `teach-impeccable`
 - `typeset`
 
-Together with the 17 local expert packs, this freezes the bundle at 40 total local skills.
+Together with the 17 local expert packs, this freezes the phase-1 core of the bundle at 40 total local skills. The live repo may also carry the planned adjacent packs `release-engineering`, `documentation-sdk`, and `developer-experience`, but those remain outside the frozen 17/23/40 core.
 
 ## Local-integrated import policy
 
@@ -63,8 +63,8 @@ When the local `impeccable` layer is refreshed later, follow this playbook:
 2. Reconfirm the upstream inventory against the pinned snapshot and verify that the intended local set still contains the full 23-skill import, including `frontend-design` and `teach-impeccable`.
 3. Diff the vendored skill content, supported metadata, and any supported local extensions against the current local snapshot.
 4. Apply only the local-integrated adjustments needed to keep the bundle consistent with local routing docs, shared references, and workspace conventions.
-5. Update this file, `migration-matrix.md`, and any downstream routing or validator surfaces together so counts and semantics do not drift.
-6. Re-run parser-based verification so the 23-skill freeze, 40 total local skill count, vendored snapshot wording, and deprecated-wrapper policy are all proven again.
+5. Update this file, `migration-matrix.md`, and any downstream routing or validator surfaces together so counts and semantics do not drift between the frozen 40-skill phase-1 core and any live planned adjacent packs.
+6. Re-run parser-based verification so the 23-skill freeze, 40-skill phase-1 core, live planned-adjacent-pack handling, vendored snapshot wording, and deprecated-wrapper policy are all proven again.
 
 ## Deprecated-wrapper handling policy
 
