@@ -1,6 +1,6 @@
 # route-domain
 
-Use this local command as a documentation-only router for the local bundle. It gives a fast first-pass classification, points to the right local packs, suggests the best harness category, names the built-in helpers that fit, and reminds operators of the bundle workspace convention in compact form. It does not create plans, own task flow, track status, or run a lifecycle. Routing stays thin here. Support tiers and public-claim boundaries live in the manifest, support policy, and workflow catalog, so a routed surface is not automatically a validated one.
+Use this local command from the repo root as a documentation-only router for the local bundle. It gives a fast first-pass classification, points to the right local packs, suggests the best harness category, names the built-in helpers that fit, and reminds operators of the bundle workspace convention in compact form. It does not create plans, own task flow, track status, or run a lifecycle. Routing stays thin here. Support tiers and public-claim boundaries live in the manifest, support policy, and workflow catalog, so a routed surface is not automatically a validated one.
 
 ## Command intent
 
@@ -9,7 +9,7 @@ Use this local command as a documentation-only router for the local bundle. It g
 3. Suggest the preferred harness category.
 4. Add built-in helpers only where they help.
 5. For UI work, start with `frontend-web` or `mobile-app`, then layer the exact `impeccable` imports explicitly when anti-slop refinement is part of the ask. Browser-3D requests stay in this lane under `frontend-web` guided coverage, not in a separate routing bucket.
-6. For new greenfield work, default outputs to `workspace/{project-name}-{domain}` inside the active repo or worktree. Existing projects stay in place.
+6. For new greenfield work started from this repo or worktree root, default outputs to `workspace/{project-name}-{domain}`. Existing projects stay in place.
 
 ## Support-tier reminder
 
@@ -51,4 +51,4 @@ Return a short routing note with these fields:
 
 ## Authoritative source
 
-Use `../reference/routing-matrix.md` as the source of truth for request shapes, pack mapping, harness categories, built-in helpers, and explicit `impeccable` layering. Use `../reference/workspace-model.md` for the full workspace-rule explanation and non-goals. Use `../reference/capability-matrix.json`, `../reference/support-policy.md`, and `../reference/workflow-catalog.md` when the request depends on current support-tier or validated-workflow boundaries.
+Use `.opencode/reference/routing-matrix.md` as the source of truth for request shapes, pack mapping, harness categories, built-in helpers, and explicit `impeccable` layering. Use `.opencode/reference/workspace-model.md` for the full workspace-rule explanation and non-goals. Use `.opencode/reference/capability-matrix.json`, `.opencode/reference/support-policy.md`, and `.opencode/reference/workflow-catalog.md` when the request depends on current support-tier or validated-workflow boundaries.

@@ -1,18 +1,18 @@
 # AGENTS Guide
 
-This repo keeps local routing thin. The local layer classifies incoming work, points to the right expert packs, suggests a harness category, and names the built-in helpers that fit the job. It does not own planning, task state, release flow, or any other control plane behavior. Support tiers and public-claim boundaries live in the manifest, support policy, and workflow catalog rather than in this routing guide, so nothing here should be read as saying every routed surface is equally validated.
+From the repo root, this bundle keeps local routing thin. The local layer classifies incoming work, points to the right expert packs, suggests a harness category, and names the built-in helpers that fit the job. It does not own planning, task state, release flow, or any other control plane behavior. Support tiers and public-claim boundaries live in the manifest, support policy, and workflow catalog rather than in this routing guide, so nothing here should be read as saying every routed surface is equally validated.
 
 ## Local routing surfaces
 
-1. `./.opencode/commands/route-domain.md` is the only local command surface.
-2. `./.opencode/reference/routing-matrix.md` is the source of truth for request shapes, pack selection, harness category choice, built-in helpers, UI refinement layering, and compact workspace-rule reminders. It is a routing table, not a support-tier inventory.
-3. `./.opencode/reference/workspace-model.md` is the authoritative explanation of the bundle-wide workspace convention.
+1. `.opencode/commands/route-domain.md` is the only local command surface.
+2. `.opencode/reference/routing-matrix.md` is the source of truth for request shapes, pack selection, harness category choice, built-in helpers, UI refinement layering, and compact workspace-rule reminders. It is a routing table, not a support-tier inventory.
+3. `.opencode/reference/workspace-model.md` is the authoritative explanation of the bundle-wide workspace convention.
 
 ## Support-governance references
 
-1. `./.opencode/reference/capability-matrix.json` is the machine-readable source of truth for `validated`, `guided`, and `planned` support tiers.
-2. `./.opencode/reference/support-policy.md` defines the README public-claim rule.
-3. `./.opencode/reference/workflow-catalog.md` lists the only current `validated` workflows.
+1. `.opencode/reference/capability-matrix.json` is the machine-readable source of truth for `validated`, `guided`, and `planned` support tiers.
+2. `.opencode/reference/support-policy.md` defines the README public-claim rule.
+3. `.opencode/reference/workflow-catalog.md` lists the only current `validated` workflows.
 
 ## How to route work here
 
@@ -21,7 +21,7 @@ This repo keeps local routing thin. The local layer classifies incoming work, po
 3. Start with the preferred harness category for the request.
 4. Add built-in helpers only when the matrix says they fit.
 5. For UI work, route through `frontend-web` or `mobile-app` first, then layer the right `impeccable` skills explicitly when the task needs anti-slop review or refinement. Browser-3D work stays under `frontend-web` as guided coverage, with `systems-rust` used only for measured WASM or performance escalation and `qa-validation` used for verification support.
-6. For new greenfield work, default outputs to `workspace/{project-name}-{domain}` inside the active repo or worktree. Existing projects stay in place.
+6. For new greenfield work started from this repo or worktree root, default outputs to `workspace/{project-name}-{domain}`. Existing projects stay in place.
 7. Keep routing and support claims separate: a pack can be routable as `guided` coverage, or even named in `planned` expansion docs, without being part of the current `supported now` surface. XR and CAD browser-3D adjacencies stay planned only and are not current validated claims.
 
 ## Six routing buckets
@@ -61,4 +61,4 @@ Route `web/mobile UI` requests through `frontend-web` or `mobile-app` first. Bro
 
 The broader local `impeccable` family also includes targeted refinement skills such as `animate`, `arrange`, `bolder`, `clarify`, `delight`, `distill`, `extract`, `harden`, `normalize`, `onboard`, `optimize`, `overdrive`, `quieter`, and `shape`. Deprecated wrappers `frontend-design` and `teach-impeccable` stay included for completeness, but they are not primary routing choices.
 
-Read the routing matrix before picking combinations. For the detailed workspace convention, read `./.opencode/reference/workspace-model.md`. For the current validated workflow inventory, read `./.opencode/reference/workflow-catalog.md`. If a request spans multiple buckets, start with the dominant one and add the nearest adjacent pack instead of inventing a local orchestration loop. If the task needs a public support statement, check the manifest before claiming more than guided coverage.
+Read the routing matrix before picking combinations. For the detailed workspace convention, read `.opencode/reference/workspace-model.md`. For the current validated workflow inventory, read `.opencode/reference/workflow-catalog.md`. If a request spans multiple buckets, start with the dominant one and add the nearest adjacent pack instead of inventing a local orchestration loop. If the task needs a public support statement, check the manifest before claiming more than guided coverage.

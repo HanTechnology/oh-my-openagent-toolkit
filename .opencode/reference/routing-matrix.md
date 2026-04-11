@@ -1,6 +1,6 @@
 # Routing Matrix
 
-This matrix is the routing source of truth for `agentic-dev-ai-team`. It is intentionally stateless. It classifies request shape, maps the work to local expert packs, suggests a preferred harness category, names built-in helpers that can strengthen execution, and carries compact reminders for the bundle-wide workspace convention. It does not own planning, release flow, task lifecycle, or support-tier policy, and it should not be read as saying every routed surface is equally validated.
+From the repo root, this matrix is the routing source of truth for `agentic-dev-ai-team`. It is intentionally stateless. It classifies request shape, maps the work to local expert packs, suggests a preferred harness category, names built-in helpers that can strengthen execution, and carries compact reminders for the bundle-wide workspace convention. It does not own planning, release flow, task lifecycle, or support-tier policy, and it should not be read as saying every routed surface is equally validated.
 
 ## Routing rules
 
@@ -10,7 +10,7 @@ This matrix is the routing source of truth for `agentic-dev-ai-team`. It is inte
 4. Prefer harness built-ins for planning, review, research, git work, and UI critique instead of recreating those roles locally.
 5. Route UI implementation through `frontend-web` or `mobile-app` first, then add the right `impeccable` skills explicitly for refinement work. Browser-3D work stays under `frontend-web` as guided coverage.
 6. Keep the broader local `impeccable` family supplementary to the expert-pack layer. Deprecated wrappers stay included but non-primary.
-7. For new greenfield work, default outputs to `workspace/{project-name}-{domain}` inside the active repo or worktree. Existing projects stay in place.
+7. For new greenfield work started from this repo or worktree root, default outputs to `workspace/{project-name}-{domain}`. Existing projects stay in place.
 8. Treat the workspace rule as documentation-backed bundle guidance, not as a native runtime routing feature.
 9. Treat routing buckets and support tiers as separate layers: routing stays thin here, while `validated`, `guided`, and `planned` claims live in `capability-matrix.json`, `support-policy.md`, and `workflow-catalog.md`. Browser-3D is routed as guided coverage, not as a validated bucket or standalone workflow surface.
 
@@ -57,4 +57,4 @@ This matrix is the routing source of truth for `agentic-dev-ai-team`. It is inte
 | frontend-ui-ux | Use on UI-heavy work that needs stronger product, layout, or interaction judgment. |
 | git-master | Use when git history, branch hygiene, or commit investigation is part of the request. |
 
-For the detailed workspace convention and non-goals, read `workspace-model.md`. For current support-tier and validated-workflow boundaries, read `capability-matrix.json`, `support-policy.md`, and `workflow-catalog.md`. Use this matrix to route the work, not to widen the validated surface.
+For the detailed workspace convention and non-goals, read `.opencode/reference/workspace-model.md`. For current support-tier and validated-workflow boundaries, read `.opencode/reference/capability-matrix.json`, `.opencode/reference/support-policy.md`, and `.opencode/reference/workflow-catalog.md`. Use this matrix to route the work, not to widen the validated surface.
