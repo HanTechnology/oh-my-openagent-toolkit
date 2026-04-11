@@ -31,7 +31,7 @@ The most common companion flows in this local-integrated family are:
 - `colorize`
 - `adapt`
 
-The wider imported family also includes focused craft and reference skills plus lightweight deprecated wrappers kept for completeness. Those wrappers are present so the local bundle stays source-complete, but they are not primary entrypoints.
+The wider imported family also includes focused craft and reference skills plus lightweight deprecated wrappers kept for completeness only. Those wrappers are present so the local bundle stays source-complete, but they are not primary routing choices and should be treated as redirects to `impeccable` or `impeccable teach` as applicable.
 
 ## Context gathering protocol
 
