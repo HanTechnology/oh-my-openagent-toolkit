@@ -337,6 +337,15 @@
       "path": ".opencode/skills/systems-rust/reference/axum-actix-wasm.md"
     },
     {
+      "id": "systems-rust/wasm-browser-3d-performance",
+      "label": "Systems Rust - WASM browser 3D performance",
+      "kind": "overlay",
+      "owner": "systems-rust",
+      "routing_bucket": "systems/performance",
+      "support_level": "guided",
+      "path": ".opencode/skills/systems-rust/reference/wasm-browser-3d-performance.md"
+    },
+    {
       "id": "systems-c-cpp/cmake-gtest-embedded",
       "label": "Systems C/C++ - CMake GTest Embedded",
       "kind": "overlay",
@@ -506,6 +515,69 @@
       "path": ".opencode/skills/frontend-web/reference/angular.md"
     },
     {
+      "id": "frontend-web/browser-3d-platform",
+      "label": "Frontend web - Browser 3D platform",
+      "kind": "overlay",
+      "owner": "frontend-web",
+      "routing_bucket": "web/mobile UI",
+      "support_level": "guided",
+      "path": ".opencode/skills/frontend-web/reference/browser-3d-platform.md"
+    },
+    {
+      "id": "frontend-web/threejs-react-three-fiber",
+      "label": "Frontend web - Three.js and React Three Fiber",
+      "kind": "overlay",
+      "owner": "frontend-web",
+      "routing_bucket": "web/mobile UI",
+      "support_level": "guided",
+      "path": ".opencode/skills/frontend-web/reference/threejs-react-three-fiber.md"
+    },
+    {
+      "id": "frontend-web/babylon-playcanvas",
+      "label": "Frontend web - Babylon.js and PlayCanvas",
+      "kind": "overlay",
+      "owner": "frontend-web",
+      "routing_bucket": "web/mobile UI",
+      "support_level": "guided",
+      "path": ".opencode/skills/frontend-web/reference/babylon-playcanvas.md"
+    },
+    {
+      "id": "frontend-web/shader-material-workflows",
+      "label": "Frontend web - Shader and material workflows",
+      "kind": "overlay",
+      "owner": "frontend-web",
+      "routing_bucket": "web/mobile UI",
+      "support_level": "guided",
+      "path": ".opencode/skills/frontend-web/reference/shader-material-workflows.md"
+    },
+    {
+      "id": "frontend-web/gltf-asset-pipeline",
+      "label": "Frontend web - glTF asset pipeline",
+      "kind": "overlay",
+      "owner": "frontend-web",
+      "routing_bucket": "web/mobile UI",
+      "support_level": "guided",
+      "path": ".opencode/skills/frontend-web/reference/gltf-asset-pipeline.md"
+    },
+    {
+      "id": "frontend-web/webxr",
+      "label": "Frontend web - WebXR",
+      "kind": "overlay",
+      "owner": "frontend-web",
+      "routing_bucket": "web/mobile UI",
+      "support_level": "planned",
+      "path": ".opencode/reference/web-3d-support-model.md"
+    },
+    {
+      "id": "frontend-web/cad-industrial-visualization",
+      "label": "Frontend web - CAD and industrial visualization",
+      "kind": "overlay",
+      "owner": "frontend-web",
+      "routing_bucket": "web/mobile UI",
+      "support_level": "planned",
+      "path": ".opencode/reference/web-3d-support-model.md"
+    },
+    {
       "id": "devops-platform/aws-azure-gcp",
       "label": "DevOps platform - AWS Azure GCP",
       "kind": "overlay",
@@ -603,6 +675,15 @@
       "routing_bucket": "QA/deployment",
       "support_level": "guided",
       "path": ".opencode/skills/qa-validation/reference/mobile-test-matrix.md"
+    },
+    {
+      "id": "qa-validation/browser-3d-validation",
+      "label": "QA validation - Browser 3D validation",
+      "kind": "overlay",
+      "owner": "qa-validation",
+      "routing_bucket": "QA/deployment",
+      "support_level": "guided",
+      "path": ".opencode/skills/qa-validation/reference/browser-3d-validation.md"
     }
   ]
 }
