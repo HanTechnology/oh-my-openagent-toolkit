@@ -1,6 +1,6 @@
 # Migration Matrix
 
-This document is the authoritative legacy-to-OpenCode mapping for phase 1 of the `agentic-dev-ai-team` cutover. It freezes the required legacy inventory, the allowed migration classifications, the 17-pack target taxonomy, and the curated upstream `impeccable` imports that downstream tasks must follow exactly.
+This document is the authoritative legacy-to-OpenCode mapping for phase 1 of the `agentic-dev-ai-team` cutover. It freezes the required legacy inventory, the allowed migration classifications, the 17-pack target taxonomy, and the full local-integrated `impeccable` inventory that downstream tasks must follow exactly.
 
 ## Locked phase-1 decisions
 
@@ -8,9 +8,10 @@ This document is the authoritative legacy-to-OpenCode mapping for phase 1 of the
 - Phase 1 has no local custom agents. Orchestration stays with harness built-ins plus thin local routing docs and one routing command.
 - `.memory/` is a hard delete. It is not archived, mirrored, or preserved as an active target behavior.
 - `.logs/` continuation and audit expectations are also dropped in phase 1 because they exist only to support the legacy `.memory/` runtime.
-- The target model is exactly 17 expert packs plus 7 curated `impeccable` imports.
-- The `impeccable` imports are a supplementary anti-slop UI/UX layer, not a replacement for the 17 expert packs.
-- Inventory discrepancy to preserve in downstream docs: `README.md` still claims 16 skills, but `.claude/skills/` actually contains 17 skill directories plus 4 top-level shared docs files.
+- The target model is exactly 17 expert packs plus 23 local-integrated `impeccable` skills, for 40 total local skills.
+- The `impeccable` layer is a vendored-snapshot companion import, supplementary to the 17 expert packs and not a replacement for them.
+- Deprecated wrappers `frontend-design` and `teach-impeccable` are included for completeness, but remain non-primary routing choices.
+- `impeccable-vendor-policy.md` and `workspace-model.md` are part of the authoritative Task 1 governance freeze and should be kept consistent with this matrix.
 
 ## Classification legend
 
@@ -26,7 +27,7 @@ Automated checks should parse only the tables under these headings:
 
 1. `## Legacy surface migration matrix`
 2. `## Frozen target expert packs`
-3. `## Curated upstream impeccable imports`
+3. `## Frozen local impeccable inventory`
 
 In the legacy matrix, root runtime rows begin with `.` and all other rows are relative to `.claude/skills/`.
 
@@ -94,24 +95,42 @@ These are the only top-level expert packs for phase 1. Framework specificity mov
 | devops-platform | devops-deployment, release-management patterns | Retains deployment, infra, CI/CD, and release operations as a dedicated platform pack. |
 | qa-validation | qa-testing, quality-controller assets | Combines QA execution with shared quality assets instead of preserving a separate runtime controller. |
 
-## Curated upstream impeccable imports
+## Frozen local impeccable inventory
 
-These seven imports are the only approved `impeccable` adoptions for phase 1. They remain supplementary to the 17 expert packs.
+These 23 local-integrated `impeccable` skills are the only approved phase-1 `impeccable` inventory. Together with the 17 expert packs above, they freeze the bundle at 40 total local skills. The layer remains supplementary to the 17 expert packs, and the deprecated wrappers stay included for completeness without becoming primary routing choices.
 
-| Impeccable import | Role in the target bundle | Why it is curated instead of expanded |
+| Impeccable skill | Role in the target bundle | Local status |
 | --- | --- | --- |
-| impeccable | Umbrella anti-slop UI/UX guidance layer | Preserves the upstream bundle identity while keeping it clearly supplementary to the expert-pack taxonomy. |
-| audit | UI/UX review and flaw detection | Useful as a focused critique import without creating another local design persona. |
-| critique | Structured design and product feedback | Keeps explicit critique behavior available where upstream OpenCode behavior depends on it. |
-| polish | Finishing and refinement pass | Provides a lightweight, user-invocable refinement layer on top of domain packs. |
-| typeset | Typography and layout refinement | Retains upstream typography specialization as a narrow import, not a full local pack. |
-| colorize | Color-system and palette refinement | Retains upstream color specialization as a narrow import, not a full local pack. |
-| adapt | Contextual adaptation for platform or style changes | Preserves the upstream adaptation workflow without expanding the local taxonomy. |
+| impeccable | Umbrella anti-slop UI/UX guidance layer | primary |
+| adapt | Style or platform translation | primary |
+| animate | Motion and transition refinement | primary |
+| arrange | Layout and spatial arrangement refinement | primary |
+| audit | Flaw finding and cleanup targeting | primary |
+| bolder | Stronger emphasis and hierarchy refinement | primary |
+| clarify | Structure, copy, and interaction clarity refinement | primary |
+| colorize | Palette and contrast refinement | primary |
+| critique | Structured design and product feedback | primary |
+| delight | Delight and experiential polish | primary |
+| distill | Simplification and reduction to essentials | primary |
+| extract | Reusable pattern and primitive extraction | primary |
+| frontend-design | Deprecated wrapper kept for compatibility and completeness | deprecated wrapper, included but non-primary |
+| harden | Robustness and production-readiness refinement | primary |
+| normalize | Consistency normalization across components and flows | primary |
+| onboard | Onboarding and first-use flow refinement | primary |
+| optimize | Efficiency and optimization-focused refinement | primary |
+| overdrive | Higher-intensity transformation pass | primary |
+| polish | Finishing and refinement pass | primary |
+| quieter | Noise and clutter reduction | primary |
+| shape | Structure and form-direction refinement | primary |
+| teach-impeccable | Deprecated wrapper kept for compatibility and completeness | deprecated wrapper, included but non-primary |
+| typeset | Typography and spacing refinement | primary |
 
 ## Notes for downstream tasks
 
-- `README.md` is stale and must be treated as evidence of the inventory discrepancy, not as the authoritative skill count.
-- `.claude/CLAUDE.md` is internally consistent with the 17-skill count; the stale `README.md` is the outlier.
+- `README.md`, `AGENTS.md`, and the local routing docs now reflect the finished 17 expert packs + 23 local-integrated `impeccable` skills = 40 total local skills state.
+- This matrix and `impeccable-vendor-policy.md` remain the authoritative migration/governance freeze for inventory and import-policy questions; treat legacy `.claude/CLAUDE.md` as source-history evidence rather than current-state runtime authority.
 - The legacy runtime expects both `.memory/` and `.logs/` to exist together. Phase 1 intentionally preserves neither runtime surface.
 - Shared QA/reference source families already confirmed during inventory: `pm-orchestrator/workflows/08-quality-assurance.md`, `quality-controller/examples/01-quality-gate-validation.md`, `quality-controller/validation-scripts/*`, and `qa-testing/examples/*`.
 - New top-level packs such as `backend-jvm`, `backend-dotnet`, `backend-go`, `systems-c-cpp`, `functional-platform`, and `php-ruby-platform` are deliberate taxonomy additions to close legacy coverage gaps instead of forcing a naive 1:1 Claude port.
+- The authoritative current-state freeze for the full local `impeccable` import now lives in this matrix plus `impeccable-vendor-policy.md`, and current bundle docs should stay aligned with that finished 17/23/40 state.
+- The authoritative workspace convention now lives in `workspace-model.md`: repo root remains the control/execution root, greenfield outputs default to `workspace/{project-name}-{domain}`, existing projects remain in place, and the rule is a documented bundle convention rather than a native runtime feature.
