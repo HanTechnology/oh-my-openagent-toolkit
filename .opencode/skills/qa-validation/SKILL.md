@@ -7,7 +7,7 @@ description: Deliver evidence-oriented QA guidance for browser validation, acces
 
 Use this pack for validation work: browser-based testing, accessibility review, performance checks, security validation, cross-browser coverage, and evidence capture for release readiness.
 
-This pack defines what to verify and what evidence to gather. Detailed thresholds, reusable examples, and shared QA references belong in `../../reference/quality-gates.md` and `../../reference/qa/examples/` instead of being duplicated here.
+This pack defines what to verify and what evidence to gather. Use the overlays in `reference/api-contract-load-visual.md` and `reference/mobile-test-matrix.md` to sharpen contract matcher choice, provider states, representative load, visual baseline, and mobile-matrix decisions, while detailed thresholds, reusable examples, and shared QA references stay in `../../reference/quality-gates.md` and `../../reference/qa/examples/` instead of being duplicated here.
 
 ## Core focus
 
@@ -29,8 +29,8 @@ This pack defines what to verify and what evidence to gather. Detailed threshold
 ## Default workflow
 
 1. Inspect the feature risk, critical flows, supported browsers, and likely failure modes.
-2. Pull thresholds and reusable examples from `../../reference/quality-gates.md` and `../../reference/qa/examples/`.
-3. Run browser, accessibility, performance, security, and cross-browser checks at the depth the change requires.
+2. Pull thresholds and reusable examples from `../../reference/quality-gates.md` and `../../reference/qa/examples/`, then choose the relevant overlay or overlay set: `reference/api-contract-load-visual.md` for contract, load, and visual evidence depth, or `reference/mobile-test-matrix.md` for device, form-factor, and real-device coverage policy.
+3. Run browser, accessibility, performance, security, contract, load, visual, and mobile-matrix checks at the depth the change requires.
 4. Capture screenshots, accessibility snapshots, logs, and metric output so the result is evidence-backed.
 5. Run `review-work` after substantial validation or release-readiness work.
 
@@ -40,6 +40,11 @@ This pack defines what to verify and what evidence to gather. Detailed threshold
 - Use harness browser helpers such as `agent-browser` or `dev-browser` for live browser execution, and use `review-work` for a final review sweep.
 - Pair with `security-engineering` when auth, authorization, or vulnerability findings need deeper analysis.
 - Pair with `devops-platform` when release readiness depends on environment health, deployment shape, or rollout evidence.
+
+## Overlays
+
+- `reference/api-contract-load-visual.md` for API contract assertions, matcher philosophy, provider states, representative load profiles, visual baseline policy, and release-risk checks on critical surfaces.
+- `reference/mobile-test-matrix.md` for device, OS, browser, and form-factor coverage planning, real-device versus simulator policy, localization and accessibility axes, and state-sensitive mobile behavior.
 
 ## Guardrails
 
