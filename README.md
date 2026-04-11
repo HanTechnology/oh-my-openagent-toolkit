@@ -31,6 +31,7 @@ Guided coverage includes:
 
 - expert-pack routing across architecture, frontend, mobile, backend, systems, data, security, QA, and platform work
 - implemented pack-local overlays for specific ecosystems and frameworks
+- browser-3D guidance routed through `frontend-web`, with `systems-rust` used only for measured WASM or performance escalation and `qa-validation` used for verification guidance
 
 Other included local assets such as the thin routing docs, shared reference files, and the vendored `impeccable` family support bundle use and refinement, but the README’s tier labels are reserved for manifest-backed capabilities.
 
@@ -39,6 +40,8 @@ Other included local assets such as the thin routing docs, shared reference file
 Some manifest entries are still `planned`. Those entries reserve future expansion surfaces and keep the roadmap visible without overstating present support. Treat them as known next coverage, not as current routing proof or public support claims.
 
 Planned next currently includes reserved adjacent packs, overlays, and other manifest entries that remain held for later promotion.
+
+For browser-3D specifically, XR and CAD stay compact reserved surfaces in wave 1. They are planned only, so they stay visible as next-step routing context without being presented as current validated support.
 
 ## What this bundle contains
 
@@ -122,7 +125,7 @@ agentic-dev-ai-team/
 2. Pick the dominant local expert pack, plus one adjacent pack only when the request truly spans domains.
 3. Start in the preferred harness category from the routing matrix.
 4. Add built-in helpers only when the work calls for them.
-5. For UI work, start with `frontend-web` or `mobile-app`, then layer the exact `impeccable` imports the routing matrix names.
+5. For UI work, start with `frontend-web` or `mobile-app`, then layer the exact `impeccable` imports the routing matrix names. Browser-3D stays inside `frontend-web` guided coverage rather than becoming a separate routing bucket.
 6. Apply the bundle workspace convention: new greenfield outputs default to `workspace/{project-name}-{domain}` inside the active repo or worktree, while existing projects stay in place.
 7. Use `support-policy.md` and `workflow-catalog.md` when you need to distinguish current `supported now` workflows from broader guided or planned coverage.
 
@@ -156,6 +159,7 @@ These expert packs are part of the bundle's current `guided` coverage. They are 
 
 - `architecture-integration` - cross-stack design, API contracts, service boundaries, and integration shape
 - `frontend-web` - browser UI, design systems, frontend implementation, and anti-slop coordination
+- `frontend-web` also owns current browser-3D guided coverage. Route browser-3D work here first, escalate to `systems-rust` only for measured WASM or performance bottlenecks, and use `qa-validation` for verification depth. This is guided coverage, not a separate validated workflow surface.
 - `mobile-app` - native and cross-platform app delivery with mobile-specific UX guidance
 
 ### Backend families
@@ -184,6 +188,8 @@ These expert packs are part of the bundle's current `guided` coverage. They are 
 ## Planned adjacent packs
 
 Some adjacent packs already have files in the bundle, but the manifest keeps them at `planned` today. Treat them as reserved next coverage rather than current guided or validated support.
+
+For browser-3D adjacencies, XR and CAD remain planned only. They are visible roadmap surfaces, not current validated support and not a signal to route browser-3D away from `frontend-web` first.
 
 ## Included local `impeccable` layer
 
