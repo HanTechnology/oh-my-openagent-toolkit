@@ -5,7 +5,8 @@ This repo keeps local routing thin. The local layer classifies incoming work, po
 ## Local routing surfaces
 
 1. `./.opencode/commands/route-domain.md` is the only local command surface in phase 1.
-2. `./.opencode/reference/routing-matrix.md` is the source of truth for request shapes, pack selection, harness category choice, built-in helpers, and UI refinement layering.
+2. `./.opencode/reference/routing-matrix.md` is the source of truth for request shapes, pack selection, harness category choice, built-in helpers, UI refinement layering, and compact workspace-rule reminders.
+3. `./.opencode/reference/workspace-model.md` is the authoritative explanation of the bundle-wide workspace convention.
 
 ## How to route work here
 
@@ -13,7 +14,8 @@ This repo keeps local routing thin. The local layer classifies incoming work, po
 2. Pick the matching local expert pack or pack pair.
 3. Start with the preferred harness category for the request.
 4. Add built-in helpers only when the matrix says they fit.
-5. For UI work, layer the curated `impeccable` pack explicitly when the task needs anti-slop review or refinement.
+5. For UI work, route through `frontend-web` or `mobile-app` first, then layer the right `impeccable` skills explicitly when the task needs anti-slop review or refinement.
+6. For new greenfield work, default outputs to `workspace/{project-name}-{domain}` inside the active repo or worktree. Existing projects stay in place.
 
 ## Six routing buckets
 
@@ -40,7 +42,7 @@ This repo keeps local routing thin. The local layer classifies incoming work, po
 
 ## UI refinement rule
 
-Route `web/mobile UI` requests through `frontend-web` or `mobile-app` first. Then add the curated `impeccable` layer on purpose, not by implication:
+Route `web/mobile UI` requests through `frontend-web` or `mobile-app` first. Then add the local `impeccable` family on purpose, not by implication:
 
 1. `impeccable` for the umbrella anti-slop pass.
 2. `audit` for flaw finding and cleanup targets.
@@ -50,4 +52,6 @@ Route `web/mobile UI` requests through `frontend-web` or `mobile-app` first. The
 6. `colorize` for palette and contrast work.
 7. `adapt` for platform or style translation.
 
-Read the routing matrix before picking combinations. If a request spans multiple buckets, start with the dominant one and add the nearest adjacent pack instead of inventing a local orchestration loop.
+The broader local `impeccable` family also includes targeted refinement skills such as `animate`, `arrange`, `bolder`, `clarify`, `delight`, `distill`, `extract`, `harden`, `normalize`, `onboard`, `optimize`, `overdrive`, `quieter`, and `shape`. Deprecated wrappers `frontend-design` and `teach-impeccable` stay included for completeness, but they are not primary routing choices.
+
+Read the routing matrix before picking combinations. For the detailed workspace convention, read `./.opencode/reference/workspace-model.md`. If a request spans multiple buckets, start with the dominant one and add the nearest adjacent pack instead of inventing a local orchestration loop.

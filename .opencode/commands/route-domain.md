@@ -1,6 +1,6 @@
 # route-domain
 
-Use this local command as a documentation-only router for phase 1. It gives a fast first-pass classification, points to the right local packs, suggests the best harness category, and names the built-in helpers that fit. It does not create plans, own task flow, track status, or run a lifecycle.
+Use this local command as a documentation-only router for phase 1. It gives a fast first-pass classification, points to the right local packs, suggests the best harness category, names the built-in helpers that fit, and reminds operators of the bundle workspace convention in compact form. It does not create plans, own task flow, track status, or run a lifecycle.
 
 ## Command intent
 
@@ -8,7 +8,8 @@ Use this local command as a documentation-only router for phase 1. It gives a fa
 2. Point to the matching local expert pack or pack pair.
 3. Suggest the preferred harness category.
 4. Add built-in helpers only where they help.
-5. For UI work, layer the curated `impeccable` imports explicitly when anti-slop refinement is part of the ask.
+5. For UI work, start with `frontend-web` or `mobile-app`, then layer the exact `impeccable` imports explicitly when anti-slop refinement is part of the ask.
+6. For new greenfield work, default outputs to `workspace/{project-name}-{domain}` inside the active repo or worktree. Existing projects stay in place.
 
 ## Routing buckets
 
@@ -39,7 +40,8 @@ Return a short routing note with these fields:
 | harness category | Preferred starting category |
 | built-in helpers | Only the helpers that directly support the request |
 | impeccable layering | `none` for non-UI work, or the exact UI refinement imports to add |
+| workspace convention | `existing project in place` or `greenfield -> workspace/{project-name}-{domain}` |
 
 ## Authoritative source
 
-Use `../reference/routing-matrix.md` as the source of truth for request shapes, pack mapping, harness categories, built-in helpers, and explicit `impeccable` layering.
+Use `../reference/routing-matrix.md` as the source of truth for request shapes, pack mapping, harness categories, built-in helpers, and explicit `impeccable` layering. Use `../reference/workspace-model.md` for the full workspace-rule explanation and non-goals.
