@@ -1,21 +1,28 @@
 # AGENTS Guide
 
-This repo keeps local routing thin. The local layer classifies incoming work, points to the right expert packs, suggests a harness category, and names the built-in helpers that fit the job. It does not own planning, task state, release flow, or any other control plane behavior.
+This repo keeps local routing thin. The local layer classifies incoming work, points to the right expert packs, suggests a harness category, and names the built-in helpers that fit the job. It does not own planning, task state, release flow, or any other control plane behavior. Support tiers and public-claim boundaries live in the manifest, support policy, and workflow catalog rather than in this routing guide, so nothing here should be read as saying every routed surface is equally validated.
 
 ## Local routing surfaces
 
-1. `./.opencode/commands/route-domain.md` is the only local command surface in phase 1.
-2. `./.opencode/reference/routing-matrix.md` is the source of truth for request shapes, pack selection, harness category choice, built-in helpers, UI refinement layering, and compact workspace-rule reminders.
+1. `./.opencode/commands/route-domain.md` is the only local command surface.
+2. `./.opencode/reference/routing-matrix.md` is the source of truth for request shapes, pack selection, harness category choice, built-in helpers, UI refinement layering, and compact workspace-rule reminders. It is a routing table, not a support-tier inventory.
 3. `./.opencode/reference/workspace-model.md` is the authoritative explanation of the bundle-wide workspace convention.
+
+## Support-governance references
+
+1. `./.opencode/reference/capability-matrix.json` is the machine-readable source of truth for `validated`, `guided`, and `planned` support tiers.
+2. `./.opencode/reference/support-policy.md` defines the README public-claim rule.
+3. `./.opencode/reference/workflow-catalog.md` lists the only current `validated` workflows.
 
 ## How to route work here
 
 1. Classify the request into one of six buckets only.
-2. Pick the matching local expert pack or pack pair.
+2. Pick the matching local expert pack or pack pair for routing, then rely on the manifest if you need the current support tier.
 3. Start with the preferred harness category for the request.
 4. Add built-in helpers only when the matrix says they fit.
 5. For UI work, route through `frontend-web` or `mobile-app` first, then layer the right `impeccable` skills explicitly when the task needs anti-slop review or refinement.
 6. For new greenfield work, default outputs to `workspace/{project-name}-{domain}` inside the active repo or worktree. Existing projects stay in place.
+7. Keep routing and support claims separate: a pack can be routable as `guided` coverage, or even named in `planned` expansion docs, without being part of the current `supported now` surface.
 
 ## Six routing buckets
 
@@ -54,4 +61,4 @@ Route `web/mobile UI` requests through `frontend-web` or `mobile-app` first. The
 
 The broader local `impeccable` family also includes targeted refinement skills such as `animate`, `arrange`, `bolder`, `clarify`, `delight`, `distill`, `extract`, `harden`, `normalize`, `onboard`, `optimize`, `overdrive`, `quieter`, and `shape`. Deprecated wrappers `frontend-design` and `teach-impeccable` stay included for completeness, but they are not primary routing choices.
 
-Read the routing matrix before picking combinations. For the detailed workspace convention, read `./.opencode/reference/workspace-model.md`. If a request spans multiple buckets, start with the dominant one and add the nearest adjacent pack instead of inventing a local orchestration loop.
+Read the routing matrix before picking combinations. For the detailed workspace convention, read `./.opencode/reference/workspace-model.md`. For the current validated workflow inventory, read `./.opencode/reference/workflow-catalog.md`. If a request spans multiple buckets, start with the dominant one and add the nearest adjacent pack instead of inventing a local orchestration loop. If the task needs a public support statement, check the manifest before claiming more than guided coverage.
