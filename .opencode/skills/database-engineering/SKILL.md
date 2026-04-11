@@ -7,7 +7,7 @@ description: Deliver language-agnostic database design, migration, performance, 
 
 Use this pack for database work: schema design, data modeling, migrations, query and index tuning, replication planning, backup and restore strategy, and operational reliability across major datastore families.
 
-This is the general database pack for the repo. Use the overlay in `reference/postgres-mysql-mongodb-redis.md` to sharpen engine-specific choices while keeping schema, migration, query-planning, durability, and recovery expectations explicit.
+This is the general database pack for the repo. Use the overlays in `reference/postgres-mysql-mongodb-redis.md` and `reference/analytics-search-stores.md` to sharpen engine-specific, analytical, and search-serving choices while keeping schema, migration, query-planning, index or mapping contracts, lifecycle policy, freshness, and recovery expectations explicit.
 
 ## Core focus
 
@@ -28,7 +28,7 @@ This is the general database pack for the repo. Use the overlay in `reference/po
 ## Default workflow
 
 1. Inspect the current schema, query paths, write patterns, retention rules, and operational constraints.
-2. Choose the engine overlay in `reference/postgres-mysql-mongodb-redis.md` when engine-specific tradeoffs matter.
+2. Choose the relevant database overlay or overlay set: `reference/postgres-mysql-mongodb-redis.md` for engine-specific tradeoffs, or `reference/analytics-search-stores.md` when warehouse, analytical, search-serving, reindex, or recovery behavior dominates the design.
 3. Define the schema, migration sequence, rollback shape, and consistency model before broad implementation.
 4. Implement schema changes, indexes, query updates, and backup or recovery implications together so operational risk stays visible.
 5. Run `review-work` after substantial database changes.
@@ -44,6 +44,7 @@ This is the general database pack for the repo. Use the overlay in `reference/po
 ## Overlays
 
 - `reference/postgres-mysql-mongodb-redis.md` for engine choice boundaries, indexing and query planning, transactions and consistency, and replication or durability tradeoffs.
+- `reference/analytics-search-stores.md` for warehouse and search-serving boundaries, index or mapping contracts, schema evolution and reindex flow, lifecycle policy, hot-path guardrails, and recovery posture.
 
 ## Guardrails
 
