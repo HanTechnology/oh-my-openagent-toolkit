@@ -7,7 +7,7 @@ description: Deliver data and ML systems across pipelines, training, evaluation,
 
 Use this pack for data and ML platform work: model training, evaluation, batch or streaming data pipelines, inference services, video or media analysis, GPU or accelerator paths, and performance-sensitive data processing.
 
-This is the general data and ML family pack for the repo. Use the overlay in `reference/pytorch-tensorflow-sklearn-r.md` to tune decisions for PyTorch, TensorFlow, scikit-learn, and R while keeping the same expectations for data lineage, model quality, reproducibility, model-serving, and hardware awareness.
+This is the general data and ML family pack for the repo. Use the overlays in `reference/` to tune decisions for framework-specific training, retrieval and grounding loops, heavy pipeline compute and transformation boundaries, and model-serving release operations while keeping the same expectations for data lineage, model quality, reproducibility, model-serving, and hardware awareness.
 
 ## Core focus
 
@@ -28,7 +28,7 @@ This is the general data and ML family pack for the repo. Use the overlay in `re
 ## Default workflow
 
 1. Inspect the data sources, feature flow, model artifacts, serving path, and available hardware.
-2. Choose the framework overlay in `reference/pytorch-tensorflow-sklearn-r.md`.
+2. Choose the relevant overlay or overlay set in `reference/`: `pytorch-tensorflow-sklearn-r.md` for framework-specific training stacks, `rag-vector-evals.md` for retrieval and grounding loops, `spark-dbt-airflow.md` for heavy compute plus transform plus orchestration boundaries, and `model-serving-mlops.md` for release, serving, and monitoring decisions.
 3. Define metrics, reproducibility rules, serialization format, and inference constraints before broad implementation.
 4. Implement pipeline code, training or evaluation logic, and serving or scoring behavior together so offline and online paths stay aligned.
 5. Run `review-work` after substantial data, model, or accelerator-related changes.
@@ -41,7 +41,12 @@ This is the general data and ML family pack for the repo. Use the overlay in `re
 
 ## Overlays
 
+Pick one or more overlays based on the dominant delivery surface. Combine them when a single task spans retrieval, pipeline compute, and serving, but keep `data-ml-platform` as the owning pack.
+
 - `reference/pytorch-tensorflow-sklearn-r.md` for framework-specific choices around training, evaluation, serialization, inference, and reproducibility.
+- `reference/rag-vector-evals.md` for retrieval loops, embeddings, vector indexes, chunking, reranking, grounding, and evaluation quality checks.
+- `reference/spark-dbt-airflow.md` for Spark compute paths, dbt transform contracts, and Airflow orchestration boundaries.
+- `reference/model-serving-mlops.md` for registry and versioning, serving contracts, rollout strategy, monitoring, and operational handoff.
 
 ## Guardrails
 
