@@ -20,9 +20,9 @@ This repo keeps local routing thin. The local layer classifies incoming work, po
 2. Pick the matching local expert pack or pack pair for routing, then rely on the manifest if you need the current support tier.
 3. Start with the preferred harness category for the request.
 4. Add built-in helpers only when the matrix says they fit.
-5. For UI work, route through `frontend-web` or `mobile-app` first, then layer the right `impeccable` skills explicitly when the task needs anti-slop review or refinement.
+5. For UI work, route through `frontend-web` or `mobile-app` first, then layer the right `impeccable` skills explicitly when the task needs anti-slop review or refinement. Browser-3D work stays under `frontend-web` as guided coverage, with `systems-rust` used only for measured WASM or performance escalation and `qa-validation` used for verification support.
 6. For new greenfield work, default outputs to `workspace/{project-name}-{domain}` inside the active repo or worktree. Existing projects stay in place.
-7. Keep routing and support claims separate: a pack can be routable as `guided` coverage, or even named in `planned` expansion docs, without being part of the current `supported now` surface.
+7. Keep routing and support claims separate: a pack can be routable as `guided` coverage, or even named in `planned` expansion docs, without being part of the current `supported now` surface. XR and CAD browser-3D adjacencies stay planned only and are not current validated claims.
 
 ## Six routing buckets
 
@@ -49,7 +49,7 @@ This repo keeps local routing thin. The local layer classifies incoming work, po
 
 ## UI refinement rule
 
-Route `web/mobile UI` requests through `frontend-web` or `mobile-app` first. Then add the local `impeccable` family on purpose, not by implication:
+Route `web/mobile UI` requests through `frontend-web` or `mobile-app` first. Browser-3D stays in that same routing lane under `frontend-web`, not as a separate top-level bucket. Bring in `systems-rust` only when profiling or runtime evidence shows a browser-WASM or performance bottleneck, and bring in `qa-validation` when the work needs browser-3D verification coverage. Then add the local `impeccable` family on purpose, not by implication:
 
 1. `impeccable` for the umbrella anti-slop pass.
 2. `audit` for flaw finding and cleanup targets.

@@ -8,15 +8,15 @@ Use this local command as a documentation-only router for the local bundle. It g
 2. Point to the matching local expert pack or pack pair.
 3. Suggest the preferred harness category.
 4. Add built-in helpers only where they help.
-5. For UI work, start with `frontend-web` or `mobile-app`, then layer the exact `impeccable` imports explicitly when anti-slop refinement is part of the ask.
+5. For UI work, start with `frontend-web` or `mobile-app`, then layer the exact `impeccable` imports explicitly when anti-slop refinement is part of the ask. Browser-3D requests stay in this lane under `frontend-web` guided coverage, not in a separate routing bucket.
 6. For new greenfield work, default outputs to `workspace/{project-name}-{domain}` inside the active repo or worktree. Existing projects stay in place.
 
 ## Support-tier reminder
 
 1. Routing buckets classify request shape; they do not change whether a surface is `validated`, `guided`, or `planned`.
 2. README `supported now` claims belong only to manifest entries whose `support_level` is `validated`.
-3. Guided surfaces can still be routed here and are current, but they are not public supported-now claims.
-4. Planned surfaces may appear as named future routing targets in supporting docs, but they are not present-tense support claims.
+3. Guided surfaces can still be routed here and are current, but they are not public supported-now claims. That includes browser-3D guidance routed through `frontend-web`, with `systems-rust` as escalation-only support and `qa-validation` as the verification lane.
+4. Planned surfaces may appear as named future routing targets in supporting docs, but they are not present-tense support claims. XR and CAD browser-3D adjacencies stay in that planned category.
 
 ## Routing buckets
 
@@ -30,11 +30,11 @@ Use this local command as a documentation-only router for the local bundle. It g
 ## Fast routing recipe
 
 1. If the request is mostly about system shape, contracts, or cross-stack coordination, route to `architecture/integration`.
-2. If it is mostly about screens, flows, interaction quality, or app UX, route to `web/mobile UI`.
+2. If it is mostly about screens, flows, interaction quality, app UX, or browser-3D implementation in the browser runtime, route to `web/mobile UI` through `frontend-web` first.
 3. If it centers on services, endpoints, auth, or server-side integrations, route to `backend/API`.
-4. If it centers on native code, runtime behavior, profiling, or throughput, route to `systems/performance`.
+4. If it centers on native code, runtime behavior, profiling, or throughput, route to `systems/performance`. Use `systems-rust` for browser-3D only when the problem is a measured WASM or performance escalation.
 5. If it centers on data platforms, storage, ML systems, or security posture, route to `data/security`.
-6. If it centers on verification, release readiness, rollout, or operational handoff, route to `QA/deployment`.
+6. If it centers on verification, release readiness, rollout, or operational handoff, route to `QA/deployment`. For browser-3D validation depth, pair the implementation route with `qa-validation` instead of treating browser-3D as its own validated workflow.
 
 ## Output format
 
