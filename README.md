@@ -1,14 +1,15 @@
 # Agentic Dev AI Team
 
-`agentic-dev-ai-team/` is a project-local OpenCode bundle for the `oh-my-openagent` harness. It keeps the local layer narrow: expert packs live under `.opencode/skills/`, routing stays in a thin set of docs, and planning, execution orchestration, research, and review stay with harness-native categories and built-in helpers.
+`agentic-dev-ai-team/` is a project-local OpenCode bundle for the `oh-my-openagent` harness. It keeps the local layer narrow: expert packs and the local `impeccable` family live under `.opencode/skills/`, routing stays in a thin set of docs, and planning, execution orchestration, research, and review stay with harness-native categories and built-in helpers.
 
 ## What this bundle contains
 
 - a project-local `.opencode/` bundle wired by `.opencode/oh-my-openagent.jsonc`
 - 17 expert packs for architecture, web, mobile, backend, systems, data, security, ops, and QA work
-- a curated `impeccable` anti-slop UI/UX layer with 7 imported refinement skills
+- 23 local `impeccable` skills, imported as a full supplementary UI and refinement layer
+- 40 total local skills across the bundle
 - one thin routing layer: `AGENTS.md`, `.opencode/commands/route-domain.md`, and `.opencode/reference/routing-matrix.md`
-- shared reference assets for migration evidence, quality gates, design anti-patterns, QA examples, and structural validation
+- shared reference assets for migration evidence, quality gates, design anti-patterns, QA examples, workspace conventions, and structural validation
 
 The bundle is intentionally stateless. It does not recreate a local control plane, persistent runtime layer, task authority, or local orchestration loop.
 
@@ -48,12 +49,28 @@ agentic-dev-ai-team/
       |- devops-platform/
       |- qa-validation/
       |- impeccable/
+      |- adapt/
+      |- animate/
+      |- arrange/
       |- audit/
-      |- critique/
-      |- polish/
-      |- typeset/
+      |- bolder/
+      |- clarify/
       |- colorize/
-      `- adapt/
+      |- critique/
+      |- delight/
+      |- distill/
+      |- extract/
+      |- frontend-design/
+      |- harden/
+      |- normalize/
+      |- onboard/
+      |- optimize/
+      |- overdrive/
+      |- polish/
+      |- quieter/
+      |- shape/
+      |- teach-impeccable/
+      `- typeset/
 ```
 
 ## How to use the bundle
@@ -62,7 +79,8 @@ agentic-dev-ai-team/
 2. Pick the dominant local expert pack, plus one adjacent pack only when the request truly spans domains.
 3. Start in the preferred harness category from the routing matrix.
 4. Add built-in helpers only when the work calls for them.
-5. For UI work, layer the curated `impeccable` imports explicitly instead of relying on generic frontend wording.
+5. For UI work, start with `frontend-web` or `mobile-app`, then layer the exact `impeccable` imports the routing matrix names.
+6. Apply the bundle workspace convention: new greenfield outputs default to `workspace/{project-name}-{domain}` inside the active repo or worktree, while existing projects stay in place.
 
 ## Harness-native execution model
 
@@ -117,19 +135,14 @@ The local bundle points to packs and references. The harness owns orchestration.
 - `devops-platform` - containers, CI/CD, infrastructure delivery, and rollout readiness
 - `qa-validation` - verification strategy, test depth, release-readiness checks, and evidence expectations
 
-## Curated `impeccable` anti-slop layer
+## Full local `impeccable` layer
 
-The OpenCode bundle also carries a curated subset of the upstream `impeccable` UI/UX pack. This layer is supplementary to the 17 expert packs and should be added on purpose when UI quality needs a sharper pass.
+The OpenCode bundle carries the full frozen local `impeccable` layer: 23 skills total, imported as a vendored-snapshot companion family. This layer is supplementary to the 17 expert packs. For implementation authority on UI work, route through `frontend-web` or `mobile-app` first, then add the exact `impeccable` skills that fit the request.
 
-- `impeccable` - umbrella anti-slop guidance
-- `audit` - flaw finding and cleanup targets
-- `critique` - sharper UX and product feedback
-- `polish` - finishing passes
-- `typeset` - typography and spacing refinement
-- `colorize` - palette and contrast refinement
-- `adapt` - style or platform translation
+- Primary `impeccable` skills: `impeccable`, `adapt`, `animate`, `arrange`, `audit`, `bolder`, `clarify`, `colorize`, `critique`, `delight`, `distill`, `extract`, `harden`, `normalize`, `onboard`, `optimize`, `overdrive`, `polish`, `quieter`, `shape`, `typeset`
+- Deprecated wrappers kept as included but non-primary: `frontend-design`, `teach-impeccable`
 
-For UI work, route through `frontend-web` or `mobile-app` first, then add the exact `impeccable` imports named by the routing matrix.
+Do not promote every imported wrapper to a top-level recommendation. Keep `frontend-web` and `mobile-app` as the primary implementation packs, then add `impeccable` skills as targeted refinement layers.
 
 ## Thin routing layer
 
@@ -137,16 +150,19 @@ The local routing layer has exactly three surfaces:
 
 1. `AGENTS.md` - top-level routing guide for bucket selection, helper usage, and UI layering
 2. `.opencode/commands/route-domain.md` - documentation-only command for fast request classification
-3. `.opencode/reference/routing-matrix.md` - source of truth for request shapes, pack selection, categories, helper fit, and explicit `impeccable` layering
+3. `.opencode/reference/routing-matrix.md` - source of truth for request shapes, pack selection, categories, helper fit, explicit `impeccable` layering, and compact workspace-rule reminders
+
+For the full workspace convention, read `.opencode/reference/workspace-model.md`. That document is the authority for where greenfield outputs go by default, why existing projects stay in place, and why this rule is documentation-backed guidance rather than a native runtime feature.
 
 This routing layer is deliberately thin. It classifies work and points to the right pack combination, but it does not track tasks, own release flow, or run local orchestration loops.
 
 ## Shared reference assets
 
-- `.opencode/reference/migration-matrix.md` preserves the cutover mapping and taxonomy evidence
+- `.opencode/reference/migration-matrix.md` preserves the cutover mapping, frozen 23-skill `impeccable` inventory, and taxonomy evidence
 - `.opencode/reference/quality-gates.md` is the canonical threshold source for release-readiness checks
 - `.opencode/reference/design-anti-slop.md` is the canonical anti-pattern ban list for UI work
 - `.opencode/reference/qa/examples/` contains worked QA examples derived from the earlier bundle
+- `.opencode/reference/workspace-model.md` is the authoritative explanation of the bundle-wide workspace convention
 - `.opencode/reference/validate-opencode-bundle.sh` is the structural validator for the final phase-1 state
 
 ## Local config
@@ -178,16 +194,18 @@ bash agentic-dev-ai-team/.opencode/reference/validate-opencode-bundle.sh full
 
 `full` checks the final phase-1 state:
 
-- all 24 expected skill directories are present
+- all 40 expected skill directories are present
 - routing and shared reference assets exist
 - retired runtime directories are gone
-- kept runtime-facing surfaces are clean of stale retired runtime path references
+- kept runtime-facing surfaces are clean of stale retired runtime path references and workspace-rule drift
 
 ## Working conventions for this bundle
 
 - Keep local docs stateless and routing-focused.
 - Add framework specificity inside pack-local `reference/` overlays, not as new top-level packs.
 - Keep shared quality and anti-slop guidance in shared reference assets instead of duplicating it across packs.
+- Treat `workspace/{project-name}-{domain}` as the default landing zone for new greenfield outputs inside the active repo or worktree. Existing projects stay where they already live.
+- Treat the workspace rule as bundle documentation, not as an automatic runtime routing feature.
 - Treat the migration matrix as evidence of the cutover history, not as a runtime authority.
 
 If you are changing the bundle itself, update the relevant routing or reference asset, then rerun the validator in `full` mode.
