@@ -5,9 +5,9 @@ description: Deliver versioning, changelog, publication, promotion, and rollback
 
 # Release Engineering
 
-Use this pack for versioned delivery work: SemVer policy, changelog and release-note flow, package or artifact publication, prerelease versus stable boundaries, promotion decisions, and rollback framing around shipped changes.
+Use this pack as a bounded planned adjacent, non-primary surface after `../../reference/routing-matrix.md` points here for versioned delivery work: SemVer policy, changelog and release-note flow, package or artifact publication, prerelease versus stable boundaries, promotion decisions, and rollback framing around shipped changes.
 
-This pack owns the versioned artifact and release communication surface, not runtime orchestration. Use the overlays in `reference/versioning-changelog-publishing.md` and `reference/rollback-promotion-feature-flags.md` when version policy, publication flow, promotion stages, kill switches, or release-safety framing dominates the task, and keep live deploy mechanics in `devops-platform`.
+This pack covers the versioned artifact and release communication surface once the dominant route is already chosen, not runtime orchestration. It is not the first-pass place to discover adjacent-pack routing, helper fit, or support posture, so send that work back to `../../reference/routing-matrix.md`. Use the overlays in `reference/versioning-changelog-publishing.md` and `reference/rollback-promotion-feature-flags.md` when version policy, publication flow, promotion stages, kill switches, or release-safety framing dominates the task, and keep live deploy mechanics in `devops-platform`.
 
 ## Core focus
 
@@ -27,16 +27,18 @@ This pack owns the versioned artifact and release communication surface, not run
 
 ## Default workflow
 
-1. Inspect the release unit, version source of truth, publication targets, compatibility window, and rollback constraints.
-2. Choose the relevant overlay: `reference/versioning-changelog-publishing.md` for version policy and artifact publication, or `reference/rollback-promotion-feature-flags.md` for staged exposure and recovery framing.
-3. Define the version change, changelog shape, publication plan, and release channel before automation starts cutting artifacts.
-4. Align promotion criteria, rollback paths, and flag behavior with QA evidence and documentation updates.
-5. Run `review-work` after substantial release-engineering changes.
+1. Read `../../reference/routing-matrix.md` first so planned-adjacent routing, helper discovery, and non-primary positioning come from the matrix instead of this pack.
+2. Inspect the release unit, version source of truth, publication targets, compatibility window, and rollback constraints.
+3. Choose the relevant overlay: `reference/versioning-changelog-publishing.md` for version policy and artifact publication, or `reference/rollback-promotion-feature-flags.md` for staged exposure and recovery framing.
+4. Define the version change, changelog shape, publication plan, and release channel before automation starts cutting artifacts.
+5. Align promotion criteria, rollback paths, and flag behavior with QA evidence and documentation updates.
+6. Run `review-work` after substantial release-engineering changes.
 
 ## Collaboration in this repo
 
 - Use `Explore` before editing so version files, changelog structure, release notes, and publication scripts match local conventions.
 - Use `Librarian` or `Context7` when registry, packaging, or versioning-tool details need a source-of-truth check.
+- Treat this pack as planned, adjacent, and non-primary for routing discovery, and defer helper selection or adjacent-pack choice back to `../../reference/routing-matrix.md`.
 - Pair with `documentation-sdk` when release notes, upgrade guides, or API reference updates must ship with the cut.
 - Pair with `qa-validation` when promotion or rollback thresholds depend on explicit release-readiness evidence.
 - Pair with `devops-platform` when publication feeds deployment handoff or environment promotion, while keeping runtime operations outside this pack.
@@ -50,4 +52,5 @@ This pack owns the versioned artifact and release communication surface, not run
 
 - Do not let this pack become general deployment or runtime-operations authority.
 - Do not blur draft, prerelease, and stable states or hide rollback assumptions behind automation.
+- Do not let this planned adjacent pack read like the primary routing or support surface for release work.
 - Do not publish mutable or undocumented release units.

@@ -5,9 +5,9 @@ description: Deliver API and SDK-facing documentation guidance for design-first 
 
 # Documentation SDK
 
-Use this pack for API and SDK documentation work: source-of-truth contracts, reference docs, OpenAPI-driven content, examples and snippets, generated SDK surfaces, and release-adjacent documentation updates.
+Use this pack as a bounded planned adjacent surface after `../../reference/routing-matrix.md` points here for API and SDK documentation work: source-of-truth contracts, reference docs, OpenAPI-driven content, examples and snippets, generated SDK surfaces, and release-adjacent documentation updates.
 
-This pack keeps API and integration docs accurate, usable, and generation-friendly. Use the overlays in `reference/api-docs-openapi-sdk.md` and `reference/technical-writing-release-notes.md` when contract structure, snippet quality, docs pipelines, or release-note-adjacent writing dominates the task, and keep generic product docs or architecture narratives outside this pack.
+This pack keeps API and integration docs accurate, usable, and generation-friendly once the dominant route is already chosen. It is not the primary place to discover adjacent-pack routing, helper fit, or support posture, so send that first pass back to `../../reference/routing-matrix.md`. Use the overlays in `reference/api-docs-openapi-sdk.md` and `reference/technical-writing-release-notes.md` when contract structure, snippet quality, docs pipelines, or release-note-adjacent writing dominates the task, and keep generic product docs or architecture narratives outside this pack.
 
 ## Core focus
 
@@ -27,16 +27,18 @@ This pack keeps API and integration docs accurate, usable, and generation-friend
 
 ## Default workflow
 
-1. Inspect the contract source of truth, current docs surface, SDK consumers, and any release-note or upgrade touchpoints.
-2. Choose the relevant overlay: `reference/api-docs-openapi-sdk.md` for contract-driven references and SDK shape, or `reference/technical-writing-release-notes.md` for explanation quality and release-adjacent writing.
-3. Refresh the canonical contract and reference outputs before polishing portal copy or examples.
-4. Add realistic snippets, upgrade notes, and compatibility guidance where users are most likely to need them.
-5. Run `review-work` after substantial documentation or SDK-surface changes.
+1. Read `../../reference/routing-matrix.md` first so planned-adjacent routing, helper discovery, and non-primary positioning come from the matrix instead of this pack.
+2. Inspect the contract source of truth, current docs surface, SDK consumers, and any release-note or upgrade touchpoints.
+3. Choose the relevant overlay: `reference/api-docs-openapi-sdk.md` for contract-driven references and SDK shape, or `reference/technical-writing-release-notes.md` for explanation quality and release-adjacent writing.
+4. Refresh the canonical contract and reference outputs before polishing portal copy or examples.
+5. Add realistic snippets, upgrade notes, and compatibility guidance where users are most likely to need them.
+6. Run `review-work` after substantial documentation or SDK-surface changes.
 
 ## Collaboration in this repo
 
 - Use `Explore` before editing so new docs match local API naming, example style, and existing reference structure.
 - Use `Librarian` or `Context7` when OpenAPI, code generation, or documentation tooling details need a source-of-truth check.
+- Treat this pack as planned and non-primary for routing discovery, and defer adjacent-pack choice or helper selection back to `../../reference/routing-matrix.md`.
 - Pair with `architecture-integration` or the owning backend pack when contract ownership, schema evolution, or integration boundaries dominate the task.
 - Pair with `release-engineering` when doc updates must align with version cuts, changelog flow, or publication timing.
 
@@ -49,4 +51,5 @@ This pack keeps API and integration docs accurate, usable, and generation-friend
 
 - Do not let this pack expand into generic product docs, marketing copy, or broad architecture narratives.
 - Do not let generated output drift away from the contract source of truth or let snippets drift away from shipped behavior.
+- Do not let this planned adjacent pack read like a primary routing or support surface.
 - Do not treat release notes as a substitute for durable API or SDK reference documentation.
