@@ -7,7 +7,9 @@ description: Deliver cross-platform and native mobile experiences across React N
 
 Use this pack for mobile product work across iOS and Android: shared app architecture, screen flows, native capabilities, performance, accessibility, and platform fit.
 
-This pack covers both cross-platform and native overlays. Start from the product and device constraints first, then choose the overlay that best matches the codebase.
+Defer route choice and lane selection to `../../reference/routing-matrix.md`. For `web/mobile UI`, keep `mobile-app` and `frontend-web` as the primary UI routes, start the harness lane with `visual-engineering`, use `frontend-ui-ux` only when stronger upstream product or interaction judgment helps, and add `impeccable` only as a supplementary refinement layer.
+
+This pack covers both cross-platform and native overlays. Start from the product and device constraints first, then choose the overlay that best matches the codebase. Deprecated wrappers stay non-primary.
 
 ## Core focus
 
@@ -35,7 +37,7 @@ This pack covers both cross-platform and native overlays. Start from the product
 
 ## Collaboration in this repo
 
-- Use `frontend-ui-ux` when mobile product or interaction judgment needs a stronger pass.
+- Use `frontend-ui-ux` only as a supporting upstream helper lane when mobile product or interaction judgment needs a stronger pass.
 - Use `Explore` to match local navigation, screen, and component conventions.
 - Use `Librarian` or `Context7` for framework and platform APIs.
 - Pair with `architecture-integration` for auth, contract, sync, or boundary-heavy work.

@@ -7,7 +7,9 @@ description: Deliver browser UI, interaction flows, browser-rendered graphics gu
 
 Use this pack for browser UI work: web screens, component systems, interaction flows, browser-3D scenes, accessibility, frontend performance, and delivery patterns that live in the web stack.
 
-This is the general web UI pack for the repo. It is not limited to one framework. Use the overlays in `reference/` to tune decisions for a specific stack or browser-3D runtime while keeping the shared browser-quality bar intact and without creating separate top-level frontend packs or a new top-level 3D pack. When anti-slop design review matters, use `../../reference/design-anti-slop.md` as the shared ban list.
+Defer route choice and lane selection to `../../reference/routing-matrix.md`. For `web/mobile UI`, keep `frontend-web` and `mobile-app` as the primary UI routes, start the harness lane with `visual-engineering`, use `frontend-ui-ux` only when stronger upstream product or interaction judgment helps, and add `impeccable` only as a supplementary refinement layer.
+
+This is the general web UI pack for the repo. It is not limited to one framework. Use the overlays in `reference/` to tune decisions for a specific stack or browser-3D runtime while keeping the shared browser-quality bar intact and without creating separate top-level frontend packs or a new top-level 3D pack. When anti-slop design review matters, use `../../reference/design-anti-slop.md` as the shared ban list. Deprecated wrappers stay non-primary here too.
 
 ## Core focus
 
@@ -16,7 +18,7 @@ This is the general web UI pack for the repo. It is not limited to one framework
 - Favor semantic HTML, keyboard support, and WCAG-aware interaction design by default.
 - Treat performance, loading states, and error states as part of the product experience.
 - Keep browser-rendered scenes resilient with explicit fallbacks, measured rendering cost, and clean runtime teardown.
-- Layer the curated `impeccable` pack on purpose when the ask includes anti-slop review or refinement.
+- Layer the curated `impeccable` pack on purpose only when the ask includes anti-slop review or refinement; it is supplementary, not the starting route.
 
 ## Shared web standards
 
@@ -38,7 +40,7 @@ This is the general web UI pack for the repo. It is not limited to one framework
 
 ## Collaboration in this repo
 
-- Use `frontend-ui-ux` when the task needs stronger product, layout, or interaction judgment.
+- Use `frontend-ui-ux` only as a supporting upstream helper lane when the task needs stronger product, layout, or interaction judgment.
 - Use `Explore` before editing so the new work matches existing patterns.
 - Use `Librarian` or `Context7` when a framework or library detail matters.
 - Pair with `architecture-integration` when the work depends on API contracts or shared boundary decisions.

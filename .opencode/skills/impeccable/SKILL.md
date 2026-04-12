@@ -10,11 +10,13 @@ user-invocable: true
 
 This vendorized pack adapts the upstream `pbakaus/impeccable` skill family into one local-integrated 23-skill layer for the local OpenCode and Oh My OpenAgent workflow.
 
-Treat it as a supplementary layer on top of `frontend-web` and `mobile-app`, not as a replacement for those domain packs and not as a routing authority of its own.
+Defer route choice and lane selection to `../../reference/routing-matrix.md`.
+
+Treat `impeccable` as a supplementary layer on top of `frontend-web` and `mobile-app`, not as a replacement for those domain packs, not as a routing authority of its own, and not as a starting route.
 
 ## What this skill is for
 
-Use `impeccable` when UI work needs a stronger point of view across the broader local family:
+Use `impeccable` when UI work has already been routed through `frontend-web` or `mobile-app` and needs a stronger point of view across the broader local family:
 
 - design context gathering,
 - anti-slop direction setting,
@@ -32,6 +34,8 @@ The most common companion flows in this local-integrated family are:
 - `adapt`
 
 The wider imported family also includes focused craft and reference skills plus lightweight deprecated wrappers kept for completeness only. Those wrappers are present so the local bundle stays source-complete, but they are not primary routing choices and should be treated as redirects to `impeccable` or `impeccable teach` as applicable.
+
+`visual-engineering` is the preferred harness starting category for web/mobile UI work, and `frontend-ui-ux` remains a supporting upstream helper for stronger product, layout, or interaction judgment. This pack stays supplementary and refinement-only within that route.
 
 ## Context gathering protocol
 
@@ -105,7 +109,7 @@ When invoked without an argument, use this flow:
 1. Confirm or gather design context.
 2. Pick a bold but coherent visual direction that fits the product.
 3. Load the shared anti-slop bans from [`../../reference/design-anti-slop.md`](../../reference/design-anti-slop.md) and the relevant local references for typography, color, spacing, interaction, motion, responsiveness, or writing.
-4. Route execution through `frontend-web` or `mobile-app` for actual implementation.
+4. Route execution through `frontend-web` or `mobile-app` for actual implementation; do not start from `impeccable` itself.
 5. Use the focused local `impeccable` skills for targeted review or refinement, and treat any deprecated wrappers as redirects only.
 
 ## Teach mode
