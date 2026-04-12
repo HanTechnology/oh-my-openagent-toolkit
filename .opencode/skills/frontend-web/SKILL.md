@@ -47,7 +47,7 @@ This is the general web UI pack for the repo. It is not limited to one framework
 ## Overlays
 
 - Keep `frontend-web` as the single top-level web pack. Use the narrowest overlay that matches the dominant component, routing, and runtime model.
-- Wave-1 browser-3D guidance stays inside `frontend-web` as overlays. Use those cards for scene-platform, engine, shader, and asset decisions without promoting a new top-level 3D pack.
+- Browser-3D guidance stays inside `frontend-web` as overlays. Use those cards for scene-platform, engine, shader, and asset decisions without promoting a new top-level 3D pack.
 - `reference/nextjs.md` for App Router, server/client boundaries, caching, and server-driven web delivery.
 - `reference/react-web.md` for component-heavy React apps, client routing, SPA patterns, and design-system-led browser UI.
 - `reference/vue-nuxt.md` for Vue SFCs, Composition API composables, Nuxt pages/layouts, and SSR-safe route data flows.
@@ -62,6 +62,6 @@ This is the general web UI pack for the repo. It is not limited to one framework
 ## Guardrails
 
 - Do not let one framework's defaults define the whole pack.
-- Do not promote browser-3D guidance into a separate top-level pack in wave 1.
+- Do not promote browser-3D guidance into a separate top-level pack.
 - Do not trade accessibility or resilience for visual novelty.
 - Do not hide UX debt behind component abstraction.

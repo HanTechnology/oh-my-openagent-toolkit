@@ -10,7 +10,7 @@ Use this overlay when browser work is shaped by canvas lifecycle, GPU capability
 
 ## Required concepts
 
-- Treat WebGL2 as the compatibility baseline for wave-1 browser-3D guidance, and treat WebGPU as additive when capability detection proves it is available.
+- Treat WebGL2 as the compatibility baseline for browser-3D guidance, and treat WebGPU as additive when capability detection proves it is available.
 - Size canvases from the layout contract on purpose: keep CSS size and drawing-buffer size aligned, clamp DPR where needed, and re-measure on resize instead of assuming full-screen defaults.
 - Plan for context lifecycle: handle context loss and restoration, release observers and event hooks, and dispose renderer-owned resources when scenes unmount or routes change.
 - Keep fallback content accessible and real: loading, unsupported-browser, failure, and reduced-motion paths should still communicate the product intent without requiring the 3D surface to succeed.
