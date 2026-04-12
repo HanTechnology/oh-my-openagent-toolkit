@@ -5,9 +5,9 @@ description: Deliver evidence-oriented QA guidance for browser validation, acces
 
 # QA Validation
 
-Use this pack for validation work: browser-based testing, accessibility review, performance checks, security validation, cross-browser coverage, and evidence capture. Route category and escalation decisions through `../../reference/routing-matrix.md`, which keeps bounded validation and evidence work in the lighter lane and sends higher-risk release or platform coordination elsewhere.
+Use this pack for validation work after `../../reference/routing-matrix.md` routes the task here: browser-based testing, accessibility review, performance checks, security validation, cross-browser coverage, and evidence capture. Keep category choice, adjacent-pack discovery, and escalation decisions with the matrix, which keeps bounded validation and evidence work in the lighter lane and sends higher-risk release or platform coordination elsewhere.
 
-This pack defines what to verify and what evidence to gather. It does not choose the harness route or release path on its own, those decisions defer to `../../reference/routing-matrix.md` and the validated workflow inventory in `../../reference/workflow-catalog.md`. Use the overlays in `reference/api-contract-load-visual.md`, `reference/mobile-test-matrix.md`, and `reference/browser-3d-validation.md` to sharpen contract matcher choice, provider states, representative load, visual baseline, mobile-matrix coverage, and browser-3D fallback, asset-readiness, and runtime-variation decisions, while detailed thresholds, reusable examples, and shared QA references stay in `../../reference/quality-gates.md` and `../../reference/qa/examples/` instead of being duplicated here.
+This pack defines what to verify and what evidence to gather once the route is chosen. It does not act as the first-pass discovery surface for harness helpers, adjacent packs, or release path decisions, those calls defer to `../../reference/routing-matrix.md` and the validated workflow inventory in `../../reference/workflow-catalog.md`. Use the overlays in `reference/api-contract-load-visual.md`, `reference/mobile-test-matrix.md`, and `reference/browser-3d-validation.md` to sharpen contract matcher choice, provider states, representative load, visual baseline, mobile-matrix coverage, and browser-3D fallback, asset-readiness, and runtime-variation decisions, while detailed thresholds, reusable examples, and shared QA references stay in `../../reference/quality-gates.md` and `../../reference/qa/examples/` instead of being duplicated here.
 
 ## Core focus
 
@@ -40,7 +40,7 @@ This pack defines what to verify and what evidence to gather. It does not choose
 ## Collaboration in this repo
 
 - Use `Explore` before editing or validating so new checks match local flow names, routes, and fixtures.
-- Use harness browser helpers such as `agent-browser` or `dev-browser` for live browser execution, and use `review-work` for a final review sweep.
+- Discover helper fit in `../../reference/routing-matrix.md` first, then use harness browser helpers such as `agent-browser` or `dev-browser` for live browser execution, and use `review-work` for a final review sweep.
 - Pair with `security-engineering` when auth, authorization, or vulnerability findings need deeper analysis.
 - Pair with `devops-platform` when release readiness depends on environment health, deployment shape, or rollout evidence.
 
