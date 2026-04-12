@@ -5,9 +5,9 @@ description: Deliver platform and delivery guidance for Docker, cloud foundation
 
 # DevOps Platform
 
-Use this pack for delivery and runtime work: Docker and containerization, cloud foundation guidance, infrastructure as code boundaries, CI/CD design, rollout and rollback planning, monitoring, health checks, and operational readiness.
+Use this pack for delivery and runtime work: Docker and containerization, cloud foundation guidance, infrastructure as code boundaries, CI/CD design, rollout and rollback planning, monitoring, health checks, and operational readiness. Route category and escalation decisions through `../../reference/routing-matrix.md`, which keeps bounded validation and evidence work in the lighter lane and uses this pack when release, platform, or higher-risk delivery concerns become central.
 
-This is the general platform and delivery pack for the repo. Use the overlays in `reference/docker-kubernetes-ci-cd.md`, `reference/aws-azure-gcp.md`, `reference/terraform-pulumi.md`, `reference/observability-sre.md`, and `reference/github-actions-argo.md` to sharpen container, cloud, IaC, observability, and deployment-handoff guidance while keeping execution ownership with the harness and repository workflows rather than this pack.
+This is the general platform and delivery pack for the repo. It does not declare its own route, category, or validated workflow authority, those decisions defer to `../../reference/routing-matrix.md` and `../../reference/workflow-catalog.md`. Use the overlays in `reference/docker-kubernetes-ci-cd.md`, `reference/aws-azure-gcp.md`, `reference/terraform-pulumi.md`, `reference/observability-sre.md`, and `reference/github-actions-argo.md` to sharpen container, cloud, IaC, observability, and deployment-handoff guidance while keeping execution ownership with the harness and repository workflows rather than this pack.
 
 ## Core focus
 
@@ -22,6 +22,7 @@ This is the general platform and delivery pack for the repo. Use the overlays in
 ## Shared platform standards
 
 - Build once and promote immutable artifacts; prefer versioned tags and digest-aware deployment over mutable `latest` behavior.
+- Use this pack for higher-risk platform, rollout, and environment work after `../../reference/routing-matrix.md` points the request into the deeper lane, not as a blanket default for every QA or deployment task.
 - Keep cloud identity, network policy, resource hierarchy, and environment classes explicit so shared platform controls do not drift between environments.
 - Treat IaC state, locking, and ownership boundaries as release-safety controls, not implementation details.
 - Separate CI concerns from CD concerns. CI should validate, test, scan, and publish artifacts; CD should promote and apply the declared release shape.
@@ -33,11 +34,13 @@ This is the general platform and delivery pack for the repo. Use the overlays in
 
 ## Default workflow
 
-1. Inspect the runtime model, target platform, account or project layout, deployment constraints, and operational risks.
-2. Choose the relevant overlay or overlay set: `reference/docker-kubernetes-ci-cd.md`, `reference/aws-azure-gcp.md`, `reference/terraform-pulumi.md`, `reference/observability-sre.md`, or `reference/github-actions-argo.md`.
-3. Define artifact flow, environment shape, access model, state strategy, health signals, and rollback approach before broad implementation.
-4. Implement container, manifest, policy, pipeline, and observability changes together so deployment behavior stays readable.
-5. Run `review-work` after substantial platform or delivery changes.
+1. Read `../../reference/routing-matrix.md` first so the harness lane and escalation level come from the matrix instead of this pack.
+2. Inspect the runtime model, target platform, account or project layout, deployment constraints, and operational risks.
+3. Choose the relevant overlay or overlay set: `reference/docker-kubernetes-ci-cd.md`, `reference/aws-azure-gcp.md`, `reference/terraform-pulumi.md`, `reference/observability-sre.md`, or `reference/github-actions-argo.md`.
+4. Define artifact flow, environment shape, access model, state strategy, health signals, and rollback approach before broad implementation.
+5. Implement container, manifest, policy, pipeline, and observability changes together so deployment behavior stays readable.
+6. Keep bounded validation and evidence-only work paired with `qa-validation` in the lighter lane, and escalate here when release, rollback, platform, or environment risk becomes the main concern.
+7. Run `review-work` after substantial platform or delivery changes.
 
 ## Collaboration in this repo
 
@@ -58,5 +61,5 @@ This is the general platform and delivery pack for the repo. Use the overlays in
 ## Guardrails
 
 - Do not turn this pack into a release-state machine or long-running control plane.
-- Do not let CI/CD guidance claim deployment authority that belongs to the harness or repo workflows.
+- Do not let CI/CD guidance become the place that decides deployment or release outcome, that stays with the harness, repo workflows, and validated workflow docs.
 - Do not rely on mutable images, hidden environment drift, or untested rollback assumptions.

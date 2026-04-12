@@ -5,9 +5,9 @@ description: Deliver evidence-oriented QA guidance for browser validation, acces
 
 # QA Validation
 
-Use this pack for validation work: browser-based testing, accessibility review, performance checks, security validation, cross-browser coverage, and evidence capture for release readiness.
+Use this pack for validation work: browser-based testing, accessibility review, performance checks, security validation, cross-browser coverage, and evidence capture. Route category and escalation decisions through `../../reference/routing-matrix.md`, which keeps bounded validation and evidence work in the lighter lane and sends higher-risk release or platform coordination elsewhere.
 
-This pack defines what to verify and what evidence to gather. Use the overlays in `reference/api-contract-load-visual.md`, `reference/mobile-test-matrix.md`, and `reference/browser-3d-validation.md` to sharpen contract matcher choice, provider states, representative load, visual baseline, mobile-matrix coverage, and browser-3D fallback, asset-readiness, and runtime-variation decisions, while detailed thresholds, reusable examples, and shared QA references stay in `../../reference/quality-gates.md` and `../../reference/qa/examples/` instead of being duplicated here.
+This pack defines what to verify and what evidence to gather. It does not choose the harness route or release path on its own, those decisions defer to `../../reference/routing-matrix.md` and the validated workflow inventory in `../../reference/workflow-catalog.md`. Use the overlays in `reference/api-contract-load-visual.md`, `reference/mobile-test-matrix.md`, and `reference/browser-3d-validation.md` to sharpen contract matcher choice, provider states, representative load, visual baseline, mobile-matrix coverage, and browser-3D fallback, asset-readiness, and runtime-variation decisions, while detailed thresholds, reusable examples, and shared QA references stay in `../../reference/quality-gates.md` and `../../reference/qa/examples/` instead of being duplicated here.
 
 ## Core focus
 
@@ -21,6 +21,7 @@ This pack defines what to verify and what evidence to gather. Use the overlays i
 ## Shared QA standards
 
 - Prefer live browser validation for critical user flows instead of relying only on isolated unit behavior.
+- Keep bounded validation, finish-pass checks, and evidence capture small enough for the lighter lane when the matrix says the scope and coordination risk stay low.
 - Record enough evidence for another engineer to understand what was tested, where it ran, and why it passed or failed.
 - Treat accessibility, performance, and security as first-class QA dimensions, not optional extras after functional checks.
 - Verify both success paths and failure paths: invalid input, unauthorized access, degraded network behavior, and recovery states.
@@ -28,11 +29,13 @@ This pack defines what to verify and what evidence to gather. Use the overlays i
 
 ## Default workflow
 
-1. Inspect the feature risk, critical flows, supported browsers, and likely failure modes.
-2. Pull thresholds and reusable examples from `../../reference/quality-gates.md` and `../../reference/qa/examples/`, then choose the relevant overlay or overlay set: `reference/api-contract-load-visual.md` for contract, load, and visual evidence depth, `reference/mobile-test-matrix.md` for device, form-factor, and real-device coverage policy, or `reference/browser-3d-validation.md` for capability detection outcomes, asset readiness, frame pacing, and degraded browser-3D behavior.
-3. Run browser, accessibility, performance, security, contract, load, visual, and mobile-matrix checks at the depth the change requires.
-4. Capture screenshots, accessibility snapshots, logs, and metric output so the result is evidence-backed.
-5. Run `review-work` after substantial validation or release-readiness work.
+1. Read `../../reference/routing-matrix.md` first so the harness lane and escalation level come from the matrix instead of this pack.
+2. Inspect the feature risk, critical flows, supported browsers, and likely failure modes.
+3. Pull thresholds and reusable examples from `../../reference/quality-gates.md` and `../../reference/qa/examples/`, then choose the relevant overlay or overlay set: `reference/api-contract-load-visual.md` for contract, load, and visual evidence depth, `reference/mobile-test-matrix.md` for device, form-factor, and real-device coverage policy, or `reference/browser-3d-validation.md` for capability detection outcomes, asset readiness, frame pacing, and degraded browser-3D behavior.
+4. Run browser, accessibility, performance, security, contract, load, visual, and mobile-matrix checks at the depth the change requires.
+5. Capture screenshots, accessibility snapshots, logs, and metric output so the result is evidence-backed.
+6. Escalate through the matrix when the work shifts from bounded validation into release, platform, rollback, or broader delivery risk.
+7. Run `review-work` after substantial validation or release-readiness work.
 
 ## Collaboration in this repo
 
@@ -51,4 +54,4 @@ This pack defines what to verify and what evidence to gather. Use the overlays i
 
 - Do not duplicate shared threshold tables, QA examples, or anti-slop reference material inside this pack.
 - Do not hardcode one browser harness or one MCP path as the only valid execution surface.
-- Do not turn this pack into a release authority or gatekeeper persona.
+- Do not turn this pack into the place that decides whether a release proceeds.
