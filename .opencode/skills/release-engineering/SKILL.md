@@ -37,7 +37,7 @@ This pack owns the versioned artifact and release communication surface, not run
 
 - Use `Explore` before editing so version files, changelog structure, release notes, and publication scripts match local conventions.
 - Use `Librarian` or `Context7` when registry, packaging, or versioning-tool details need a source-of-truth check.
-- Pair with `documentation-sdk` when release notes, migration guides, or API reference updates must ship with the cut.
+- Pair with `documentation-sdk` when release notes, upgrade guides, or API reference updates must ship with the cut.
 - Pair with `qa-validation` when promotion or rollback thresholds depend on explicit release-readiness evidence.
 - Pair with `devops-platform` when publication feeds deployment handoff or environment promotion, while keeping runtime operations outside this pack.
 

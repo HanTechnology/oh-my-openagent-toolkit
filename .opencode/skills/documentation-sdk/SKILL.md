@@ -15,7 +15,7 @@ This pack keeps API and integration docs accurate, usable, and generation-friend
 - Keep SDK docs, examples, and generated references aligned with the actual contract surface.
 - Prefer task-oriented explanations plus copy-paste-safe snippets for common integration paths.
 - Update docs and release-adjacent notes as part of change delivery instead of after the release.
-- Make compatibility windows, deprecations, and migrations explicit at the documentation boundary.
+- Make compatibility windows, deprecations, and upgrade requirements explicit at the documentation boundary.
 
 ## Shared standards
 
@@ -23,14 +23,14 @@ This pack keeps API and integration docs accurate, usable, and generation-friend
 - Keep examples realistic and labeled with intent so readers can move from docs to working code without reverse-engineering missing context.
 - Separate conceptual explanation from reference detail: guides should explain why and when, while API references and SDK docs should stay structured and precise.
 - Make docs generation reproducible inside the release flow so published references and released SDK artifacts trace back to the same contract version.
-- Update deprecations, migrations, and release-note-adjacent summaries in the same change path as the underlying API or SDK behavior.
+- Update deprecations, upgrade guidance, and release-note-adjacent summaries in the same change path as the underlying API or SDK behavior.
 
 ## Default workflow
 
-1. Inspect the contract source of truth, current docs surface, SDK consumers, and any release-note or migration touchpoints.
+1. Inspect the contract source of truth, current docs surface, SDK consumers, and any release-note or upgrade touchpoints.
 2. Choose the relevant overlay: `reference/api-docs-openapi-sdk.md` for contract-driven references and SDK shape, or `reference/technical-writing-release-notes.md` for explanation quality and release-adjacent writing.
 3. Refresh the canonical contract and reference outputs before polishing portal copy or examples.
-4. Add realistic snippets, migration notes, and compatibility guidance where users are most likely to need them.
+4. Add realistic snippets, upgrade notes, and compatibility guidance where users are most likely to need them.
 5. Run `review-work` after substantial documentation or SDK-surface changes.
 
 ## Collaboration in this repo
@@ -43,7 +43,7 @@ This pack keeps API and integration docs accurate, usable, and generation-friend
 ## Overlays
 
 - `reference/api-docs-openapi-sdk.md` for source-of-truth contracts, OpenAPI structure, SDK-safe naming, generated references, and example shape.
-- `reference/technical-writing-release-notes.md` for task-oriented guides, migration wording, release-note framing, and adjacent doc refreshes.
+- `reference/technical-writing-release-notes.md` for task-oriented guides, upgrade and compatibility wording, release-note framing, and adjacent doc refreshes.
 
 ## Guardrails
 

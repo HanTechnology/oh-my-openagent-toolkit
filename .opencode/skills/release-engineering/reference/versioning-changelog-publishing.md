@@ -23,5 +23,5 @@ Use this overlay when release work is driven by SemVer policy, version-source-of
 
 ## First-party anchors
 
-- Pair this overlay with `../../documentation-sdk/SKILL.md` when release notes, migration guides, or API reference updates must ship with the cut.
+- Pair this overlay with `../../documentation-sdk/SKILL.md` when release notes, upgrade guides, or API reference updates must ship with the cut.
 - Pair this overlay with `rollback-promotion-feature-flags.md` when channel promotion, staged exposure, or rollback planning shapes the release policy as much as versioning itself.
