@@ -6,7 +6,6 @@ SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/../.." && pwd)
 CONFIG_FILE="$ROOT_DIR/.opencode/oh-my-openagent.jsonc"
 CAPABILITY_MATRIX_FILE="$ROOT_DIR/.opencode/reference/capability-matrix.json"
-MATRIX_FILE="$ROOT_DIR/.opencode/reference/migration-matrix.md"
 RUNTIME_ROUTE_FILE="$ROOT_DIR/.opencode/commands/route-domain.md"
 ROUTING_MATRIX_FILE="$ROOT_DIR/.opencode/reference/routing-matrix.md"
 QUALITY_GATES_FILE="$ROOT_DIR/.opencode/reference/quality-gates.md"
@@ -144,7 +143,7 @@ check_banned_strings() {
     return
   fi
   if [ -d "$path" ]; then
-    grep -r -n -E --exclude='validate-opencode-bundle.sh' --exclude='migration-matrix.md' "$pattern" "$path" >"$tmpfile" 2>/dev/null
+    grep -r -n -E --exclude='validate-opencode-bundle.sh' "$pattern" "$path" >"$tmpfile" 2>/dev/null
     status=$?
   else
     grep -n -E "$pattern" "$path" >"$tmpfile" 2>/dev/null
@@ -164,7 +163,6 @@ check_banned_strings() {
 check_foundation() {
   printf '%s\n' 'Mode: foundation'
   require_file 'Config' "$CONFIG_FILE"
-  require_file 'Migration matrix' "$MATRIX_FILE"
   require_dir 'Skills directory' "$ROOT_DIR/.opencode/skills"
   require_dir 'Commands directory' "$ROOT_DIR/.opencode/commands"
   require_dir 'Reference directory' "$ROOT_DIR/.opencode/reference"
@@ -354,13 +352,13 @@ check_full() {
   if [ ! -d "$ROOT_DIR/.claude" ]; then
     pass 'Legacy .claude directory' 'absent as required'
   else
-    fail 'Legacy .claude directory' 'must be removed before full cutover'
+    fail 'Legacy .claude directory' 'must be absent in the current bundle state'
   fi
 
   if [ ! -d "$ROOT_DIR/.memory" ]; then
     pass 'Legacy .memory directory' 'absent as required'
   else
-    fail 'Legacy .memory directory' 'must be removed before full cutover'
+    fail 'Legacy .memory directory' 'must be absent in the current bundle state'
   fi
 
   check_banned_strings 'Legacy reference scan (README)' "$ROOT_DIR/README.md" '\.claude/'
@@ -398,7 +396,7 @@ printf '\nSummary: %s PASS, %s WARN, %s FAIL\n' "$PASS_COUNT" "$WARN_COUNT" "$FA
 if [ "$FAIL_COUNT" -gt 0 ]; then
   printf '%s\n' 'FAIL: bundle validation did not pass.'
   if [ "$mode" = "full" ]; then
-    printf '%s\n' 'Full mode expects the final phase-1 core state plus the planned adjacent packs currently present in the live repo: 40 required core skill directories (23 impeccable + 17 expert packs), 3 planned adjacent packs, routing assets, QA/design references, workspace-model coherence, and no legacy runtime surfaces.'
+    printf '%s\n' 'Full mode expects the current released bundle state: 40 required core skill directories (23 impeccable + 17 expert packs), 3 planned adjacent packs, routing assets, QA/design references, workspace-model coherence, and no legacy runtime surfaces.'
   fi
   exit 1
 fi
