@@ -11,6 +11,8 @@ Defer route choice and lane selection to `../../reference/routing-matrix.md`. Fo
 
 This is the general web UI pack for the repo. It is not limited to one framework. Use the overlays in `reference/` to tune decisions for a specific stack or browser-3D runtime while keeping the shared browser-quality bar intact and without creating separate top-level frontend packs or a new top-level 3D pack. When anti-slop design review matters, use `../../reference/design-anti-slop.md` as the shared ban list. Deprecated wrappers stay non-primary here too.
 
+For setup posture, prefer refining an existing project in place. Treat direct `create` / `init` / `new` flows as greenfield-only and use them only when explicitly requested. Defer the full setup policy to `../../reference/project-setup-policy.md`.
+
 ## Core focus
 
 - Build interfaces that are clear, responsive, accessible, and fast.

@@ -9,6 +9,8 @@ Use this pack as a bounded planned adjacent surface after `../../reference/routi
 
 This pack keeps the local developer path explicit, fast, and debuggable once the dominant route is already chosen. It is not the primary place to discover adjacent-pack routing, helper fit, or support posture, so send that first pass back to `../../reference/routing-matrix.md`. Use the overlays in `reference/package-managers-monorepos.md` and `reference/local-dev-environments.md` when workspace shape, toolchain constraints, local services, or environment setup details dominate the task, and keep CI, deployment, and runtime ownership with `devops-platform`.
 
+For setup posture, prefer refining an existing project in place. Treat direct `create` / `init` / `new` flows as greenfield-only and use them only when explicitly requested. Defer the full setup policy to `../../reference/project-setup-policy.md`.
+
 ## Core focus
 
 - Reduce time from clone to first successful local change.

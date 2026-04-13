@@ -11,6 +11,8 @@ Defer route choice and lane selection to `../../reference/routing-matrix.md`. Fo
 
 This pack covers both cross-platform and native overlays. Start from the product and device constraints first, then choose the overlay that best matches the codebase. Deprecated wrappers stay non-primary.
 
+For setup posture, prefer refining an existing project in place. Treat direct `create` / `init` / `new` flows as greenfield-only and use them only when explicitly requested. Defer the full setup policy to `../../reference/project-setup-policy.md`.
+
 ## Core focus
 
 - Design mobile flows around reachability, interruption, offline risk, and small-screen clarity.
