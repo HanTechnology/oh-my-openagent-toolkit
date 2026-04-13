@@ -292,6 +292,7 @@ check_workspace_model_coherence() {
 
 check_routing_contract() {
   require_file 'Routing matrix' "$ROUTING_MATRIX_FILE"
+  require_file 'Project setup policy' "$ROOT_DIR/.opencode/reference/project-setup-policy.md"
 
   if grep -n -F 'From the repo root, this matrix is the sole normative local routing/helper source' "$ROUTING_MATRIX_FILE" >/dev/null 2>&1; then
     pass 'Routing matrix authority' 'routing-matrix.md declares itself the sole normative local routing/helper source'
@@ -352,6 +353,145 @@ check_routing_contract() {
   else
     fail 'Backend routing contract' 'backend quick/deep routing or route-domain fallback-only wording is inconsistent'
   fi
+}
+
+check_harness_utilization_contract() {
+  if python3 - "$ROUTING_MATRIX_FILE" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+lines = path.read_text().splitlines()
+
+required_bucket_rows = [
+    'architecture/integration | Architecture reviews, API contract design, cross-service coordination, integration strategy, boundary cleanup, ADR or option-memo authoring | `architecture-integration`; consider the planned adjacent pack `developer-experience` as a non-primary companion when contributor onboarding, local env ergonomics, workspace friction, or review/process flow is central to the integration decision | `deep`; ADR, option memo, or strategy write-up deliverable -> `writing`; ambiguous, research-heavy, option-heavy synthesis -> `ultrabrain` |',
+    'backend/API | Endpoint design, service refactors, auth flows, backend integrations, API hardening, server-side feature delivery | `backend-node`, `backend-python`, `backend-jvm`, `backend-dotnet`, `backend-go` | `quick`; public-contract redesign, auth-model change, or multi-service boundary work -> `deep`; OpenAPI refresh, SDK snippet/reference-doc work, or upgrade-note-heavy delivery -> `writing` |',
+    'QA/deployment | Test strategy, verification sweeps, release prep, deployment docs, rollback planning, infra delivery, CI or rollout work | `qa-validation`, `devops-platform`; consider the planned adjacent pack `release-engineering` as a non-primary companion when versioning, changelog/publication flow, promotion framing, or rollback communication is central | bounded validation/evidence -> `quick`; release/platform/risk-heavy -> `deep`; changelog, release-note, rollback-message, or operator-facing release guidance -> `writing` |',
+]
+for expected in required_bucket_rows:
+    if not any(expected in line for line in lines):
+        raise AssertionError(f"missing exact bucket-row guidance: {expected}")
+
+worked_start = None
+for index, line in enumerate(lines):
+    if line.strip() == '## worked example routes and planned adjacent triggers':
+        worked_start = index + 1
+        break
+if worked_start is None:
+    raise AssertionError('worked-example section heading is missing')
+
+worked_end = len(lines)
+for index in range(worked_start, len(lines)):
+    if lines[index].strip().startswith('## '):
+        worked_end = index
+        break
+worked_blob = '\n'.join(lines[worked_start:worked_end])
+required_worked_rows = [
+    'Refresh OpenAPI docs, SDK snippets, and breaking-change release notes after a contract update | `backend/API` | The owning backend pack plus the planned adjacent pack `documentation-sdk` | `writing` |',
+    'Sort out an ambiguous next-quarter auth, CI, and docs strategy before choosing an implementation lane | `architecture/integration` | `architecture-integration` first; add an adjacent pack only after the dominant follow-on surface is clearer | `ultrabrain` |',
+    'Plan a rollback-safe release with changelog, publication, and public-impact notes | `QA/deployment` | `devops-platform` plus the planned adjacent pack `release-engineering` | `writing` |',
+]
+for expected in required_worked_rows:
+    if expected not in worked_blob:
+        raise AssertionError(f"missing exact worked-example row: {expected}")
+print("writing/ultrabrain section checks passed")
+PY
+  then
+    pass 'Row-level writing and ultrabrain' 'routing matrix exposes writing and ultrabrain in both bucket rows and worked examples'
+  else
+    fail 'Row-level writing and ultrabrain' 'routing matrix is missing writing or ultrabrain in bucket rows or worked examples'
+  fi
+
+  if python3 - "$ROUTING_MATRIX_FILE" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+text = path.read_text()
+required_rows = [
+    'architecture/integration | Architecture reviews, API contract design, cross-service coordination, integration strategy, boundary cleanup, ADR or option-memo authoring | `architecture-integration`; consider the planned adjacent pack `developer-experience` as a non-primary companion when contributor onboarding, local env ergonomics, workspace friction, or review/process flow is central to the integration decision |',
+    'backend/API | Endpoint design, service refactors, auth flows, backend integrations, API hardening, server-side feature delivery | `backend-node`, `backend-python`, `backend-jvm`, `backend-dotnet`, `backend-go` | `quick`; public-contract redesign, auth-model change, or multi-service boundary work -> `deep`; OpenAPI refresh, SDK snippet/reference-doc work, or upgrade-note-heavy delivery -> `writing` |',
+    'QA/deployment | Test strategy, verification sweeps, release prep, deployment docs, rollback planning, infra delivery, CI or rollout work | `qa-validation`, `devops-platform`; consider the planned adjacent pack `release-engineering` as a non-primary companion when versioning, changelog/publication flow, promotion framing, or rollback communication is central |',
+]
+for expected in required_rows:
+    if expected not in text:
+        raise AssertionError(f"missing planned-adjacent trigger row: {expected}")
+
+required_posture = [
+    'These packs are explicitly tiered as `planned` adjacent references.',
+    'They are not primary routes and they are not present-tense support claims.',
+]
+text = path.read_text()
+missing = [item for item in required_posture if item not in text]
+if missing:
+    raise AssertionError(f"missing planned-adjacent posture text: {missing}")
+print("planned adjacent posture checks passed")
+PY
+  then
+    pass 'Row-level planned-adjacent triggers' 'routing matrix keeps the planned-adjacent triggers and non-primary posture explicit'
+  else
+    fail 'Row-level planned-adjacent triggers' 'routing matrix is missing required planned-adjacent trigger or posture text'
+  fi
+
+  if grep -n -F 'prefer updating or modernizing an existing project in place' "$ROUTING_MATRIX_FILE" >/dev/null 2>&1 && \
+     grep -n -F 'prefer refining an existing project in place' "$ROOT_DIR/.opencode/reference/project-setup-policy.md" >/dev/null 2>&1 && \
+     grep -n -F 'Treat direct `create` / `init` / `new` flows as greenfield-only behavior.' "$ROOT_DIR/.opencode/reference/project-setup-policy.md" >/dev/null 2>&1; then
+    pass 'Setup-policy presence' 'routing matrix and project setup policy both keep setup behavior modernization-first'
+  else
+    fail 'Setup-policy presence' 'project setup policy or matrix modernization-first wording is missing'
+  fi
+
+  if grep -r -n -F --include='SKILL.md' 'prefer refining an existing project in place' "$ROOT_DIR/.opencode/skills/backend-node" "$ROOT_DIR/.opencode/skills/backend-python" "$ROOT_DIR/.opencode/skills/backend-jvm" "$ROOT_DIR/.opencode/skills/backend-dotnet" "$ROOT_DIR/.opencode/skills/backend-go" "$ROOT_DIR/.opencode/skills/frontend-web" "$ROOT_DIR/.opencode/skills/mobile-app" "$ROOT_DIR/.opencode/skills/developer-experience" "$ROOT_DIR/.opencode/skills/functional-platform" "$ROOT_DIR/.opencode/skills/php-ruby-platform" "$ROOT_DIR/.opencode/skills/systems-rust" >/dev/null 2>&1 && \
+     grep -r -n -F --include='SKILL.md' 'greenfield-only and explicit-request-only' "$ROOT_DIR/.opencode/skills/backend-node" "$ROOT_DIR/.opencode/skills/backend-python" "$ROOT_DIR/.opencode/skills/backend-jvm" "$ROOT_DIR/.opencode/skills/backend-dotnet" "$ROOT_DIR/.opencode/skills/backend-go" "$ROOT_DIR/.opencode/skills/functional-platform" "$ROOT_DIR/.opencode/skills/php-ruby-platform" "$ROOT_DIR/.opencode/skills/systems-rust" "$ROOT_DIR/.opencode/skills/frontend-web" "$ROOT_DIR/.opencode/skills/mobile-app" "$ROOT_DIR/.opencode/skills/developer-experience" >/dev/null 2>&1; then
+    pass 'Modernization-first wording' 'named packs keep modernization-first setup wording'
+  else
+    fail 'Modernization-first wording' 'one or more named packs are missing modernization-first setup wording'
+  fi
+
+  if grep -r -n -E --include='*.md' --exclude='project-setup-policy.md' --exclude='validate-opencode-bundle.sh' 'Metis|Momus' "$ROOT_DIR/.opencode" >/dev/null 2>&1; then
+    fail 'Local routing doc exclusions' 'Metis or Momus appear in local routing docs'
+  else
+    pass 'Local routing doc exclusions' 'Metis and Momus remain out of local routing docs'
+  fi
+}
+
+check_future_harness_utilization_hooks() {
+  # Future invariant scaffold: keep this routine non-breaking until the deeper
+  # harness-utilization content lands in the bundle reference docs.
+  #
+  # The hooks below intentionally do not fail today. They exist so the validator
+  # can later enforce row-level routing and adjacent-pack invariants once the
+  # referenced content is present and stable.
+  future_writing_and_ultrabrain_hooks
+  future_adjacent_pack_trigger_hooks
+  future_setup_policy_presence_hook
+  future_local_routing_doc_exclusions_hook
+  future_named_pack_wording_hook
+}
+
+future_writing_and_ultrabrain_hooks() {
+  : "future hook for row-level writing / ultrabrain coverage"
+}
+
+future_adjacent_pack_trigger_hooks() {
+  : "future hook for row-level planned adjacent-pack triggers"
+}
+
+future_setup_policy_presence_hook() {
+  : "future hook for setup-policy presence checks"
+  : "future hook for setup-policy reference presence"
+}
+
+future_local_routing_doc_exclusions_hook() {
+  : "future hook for no Metis / Momus in local routing docs"
+  : "future hook for excluding Metis from local routing docs"
+  : "future hook for excluding Momus from local routing docs"
+}
+
+future_named_pack_wording_hook() {
+  : "future hook for no scaffold-first default wording in the named packs"
+  : "future hook for modernization-first wording"
+  : "future hook for avoiding scaffold-first default wording"
 }
 
 check_manifest_and_public_claims() {
@@ -426,6 +566,7 @@ check_full() {
   check_manifest_and_public_claims
 
   check_expected_skill_dirs
+  check_harness_utilization_contract
   check_workspace_model_coherence
   check_routing_contract
 
