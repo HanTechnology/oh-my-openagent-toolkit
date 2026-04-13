@@ -1,6 +1,6 @@
 # Project Setup Policy
 
-This reference keeps setup behavior narrow for `agentic-dev-ai-team`: prefer refining an existing project in place before proposing greenfield creation.
+This reference keeps setup behavior narrow for `oh-my-openagent-toolkit`: prefer refining an existing project in place before proposing greenfield creation.
 
 ## Default behavior
 

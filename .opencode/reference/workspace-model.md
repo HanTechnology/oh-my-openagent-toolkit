@@ -1,6 +1,6 @@
 # Workspace Model
 
-This document freezes the bundle-wide workspace execution model for `agentic-dev-ai-team`. It explains where work runs from, where new greenfield outputs should land by default, how existing projects are handled, what this convention does not claim to automate, and what the thinner routing docs should summarize without reinterpreting.
+This document freezes the bundle-wide workspace execution model for `oh-my-openagent-toolkit`. It explains where work runs from, where new greenfield outputs should land by default, how existing projects are handled, what this convention does not claim to automate, and what the thinner routing docs should summarize without reinterpreting.
 
 ## Bundle-wide execution rules
 

@@ -1,6 +1,6 @@
 # Support Policy
 
-This document freezes the support-tier contract for `agentic-dev-ai-team`. It is authoritative for the tier names, the public-claim rule, and the parser contract that consumes `.opencode/reference/capability-matrix.json`. The model stays intentionally small: one manifest, three tiers, and four flagship workflows.
+This document freezes the support-tier contract for `oh-my-openagent-toolkit`. It is authoritative for the tier names, the public-claim rule, and the parser contract that consumes `.opencode/reference/capability-matrix.json`. The model stays intentionally small: one manifest, three tiers, and four flagship workflows.
 
 ## Frozen support tiers
 

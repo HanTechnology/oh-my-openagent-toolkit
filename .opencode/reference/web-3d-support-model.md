@@ -1,6 +1,6 @@
 # Web 3D Support Model
 
-This document defines the current browser-3D governance model for `agentic-dev-ai-team`. It defines the exact capability IDs, default support tiers, and ownership boundaries that the manifest must carry. It is a governance surface only: it does not create a top-level `web-3d` pack and it does not widen README-level `validated` claims.
+This document defines the current browser-3D governance model for `oh-my-openagent-toolkit`. It defines the exact capability IDs, default support tiers, and ownership boundaries that the manifest must carry. It is a governance surface only: it does not create a top-level `web-3d` pack and it does not widen README-level `validated` claims.
 
 ## Current browser-3D defaults
 

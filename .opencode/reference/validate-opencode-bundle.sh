@@ -600,10 +600,10 @@ future_named_pack_wording_hook() {
 
 check_outlier_pack_contract() {
   outlier_docs="
-/home/hans/dev/AI/dev-ai-agent-team-upgrade/agentic-dev-ai-team/.opencode/skills/architecture-integration/SKILL.md
-/home/hans/dev/AI/dev-ai-agent-team-upgrade/agentic-dev-ai-team/.opencode/skills/systems-c-cpp/SKILL.md
-/home/hans/dev/AI/dev-ai-agent-team-upgrade/agentic-dev-ai-team/.opencode/skills/database-engineering/SKILL.md
-/home/hans/dev/AI/dev-ai-agent-team-upgrade/agentic-dev-ai-team/.opencode/skills/security-engineering/SKILL.md
+$ROOT_DIR/.opencode/skills/architecture-integration/SKILL.md
+$ROOT_DIR/.opencode/skills/systems-c-cpp/SKILL.md
+$ROOT_DIR/.opencode/skills/database-engineering/SKILL.md
+$ROOT_DIR/.opencode/skills/security-engineering/SKILL.md
 "
   legacy_path='../../reference/routing-matrix.md'
 

@@ -1,17 +1,17 @@
-# Agentic Dev AI Team
+# Oh My OpenAgent Toolkit
 
 Project-local OpenCode bundle for teams that want a clearer operating layer on top of `oh-my-openagent`, without pretending to be upstream or a second control plane.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license) [![Built on OpenCode](https://img.shields.io/badge/built%20on-OpenCode-5b5bd6.svg)](https://opencode.ai/docs) [![Companion to oh-my-openagent](https://img.shields.io/badge/companion-oh--my--openagent-2d7a46.svg)](https://github.com/code-yeongyu/oh-my-openagent) [![Validated surface: 4 workflows](https://img.shields.io/badge/validated%20surface-4%20workflows-8a3ffc.svg)](#what-it-adds-on-top-of-upstream)
 
-`agentic-dev-ai-team` is a project-local OpenCode bundle built on `oh-my-openagent`. It adds thin local routing, support framing, workspace conventions, and the imported `impeccable` design layer so a cloned repo is easier to navigate, operate, and explain.
+`oh-my-openagent-toolkit` is a project-local OpenCode bundle built on `oh-my-openagent`. It adds thin local routing, support framing, workspace conventions, and the imported `impeccable` design layer so a cloned repo is easier to navigate, operate, and explain.
 
 This repo is a companion to `oh-my-openagent`, not an official upstream distribution and not a replacement for the harness. The skill surface is broad, 43 top-level entrypoints under `.opencode/skills/`, made up of 40 core skill surfaces and 3 planned adjacent packs, but the visible validated surface stays narrow: `frontend-product-delivery`, `backend-service-delivery`, `cloud-release-readiness`, and `ai-data-product-delivery`.
 
 | At a glance | Summary |
 | --- | --- |
 | Foundation | `oh-my-openagent` provides the harness layer and execution model. |
-| Local layer | `agentic-dev-ai-team` adds thin routing, support framing, workspace conventions, and the imported `impeccable` design layer. |
+| Local layer | `oh-my-openagent-toolkit` adds thin routing, support framing, workspace conventions, and the imported `impeccable` design layer. |
 | Skill surface | The repo exposes 43 top-level skill entrypoints under `.opencode/skills/`: 40 core skill surfaces plus 3 planned adjacent packs. |
 | Validated now | `frontend-product-delivery`, `backend-service-delivery`, `cloud-release-readiness`, and `ai-data-product-delivery`. |
 | Broader coverage | Additional surfaces are documented as `guided` or `planned`, not blanket `supported now` coverage. |
@@ -24,9 +24,9 @@ This bundle is a practical operating layer for running OpenCode from a real proj
 | Layer | What it supplies |
 | --- | --- |
 | `oh-my-openagent` | Orchestration, delegation, built-in helpers, and the execution model. |
-| `agentic-dev-ai-team` | Six routing buckets, sharper local specialization, domain-specific skill surfaces, support framing, workspace conventions, and public-facing guidance. |
+| `oh-my-openagent-toolkit` | Six routing buckets, sharper local specialization, domain-specific skill surfaces, support framing, workspace conventions, and public-facing guidance. |
 
-The practical split is simple: `oh-my-openagent` stays general-purpose, while `agentic-dev-ai-team` gives that harness better routing signals, better domain-specific surfaces, and a more explicit explanation of what this repo can do today.
+The practical split is simple: `oh-my-openagent` stays general-purpose, while `oh-my-openagent-toolkit` gives that harness better routing signals, better domain-specific surfaces, and a more explicit explanation of what this repo can do today.
 
 ## Who this is for
 
@@ -69,7 +69,7 @@ The current validated workflow surface is intentionally narrow.
 | `guided` | Current pack or overlay coverage with routing and reference support, but no end-to-end validated public claim. |
 | `planned` | Named expansion surface reserved for future implementation or later promotion, not a present-tense support claim. |
 
-| `oh-my-openagent` gives you | `agentic-dev-ai-team` gives you | Why the combination is stronger |
+| `oh-my-openagent` gives you | `oh-my-openagent-toolkit` gives you | Why the combination is stronger |
 | --- | --- | --- |
 | General-purpose orchestration, delegation, built-in helpers, and the underlying execution model | Six routing buckets, explicit pack-to-problem mapping, domain-specific skill families, and a refinement stack that sharpens UI and documentation quality | The harness stays general-purpose while the bundle stays domain-aware, so the workflow is stronger than either layer alone |
 
@@ -96,7 +96,7 @@ Set this up in the same order the stack is built:
 
 ```sh
 git clone <repo-url>
-cd agentic-dev-ai-team
+cd oh-my-openagent-toolkit
 ```
 
 Once you are in this repo, read the local docs in this order:
@@ -135,7 +135,7 @@ These links are for optional funding only. They are not a paid support tier, the
 
 ## Attribution
 
-`agentic-dev-ai-team` is maintained by Nuvreon Corp as a companion bundle built on top of `oh-my-openagent`, with the imported `impeccable` refinement layer included as a local design aid.
+`oh-my-openagent-toolkit` is maintained by Nuvreon Corp as a companion bundle built on top of `oh-my-openagent`, with the imported `impeccable` refinement layer included as a local design aid.
 
 ## License
 

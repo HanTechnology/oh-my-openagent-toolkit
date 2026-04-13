@@ -1,6 +1,6 @@
 # Impeccable Vendor Policy
 
-This document defines the current local governance model for the full `impeccable` import in `agentic-dev-ai-team`. It is authoritative for the upstream source, pinned upstream ref, local-integrated import policy, sync expectations, deprecated-wrapper handling, and the current core counts used by the bundle.
+This document defines the current local governance model for the full `impeccable` import in `oh-my-openagent-toolkit`. It is authoritative for the upstream source, pinned upstream ref, local-integrated import policy, sync expectations, deprecated-wrapper handling, and the current core counts used by the bundle.
 
 ## Pinned upstream source
 
