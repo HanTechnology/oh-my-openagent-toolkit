@@ -7,7 +7,14 @@ description: Deliver PHP and Ruby application-platform work across Laravel, Symf
 
 Use this pack for PHP and Ruby platform work: Laravel applications, Symfony services, Rails apps, server-rendered products, JSON APIs, admin systems, background jobs, and convention-heavy application delivery.
 
+Defer first-pass route choice and lane selection to `../../reference/routing-matrix.md`.
+
 This is the general PHP and Ruby family pack for the repo. Use the overlay in `reference/laravel-symfony-rails.md` to tune decisions for Laravel, Symfony, and Rails while keeping the same expectations for routing, validation, ORM usage, job execution, and testing conventions.
+
+## Setup posture
+
+- Prefer modernizing, refining, or extending an existing project in place.
+- Treat scaffold, `create`, `init`, or `new` flows as greenfield-only and explicit-request-only. Defer to `.opencode/reference/project-setup-policy.md`.
 
 ## Core focus
 

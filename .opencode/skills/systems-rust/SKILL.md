@@ -7,7 +7,14 @@ description: Deliver Rust systems work across services, CLIs, WASM, and FFI whil
 
 Use this pack for Rust systems work: performance-sensitive services, async runtimes, command-line tools, WebAssembly modules, native extensions, and cross-language boundaries where memory safety and throughput both matter.
 
+Defer first-pass route choice and lane selection to `../../reference/routing-matrix.md`.
+
 This is the general Rust family pack for the repo. Use `reference/axum-actix-wasm.md` for Axum, Actix, and broad browser-facing WASM delivery. Use `reference/wasm-browser-3d-performance.md` only when browser-3D work already owned by `frontend-web` crosses a measured compute or transfer bottleneck and needs a narrow Rust/WASM escalation path.
+
+## Setup posture
+
+- Prefer modernizing, refining, or extending an existing project in place.
+- Treat scaffold, `create`, `init`, or `new` flows as greenfield-only and explicit-request-only. Defer to `.opencode/reference/project-setup-policy.md`.
 
 ## Core focus
 

@@ -7,7 +7,14 @@ description: Deliver immutable, concurrency-aware services and applications acro
 
 Use this pack for functional-platform work: Elixir and Erlang services, Phoenix applications, Scala backends, Haskell libraries, Clojure services, F# applications, and data-first systems where immutable state and effect boundaries shape the design.
 
+Defer first-pass route choice and lane selection to `../../reference/routing-matrix.md`.
+
 This is the general functional-language family pack for the repo. Use the overlay in `reference/elixir-phoenix-scala-clojure.md` to tune decisions for Phoenix, Scala, and Clojure-heavy stacks while keeping the shared expectations for immutability, runtime behavior, message flow, and application structure intact.
+
+## Setup posture
+
+- Prefer modernizing, refining, or extending an existing project in place.
+- Treat scaffold, `create`, `init`, or `new` flows as greenfield-only and explicit-request-only. Defer to `.opencode/reference/project-setup-policy.md`.
 
 ## Core focus
 
