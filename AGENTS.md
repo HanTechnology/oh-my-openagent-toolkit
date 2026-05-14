@@ -17,6 +17,12 @@ From the repo root, this bundle stays intentionally thin and non-control-plane. 
 2. Check `.opencode/reference/support-policy.md` and `.opencode/reference/workflow-catalog.md` before making any support or validation claim.
 3. Read `.opencode/reference/workspace-model.md` when output placement or repo/worktree boundaries matter.
 
+## Design intent checkpoint
+
+For greenfield UI work or midstream toolkit adoption, inspect project-local design sources before implementing: the user request, root `DESIGN.md`, `.impeccable.md`, tokens, themes, component primitives, and representative screens. If those sources are missing, conflicting, or too vague to choose typography, color, spacing, motion, hierarchy, and component affordance, ask one focused `Question` to define the missing intent instead of guessing from code.
+
+Keep the question concrete: target audience, primary use case, brand personality or tone, reference products, accessibility or platform constraints, and whether the project should create or update a local `DESIGN.md` or equivalent design-system note. Once the answer is available, keep route authority in `.opencode/reference/routing-matrix.md`: `frontend-web` and `mobile-app` remain primary for UI work, `visual-engineering` starts the harness lane, `.opencode/reference/design-md-selection-protocol.md` stays supplementary reference material, and `.opencode/skills/impeccable/SKILL.md` remains supplementary context gathering and refinement guidance. This checkpoint does not create a new route, helper, support tier, or validation claim.
+
 ## Separate axes, kept distinct
 
 - `bucket` means the fixed request-shape grouping used for first-pass classification.
