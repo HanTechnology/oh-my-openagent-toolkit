@@ -9,3 +9,6 @@ gen
 
 # Visual Studio Code project files
 .code
+
+# oh-my-openagent-toolkit project files
+.sisyphus
