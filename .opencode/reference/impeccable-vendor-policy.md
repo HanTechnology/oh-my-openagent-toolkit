@@ -42,7 +42,7 @@ The local `impeccable` layer is frozen at exactly 23 skills:
 - `teach-impeccable`
 - `typeset`
 
-Together with the 17 local expert packs, this keeps the current core bundle inventory at 40 total local skills. The live repo may also carry the planned adjacent packs `release-engineering`, `documentation-sdk`, and `developer-experience`, but those remain outside the current 17/23/40 core.
+Together with the 17 local expert packs and 1 supplementary orientation skill, this keeps the current core bundle inventory at 41 total local skills. The live repo may also carry the planned adjacent packs `release-engineering`, `documentation-sdk`, and `developer-experience`, but those remain outside the current 17/23/1/41 core.
 
 ## Local-integrated import policy
 
@@ -62,8 +62,8 @@ When the local `impeccable` layer is refreshed later, follow this playbook:
 2. Reconfirm the upstream inventory against the pinned upstream ref and verify that the intended local set still contains the full 23-skill import, including `frontend-design` and `teach-impeccable`.
 3. Diff the vendored skill content, supported metadata, and any supported local extensions against the current local snapshot.
 4. Apply only the local-integrated adjustments needed to keep the bundle consistent with local routing docs, shared references, and workspace conventions.
-5. Update this file and any downstream routing or validator surfaces together so counts and semantics do not drift between the current 40-skill core and any live planned adjacent packs.
-6. Re-run parser-based verification so the 23-skill inventory, 40-skill core, live planned-adjacent-pack handling, pinned upstream wording, and deprecated-wrapper policy are all proven again.
+5. Update this file and any downstream routing or validator surfaces together so counts and semantics do not drift between the current 41-skill core and any live planned adjacent packs.
+6. Re-run parser-based verification so the 23-skill inventory, 41-skill core, live planned-adjacent-pack handling, pinned upstream wording, and deprecated-wrapper policy are all proven again.
 
 ## Deprecated-wrapper handling policy
 
