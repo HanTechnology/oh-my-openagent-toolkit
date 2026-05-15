@@ -60,6 +60,7 @@ bolder
 clarify
 colorize
 critique
+compass
 delight
 distill
 extract
@@ -82,11 +83,12 @@ documentation-sdk
 developer-experience
 "
 
-FULL_EXPECTED_SKILL_COUNT=40
+FULL_EXPECTED_SKILL_COUNT=41
 PLANNED_ADJACENT_SKILL_COUNT=3
-LIVE_TOP_LEVEL_SKILL_COUNT=43
+LIVE_TOP_LEVEL_SKILL_COUNT=44
 FULL_EXPECTED_IMPECCABLE_COUNT=23
 FULL_EXPECTED_EXPERT_PACK_COUNT=17
+FULL_EXPECTED_ORIENTATION_SKILL_COUNT=1
 
 PASS_COUNT=0
 FAIL_COUNT=0
@@ -264,7 +266,7 @@ check_expected_skill_dirs() {
     fail 'Skill inventory expectation' "validator is configured for $expected_count skills instead of $FULL_EXPECTED_SKILL_COUNT"
   fi
   if [ "$missing" -eq 0 ]; then
-    pass 'Skill inventory' "all $FULL_EXPECTED_SKILL_COUNT required core skill directories are present ($FULL_EXPECTED_IMPECCABLE_COUNT impeccable + $FULL_EXPECTED_EXPERT_PACK_COUNT expert packs)"
+    pass 'Skill inventory' "all $FULL_EXPECTED_SKILL_COUNT required core skill directories are present ($FULL_EXPECTED_IMPECCABLE_COUNT impeccable + $FULL_EXPECTED_EXPERT_PACK_COUNT expert packs + $FULL_EXPECTED_ORIENTATION_SKILL_COUNT orientation skill)"
   else
     printf 'FAIL Skill inventory: %s missing skill directories\n' "$missing"
   fi
@@ -281,7 +283,7 @@ core = {
     "backend-jvm", "backend-dotnet", "backend-go", "systems-rust", "systems-c-cpp",
     "functional-platform", "php-ruby-platform", "data-ml-platform", "database-engineering",
     "security-engineering", "devops-platform", "qa-validation", "impeccable", "adapt", "animate",
-    "arrange", "audit", "bolder", "clarify", "colorize", "critique", "delight", "distill",
+    "arrange", "audit", "bolder", "clarify", "colorize", "critique", "compass", "delight", "distill",
     "extract", "frontend-design", "harden", "normalize", "onboard", "optimize", "overdrive",
     "polish", "quieter", "shape", "teach-impeccable", "typeset"
 }
@@ -527,6 +529,150 @@ PY
     pass 'Routing sidecar contract' 'sidecar schema, matrix anchors, posture, and canonical path style are aligned'
   else
     fail 'Routing sidecar contract' 'sidecar schema, matrix anchors, posture, or canonical path style is invalid'
+  fi
+}
+
+check_compass_posture_contract() {
+  compass_file="$ROOT_DIR/.opencode/skills/compass/SKILL.md"
+  require_file 'Compass skill' "$compass_file"
+
+  if python3 - "$compass_file" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+text = path.read_text()
+required = [
+    'not a primary route',
+    'routing-matrix replacement',
+    'not an implementation executor',
+    'Prometheus',
+    'Oracle',
+    'review-work',
+    'architecture-integration',
+]
+missing = [phrase for phrase in required if phrase not in text]
+if missing:
+    raise AssertionError(f"compass/SKILL.md is missing required guardrail phrases: {missing}")
+print('compass skill guardrail phrase checks passed')
+PY
+  then
+    pass 'Compass skill guardrails' 'compass/SKILL.md contains required route, executor, and replacement boundaries'
+  else
+    fail 'Compass skill guardrails' 'compass/SKILL.md is missing required guardrail phrases'
+  fi
+
+  if python3 - "$ROOT_DIR" <<'PY'
+from pathlib import Path
+import sys
+
+root = Path(sys.argv[1])
+compass_file = root / '.opencode/skills/compass/SKILL.md'
+readme_file = root / 'README.md'
+routing_file = root / '.opencode/reference/routing-matrix.md'
+paths = [readme_file, routing_file, compass_file]
+forbidden = [
+    'AGI',
+    'self-modification',
+    'unlimited self-improvement',
+    'unlimited improvement',
+    'autonomous control',
+]
+violations = []
+for path in paths:
+    text = path.read_text()
+    for phrase in forbidden:
+        if phrase in text:
+            violations.append(f'{path.relative_to(root)}: {phrase}')
+
+memory_scopes = [(compass_file, compass_file.read_text())]
+readme_lines = readme_file.read_text().splitlines()
+for line_number, line in enumerate(readme_lines, start=1):
+    if 'compass' in line:
+        memory_scopes.append((readme_file, f'line {line_number}: {line}'))
+
+routing_lines = routing_file.read_text().splitlines()
+section = []
+in_compass_section = False
+for line in routing_lines:
+    if line.startswith('## '):
+        in_compass_section = line.strip() == '## Supplementary local orientation skill'
+    if in_compass_section:
+        section.append(line)
+if section:
+    memory_scopes.append((routing_file, '\n'.join(section)))
+else:
+    violations.append(f'{routing_file.relative_to(root)}: missing compass orientation section')
+
+for path, scope in memory_scopes:
+    if 'memory' in scope:
+        violations.append(f'{path.relative_to(root)}: memory in compass-specific content')
+if violations:
+    raise AssertionError('forbidden compass framing found: ' + ', '.join(violations))
+print('compass forbidden framing checks passed')
+PY
+  then
+    pass 'Compass forbidden framing' 'compass-facing docs avoid autonomy/self-modification framing, and memory only in compass-specific content'
+  else
+    fail 'Compass forbidden framing' 'compass-facing docs contain forbidden autonomy/self-modification framing or compass-specific memory claims'
+  fi
+
+  if python3 - "$ROOT_DIR" <<'PY'
+from pathlib import Path
+import json
+import sys
+
+root = Path(sys.argv[1])
+text_paths = [
+    root / '.opencode/reference/support-policy.md',
+    root / '.opencode/reference/workflow-catalog.md',
+]
+json_paths = [
+    root / '.opencode/reference/routing-signals.json',
+    root / '.opencode/reference/capability-matrix.json',
+]
+violations = []
+for path in text_paths:
+    if 'compass' in path.read_text():
+        violations.append(str(path.relative_to(root)))
+for path in json_paths:
+    text = path.read_text()
+    if 'compass' in text:
+        violations.append(str(path.relative_to(root)))
+    json.loads(text)
+if violations:
+    raise AssertionError('compass must stay out of governance/support/routing sidecar files: ' + ', '.join(violations))
+print('compass governance absence checks passed')
+PY
+  then
+    pass 'Compass governance absence' 'compass is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix'
+  else
+    fail 'Compass governance absence' 'compass must not appear in governance/support files or routing sidecar'
+  fi
+
+  if python3 - "$0" <<'PY'
+from pathlib import Path
+import sys
+
+text = Path(sys.argv[1]).read_text()
+planned_block = text.split('PLANNED_ADJACENT_SKILLS="', 1)[1].split('"', 1)[0]
+assignments = {}
+for line in text.splitlines():
+    if '=' in line and not line.startswith(' '):
+        name, value = line.split('=', 1)
+        assignments[name] = value.strip()
+if 'compass' in planned_block:
+    raise AssertionError('compass must not be listed in PLANNED_ADJACENT_SKILLS')
+if assignments.get('FULL_EXPECTED_EXPERT_PACK_COUNT') != '17':
+    raise AssertionError('expert pack count must remain 17')
+if assignments.get('FULL_EXPECTED_ORIENTATION_SKILL_COUNT') != '1':
+    raise AssertionError('orientation skill count must remain 1')
+print('compass inventory classification checks passed')
+PY
+  then
+    pass 'Compass inventory classification' 'compass remains orientation-only, not planned-adjacent or an expert pack'
+  else
+    fail 'Compass inventory classification' 'compass inventory classification drifted'
   fi
 }
 
@@ -780,6 +926,7 @@ check_full() {
 
   check_expected_skill_dirs
   check_sidecar_scaffolding
+  check_compass_posture_contract
   check_outlier_pack_contract
   check_harness_utilization_contract
   check_workspace_model_coherence
@@ -833,7 +980,7 @@ printf '\nSummary: %s PASS, %s WARN, %s FAIL\n' "$PASS_COUNT" "$WARN_COUNT" "$FA
 if [ "$FAIL_COUNT" -gt 0 ]; then
   printf '%s\n' 'FAIL: bundle validation did not pass.'
   if [ "$mode" = "full" ]; then
-    printf '%s\n' 'Full mode expects the current released bundle state: 40 required core skill directories (23 impeccable + 17 expert packs), 3 planned adjacent packs, routing assets, QA/design references, workspace-model coherence, and no legacy runtime surfaces.'
+    printf '%s\n' 'Full mode expects the current released bundle state: 41 required core skill directories (23 impeccable + 17 expert packs + 1 orientation skill), 3 planned adjacent packs, routing assets, QA/design references, workspace-model coherence, and no legacy runtime surfaces.'
   fi
   exit 1
 fi
