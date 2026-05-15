@@ -6,13 +6,13 @@ Project-local OpenCode bundle for teams that want a clearer operating layer on t
 
 `oh-my-openagent-toolkit` is a project-local OpenCode bundle built on `oh-my-openagent`. It adds thin local routing, support framing, workspace conventions, and the imported `impeccable` design layer so a cloned repo is easier to navigate, operate, and explain.
 
-This repo is a companion to `oh-my-openagent`, not an official upstream distribution and not a replacement for the harness. The skill surface is broad, 43 top-level entrypoints under `.opencode/skills/`, made up of 40 core skill surfaces and 3 planned adjacent packs, but the visible validated surface stays narrow: `frontend-product-delivery`, `backend-service-delivery`, `cloud-release-readiness`, and `ai-data-product-delivery`.
+This repo is a companion to `oh-my-openagent`, not an official upstream distribution and not a replacement for the harness. The skill surface is broad, 44 top-level entrypoints under `.opencode/skills/`, made up of 41 core skill surfaces and 3 planned adjacent packs, but the visible validated surface stays narrow: `frontend-product-delivery`, `backend-service-delivery`, `cloud-release-readiness`, and `ai-data-product-delivery`.
 
 | At a glance | Summary |
 | --- | --- |
 | Foundation | `oh-my-openagent` provides the harness layer and execution model. |
 | Local layer | `oh-my-openagent-toolkit` adds thin routing, support framing, workspace conventions, and the imported `impeccable` design layer. |
-| Skill surface | The repo exposes 43 top-level skill entrypoints under `.opencode/skills/`: 40 core skill surfaces plus 3 planned adjacent packs. |
+| Skill surface | The repo exposes 44 top-level skill entrypoints under `.opencode/skills/`: 41 core skill surfaces plus 3 planned adjacent packs. |
 | Validated now | `frontend-product-delivery`, `backend-service-delivery`, `cloud-release-readiness`, and `ai-data-product-delivery`. |
 | Broader coverage | Additional surfaces are documented as `guided` or `planned`, not blanket `supported now` coverage. |
 | Repo-root convention | Work from the repo root and default new greenfield outputs to `workspace/{project-name}-{domain}`. |
@@ -48,7 +48,7 @@ This repo adds local structure, not local bureaucracy. In practice, that means a
 | --- | --- | --- |
 | Thin routing | Classifies work into six routing buckets, points to the right pack, and names the built-in helpers that fit. | `AGENTS.md`, `.opencode/commands/route-domain.md`, `.opencode/reference/routing-matrix.md` |
 | Governance and usage refs | Makes support boundaries, workflow inventory, and workspace conventions explicit instead of implied. | `.opencode/reference/support-policy.md`, `.opencode/reference/workflow-catalog.md`, `.opencode/reference/workspace-model.md` |
-| Local skill surface | Adds 43 top-level skill entrypoints across major delivery lanes: 40 core skill surfaces plus 3 planned adjacent packs. That makes the repo feel like a real working system, not a thin demo layer. | `.opencode/skills/` |
+| Local skill surface | Adds 44 top-level skill entrypoints across major delivery lanes: 41 core skill surfaces plus 3 planned adjacent packs. That makes the repo feel like a real working system, not a thin demo layer. | `.opencode/skills/` |
 | UI refinement layer | Adds the imported `impeccable` family as a supplementary refinement stack for anti-slop review, critique, and polish. | Start with `frontend-web` or `mobile-app`, then layer `impeccable` skills on purpose |
 | DESIGN.md reference layer | Adds curated external DESIGN.md reference material for visual-language interpretation. It is not a primary route and not a validated support claim. | `.opencode/reference/design-md/README.md`, `.opencode/reference/design-md-source-policy.md`, `.opencode/reference/design-md-catalog.md` |
 
@@ -61,6 +61,7 @@ This repo adds local structure, not local bureaucracy. In practice, that means a
 | Data and security | `data-ml-platform`, `database-engineering`, `security-engineering` | Data-platform, storage, ML, hardening, and compliance-sensitive work. |
 | QA and deployment | `qa-validation`, `devops-platform` | Validation, release readiness, rollout, and operational finish passes. |
 | Refinement layer | `impeccable`, `audit`, `critique`, `polish`, `typeset`, `colorize`, `adapt` | UI refinement and anti-slop improvement layered on top of the primary route. |
+| Strategic orientation | `compass` | Bounded goal framing, option comparison, and next-route recommendation before implementation. It is not a primary route and not a validated support claim. |
 
 The current validated workflow surface is intentionally narrow.
 
