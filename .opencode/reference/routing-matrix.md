@@ -82,6 +82,14 @@ From the repo root, this matrix is the sole normative local routing/helper sourc
 | Sort out an ambiguous next-quarter auth, CI, and docs strategy before choosing an implementation lane | `architecture/integration` | `architecture-integration` first; add an adjacent pack only after the dominant follow-on surface is clearer | `ultrabrain` | The blocker is ambiguous, cross-domain synthesis rather than straightforward implementation depth, so `ultrabrain` is the bounded escalation lane for the option memo before concrete pack work starts. |
 | Plan a rollback-safe release with changelog, publication, and public-impact notes | `QA/deployment` | `devops-platform` plus the planned adjacent pack `release-engineering` | `writing` | The release path still routes through QA/deployment, but the dominant output is rollback-safe changelog, publication, and release communication guidance, so `release-engineering` stays planned, adjacent, and non-primary. |
 
+## Supplementary local orientation skill
+
+`compass` is a supplementary local orientation skill. It may be used before implementation when the blocker is unclear direction, option framing, or choosing the next route, skill, helper, or plan-agent step.
+
+`compass` is not a primary route.
+
+The six fixed buckets remain the only first-pass routing buckets. This guidance does not add a seventh bucket, does not replace matrix routing, does not replace Prometheus, Oracle, or review-work, and does not create support status.
+
 ## Built-in helper notes
 
 Use this table as the compact discovery index for the optional upstream helpers named throughout the matrix. These helpers strengthen execution, but they do not replace the primary local pack route.
