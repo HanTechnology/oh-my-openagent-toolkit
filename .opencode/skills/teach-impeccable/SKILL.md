@@ -1,13 +1,11 @@
 ---
 name: teach-impeccable
-description: "Deprecated upstream wrapper kept for completeness only. Not a primary routing choice. Redirect to `impeccable teach` instead."
+description: "Local compatibility wrapper for `/impeccable teach`. Not a primary route."
 user-invocable: true
 ---
 
 # Teach Impeccable
 
-This deprecated wrapper is kept only for completeness in the local `impeccable` family.
+This is a local compatibility wrapper. It is not a primary route.
 
-Redirect to `impeccable teach` instead to gather or update the project's design context.
-
-Keep `teach-impeccable` present for completeness only. Do not run a separate teach workflow from `teach-impeccable`; treat it as a redirect to `impeccable teach`.
+Redirect to `/impeccable teach`.

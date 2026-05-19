@@ -1,15 +1,11 @@
 ---
 name: normalize
-description: "Deprecated upstream wrapper kept for completeness. Not a primary route. Use `polish` for consistency, alignment, and design-system cleanup in the local bundle."
+description: "Local compatibility wrapper for `/impeccable polish`. Not a primary route."
+user-invocable: true
 ---
 
 # Normalize
 
-This deprecated wrapper is present only to keep the local `impeccable` family complete.
+This is a local compatibility wrapper. It is not a primary route.
 
-Use `polish` instead when the goal is to:
-- align the feature with the local design system or visible codebase conventions,
-- remove token or spacing drift,
-- and tighten consistency across states and surfaces.
-
-Keep `normalize` present for completeness only. Do not treat it as a separate primary workflow.
+Redirect to `/impeccable polish`.
