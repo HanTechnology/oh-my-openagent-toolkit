@@ -1,77 +1,115 @@
 # Impeccable Vendor Policy
 
-This document defines the current local governance model for the full `impeccable` import in `oh-my-openagent-toolkit`. It is authoritative for the upstream source, pinned upstream ref, local-integrated import policy, sync expectations, deprecated-wrapper handling, and the current core counts used by the bundle.
+This policy defines how `oh-my-openagent-toolkit` carries Impeccable after the v3.1.1 hybrid migration. It separates upstream-owned package content from local compatibility wrappers, records the current source pin, and sets attribution expectations for local `NOTICE.md` and `LICENSE` files.
 
-## Pinned upstream source
+## Current Source Record
 
 | Field | Value |
 | --- | --- |
 | Upstream repository | `pbakaus/impeccable` |
-| Authoritative upstream inventory path | `.opencode/skills/` |
-| Upstream skill content path used for vendoring | `source/skills/` |
-| Pinned upstream ref | commit `5a22894b1fd7c50f50c7f801ed8ee7f0ca6cb1bf` |
-| Local target path | `.opencode/skills/` |
+| Current upstream release tag | `skill-v3.1.1` |
+| Current upstream commit | `4af581e23f17d112d8f9d6b7a5b7ff37823494e1` |
+| Previous local pin | `5a22894b1fd7c50f50c7f801ed8ee7f0ca6cb1bf` |
+| Upstream authoring source path | `skill/` |
+| Generated OpenCode source path | `.opencode/skills/impeccable/` |
+| Upstream release asset | `universal.zip` |
+| `universal.zip` sha256 | `ad59e0dd3d3ca0a1b8ae0a4a17a0492d13d2790cb7cd67a1ae7195bee3a5852d` |
+| Local upstream package path | `oh-my-openagent-toolkit/.opencode/skills/impeccable/` |
+| Local wrapper paths | `oh-my-openagent-toolkit/.opencode/skills/{wrapper}/SKILL.md` |
 
-This bundle vendors a pinned upstream copy. It is not automatically mirrored.
+The release asset and checksum above were captured from Task 1 evidence. Later refreshes must record the new tag, commit, asset name, asset checksum, and any replaced local pin before content changes land.
 
-## Current local impeccable inventory
+## Hybrid Ownership Model
 
-The local `impeccable` layer is frozen at exactly 23 skills:
+The local Impeccable integration now uses 1 upstream consolidated skill, 23 upstream commands, and 22 local compatibility wrappers.
 
-- `impeccable`
+Upstream owns the consolidated package copied from `.opencode/skills/impeccable/` at the pinned commit. That package carries the upstream `SKILL.md`, references, scripts, command metadata, runtime helpers, and any upstream attribution files copied into the local package.
+
+Local code owns the top-level compatibility wrappers. Wrappers keep older local entry points available, but they are not upstream-owned skills. They should stay thin, point to `/impeccable` or `/impeccable <subcommand>`, and avoid independent workflow logic, package metadata, or runtime grants that belong to the consolidated upstream skill.
+
+This policy doesn't change routing or support governance. Impeccable remains supplementary local guidance, not a validated workflow, support tier, or primary route.
+
+## Upstream Command Surface
+
+The 23 upstream commands come from `scripts/command-metadata.json` in the generated package:
+
 - `adapt`
 - `animate`
-- `arrange`
 - `audit`
 - `bolder`
 - `clarify`
 - `colorize`
+- `craft`
 - `critique`
 - `delight`
 - `distill`
+- `document`
 - `extract`
-- `frontend-design`
 - `harden`
-- `normalize`
+- `layout`
+- `live`
 - `onboard`
 - `optimize`
 - `overdrive`
 - `polish`
 - `quieter`
 - `shape`
-- `teach-impeccable`
+- `teach`
 - `typeset`
 
-Together with the 17 local expert packs and 1 supplementary orientation skill, this keeps the current core bundle inventory at 41 total local skills. The live repo may also carry the planned adjacent packs `release-engineering`, `documentation-sdk`, and `developer-experience`, but those remain outside the current 17/23/1/41 core.
+`brand`, `product`, and `codex` are upstream capability or reference surfaces, not command metadata entries. Keep them available through the consolidated `impeccable` package where upstream documents them. Don't add new top-level local wrappers for them.
 
-## Local-integrated import policy
+## Compatibility Wrapper Policy
 
-The local `impeccable` layer is a full local-integrated import rather than a raw upstream mirror. That means:
+The 22 local compatibility wrappers are local aliases for existing entry points. They preserve user muscle memory while directing work into the consolidated upstream command model.
 
-1. Keep the upstream skill inventory complete for the pinned upstream ref, including deprecated wrappers that are intentionally still part of the upstream tree.
-2. Preserve supported upstream skill metadata and supported local extensions when they are required for correct local vendoring.
-3. Integrate the snapshot into the local bundle so the wording and surrounding reference docs stay consistent with this repo's routing model, shared anti-slop references, and workspace convention.
-4. Do not import unrelated provider-distribution files, control-plane logic, or extra runtime surfaces outside the approved local skill inventory.
-5. Treat the local docs in this repo as the authoritative explanation of how the vendored snapshot behaves once integrated here.
+| Local wrapper | Target |
+| --- | --- |
+| `adapt` | `/impeccable adapt` |
+| `animate` | `/impeccable animate` |
+| `arrange` | `/impeccable layout` |
+| `audit` | `/impeccable audit` |
+| `bolder` | `/impeccable bolder` |
+| `clarify` | `/impeccable clarify` |
+| `colorize` | `/impeccable colorize` |
+| `critique` | `/impeccable critique` |
+| `delight` | `/impeccable delight` |
+| `distill` | `/impeccable distill` |
+| `extract` | `/impeccable extract` |
+| `frontend-design` | `/impeccable` |
+| `harden` | `/impeccable harden` |
+| `normalize` | `/impeccable polish` |
+| `onboard` | `/impeccable onboard` |
+| `optimize` | `/impeccable optimize` |
+| `overdrive` | `/impeccable overdrive` |
+| `polish` | `/impeccable polish` |
+| `quieter` | `/impeccable quieter` |
+| `shape` | `/impeccable shape` |
+| `teach-impeccable` | `/impeccable teach` |
+| `typeset` | `/impeccable typeset` |
 
-## Sync and update playbook
+The six wrappers that previously carried deprecated local wording, `arrange`, `extract`, `frontend-design`, `normalize`, `onboard`, and `teach-impeccable`, now follow the same compatibility-wrapper policy as the rest. Don't remove them because of old deprecation wording, don't describe them as upstream-owned, and don't promote them above the consolidated `impeccable` skill.
 
-When the local `impeccable` layer is refreshed later, follow this playbook:
+## Attribution Policy
 
-1. Choose a candidate upstream commit or tag and record the exact ref before any content is changed locally.
-2. Reconfirm the upstream inventory against the pinned upstream ref and verify that the intended local set still contains the full 23-skill import, including `frontend-design` and `teach-impeccable`.
-3. Diff the vendored skill content, supported metadata, and any supported local extensions against the current local snapshot.
-4. Apply only the local-integrated adjustments needed to keep the bundle consistent with local routing docs, shared references, and workspace conventions.
-5. Update this file and any downstream routing or validator surfaces together so counts and semantics do not drift between the current 41-skill core and any live planned adjacent packs.
-6. Re-run parser-based verification so the 23-skill inventory, 41-skill core, live planned-adjacent-pack handling, pinned upstream wording, and deprecated-wrapper policy are all proven again.
+The upstream `SKILL.md` declares Apache 2.0 licensing and references `NOTICE.md`. The local package must therefore carry upstream attribution beside the consolidated skill package.
 
-## Deprecated-wrapper handling policy
+When vendoring or refreshing Impeccable:
 
-`frontend-design` and `teach-impeccable` are intentionally included in the frozen 23-skill inventory because completeness matters for the local full import. They remain deprecated wrappers, not primary local routing choices.
+1. Copy upstream root `LICENSE` into `oh-my-openagent-toolkit/.opencode/skills/impeccable/LICENSE`.
+2. Copy upstream root `NOTICE.md` into `oh-my-openagent-toolkit/.opencode/skills/impeccable/NOTICE.md`.
+3. Verify the local attribution files include `NOTICE`, `LICENSE`, and `Apache` markers.
+4. Treat missing attribution in `universal.zip` as a packaging gap to fix locally by copying from the pinned upstream repository root.
+5. Keep local wrappers attribution-neutral unless a wrapper gains its own authored material that needs separate notice handling.
 
-When later docs or validators reference the `impeccable` layer:
+## Refresh Playbook
 
-1. Keep both wrappers present in the authoritative inventory.
-2. Mark them as deprecated wrappers or equivalent non-primary wording.
-3. Do not elevate them above the primary `impeccable` skills in routing guidance.
-4. Do not treat their deprecated status as a reason to omit them from the local full-import snapshot.
+Use this sequence when moving to a later upstream release:
+
+1. Select the upstream tag and commit, then record both before editing local files.
+2. Verify the release asset name and checksum. If the asset is `universal.zip`, confirm the sha256 independently.
+3. Copy only the generated OpenCode package from `.opencode/skills/impeccable/` into the local consolidated package path.
+4. Copy upstream root `NOTICE.md` and `LICENSE` into the local consolidated package when the generated package or `SKILL.md` references them.
+5. Preserve the 22 local wrapper directories as local compatibility wrappers unless the plan explicitly changes the local wrapper contract.
+6. Recheck that the policy still says 1 upstream consolidated skill, 23 upstream commands, and 22 local compatibility wrappers, or update the counts with matching validator changes.
+7. Run the policy token check, the stale-language negative search, and the attribution marker search before handing off.
