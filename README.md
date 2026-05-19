@@ -4,15 +4,16 @@ Project-local OpenCode bundle for teams that want a clearer operating layer on t
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license) [![Built on OpenCode](https://img.shields.io/badge/built%20on-OpenCode-5b5bd6.svg)](https://opencode.ai/docs) [![Companion to oh-my-openagent](https://img.shields.io/badge/companion-oh--my--openagent-2d7a46.svg)](https://github.com/code-yeongyu/oh-my-openagent) [![Validated surface: 4 workflows](https://img.shields.io/badge/validated%20surface-4%20workflows-8a3ffc.svg)](#what-it-adds-on-top-of-upstream)
 
-`oh-my-openagent-toolkit` is a project-local OpenCode bundle built on `oh-my-openagent`. It adds thin local routing, support framing, workspace conventions, and the imported `impeccable` design layer so a cloned repo is easier to navigate, operate, and explain.
+`oh-my-openagent-toolkit` is a project-local OpenCode bundle built on `oh-my-openagent`. It adds thin local routing, support framing, workspace conventions, and the imported Impeccable v3.1.1 design layer so a cloned repo is easier to navigate, operate, and explain. Local Impeccable now consists of 1 consolidated upstream Impeccable skill, 23 upstream commands, and 22 local compatibility wrappers.
 
 This repo is a companion to `oh-my-openagent`, not an official upstream distribution and not a replacement for the harness. The skill surface is broad, 44 top-level entrypoints under `.opencode/skills/`, made up of 41 core skill surfaces and 3 planned adjacent packs, but the visible validated surface stays narrow: `frontend-product-delivery`, `backend-service-delivery`, `cloud-release-readiness`, and `ai-data-product-delivery`.
 
 | At a glance | Summary |
 | --- | --- |
 | Foundation | `oh-my-openagent` provides the harness layer and execution model. |
-| Local layer | `oh-my-openagent-toolkit` adds thin routing, support framing, workspace conventions, and the imported `impeccable` design layer. |
+| Local layer | `oh-my-openagent-toolkit` adds thin routing, support framing, workspace conventions, and the imported Impeccable v3.1.1 design layer. |
 | Skill surface | The repo exposes 44 top-level skill entrypoints under `.opencode/skills/`: 41 core skill surfaces plus 3 planned adjacent packs. |
+| Impeccable model | Local Impeccable is 1 consolidated upstream Impeccable skill exposing 23 upstream commands, with 22 local compatibility wrappers kept for existing top level entrypoints. |
 | Validated now | `frontend-product-delivery`, `backend-service-delivery`, `cloud-release-readiness`, and `ai-data-product-delivery`. |
 | Broader coverage | Additional surfaces are documented as `guided` or `planned`, not blanket `supported now` coverage. |
 | Repo-root convention | Work from the repo root and default new greenfield outputs to `workspace/{project-name}-{domain}`. |
@@ -49,7 +50,7 @@ This repo adds local structure, not local bureaucracy. In practice, that means a
 | Thin routing | Classifies work into six routing buckets, points to the right pack, and names the built-in helpers that fit. | `AGENTS.md`, `.opencode/commands/route-domain.md`, `.opencode/reference/routing-matrix.md` |
 | Governance and usage refs | Makes support boundaries, workflow inventory, and workspace conventions explicit instead of implied. | `.opencode/reference/support-policy.md`, `.opencode/reference/workflow-catalog.md`, `.opencode/reference/workspace-model.md` |
 | Local skill surface | Adds 44 top-level skill entrypoints across major delivery lanes: 41 core skill surfaces plus 3 planned adjacent packs. That makes the repo feel like a real working system, not a thin demo layer. | `.opencode/skills/` |
-| UI refinement layer | Adds the imported `impeccable` family as a supplementary refinement stack for anti-slop review, critique, and polish. | Start with `frontend-web` or `mobile-app`, then layer `impeccable` skills on purpose |
+| UI refinement layer | Adds Impeccable v3.1.1 as a supplementary refinement stack for anti-slop review, critique, and polish. Local top level Impeccable surfaces are compatibility wrappers around the consolidated `/impeccable` command model. | Start with `frontend-web` or `mobile-app`, then layer `/impeccable` commands or compatibility wrappers on purpose |
 | DESIGN.md reference layer | Adds curated external DESIGN.md reference material for visual-language interpretation. It is not a primary route and not a validated support claim. | `.opencode/reference/design-md/README.md`, `.opencode/reference/design-md-source-policy.md`, `.opencode/reference/design-md-catalog.md` |
 
 | Skill family | Representative surfaces | Role |
@@ -60,7 +61,7 @@ This repo adds local structure, not local bureaucracy. In practice, that means a
 | Systems and performance | `systems-rust`, `systems-c-cpp`, `functional-platform`, `php-ruby-platform` | Runtime efficiency, low-level reliability, concurrency, and performance work. |
 | Data and security | `data-ml-platform`, `database-engineering`, `security-engineering` | Data-platform, storage, ML, hardening, and compliance-sensitive work. |
 | QA and deployment | `qa-validation`, `devops-platform` | Validation, release readiness, rollout, and operational finish passes. |
-| Refinement layer | `impeccable`, `audit`, `critique`, `polish`, `typeset`, `colorize`, `adapt` | UI refinement and anti-slop improvement layered on top of the primary route. |
+| Refinement layer | `impeccable`, `audit`, `critique`, `polish`, `typeset`, `colorize`, `adapt` | Supplementary UI refinement and anti-slop improvement. The named local entries are compatibility wrappers, not primary routes. |
 | Strategic orientation | `compass` | Bounded goal framing, option comparison, and next-route recommendation before implementation. It is not a primary route and not a validated support claim. |
 
 The current validated workflow surface is intentionally narrow.
@@ -75,7 +76,7 @@ The current validated workflow surface is intentionally narrow.
 | --- | --- | --- |
 | General-purpose orchestration, delegation, built-in helpers, and the underlying execution model | Six routing buckets, explicit pack-to-problem mapping, domain-specific skill families, and a refinement stack that sharpens UI and documentation quality | The harness stays general-purpose while the bundle stays domain-aware, so the workflow is stronger than either layer alone |
 
-For UI work, route through `frontend-web` or `mobile-app` first, then add the exact `impeccable` skills that fit the task. The same pattern appears across the rest of the bundle: core domain packs handle the main implementation lane, while focused helpers and refinement layers sharpen the outcome instead of replacing the route.
+For UI work, route through `frontend-web` or `mobile-app` first, then add `/impeccable` subcommands or local compatibility wrappers that fit the task. The same pattern appears across the rest of the bundle: core domain packs handle the main implementation lane, while focused helpers and refinement layers sharpen the outcome instead of replacing the route.
 
 When a UI request names a specific product feel, the DESIGN.md catalog can help choose a selected slug and extract transferable patterns. It stays reference material for the existing UI routes, not a supported-now promise and not a validated support claim.
 
@@ -120,11 +121,11 @@ That sequence keeps the layers clear: OpenCode is the foundation, `oh-my-openage
 | Upstream | Role in this repo |
 | --- | --- |
 | `oh-my-openagent` | Harness foundation, orchestration model, and built-in helper layer |
-| `impeccable` | Imported local refinement family for UI work |
+| `impeccable` | Imported Impeccable v3.1.1 refinement layer for UI work, carried locally through one consolidated upstream skill and compatibility wrappers |
 
 This bundle is built as a companion to `oh-my-openagent`, which provides the harness foundation and built-in helper model it relies on. The repo does not replace that upstream foundation, and it does not claim official endorsement or official-distribution status.
 
-It also includes an imported `impeccable` design layer as a local refinement family for UI work. That layer is acknowledged here as an upstream design influence and bundled asset, not as a claim that this repo is the canonical home for it.
+It also includes Impeccable v3.1.1 as a local refinement family for UI work. That layer is bundled through the consolidated upstream skill and local compatibility wrappers. It is acknowledged here as an upstream design influence and bundled asset, not as a claim that this repo is the canonical home for it.
 
 If you are publishing or sharing this repo, that is the right way to describe it: a companion bundle with a clearer local operating model, a broad but well-routed skill surface, explicit support boundaries, and a stronger documentation surface built on top of upstream foundations.
 
@@ -139,7 +140,7 @@ These links are for optional funding only. They are not a paid support tier, the
 
 ## Attribution
 
-`oh-my-openagent-toolkit` is maintained by Nuvreon Corp as a companion bundle built on top of `oh-my-openagent`, with the imported `impeccable` refinement layer included as a local design aid.
+`oh-my-openagent-toolkit` is maintained by Nuvreon Corp as a companion bundle built on top of `oh-my-openagent`, with Impeccable v3.1.1 included as a local design aid through the consolidated upstream skill and compatibility wrappers.
 
 ## License
 
