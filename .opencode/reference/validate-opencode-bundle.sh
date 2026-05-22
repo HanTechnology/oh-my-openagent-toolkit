@@ -6,6 +6,8 @@ SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/../.." && pwd)
 CONFIG_FILE="$ROOT_DIR/.opencode/oh-my-openagent.jsonc"
 CAPABILITY_MATRIX_FILE="$ROOT_DIR/.opencode/reference/capability-matrix.json"
+WORKFLOW_CATALOG_FILE="$ROOT_DIR/.opencode/reference/workflow-catalog.md"
+WEB_3D_SUPPORT_MODEL_FILE="$ROOT_DIR/.opencode/reference/web-3d-support-model.md"
 RUNTIME_ROUTE_FILE="$ROOT_DIR/.opencode/commands/route-domain.md"
 ROUTING_MATRIX_FILE="$ROOT_DIR/.opencode/reference/routing-matrix.md"
 ROUTING_SIGNALS_FILE="$ROOT_DIR/.opencode/reference/routing-signals.json"
@@ -1100,42 +1102,380 @@ PY
   fi
 }
 
+
+check_release_contract() {
+  require_file 'Version file' "$ROOT_DIR/VERSION"
+  require_file 'Changelog' "$ROOT_DIR/CHANGELOG.md"
+
+  if python3 - "$ROOT_DIR/VERSION" "$ROOT_DIR/CHANGELOG.md" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+version_path = Path(sys.argv[1])
+changelog_path = Path(sys.argv[2])
+version = version_path.read_text().strip()
+changelog = changelog_path.read_text()
+
+if not re.fullmatch(r"\d+\.\d+\.\d+", version):
+    raise AssertionError(f"VERSION must be SemVer MAJOR.MINOR.PATCH, found {version!r}")
+headings = re.findall(r"^## v(\d+\.\d+\.\d+) - (\d{4}-\d{2}-\d{2})$", changelog, flags=re.MULTILINE)
+if not headings:
+    raise AssertionError("CHANGELOG.md must contain headings like ## v0.2.0 - 2026-05-19")
+malformed = [line for line in changelog.splitlines() if line.startswith("## ") and not re.fullmatch(r"## v\d+\.\d+\.\d+ - \d{4}-\d{2}-\d{2}", line)]
+if malformed:
+    raise AssertionError(f"malformed changelog version headings: {malformed}")
+latest_version = headings[0][0]
+historical_mode = "documented historical mode" in changelog.lower()
+if latest_version != version and not historical_mode:
+    raise AssertionError(f"latest changelog version v{latest_version} must match VERSION {version}")
+print("release version checks passed")
+PY
+  then
+    pass 'Release version contract' 'VERSION, SemVer format, latest changelog heading, and changelog/version alignment are valid'
+  else
+    fail 'Release version contract' 'VERSION or CHANGELOG.md release contract is invalid'
+  fi
+}
+
+check_readme_governance_contract() {
+  require_file 'README governance source' "$ROOT_DIR/README.md"
+
+  if python3 - "$ROOT_DIR/README.md" <<'PY'
+from pathlib import Path
+import sys
+
+readme = Path(sys.argv[1]).read_text()
+required = {
+    "compatibility model": ".opencode/reference/opencode-compatibility-model.md",
+    "capability matrix": ".opencode/reference/capability-matrix.json",
+    "support policy": ".opencode/reference/support-policy.md",
+    "workflow catalog": ".opencode/reference/workflow-catalog.md",
+    "workspace model": ".opencode/reference/workspace-model.md",
+    "project setup policy": ".opencode/reference/project-setup-policy.md",
+    "web-3D model": ".opencode/reference/web-3d-support-model.md",
+    "CHANGELOG": "CHANGELOG.md",
+    "VERSION": "VERSION",
+    "root LICENSE": "LICENSE",
+}
+missing = [label for label, token in required.items() if token not in readme]
+if missing:
+    raise AssertionError(f"README.md missing governance references: {missing}")
+print("README governance reference checks passed")
+PY
+  then
+    pass 'README governance references' 'README links or references compatibility, support, workflow, workspace, release, and license authorities'
+  else
+    fail 'README governance references' 'README is missing one or more required governance references'
+  fi
+}
+
+check_evidence_freshness_contract() {
+  if python3 - "$ROOT_DIR" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+root = Path(sys.argv[1])
+candidates = []
+for evidence_dir in [root / ".sisyphus/evidence", root.parent / ".sisyphus/evidence"]:
+    if evidence_dir.is_dir():
+        candidates.extend(path for path in evidence_dir.rglob("*") if path.is_file() and path.suffix in {".md", ".txt"})
+
+claim_re = re.compile(r"\b(current release status|current workflow status|current release|current workflow|release_status\s*[:=]\s*current|workflow_status\s*[:=]\s*current)\b", re.I)
+field_res = [
+    re.compile(r"\bfreshness\s*[:=]", re.I),
+    re.compile(r"\bgenerated(?:_at)?\s*[:=]", re.I),
+    re.compile(r"\bvalidated(?:_at)?\s*[:=]", re.I),
+    re.compile(r"\bversion\s*[:=]\s*v?\d+\.\d+\.\d+\b", re.I),
+]
+violations = []
+for path in candidates:
+    text = path.read_text(errors="replace")
+    if not claim_re.search(text):
+        continue
+    missing = [regex.pattern for regex in field_res if not regex.search(text)]
+    if missing:
+        violations.append(f"{path}: missing freshness metadata fields")
+if violations:
+    raise AssertionError("; ".join(violations))
+print("evidence freshness checks passed")
+PY
+  then
+    pass 'Evidence freshness contract' 'current-claim evidence summaries are absent or carry freshness metadata'
+  else
+    fail 'Evidence freshness contract' 'current release/workflow evidence summaries are missing freshness metadata'
+  fi
+}
+
+check_workspace_forbidden_claims() {
+  if python3 - "$ROOT_DIR" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+root = Path(sys.argv[1])
+scan_roots = [root / "README.md", root / "AGENTS.md", root / ".opencode"]
+forbidden_phrases = [
+    "automatically enforces workspace",
+    "automatically enforces the workspace",
+    "automatically routes files",
+    "automatically places files",
+    "runtime enforces filesystem routing",
+    "runtime enforces workspace",
+    "runtime routes files",
+    "runtime routes work into workspace",
+    "runtime places files",
+    "routed by runtime",
+    "enforced by runtime",
+    ".opencode/oh-my-openagent.jsonc automatically routes files",
+    ".opencode/oh-my-openagent.jsonc automatically places files",
+    "natively implements this workspace placement rule",
+    "natively implement this workspace placement rule",
+]
+allowed_boundary_phrases = [
+    "not a claim that the runtime or `.opencode/oh-my-openagent.jsonc` automatically routes files there",
+    "not a native runtime feature",
+    "not about pretending the runtime enforces filesystem routing automatically",
+    "do not describe opencode, the harness, or `.opencode/oh-my-openagent.jsonc` as if they natively implement this workspace placement rule",
+    "does not make opencode route work or place files by itself",
+    "do not describe `.opencode/oh-my-openagent.jsonc` or `.opencode/oh-my-opencode.jsonc` as native opencode config files",
+    "documentation-backed bundle guidance, not as a native runtime routing feature",
+]
+violations = []
+files = []
+for item in scan_roots:
+    if item.is_file():
+        files.append(item)
+    elif item.is_dir():
+        files.extend(path for path in item.rglob("*.md") if path.name != "validate-opencode-bundle.sh")
+for path in files:
+    text = path.read_text(errors="replace")
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        normalized = line.lower()
+        if any(phrase in normalized for phrase in allowed_boundary_phrases):
+            continue
+        if any(phrase in normalized for phrase in forbidden_phrases):
+            violations.append(f"{path.relative_to(root)}:{line_number}: {line.strip()}")
+if violations:
+    raise AssertionError("forbidden workspace runtime-enforcement claims found: " + "; ".join(violations))
+print("workspace forbidden claim checks passed")
+PY
+  then
+    pass 'Workspace forbidden claims' 'docs avoid runtime auto-enforcement claims while retaining documentation-only guidance'
+  else
+    fail 'Workspace forbidden claims' 'workspace docs contain forbidden runtime auto-enforcement or routing claims'
+  fi
+}
+
+check_skill_surface_metadata_contract() {
+  if python3 - "$ROOT_DIR/.opencode/skills" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+skills_dir = Path(sys.argv[1])
+wrappers = {
+    'adapt', 'animate', 'arrange', 'audit', 'bolder', 'clarify', 'colorize', 'critique', 'delight', 'distill',
+    'extract', 'frontend-design', 'harden', 'normalize', 'onboard', 'optimize', 'overdrive', 'polish',
+    'quieter', 'shape', 'teach-impeccable', 'typeset',
+}
+planned = {'release-engineering', 'documentation-sdk', 'developer-experience'}
+violations = []
+for name in sorted(wrappers):
+    text = (skills_dir / name / 'SKILL.md').read_text()
+    required = ['surface: compatibility-wrapper', 'primary-route: "false"', 'runtime-grant: "false"']
+    missing = [token for token in required if token not in text]
+    if missing:
+        violations.append(f"{name}: missing {missing}")
+    if re.search(r"\ballowed-tools\s*:", text):
+        violations.append(f"{name}: compatibility wrapper must not declare allowed-tools")
+for name in sorted(planned):
+    text = (skills_dir / name / 'SKILL.md').read_text()
+    required = ['surface: planned-adjacent', 'primary-route: "false"', 'support-tier: planned']
+    missing = [token for token in required if token not in text]
+    if missing:
+        violations.append(f"{name}: missing {missing}")
+    forbidden_patterns = [
+        r"support-tier:\s*(validated|guided)",
+        r"support_level\s*[:=]\s*(validated|guided)",
+        r"\bvalidated\b[^\n]{0,80}\b(current|support|supported now)\b",
+        r"\b(current|supported now)\b[^\n]{0,80}\b(validated|support)\b",
+    ]
+    for pattern in forbidden_patterns:
+        if re.search(pattern, text, flags=re.I):
+            violations.append(f"{name}: planned pack claims current/validated support via {pattern}")
+if violations:
+    raise AssertionError('; '.join(violations))
+print('skill surface metadata checks passed')
+PY
+  then
+    pass 'Skill surface metadata' 'compatibility wrappers and planned adjacent packs carry the required non-primary metadata posture'
+  else
+    fail 'Skill surface metadata' 'wrapper or planned-adjacent metadata/support posture is invalid'
+  fi
+}
+
+check_impeccable_command_surface_contract() {
+  if python3 - "$ROOT_DIR/.opencode/skills/impeccable" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+skill_dir = Path(sys.argv[1])
+user_facing = [skill_dir / 'SKILL.md'] + sorted((skill_dir / 'reference').glob('*.md'))
+pattern = re.compile(r"\bnode\s+(?:['\"])?\.opencode/skills/impeccable/scripts/", re.I)
+violations = []
+for path in user_facing:
+    text = path.read_text(errors='replace')
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        if pattern.search(line):
+            violations.append(f"{path.relative_to(skill_dir)}:{line_number}: {line.strip()}")
+if violations:
+    raise AssertionError('user-facing direct node Impeccable script instructions found: ' + '; '.join(violations))
+print('impeccable command-surface checks passed')
+PY
+  then
+    pass 'Impeccable command surface' 'user-facing Impeccable docs avoid direct node script instructions'
+  else
+    fail 'Impeccable command surface' 'user-facing Impeccable docs contain direct node .opencode/skills/impeccable/scripts instructions'
+  fi
+}
+
 check_manifest_and_public_claims() {
   require_file 'Capability manifest' "$CAPABILITY_MATRIX_FILE"
+  require_file 'Workflow catalog' "$WORKFLOW_CATALOG_FILE"
+  require_file 'Web 3D support model' "$WEB_3D_SUPPORT_MODEL_FILE"
 
-  if python3 - "$CAPABILITY_MATRIX_FILE" $PUBLIC_CLAIM_DOCS <<'PY'
+  if python3 - "$ROOT_DIR" "$CAPABILITY_MATRIX_FILE" "$WORKFLOW_CATALOG_FILE" "$WEB_3D_SUPPORT_MODEL_FILE" $PUBLIC_CLAIM_DOCS <<'PY'
 import json
+import re
 import sys
 from pathlib import Path
 
-manifest_path = Path(sys.argv[1])
-doc_paths = [Path(arg) for arg in sys.argv[2:]]
-path = manifest_path
-data = json.loads(path.read_text())
-allowed = {"validated", "guided", "planned"}
-planned_ids = {cap["id"] for cap in data["capabilities"] if cap.get("support_level") == "planned"}
-validated_ids = {cap["id"] for cap in data["capabilities"] if cap.get("support_level") == "validated"}
+root = Path(sys.argv[1])
+manifest_path = Path(sys.argv[2])
+catalog_path = Path(sys.argv[3])
+web_3d_model_path = Path(sys.argv[4])
+doc_paths = [Path(arg) for arg in sys.argv[5:]]
 
-if set(data["support_tiers"]) != allowed:
-    raise AssertionError(f"support_tiers must be exactly {sorted(allowed)}")
-if len(data["flagship_workflows"]) != 4:
-    raise AssertionError("flagship_workflows must contain exactly 4 IDs")
-if data["public_claims"]["readme_supported_now_requires"] != "validated":
+data = json.loads(manifest_path.read_text())
+catalog_text = catalog_path.read_text()
+web_3d_text = web_3d_model_path.read_text()
+allowed_tiers = {"validated", "guided", "planned"}
+allowed_kinds = {"flagship_workflow", "expert_pack", "overlay", "adjacent_pack"}
+allowed_buckets = {"architecture/integration", "web/mobile UI", "backend/API", "systems/performance", "data/security", "QA/deployment"}
+expected_workflows = {
+    "frontend-product-delivery": ".opencode/reference/workflows/frontend-product-delivery.md",
+    "backend-service-delivery": ".opencode/reference/workflows/backend-service-delivery.md",
+    "cloud-release-readiness": ".opencode/reference/workflows/cloud-release-readiness.md",
+    "ai-data-product-delivery": ".opencode/reference/workflows/ai-data-product-delivery.md",
+}
+expected_web_3d_guided = {
+    "frontend-web/browser-3d-platform": ("frontend-web", ".opencode/skills/frontend-web/reference/browser-3d-platform.md"),
+    "frontend-web/threejs-react-three-fiber": ("frontend-web", ".opencode/skills/frontend-web/reference/threejs-react-three-fiber.md"),
+    "frontend-web/babylon-playcanvas": ("frontend-web", ".opencode/skills/frontend-web/reference/babylon-playcanvas.md"),
+    "frontend-web/shader-material-workflows": ("frontend-web", ".opencode/skills/frontend-web/reference/shader-material-workflows.md"),
+    "frontend-web/gltf-asset-pipeline": ("frontend-web", ".opencode/skills/frontend-web/reference/gltf-asset-pipeline.md"),
+    "systems-rust/wasm-browser-3d-performance": ("systems-rust", ".opencode/skills/systems-rust/reference/wasm-browser-3d-performance.md"),
+    "qa-validation/browser-3d-validation": ("qa-validation", ".opencode/skills/qa-validation/reference/browser-3d-validation.md"),
+}
+expected_web_3d_planned = {
+    "frontend-web/webxr": ("frontend-web", ".opencode/reference/web-3d-support-model.md"),
+    "frontend-web/cad-industrial-visualization": ("frontend-web", ".opencode/reference/web-3d-support-model.md"),
+}
+web_3d_expected = {**expected_web_3d_guided, **expected_web_3d_planned}
+
+if set(data.get("support_tiers", [])) != allowed_tiers:
+    raise AssertionError(f"support_tiers must be exactly {sorted(allowed_tiers)}")
+if data.get("workflow_catalog_path") != ".opencode/reference/workflow-catalog.md":
+    raise AssertionError("workflow_catalog_path must use .opencode/reference/workflow-catalog.md")
+if data.get("workflow_reference_root") != ".opencode/reference/workflows":
+    raise AssertionError("workflow_reference_root must use .opencode/reference/workflows")
+if data.get("workflow_doc_contract_fields") != ["Primary route", "Adjacent pack rule", "Built-in helper fit", "Support-tier boundary", "Evidence path contract"]:
+    raise AssertionError("workflow_doc_contract_fields must match the proof-doc heading contract")
+if data.get("public_claims", {}).get("readme_supported_now_requires") != "validated":
     raise AssertionError("readme_supported_now_requires must be validated")
-if validated_ids != set(data["flagship_workflows"]):
-    raise AssertionError("validated capability IDs must match flagship_workflows exactly")
+if set(data.get("flagship_workflows", [])) != set(expected_workflows):
+    raise AssertionError("flagship_workflows must contain exactly the four frozen workflow IDs")
+if len(data.get("flagship_workflows", [])) != len(expected_workflows):
+    raise AssertionError("flagship_workflows must not contain duplicate workflow IDs")
 
-for capability in data["capabilities"]:
+capabilities = data.get("capabilities", [])
+ids = [cap.get("id") for cap in capabilities]
+duplicate_ids = sorted({cap_id for cap_id in ids if ids.count(cap_id) > 1})
+if duplicate_ids:
+    raise AssertionError(f"duplicate capability IDs found: {duplicate_ids}")
+capability_by_id = {cap["id"]: cap for cap in capabilities}
+known_owner_ids = {cap["id"] for cap in capabilities if cap.get("kind") in {"expert_pack", "adjacent_pack"}}
+planned_ids = {cap["id"] for cap in capabilities if cap.get("support_level") == "planned"}
+
+for capability in capabilities:
+    cap_id = capability.get("id")
+    kind = capability.get("kind")
     tier = capability.get("support_level")
-    if tier not in allowed:
-        raise AssertionError(f"unsupported support tier for {capability.get('id')}: {tier}")
+    bucket = capability.get("routing_bucket")
+    path_value = capability.get("path")
+    if kind not in allowed_kinds:
+        raise AssertionError(f"unsupported capability kind for {cap_id}: {kind}")
+    if tier not in allowed_tiers:
+        raise AssertionError(f"unsupported support tier for {cap_id}: {tier}")
+    if bucket not in allowed_buckets:
+        raise AssertionError(f"unknown routing bucket for {cap_id}: {bucket}")
+    if not isinstance(path_value, str) or not path_value.startswith(".opencode/") or ".." in Path(path_value).parts:
+        raise AssertionError(f"capability {cap_id} must use a safe .opencode/... path")
+    if not (root / path_value).is_file():
+        raise AssertionError(f"capability {cap_id} path is missing: {path_value}")
+    if kind == "flagship_workflow":
+        if cap_id not in expected_workflows:
+            raise AssertionError(f"extra validated workflow ID or flagship workflow found: {cap_id}")
+        if tier != "validated":
+            raise AssertionError(f"flagship workflow {cap_id} must be validated")
+        if path_value != expected_workflows[cap_id]:
+            raise AssertionError(f"flagship workflow {cap_id} path must match the manifest proof-contract path")
+        if not path_value.startswith(".opencode/reference/workflows/"):
+            raise AssertionError(f"flagship workflow {cap_id} must live under .opencode/reference/workflows/")
+        if "owner" in capability:
+            raise AssertionError(f"flagship workflow {cap_id} must not declare an owner")
+    elif kind in {"expert_pack", "adjacent_pack"}:
+        if "owner" in capability:
+            raise AssertionError(f"{kind} {cap_id} must not declare an owner")
+        if path_value != f".opencode/skills/{cap_id}/SKILL.md":
+            raise AssertionError(f"{kind} {cap_id} must point at its top-level SKILL.md")
+    elif kind == "overlay":
+        owner = capability.get("owner")
+        if owner not in known_owner_ids:
+            raise AssertionError(f"overlay {cap_id} owner is unknown: {owner}")
+        if not cap_id.startswith(owner + "/"):
+            raise AssertionError(f"overlay {cap_id} must be namespaced under owner {owner}")
+        if cap_id in expected_web_3d_planned:
+            if path_value != ".opencode/reference/web-3d-support-model.md":
+                raise AssertionError(f"planned browser-3D overlay {cap_id} must point at the support model")
+        elif not path_value.startswith(f".opencode/skills/{owner}/reference/"):
+            raise AssertionError(f"overlay {cap_id} must live under its owner's reference directory")
+
+validated_ids = {cap["id"] for cap in capabilities if cap.get("support_level") == "validated"}
+if validated_ids != set(expected_workflows):
+    raise AssertionError("validated capability IDs must match flagship_workflows exactly")
+if {cap["id"] for cap in capabilities if cap.get("kind") == "flagship_workflow"} != set(expected_workflows):
+    raise AssertionError("flagship workflow capability IDs must match the frozen workflow set exactly")
+
+catalog_ids = set(re.findall(r"^### `([^`]+)`$", catalog_text, flags=re.MULTILINE))
+if catalog_ids != set(expected_workflows):
+    raise AssertionError(f"catalog workflow IDs differ from manifest: {sorted(catalog_ids)}")
+for workflow_id, relative_path in expected_workflows.items():
+    if f"- proof contract: `{relative_path}`" not in catalog_text:
+        raise AssertionError(f"workflow catalog proof-contract path mismatch for {workflow_id}")
+    workflow_text = (root / relative_path).read_text()
+    for field in data["workflow_doc_contract_fields"]:
+        if f"## {field}" not in workflow_text:
+            raise AssertionError(f"{relative_path} is missing required heading ## {field}")
 
 for doc_path in doc_paths:
     text = doc_path.read_text()
     if doc_path.name == "routing-matrix.md":
-        lines = text.splitlines()
         in_planned_adjacent_section = False
-        for line in lines:
+        for line in text.splitlines():
             stripped = line.strip()
             if stripped.startswith("## "):
                 heading = stripped[3:].lower()
@@ -1143,20 +1483,48 @@ for doc_path in doc_paths:
             if any(planned_id in line for planned_id in planned_ids) and not in_planned_adjacent_section:
                 for planned_id in planned_ids:
                     if planned_id in line:
-                        raise AssertionError(
-                            f"{doc_path} references planned capability {planned_id} outside the explicitly tiered planned-adjacent section"
-                        )
+                        raise AssertionError(f"{doc_path} references planned capability {planned_id} outside the explicitly tiered planned-adjacent section")
     else:
         for planned_id in planned_ids:
-            if planned_id in text:
+            if planned_id in text and doc_path not in {manifest_path, web_3d_model_path}:
                 raise AssertionError(f"{doc_path} references planned capability {planned_id} in a public-claim document")
 
-print("manifest checks passed")
+for cap_id, (owner, path_value) in expected_web_3d_guided.items():
+    capability = capability_by_id.get(cap_id)
+    if not capability:
+        raise AssertionError(f"missing guided browser-3D capability {cap_id}")
+    if capability.get("support_level") != "guided" or capability.get("owner") != owner or capability.get("path") != path_value:
+        raise AssertionError(f"guided browser-3D capability {cap_id} has incorrect owner, tier, or path")
+for cap_id, (owner, path_value) in expected_web_3d_planned.items():
+    capability = capability_by_id.get(cap_id)
+    if not capability:
+        raise AssertionError(f"missing planned browser-3D capability {cap_id}")
+    if capability.get("support_level") != "planned" or capability.get("owner") != owner or capability.get("path") != path_value:
+        raise AssertionError(f"planned browser-3D capability {cap_id} has incorrect owner, tier, or path")
+for cap_id in web_3d_expected:
+    if capability_by_id[cap_id].get("support_level") == "validated":
+        raise AssertionError(f"browser-3D capability {cap_id} must not be validated")
+    if f"`{cap_id}`" not in web_3d_text:
+        raise AssertionError(f"web-3d support model is missing capability ID {cap_id}")
+if (root / ".opencode/skills/web-3d").exists():
+    raise AssertionError(".opencode/skills/web-3d must not exist")
+for phrase in [
+    "no dedicated top-level `web-3d` pack",
+    "WebGL2 is the safe compatibility baseline",
+    "WebGPU is additive and optional",
+    "React Three Fiber is treated as a Three.js-adjacent integration layer",
+    "glTF support is runtime asset delivery first",
+    "No browser-3D capability in this document is part of the README `supported now` surface.",
+]:
+    if phrase not in web_3d_text:
+        raise AssertionError(f"web-3d support model is missing required phrase: {phrase}")
+
+print("manifest, workflow, capability matrix, and browser-3D checks passed")
 PY
   then
-    pass 'Capability manifest contract' 'manifest parses and frozen support-tier / workflow constraints are satisfied'
+    pass 'Capability manifest contract' 'manifest, workflow proof-doc, capability matrix, and browser-3D contracts are satisfied'
   else
-    fail 'Capability manifest contract' 'manifest JSON or support-tier contract is invalid'
+    fail 'Capability manifest contract' 'manifest, workflow proof-doc, capability matrix, or browser-3D contract is invalid'
   fi
 }
 
@@ -1169,20 +1537,26 @@ check_full() {
   require_file 'Quality gates' "$QUALITY_GATES_FILE"
   require_file 'Design anti-slop' "$DESIGN_ANTI_SLOP_FILE"
 
+  check_release_contract
+  check_readme_governance_contract
   check_manifest_and_public_claims
+  check_evidence_freshness_contract
 
   check_expected_skill_dirs
   check_impeccable_v311_vendor_contract
   check_impeccable_skill_metadata
   check_impeccable_command_metadata
   check_impeccable_runtime_assets
+  check_impeccable_command_surface_contract
   check_impeccable_compat_wrappers
+  check_skill_surface_metadata_contract
   check_impeccable_governance_absence
   check_sidecar_scaffolding
   check_compass_posture_contract
   check_outlier_pack_contract
   check_harness_utilization_contract
   check_workspace_model_coherence
+  check_workspace_forbidden_claims
   check_routing_contract
   check_design_md_integration
 
