@@ -1,0 +1,178 @@
+Task 8 full validation evidence
+Working directory: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit
+
+$ sh -n .opencode/reference/validate-opencode-bundle.sh
+EXIT_CODE=0
+
+$ bash .opencode/reference/validate-opencode-bundle.sh full
+========================================
+OpenCode Bundle Validator
+========================================
+Mode: full
+Mode: foundation
+PASS Config: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/oh-my-openagent.jsonc exists
+PASS Skills directory: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills exists
+PASS Commands directory: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/commands exists
+PASS Reference directory: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference exists
+PASS QA examples directory: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/qa/examples exists
+PASS Canonical naming: no singular .opencode/command directory detected
+PASS Routing command: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/commands/route-domain.md exists
+PASS Routing matrix: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/routing-matrix.md exists
+PASS Quality gates: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/quality-gates.md exists
+PASS Design anti-slop: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-anti-slop.md exists
+PASS Version file: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/VERSION exists
+PASS Changelog: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/CHANGELOG.md exists
+release version checks passed
+PASS Release version contract: VERSION, SemVer format, latest changelog heading, and changelog/version alignment are valid
+PASS README governance source: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/README.md exists
+README governance reference checks passed
+PASS README governance references: README links or references compatibility, support, workflow, workspace, release, and license authorities
+PASS Capability manifest: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/capability-matrix.json exists
+PASS Workflow catalog: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/workflow-catalog.md exists
+PASS Web 3D support model: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/web-3d-support-model.md exists
+manifest, workflow, capability matrix, and browser-3D checks passed
+PASS Capability manifest contract: manifest, workflow proof-doc, capability matrix, and browser-3D contracts are satisfied
+evidence freshness checks passed
+PASS Evidence freshness contract: current-claim evidence summaries are absent or carry freshness metadata
+PASS Skill inventory: all 42 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs are present
+planned adjacent skill inventory checks passed
+PASS Planned adjacent skill inventory: 3 planned adjacent packs are present and the live top-level inventory remains 45 directories
+PASS Impeccable consolidated skill: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/impeccable exists
+PASS Impeccable NOTICE: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/impeccable/NOTICE.md exists
+PASS Impeccable LICENSE: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/impeccable/LICENSE exists
+impeccable v3.1.1 vendor contract checks passed
+PASS Impeccable v3.1.1 vendor contract: consolidated package, upstream counts, local overlay, wrappers, and forbidden top-level routes are aligned
+impeccable skill metadata checks passed
+PASS Impeccable skill metadata: SKILL.md carries v3.1.1, runtime grant, command tokens, and attribution pointer
+impeccable command metadata checks passed
+PASS Impeccable command metadata: 23 upstream command keys match the v3.1.1 contract
+impeccable runtime asset checks passed
+PASS Impeccable runtime assets: scripts and runtime helper tokens, including Windows entrypoint markers, are present
+impeccable command-surface checks passed
+PASS Impeccable command surface: user-facing Impeccable docs avoid direct node script instructions
+impeccable compatibility wrapper checks passed
+PASS Impeccable compatibility wrappers: 22 wrappers map exactly and contain no runtime grants
+skill surface metadata checks passed
+PASS Skill surface metadata: compatibility wrappers and planned adjacent packs carry the required non-primary metadata posture
+impeccable governance absence checks passed
+PASS Impeccable governance absence: impeccable is absent from support-policy, workflow-catalog, capability-matrix, and routing-signals
+PASS Routing sidecar presence: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/routing-signals.json exists
+routing sidecar contract checks passed
+PASS Routing sidecar contract: sidecar schema, matrix anchors, posture, and canonical path style are aligned
+PASS Compass skill: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/compass/SKILL.md exists
+compass skill guardrail phrase checks passed
+PASS Compass skill guardrails: compass/SKILL.md contains required route, executor, and replacement boundaries
+compass forbidden framing checks passed
+PASS Compass forbidden framing: compass-facing docs avoid autonomy/self-modification framing, and memory only in compass-specific content
+compass governance absence checks passed
+PASS Compass governance absence: compass is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+compass inventory classification checks passed
+PASS Compass inventory classification: compass remains orientation-only, not planned-adjacent or an expert pack
+PASS Service vernacular skill: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/SKILL.md exists
+service vernacular skill guardrail phrase checks passed
+PASS Service vernacular skill guardrails: service-vernacular/SKILL.md contains required boundaries, dossier terms, generic-SaaS gate, and no runtime grant
+PASS Service vernacular language dossier reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/language-dossier.md exists
+PASS Service vernacular surface registers reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/surface-registers.md exists
+PASS Service vernacular slop detector reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/slop-detector.md exists
+PASS Service vernacular rewrite gates reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/rewrite-gates.md exists
+PASS Service vernacular contract safety reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/contract-safety.md exists
+PASS Service vernacular examples reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/examples.md exists
+service vernacular reference coverage checks passed
+PASS Service vernacular reference coverage: references cover dossier precedence, required surfaces, protected fields, before/after examples, and standard-label preservation
+service vernacular supplementary discoverability checks passed
+PASS Service vernacular supplementary discoverability: README and routing-matrix mention service-vernacular only as supplementary/non-primary
+service vernacular governance absence checks passed
+PASS Service vernacular governance absence: service-vernacular is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+service vernacular inventory classification checks passed
+PASS Service vernacular inventory classification: service-vernacular remains one language companion, not planned-adjacent or an expert pack
+PASS Outlier pack doc: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/architecture-integration/SKILL.md exists
+PASS Outlier pack doc: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/systems-c-cpp/SKILL.md exists
+PASS Outlier pack doc: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/database-engineering/SKILL.md exists
+PASS Outlier pack doc: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/security-engineering/SKILL.md exists
+outlier pack contract checks passed
+PASS Outlier pack contract: touched outlier packs defer to the matrix and keep same-pack overlays local
+writing/ultrabrain section checks passed
+PASS Row-level writing and ultrabrain: routing matrix exposes writing and ultrabrain in both bucket rows and worked examples
+planned adjacent posture checks passed
+PASS Row-level planned-adjacent triggers: routing matrix keeps the planned-adjacent triggers and non-primary posture explicit
+PASS Setup-policy presence: routing matrix and project setup policy both keep setup behavior modernization-first
+PASS Modernization-first wording: named packs keep modernization-first setup wording
+PASS Local routing doc exclusions: Metis and Momus remain out of local routing docs
+PASS Workspace model: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/workspace-model.md exists
+PASS Workspace model greenfield output: greenfield outputs are documented under workspace/{project-name}-{domain}
+PASS Workspace model existing projects: existing projects are documented as staying in their current directories
+PASS Workspace model runtime claim: no native runtime routing enforcement claim found
+PASS Workspace model config boundary: workspace-model keeps .opencode/oh-my-openagent.jsonc in a non-routing role
+workspace forbidden claim checks passed
+PASS Workspace forbidden claims: docs avoid runtime auto-enforcement claims while retaining documentation-only guidance
+PASS Routing matrix: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/routing-matrix.md exists
+PASS Project setup policy: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/project-setup-policy.md exists
+PASS Routing matrix authority: routing-matrix.md declares itself the sole normative local routing/helper source
+PASS Routing doc thinness: AGENTS.md and route-domain.md stay matrix-first and do not re-own routing logic
+PASS Browser-helper discoverability: routing matrix names browser helpers and the writing/ultrabrain categories explicitly
+PASS Adjacent-pack tiering: adjacent-pack exposure is explicitly tiered and not presented as validated
+PASS Top-level web-3d route: no top-level web-3d route is declared
+PASS Primary impeccable route: impeccable remains supplementary rather than a primary route
+PASS Workspace runtime boundary: workspace guidance stays documentation-only and does not claim runtime enforcement
+PASS Backend routing contract: backend routing uses quick for normal delivery, deep for escalation, and keeps route-domain fallback-only wording
+PASS DESIGN.md source policy: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md-source-policy.md exists
+PASS DESIGN.md selection protocol: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md-selection-protocol.md exists
+PASS DESIGN.md catalog: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md-catalog.md exists
+PASS DESIGN.md reference README: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md/README.md exists
+PASS DESIGN.md attribution: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md/ATTRIBUTION.md exists
+PASS Impeccable DESIGN.md overlay: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/impeccable/reference/design-md.md exists
+curated DESIGN.md snapshot count checks passed
+PASS DESIGN.md curated snapshots: exactly 12 example DESIGN.md files are present
+PASS DESIGN.md source pinning: upstream commit and MIT license are documented
+PASS DESIGN.md support boundaries: reference layer is explicitly not a primary route or validated support claim
+PASS DESIGN.md top-level skill: no .opencode/skills/design-md route exists
+no design-md capability checks passed
+PASS DESIGN.md capability creep: capability-matrix.json does not define design-md
+PASS Legacy .claude directory: absent as required
+PASS Legacy .memory directory: absent as required
+PASS Legacy reference scan (README): no matches for \.claude/
+PASS Legacy reference scan (AGENTS): no matches for \.claude/
+PASS Legacy reference scan (.opencode): no matches for \.claude/
+
+Summary: 94 PASS, 0 WARN, 0 FAIL
+PASS: bundle validation succeeded.
+EXIT_CODE=0
+
+$ final validator summary
+109:PASS Workspace runtime boundary: workspace guidance stays documentation-only and does not claim runtime enforcement
+110:PASS Backend routing contract: backend routing uses quick for normal delivery, deep for escalation, and keeps route-domain fallback-only wording
+111:PASS DESIGN.md source policy: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md-source-policy.md exists
+112:PASS DESIGN.md selection protocol: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md-selection-protocol.md exists
+113:PASS DESIGN.md catalog: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md-catalog.md exists
+114:PASS DESIGN.md reference README: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md/README.md exists
+115:PASS DESIGN.md attribution: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/reference/design-md/ATTRIBUTION.md exists
+116:PASS Impeccable DESIGN.md overlay: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/impeccable/reference/design-md.md exists
+118:PASS DESIGN.md curated snapshots: exactly 12 example DESIGN.md files are present
+119:PASS DESIGN.md source pinning: upstream commit and MIT license are documented
+120:PASS DESIGN.md support boundaries: reference layer is explicitly not a primary route or validated support claim
+121:PASS DESIGN.md top-level skill: no .opencode/skills/design-md route exists
+123:PASS DESIGN.md capability creep: capability-matrix.json does not define design-md
+124:PASS Legacy .claude directory: absent as required
+125:PASS Legacy .memory directory: absent as required
+126:PASS Legacy reference scan (README): no matches for \.claude/
+127:PASS Legacy reference scan (AGENTS): no matches for \.claude/
+128:PASS Legacy reference scan (.opencode): no matches for \.claude/
+130:Summary: 94 PASS, 0 WARN, 0 FAIL
+131:PASS: bundle validation succeeded.
+
+$ service-vernacular PASS lines from full validator
+PASS Service vernacular skill: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/SKILL.md exists
+PASS Service vernacular skill guardrails: service-vernacular/SKILL.md contains required boundaries, dossier terms, generic-SaaS gate, and no runtime grant
+PASS Service vernacular language dossier reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/language-dossier.md exists
+PASS Service vernacular surface registers reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/surface-registers.md exists
+PASS Service vernacular slop detector reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/slop-detector.md exists
+PASS Service vernacular rewrite gates reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/rewrite-gates.md exists
+PASS Service vernacular contract safety reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/contract-safety.md exists
+PASS Service vernacular examples reference: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit/.opencode/skills/service-vernacular/reference/examples.md exists
+PASS Service vernacular reference coverage: references cover dossier precedence, required surfaces, protected fields, before/after examples, and standard-label preservation
+PASS Service vernacular supplementary discoverability: README and routing-matrix mention service-vernacular only as supplementary/non-primary
+PASS Service vernacular governance absence: service-vernacular is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+PASS Service vernacular inventory classification: service-vernacular remains one language companion, not planned-adjacent or an expert pack
+
+$ GIT_MASTER=1 git status --short
+EXIT_CODE=0

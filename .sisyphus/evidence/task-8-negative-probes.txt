@@ -1,0 +1,372 @@
+Task 8 negative drift probes evidence
+Working directory: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit
+Every probe uses a fresh temp copy under /tmp/opencode and does not mutate the real working tree.
+
+PROBE: missing-skill-directory
+TEMP_PATH: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo
+MUTATION: delete .opencode/skills/service-vernacular
+VALIDATOR_EXIT_CODE=1
+RELEVANT_FAILURE_LINES:
+6:PASS Config: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/oh-my-openagent.jsonc exists
+7:PASS Skills directory: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills exists
+8:PASS Commands directory: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/commands exists
+9:PASS Reference directory: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference exists
+10:PASS QA examples directory: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/qa/examples exists
+12:PASS Routing command: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/commands/route-domain.md exists
+13:PASS Routing matrix: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/routing-matrix.md exists
+14:PASS Quality gates: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/quality-gates.md exists
+15:PASS Design anti-slop: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/design-anti-slop.md exists
+16:PASS Version file: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/VERSION exists
+17:PASS Changelog: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/CHANGELOG.md exists
+20:PASS README governance source: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/README.md exists
+21:README governance reference checks passed
+22:PASS README governance references: README links or references compatibility, support, workflow, workspace, release, and license authorities
+23:PASS Capability manifest: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/capability-matrix.json exists
+24:PASS Workflow catalog: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/workflow-catalog.md exists
+25:PASS Web 3D support model: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/web-3d-support-model.md exists
+26:manifest, workflow, capability matrix, and browser-3D checks passed
+27:PASS Capability manifest contract: manifest, workflow proof-doc, capability matrix, and browser-3D contracts are satisfied
+30:FAIL Skill pack: missing /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/service-vernacular
+31:FAIL Skill inventory: 1 missing skill directories
+35:FAIL Planned adjacent skill inventory: planned-adjacent pack presence or manifest alignment is invalid
+36:PASS Impeccable consolidated skill: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/impeccable exists
+37:PASS Impeccable NOTICE: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/impeccable/NOTICE.md exists
+38:PASS Impeccable LICENSE: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/impeccable/LICENSE exists
+53:impeccable governance absence checks passed
+54:PASS Impeccable governance absence: impeccable is absent from support-policy, workflow-catalog, capability-matrix, and routing-signals
+55:PASS Routing sidecar presence: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/routing-signals.json exists
+58:PASS Compass skill: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/compass/SKILL.md exists
+63:compass governance absence checks passed
+64:PASS Compass governance absence: compass is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+65:compass inventory classification checks passed
+66:PASS Compass inventory classification: compass remains orientation-only, not planned-adjacent or an expert pack
+67:FAIL Service vernacular skill: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/service-vernacular/SKILL.md is missing
+76:FileNotFoundError: [Errno 2] No such file or directory: '/tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/service-vernacular/SKILL.md'
+77:FAIL Service vernacular skill guardrails: service-vernacular/SKILL.md is missing required guardrails or declares allowed-tools
+78:FAIL Service vernacular language dossier reference: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/service-vernacular/reference/language-dossier.md is missing
+79:FAIL Service vernacular surface registers reference: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/service-vernacular/reference/surface-registers.md is missing
+80:FAIL Service vernacular slop detector reference: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/service-vernacular/reference/slop-detector.md is missing
+81:FAIL Service vernacular rewrite gates reference: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/service-vernacular/reference/rewrite-gates.md is missing
+82:FAIL Service vernacular contract safety reference: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/service-vernacular/reference/contract-safety.md is missing
+83:FAIL Service vernacular examples reference: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/service-vernacular/reference/examples.md is missing
+86:AssertionError: service vernacular reference coverage missing: ['language-dossier.md: missing', 'surface-registers.md: missing', 'contract-safety.md: missing', 'rewrite-gates.md: missing', 'examples.md: missing', 'slop-detector.md: missing']
+87:FAIL Service vernacular reference coverage: reference pack is missing required service-vernacular coverage
+89:PASS Service vernacular supplementary discoverability: README and routing-matrix mention service-vernacular only as supplementary/non-primary
+90:service vernacular governance absence checks passed
+91:PASS Service vernacular governance absence: service-vernacular is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+92:service vernacular inventory classification checks passed
+93:PASS Service vernacular inventory classification: service-vernacular remains one language companion, not planned-adjacent or an expert pack
+94:PASS Outlier pack doc: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/architecture-integration/SKILL.md exists
+95:PASS Outlier pack doc: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/systems-c-cpp/SKILL.md exists
+96:PASS Outlier pack doc: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/database-engineering/SKILL.md exists
+97:PASS Outlier pack doc: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/security-engineering/SKILL.md exists
+107:PASS Workspace model: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/workspace-model.md exists
+114:PASS Routing matrix: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/routing-matrix.md exists
+115:PASS Project setup policy: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/project-setup-policy.md exists
+124:PASS DESIGN.md source policy: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/design-md-source-policy.md exists
+125:PASS DESIGN.md selection protocol: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/design-md-selection-protocol.md exists
+126:PASS DESIGN.md catalog: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/design-md-catalog.md exists
+127:PASS DESIGN.md reference README: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/design-md/README.md exists
+128:PASS DESIGN.md attribution: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/reference/design-md/ATTRIBUTION.md exists
+129:PASS Impeccable DESIGN.md overlay: /tmp/opencode/task8-missing-skill-directory.a7Ektf/repo/.opencode/skills/impeccable/reference/design-md.md exists
+135:no design-md capability checks passed
+136:PASS DESIGN.md capability creep: capability-matrix.json does not define design-md
+143:Summary: 83 PASS, 0 WARN, 11 FAIL
+144:FAIL: bundle validation did not pass.
+145:Full mode expects the current released bundle state: 42 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs, routing assets, QA/design references, workspace-model coherence, and no legacy runtime surfaces.
+PROBE_RESULT=PASS validator failed as expected
+
+PROBE: missing-generic-saas-gate
+TEMP_PATH: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo
+MUTATION: remove Could this copy belong to any generic SaaS app? from SKILL.md
+VALIDATOR_EXIT_CODE=1
+RELEVANT_FAILURE_LINES:
+6:PASS Config: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/oh-my-openagent.jsonc exists
+7:PASS Skills directory: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills exists
+8:PASS Commands directory: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/commands exists
+9:PASS Reference directory: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference exists
+10:PASS QA examples directory: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/qa/examples exists
+12:PASS Routing command: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/commands/route-domain.md exists
+13:PASS Routing matrix: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/routing-matrix.md exists
+14:PASS Quality gates: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/quality-gates.md exists
+15:PASS Design anti-slop: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/design-anti-slop.md exists
+16:PASS Version file: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/VERSION exists
+17:PASS Changelog: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/CHANGELOG.md exists
+20:PASS README governance source: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/README.md exists
+21:README governance reference checks passed
+22:PASS README governance references: README links or references compatibility, support, workflow, workspace, release, and license authorities
+23:PASS Capability manifest: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/capability-matrix.json exists
+24:PASS Workflow catalog: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/workflow-catalog.md exists
+25:PASS Web 3D support model: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/web-3d-support-model.md exists
+26:manifest, workflow, capability matrix, and browser-3D checks passed
+27:PASS Capability manifest contract: manifest, workflow proof-doc, capability matrix, and browser-3D contracts are satisfied
+30:PASS Skill inventory: all 42 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs are present
+31:planned adjacent skill inventory checks passed
+32:PASS Planned adjacent skill inventory: 3 planned adjacent packs are present and the live top-level inventory remains 45 directories
+33:PASS Impeccable consolidated skill: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/impeccable exists
+34:PASS Impeccable NOTICE: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/impeccable/NOTICE.md exists
+35:PASS Impeccable LICENSE: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/impeccable/LICENSE exists
+50:impeccable governance absence checks passed
+51:PASS Impeccable governance absence: impeccable is absent from support-policy, workflow-catalog, capability-matrix, and routing-signals
+52:PASS Routing sidecar presence: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/routing-signals.json exists
+55:PASS Compass skill: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/compass/SKILL.md exists
+60:compass governance absence checks passed
+61:PASS Compass governance absence: compass is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+62:compass inventory classification checks passed
+63:PASS Compass inventory classification: compass remains orientation-only, not planned-adjacent or an expert pack
+64:PASS Service vernacular skill: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/service-vernacular/SKILL.md exists
+67:AssertionError: service-vernacular/SKILL.md is missing required guardrail phrases: ['Could this copy belong to any generic SaaS app?']
+68:FAIL Service vernacular skill guardrails: service-vernacular/SKILL.md is missing required guardrails or declares allowed-tools
+69:PASS Service vernacular language dossier reference: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/service-vernacular/reference/language-dossier.md exists
+70:PASS Service vernacular surface registers reference: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/service-vernacular/reference/surface-registers.md exists
+71:PASS Service vernacular slop detector reference: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/service-vernacular/reference/slop-detector.md exists
+72:PASS Service vernacular rewrite gates reference: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/service-vernacular/reference/rewrite-gates.md exists
+73:PASS Service vernacular contract safety reference: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/service-vernacular/reference/contract-safety.md exists
+74:PASS Service vernacular examples reference: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/service-vernacular/reference/examples.md exists
+76:PASS Service vernacular reference coverage: references cover dossier precedence, required surfaces, protected fields, before/after examples, and standard-label preservation
+78:PASS Service vernacular supplementary discoverability: README and routing-matrix mention service-vernacular only as supplementary/non-primary
+79:service vernacular governance absence checks passed
+80:PASS Service vernacular governance absence: service-vernacular is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+81:service vernacular inventory classification checks passed
+82:PASS Service vernacular inventory classification: service-vernacular remains one language companion, not planned-adjacent or an expert pack
+83:PASS Outlier pack doc: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/architecture-integration/SKILL.md exists
+84:PASS Outlier pack doc: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/systems-c-cpp/SKILL.md exists
+85:PASS Outlier pack doc: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/database-engineering/SKILL.md exists
+86:PASS Outlier pack doc: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/security-engineering/SKILL.md exists
+96:PASS Workspace model: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/workspace-model.md exists
+103:PASS Routing matrix: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/routing-matrix.md exists
+104:PASS Project setup policy: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/project-setup-policy.md exists
+113:PASS DESIGN.md source policy: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/design-md-source-policy.md exists
+114:PASS DESIGN.md selection protocol: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/design-md-selection-protocol.md exists
+115:PASS DESIGN.md catalog: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/design-md-catalog.md exists
+116:PASS DESIGN.md reference README: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/design-md/README.md exists
+117:PASS DESIGN.md attribution: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/reference/design-md/ATTRIBUTION.md exists
+118:PASS Impeccable DESIGN.md overlay: /tmp/opencode/task8-missing-generic-saas-gate.vPkBHs/repo/.opencode/skills/impeccable/reference/design-md.md exists
+124:no design-md capability checks passed
+125:PASS DESIGN.md capability creep: capability-matrix.json does not define design-md
+132:Summary: 93 PASS, 0 WARN, 1 FAIL
+133:FAIL: bundle validation did not pass.
+134:Full mode expects the current released bundle state: 42 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs, routing assets, QA/design references, workspace-model coherence, and no legacy runtime surfaces.
+PROBE_RESULT=PASS validator failed as expected
+
+PROBE: governance-appearance
+TEMP_PATH: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo
+MUTATION: add service-vernacular to .opencode/reference/capability-matrix.json
+VALIDATOR_EXIT_CODE=1
+RELEVANT_FAILURE_LINES:
+6:PASS Config: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/oh-my-openagent.jsonc exists
+7:PASS Skills directory: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills exists
+8:PASS Commands directory: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/commands exists
+9:PASS Reference directory: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference exists
+10:PASS QA examples directory: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/qa/examples exists
+12:PASS Routing command: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/commands/route-domain.md exists
+13:PASS Routing matrix: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/routing-matrix.md exists
+14:PASS Quality gates: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/quality-gates.md exists
+15:PASS Design anti-slop: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/design-anti-slop.md exists
+16:PASS Version file: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/VERSION exists
+17:PASS Changelog: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/CHANGELOG.md exists
+20:PASS README governance source: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/README.md exists
+21:README governance reference checks passed
+22:PASS README governance references: README links or references compatibility, support, workflow, workspace, release, and license authorities
+23:PASS Capability manifest: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/capability-matrix.json exists
+24:PASS Workflow catalog: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/workflow-catalog.md exists
+25:PASS Web 3D support model: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/web-3d-support-model.md exists
+26:manifest, workflow, capability matrix, and browser-3D checks passed
+27:PASS Capability manifest contract: manifest, workflow proof-doc, capability matrix, and browser-3D contracts are satisfied
+30:PASS Skill inventory: all 42 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs are present
+31:planned adjacent skill inventory checks passed
+32:PASS Planned adjacent skill inventory: 3 planned adjacent packs are present and the live top-level inventory remains 45 directories
+33:PASS Impeccable consolidated skill: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/impeccable exists
+34:PASS Impeccable NOTICE: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/impeccable/NOTICE.md exists
+35:PASS Impeccable LICENSE: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/impeccable/LICENSE exists
+50:impeccable governance absence checks passed
+51:PASS Impeccable governance absence: impeccable is absent from support-policy, workflow-catalog, capability-matrix, and routing-signals
+52:PASS Routing sidecar presence: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/routing-signals.json exists
+55:PASS Compass skill: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/compass/SKILL.md exists
+60:compass governance absence checks passed
+61:PASS Compass governance absence: compass is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+62:compass inventory classification checks passed
+63:PASS Compass inventory classification: compass remains orientation-only, not planned-adjacent or an expert pack
+64:PASS Service vernacular skill: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/service-vernacular/SKILL.md exists
+66:PASS Service vernacular skill guardrails: service-vernacular/SKILL.md contains required boundaries, dossier terms, generic-SaaS gate, and no runtime grant
+67:PASS Service vernacular language dossier reference: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/service-vernacular/reference/language-dossier.md exists
+68:PASS Service vernacular surface registers reference: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/service-vernacular/reference/surface-registers.md exists
+69:PASS Service vernacular slop detector reference: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/service-vernacular/reference/slop-detector.md exists
+70:PASS Service vernacular rewrite gates reference: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/service-vernacular/reference/rewrite-gates.md exists
+71:PASS Service vernacular contract safety reference: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/service-vernacular/reference/contract-safety.md exists
+72:PASS Service vernacular examples reference: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/service-vernacular/reference/examples.md exists
+74:PASS Service vernacular reference coverage: references cover dossier precedence, required surfaces, protected fields, before/after examples, and standard-label preservation
+76:PASS Service vernacular supplementary discoverability: README and routing-matrix mention service-vernacular only as supplementary/non-primary
+79:AssertionError: service-vernacular must stay out of governance/support/routing sidecar files: .opencode/reference/capability-matrix.json
+80:FAIL Service vernacular governance absence: service-vernacular must not appear in governance/support files or routing sidecar
+81:service vernacular inventory classification checks passed
+82:PASS Service vernacular inventory classification: service-vernacular remains one language companion, not planned-adjacent or an expert pack
+83:PASS Outlier pack doc: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/architecture-integration/SKILL.md exists
+84:PASS Outlier pack doc: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/systems-c-cpp/SKILL.md exists
+85:PASS Outlier pack doc: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/database-engineering/SKILL.md exists
+86:PASS Outlier pack doc: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/security-engineering/SKILL.md exists
+96:PASS Workspace model: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/workspace-model.md exists
+103:PASS Routing matrix: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/routing-matrix.md exists
+104:PASS Project setup policy: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/project-setup-policy.md exists
+113:PASS DESIGN.md source policy: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/design-md-source-policy.md exists
+114:PASS DESIGN.md selection protocol: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/design-md-selection-protocol.md exists
+115:PASS DESIGN.md catalog: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/design-md-catalog.md exists
+116:PASS DESIGN.md reference README: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/design-md/README.md exists
+117:PASS DESIGN.md attribution: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/reference/design-md/ATTRIBUTION.md exists
+118:PASS Impeccable DESIGN.md overlay: /tmp/opencode/task8-governance-appearance.oSn2Kk/repo/.opencode/skills/impeccable/reference/design-md.md exists
+124:no design-md capability checks passed
+125:PASS DESIGN.md capability creep: capability-matrix.json does not define design-md
+132:Summary: 93 PASS, 0 WARN, 1 FAIL
+133:FAIL: bundle validation did not pass.
+134:Full mode expects the current released bundle state: 42 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs, routing assets, QA/design references, workspace-model coherence, and no legacy runtime surfaces.
+PROBE_RESULT=PASS validator failed as expected
+
+PROBE: missing-reference-file
+TEMP_PATH: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo
+MUTATION: delete .opencode/skills/service-vernacular/reference/contract-safety.md
+VALIDATOR_EXIT_CODE=1
+RELEVANT_FAILURE_LINES:
+6:PASS Config: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/oh-my-openagent.jsonc exists
+7:PASS Skills directory: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills exists
+8:PASS Commands directory: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/commands exists
+9:PASS Reference directory: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference exists
+10:PASS QA examples directory: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/qa/examples exists
+12:PASS Routing command: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/commands/route-domain.md exists
+13:PASS Routing matrix: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/routing-matrix.md exists
+14:PASS Quality gates: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/quality-gates.md exists
+15:PASS Design anti-slop: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/design-anti-slop.md exists
+16:PASS Version file: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/VERSION exists
+17:PASS Changelog: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/CHANGELOG.md exists
+20:PASS README governance source: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/README.md exists
+21:README governance reference checks passed
+22:PASS README governance references: README links or references compatibility, support, workflow, workspace, release, and license authorities
+23:PASS Capability manifest: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/capability-matrix.json exists
+24:PASS Workflow catalog: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/workflow-catalog.md exists
+25:PASS Web 3D support model: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/web-3d-support-model.md exists
+26:manifest, workflow, capability matrix, and browser-3D checks passed
+27:PASS Capability manifest contract: manifest, workflow proof-doc, capability matrix, and browser-3D contracts are satisfied
+30:PASS Skill inventory: all 42 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs are present
+31:planned adjacent skill inventory checks passed
+32:PASS Planned adjacent skill inventory: 3 planned adjacent packs are present and the live top-level inventory remains 45 directories
+33:PASS Impeccable consolidated skill: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/impeccable exists
+34:PASS Impeccable NOTICE: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/impeccable/NOTICE.md exists
+35:PASS Impeccable LICENSE: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/impeccable/LICENSE exists
+50:impeccable governance absence checks passed
+51:PASS Impeccable governance absence: impeccable is absent from support-policy, workflow-catalog, capability-matrix, and routing-signals
+52:PASS Routing sidecar presence: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/routing-signals.json exists
+55:PASS Compass skill: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/compass/SKILL.md exists
+60:compass governance absence checks passed
+61:PASS Compass governance absence: compass is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+62:compass inventory classification checks passed
+63:PASS Compass inventory classification: compass remains orientation-only, not planned-adjacent or an expert pack
+64:PASS Service vernacular skill: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/service-vernacular/SKILL.md exists
+66:PASS Service vernacular skill guardrails: service-vernacular/SKILL.md contains required boundaries, dossier terms, generic-SaaS gate, and no runtime grant
+67:PASS Service vernacular language dossier reference: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/service-vernacular/reference/language-dossier.md exists
+68:PASS Service vernacular surface registers reference: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/service-vernacular/reference/surface-registers.md exists
+69:PASS Service vernacular slop detector reference: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/service-vernacular/reference/slop-detector.md exists
+70:PASS Service vernacular rewrite gates reference: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/service-vernacular/reference/rewrite-gates.md exists
+71:FAIL Service vernacular contract safety reference: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/service-vernacular/reference/contract-safety.md is missing
+72:PASS Service vernacular examples reference: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/service-vernacular/reference/examples.md exists
+75:AssertionError: service vernacular reference coverage missing: ['contract-safety.md: missing']
+76:FAIL Service vernacular reference coverage: reference pack is missing required service-vernacular coverage
+78:PASS Service vernacular supplementary discoverability: README and routing-matrix mention service-vernacular only as supplementary/non-primary
+79:service vernacular governance absence checks passed
+80:PASS Service vernacular governance absence: service-vernacular is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+81:service vernacular inventory classification checks passed
+82:PASS Service vernacular inventory classification: service-vernacular remains one language companion, not planned-adjacent or an expert pack
+83:PASS Outlier pack doc: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/architecture-integration/SKILL.md exists
+84:PASS Outlier pack doc: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/systems-c-cpp/SKILL.md exists
+85:PASS Outlier pack doc: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/database-engineering/SKILL.md exists
+86:PASS Outlier pack doc: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/security-engineering/SKILL.md exists
+96:PASS Workspace model: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/workspace-model.md exists
+103:PASS Routing matrix: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/routing-matrix.md exists
+104:PASS Project setup policy: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/project-setup-policy.md exists
+113:PASS DESIGN.md source policy: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/design-md-source-policy.md exists
+114:PASS DESIGN.md selection protocol: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/design-md-selection-protocol.md exists
+115:PASS DESIGN.md catalog: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/design-md-catalog.md exists
+116:PASS DESIGN.md reference README: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/design-md/README.md exists
+117:PASS DESIGN.md attribution: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/reference/design-md/ATTRIBUTION.md exists
+118:PASS Impeccable DESIGN.md overlay: /tmp/opencode/task8-missing-reference-file.tqPMdd/repo/.opencode/skills/impeccable/reference/design-md.md exists
+124:no design-md capability checks passed
+125:PASS DESIGN.md capability creep: capability-matrix.json does not define design-md
+132:Summary: 92 PASS, 0 WARN, 2 FAIL
+133:FAIL: bundle validation did not pass.
+134:Full mode expects the current released bundle state: 42 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs, routing assets, QA/design references, workspace-model coherence, and no legacy runtime surfaces.
+PROBE_RESULT=PASS validator failed as expected
+
+PROBE: incorrect-inventory-count
+TEMP_PATH: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo
+MUTATION: revert FULL_EXPECTED_SKILL_COUNT=42 to FULL_EXPECTED_SKILL_COUNT=41 in temp copy
+VALIDATOR_EXIT_CODE=1
+RELEVANT_FAILURE_LINES:
+6:PASS Config: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/oh-my-openagent.jsonc exists
+7:PASS Skills directory: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills exists
+8:PASS Commands directory: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/commands exists
+9:PASS Reference directory: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference exists
+10:PASS QA examples directory: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/qa/examples exists
+12:PASS Routing command: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/commands/route-domain.md exists
+13:PASS Routing matrix: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/routing-matrix.md exists
+14:PASS Quality gates: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/quality-gates.md exists
+15:PASS Design anti-slop: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/design-anti-slop.md exists
+16:PASS Version file: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/VERSION exists
+17:PASS Changelog: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/CHANGELOG.md exists
+20:PASS README governance source: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/README.md exists
+21:README governance reference checks passed
+22:PASS README governance references: README links or references compatibility, support, workflow, workspace, release, and license authorities
+23:PASS Capability manifest: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/capability-matrix.json exists
+24:PASS Workflow catalog: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/workflow-catalog.md exists
+25:PASS Web 3D support model: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/web-3d-support-model.md exists
+26:manifest, workflow, capability matrix, and browser-3D checks passed
+27:PASS Capability manifest contract: manifest, workflow proof-doc, capability matrix, and browser-3D contracts are satisfied
+30:FAIL Skill inventory expectation: validator is configured for 42 skills instead of 41
+31:PASS Skill inventory: all 41 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs are present
+32:planned adjacent skill inventory checks passed
+33:PASS Planned adjacent skill inventory: 3 planned adjacent packs are present and the live top-level inventory remains 45 directories
+34:PASS Impeccable consolidated skill: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/impeccable exists
+35:PASS Impeccable NOTICE: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/impeccable/NOTICE.md exists
+36:PASS Impeccable LICENSE: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/impeccable/LICENSE exists
+51:impeccable governance absence checks passed
+52:PASS Impeccable governance absence: impeccable is absent from support-policy, workflow-catalog, capability-matrix, and routing-signals
+53:PASS Routing sidecar presence: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/routing-signals.json exists
+56:PASS Compass skill: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/compass/SKILL.md exists
+61:compass governance absence checks passed
+62:PASS Compass governance absence: compass is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+63:compass inventory classification checks passed
+64:PASS Compass inventory classification: compass remains orientation-only, not planned-adjacent or an expert pack
+65:PASS Service vernacular skill: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/service-vernacular/SKILL.md exists
+67:PASS Service vernacular skill guardrails: service-vernacular/SKILL.md contains required boundaries, dossier terms, generic-SaaS gate, and no runtime grant
+68:PASS Service vernacular language dossier reference: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/service-vernacular/reference/language-dossier.md exists
+69:PASS Service vernacular surface registers reference: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/service-vernacular/reference/surface-registers.md exists
+70:PASS Service vernacular slop detector reference: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/service-vernacular/reference/slop-detector.md exists
+71:PASS Service vernacular rewrite gates reference: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/service-vernacular/reference/rewrite-gates.md exists
+72:PASS Service vernacular contract safety reference: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/service-vernacular/reference/contract-safety.md exists
+73:PASS Service vernacular examples reference: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/service-vernacular/reference/examples.md exists
+75:PASS Service vernacular reference coverage: references cover dossier precedence, required surfaces, protected fields, before/after examples, and standard-label preservation
+77:PASS Service vernacular supplementary discoverability: README and routing-matrix mention service-vernacular only as supplementary/non-primary
+78:service vernacular governance absence checks passed
+79:PASS Service vernacular governance absence: service-vernacular is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix
+80:service vernacular inventory classification checks passed
+81:PASS Service vernacular inventory classification: service-vernacular remains one language companion, not planned-adjacent or an expert pack
+82:PASS Outlier pack doc: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/architecture-integration/SKILL.md exists
+83:PASS Outlier pack doc: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/systems-c-cpp/SKILL.md exists
+84:PASS Outlier pack doc: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/database-engineering/SKILL.md exists
+85:PASS Outlier pack doc: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/security-engineering/SKILL.md exists
+95:PASS Workspace model: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/workspace-model.md exists
+102:PASS Routing matrix: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/routing-matrix.md exists
+103:PASS Project setup policy: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/project-setup-policy.md exists
+112:PASS DESIGN.md source policy: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/design-md-source-policy.md exists
+113:PASS DESIGN.md selection protocol: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/design-md-selection-protocol.md exists
+114:PASS DESIGN.md catalog: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/design-md-catalog.md exists
+115:PASS DESIGN.md reference README: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/design-md/README.md exists
+116:PASS DESIGN.md attribution: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/reference/design-md/ATTRIBUTION.md exists
+117:PASS Impeccable DESIGN.md overlay: /tmp/opencode/task8-incorrect-inventory-count.ssC6EB/repo/.opencode/skills/impeccable/reference/design-md.md exists
+123:no design-md capability checks passed
+124:PASS DESIGN.md capability creep: capability-matrix.json does not define design-md
+131:Summary: 94 PASS, 0 WARN, 1 FAIL
+132:FAIL: bundle validation did not pass.
+133:Full mode expects the current released bundle state: 42 required core skill directories (1 consolidated impeccable skill + 22 impeccable compatibility wrappers + 17 expert packs + 1 orientation skill + 1 language companion skill), 3 planned adjacent packs, routing assets, QA/design references, workspace-model coherence, and no legacy runtime surfaces.
+PROBE_RESULT=PASS validator failed as expected
+
+$ real working tree after negative probes (must show no temp mutations)
+$ GIT_MASTER=1 git status --short
+EXIT_CODE=0

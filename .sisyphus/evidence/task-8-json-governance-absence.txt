@@ -1,0 +1,13 @@
+Task 8 JSON governance absence evidence
+Working directory: /home/hans/dev/AI/dev-ai-agent-team-upgrade/oh-my-openagent-toolkit
+
+$ python3 parse and absence check for governance JSON files
+PASS JSON parse: .opencode/reference/capability-matrix.json
+PASS absence service-vernacular: .opencode/reference/capability-matrix.json -> True
+PASS JSON parse: .opencode/reference/routing-signals.json
+PASS absence service-vernacular: .opencode/reference/routing-signals.json -> True
+PASS service-vernacular absent from capability matrix and routing sidecar
+EXIT_CODE=0
+
+$ rg -n service-vernacular .opencode/reference/capability-matrix.json .opencode/reference/routing-signals.json
+PASS: no service-vernacular matches in governance JSON files
