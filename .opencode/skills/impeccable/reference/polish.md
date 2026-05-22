@@ -35,12 +35,7 @@ Understand the current state and goals before touching anything:
    - Loading and transition smoothness
    - Information architecture and flow drift (does this feature reveal complexity the way neighboring features do?)
 
-4. **Pull in any prior critique** (optional signal): If `/impeccable critique` has been run on the same target, its priority issues are a useful prior for what to address first. Resolve the target to a file path or URL, then:
-   ```bash
-   slug=$(node .opencode/skills/impeccable/scripts/critique-storage.mjs slug "<resolved>")
-   node .opencode/skills/impeccable/scripts/critique-storage.mjs latest "$slug"
-   ```
-   Exit 0 with body = found; fold the P0/P1 items into your polish list and mention the snapshot path so the user sees what you read. Exit 2 = no snapshot, continue without it. The critique is one input among many. Do your own pass either way.
+4. **Pull in any prior critique** (optional signal): If `/impeccable critique` has been run on the same target, its priority issues are a useful prior for what to address first. Resolve the target to a file path or URL, then inspect `.impeccable/critique/` for the latest matching snapshot. Internally, `/impeccable polish` relies on the `critique-storage.mjs latest` lookup responsibility; agents must not invoke the helper directly. The critique storage helper is internal implementation detail, not an agent command. If a snapshot is found, fold the P0/P1 items into your polish list and mention the snapshot path so the user sees what you read. If no snapshot exists, continue without it. The critique is one input among many. Do your own pass either way.
 
 5. **Triage cosmetic vs functional**: Classify each issue as **cosmetic** (looks off, doesn't impede the user) or **functional** (breaks, blocks, or confuses the experience). When polish time is tight, functional issues ship first; cosmetic ones can land in a follow-up. Quality should be consistent; never perfect one corner while leaving another rough.
 

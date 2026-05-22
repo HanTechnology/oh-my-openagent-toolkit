@@ -8,12 +8,12 @@ A running dev server with hot module replacement (Vite, Next.js, Bun, etc.), OR 
 
 Execute in order. No step skipped, no step reordered.
 
-1. `live.mjs`: boot.
+1. `npx impeccable live`: boot through the public facade.
 2. Navigate to the URL that serves `pageFile` (infer from `package.json`, docs, terminal output, or an open tab). If you can't infer it confidently, tell the user once to open their dev/preview URL. Never use `serverPort` as that URL; it's the helper, not the app.
-3. Poll loop with the default long timeout (600000 ms). After every event or `--reply`, run `live-poll.mjs` again immediately. Never pass a short `--timeout=`.
+3. Poll loop with the default long timeout (600000 ms). After every event or `--reply`, run `npx impeccable poll` again immediately. Never pass a short `--timeout=`.
 4. On `generate`: read screenshot if present; load the action's reference; plan three distinct directions; write all variants in one edit; `--reply done`; poll again.
-5. On `accept` / `discard`: the poll script runs `live-accept.mjs`, acknowledges the delivered event, and prints `_completionAck`. Plain accepts/discards are terminal immediately; carbonize accepts remain recoverable until you finish cleanup, run `live-complete.mjs --id EVENT_ID`, and only then poll again.
-6. If interrupted, run `live-status.mjs` or `live-resume.mjs` before guessing. The durable journal replays unacknowledged work after helper restart.
+5. On `accept` / `discard`: the poll facade runs the accept operation, acknowledges the delivered event, and prints `_completionAck`. Plain accepts/discards are terminal immediately; carbonize accepts remain recoverable until you finish cleanup, complete the session through the live facade, and only then poll again.
+6. If interrupted, use the recovery instructions printed by the `npx impeccable live` / `npx impeccable poll` facade before guessing. The durable journal replays unacknowledged work after helper restart.
 7. On `exit`: run the cleanup at the bottom.
 
 Harness policy:
@@ -27,7 +27,7 @@ Chat is overhead. No recap, no tutorial output, no pasting PRODUCT / DESIGN bodi
 ## Start
 
 ```bash
-node .opencode/skills/impeccable/scripts/live.mjs
+npx impeccable live
 ```
 
 Output JSON: `{ ok, serverPort, serverToken, pageFiles, hasProduct, product, productPath, hasDesign, design, designPath, migrated }`. `pageFiles` is the list of HTML entries the live script was injected into. Keep PRODUCT.md and DESIGN.md in mind for variant generation; **DESIGN.md wins on visual decisions; PRODUCT.md wins on strategic/voice decisions.** When DESIGN.md is missing, identity is **not** absent; extract it from CSS variables, computed styles, and sibling components on the page (see Step 4 Phase A). Identity preservation is the default; departure from existing identity requires an explicit trigger from PRODUCT.md anti-references or the user's freeform prompt. If `migrated: true`, the loader auto-renamed legacy `.impeccable.md` to `PRODUCT.md`; mention this once and suggest `/impeccable document` for the matching DESIGN.md.
@@ -40,7 +40,7 @@ If output is `{ ok: false, error: "config_missing" | "config_invalid", path }`, 
 
 ```
 LOOP:
-  node .opencode/skills/impeccable/scripts/live-poll.mjs   # default long timeout; no --timeout=
+  npx impeccable poll   # default long timeout; no --timeout=
   Read JSON; dispatch on "type"
 
   "generate"  → Handle Generate; reply done; LOOP
@@ -58,16 +58,13 @@ The live helper persists an append-only journal under `.impeccable/live/sessions
 Use these commands when the chat was interrupted, polling was missed, the helper restarted, or the browser reloaded:
 
 ```bash
-node .opencode/skills/impeccable/scripts/live-status.mjs
-node .opencode/skills/impeccable/scripts/live-resume.mjs --id SESSION_ID
-node .opencode/skills/impeccable/scripts/live-complete.mjs --id SESSION_ID
+Use the recovery instructions printed by `npx impeccable live` and `npx impeccable poll`.
 ```
 
-- `live-status.mjs` prints connected helper state, active durable sessions, and queued pending events. It works even when the helper is down by reading the journal directly.
-- `live-resume.mjs` prints the active snapshot, pending event, checkpoint phase, visible variant, parameter values, and the next safe agent action.
-- `live-complete.mjs` is the canonical manual final acknowledgement. Use it after carbonize/manual cleanup is verified and no further poll acknowledgement will happen automatically.
+- Recovery state, active durable sessions, queued events, visible variants, parameter values, and the next safe action are surfaced by the live facade.
+- Manual final acknowledgement is an internal live-facade operation after carbonize/manual cleanup is verified and no further poll acknowledgement will happen automatically.
 
-Server restart rule: start `live-server.mjs` again, then poll. Startup requeues unacknowledged pending events from the journal, so do not ask the user to click Go again unless `live-resume.mjs` says no active session exists.
+Server restart rule: run `npx impeccable live` again, then poll with `npx impeccable poll`. Startup requeues unacknowledged pending events from the journal, so do not ask the user to click Go again unless the facade says no active session exists.
 
 ## Handle `generate`
 
@@ -93,7 +90,7 @@ Reading annotations precisely:
 ### 2. Wrap the element
 
 ```bash
-node .opencode/skills/impeccable/scripts/live-wrap.mjs --id EVENT_ID --count EVENT_COUNT --element-id "ELEMENT_ID" --classes "class1,class2" --tag "div" --text "TEXT_SNIPPET"
+npx impeccable wrap --id EVENT_ID --count EVENT_COUNT --element-id "ELEMENT_ID" --classes "class1,class2" --tag "div" --text "TEXT_SNIPPET"
 ```
 
 Flag mapping. Keep them separate, don't collapse into `--query`:
@@ -337,19 +334,19 @@ The carbonize cleanup step (see below) reads that comment and bakes the chosen v
 ### 8. Signal done
 
 ```bash
-node .opencode/skills/impeccable/scripts/live-poll.mjs --reply EVENT_ID done --file RELATIVE_PATH
+npx impeccable poll --reply EVENT_ID done --file RELATIVE_PATH
 ```
 
 `RELATIVE_PATH` is relative to project root (`public/index.html`, `src/App.tsx`, etc.); the browser fetches source directly if the dev server lacks HMR.
 
-Then run `live-poll.mjs` again immediately.
+Then run `npx impeccable poll` again immediately.
 
 ### Aborting an in-flight session
 
 If wrap or generation fails after the browser has flipped to GENERATING (e.g. wrap landed on the wrong source branch and you've already reverted it, or generation hit an unrecoverable error), tell the **browser** so its bar resets to PICKING:
 
 ```bash
-node .opencode/skills/impeccable/scripts/live-poll.mjs --reply EVENT_ID error "Short reason"
+npx impeccable poll --reply EVENT_ID error "Short reason"
 ```
 
 Don't run `live-accept --discard` for this; that's a pure file mutator, the browser doesn't see it, and the bar gets stuck on the GENERATING dots forever (the user has to refresh). `--discard` is only correct when the **browser** initiated the discard (user clicked ✕ during CYCLING) and the agent is just running source-side cleanup the browser already triggered.
@@ -398,9 +395,9 @@ Remove the wrapper you inserted in Step 2. Nothing else to do.
 
 Event: `{id, variantId, _acceptResult, _completionAck}`. The poll script already ran `live-accept.mjs` to handle the file operation deterministically, then acknowledged event delivery to the helper. The browser DOM is already updated.
 
-- `_completionAck.ok !== true`: do not poll yet. Run `live-status.mjs` / `live-resume.mjs`, complete the cleanup manually if needed, then run `live-complete.mjs --id EVENT_ID`.
+- `_completionAck.ok !== true`: do not poll yet. Use the live facade recovery output, complete the cleanup manually if needed, then complete the session through the live facade.
 - `_acceptResult.handled: true` and `carbonize: false`: nothing to do. Poll again.
-- `_acceptResult.handled: true` and `carbonize: true`: **post-accept cleanup is required before the next poll.** See the "Required after accept (carbonize)" section below. The `event._acceptResult.todo` field, `_completionAck.requiresComplete`, and a stderr banner all point at this required follow-up; none are decorative. After cleanup, run `live-complete.mjs --id EVENT_ID`, then poll again.
+- `_acceptResult.handled: true` and `carbonize: true`: **post-accept cleanup is required before the next poll.** See the "Required after accept (carbonize)" section below. The `event._acceptResult.todo` field, `_completionAck.requiresComplete`, and a stderr banner all point at this required follow-up; none are decorative. After cleanup, complete the session through the live facade, then poll again.
 - `_acceptResult.handled: false, mode: "fallback"`: the session lived in a generated file and the script refused to persist there. You've already written the accepted variant into true source during Handle fallback Step 3; just clean up the temporary wrapper in the served file if any, and poll again.
 - `_acceptResult.handled: false` without `mode`: manual cleanup: read file, find markers, edit.
 
@@ -416,13 +413,13 @@ Do these five steps in the current thread, synchronously, before the next poll. 
 4. **Unwrap the accepted content.** Delete the `<div data-impeccable-variant="N" style="display: contents">` that wraps it. Drop `data-impeccable-params` and any `data-p-*` attributes from it; those are live-mode plumbing, not source.
 5. **Delete the inline `<style>` block, the `<!-- impeccable-param-values -->` comment if present, and both `<!-- impeccable-carbonize-start/end -->` markers.** Also drop any `@scope` rules for variants other than the accepted one; those are dead code now.
 
-After the file is clean, run `live-complete.mjs --id SESSION_ID`, verify it reports `phase: "completed"`, then poll again.
+After the file is clean, complete the session through the live facade, verify it reports `phase: "completed"`, then poll again.
 
 A background agent may be used for the rewrite, but the current thread is responsible for verifying the five steps are complete before issuing the next poll. In practice, inline is usually faster and less error-prone.
 
 ## Handle `discard`
 
-Event: `{id, _acceptResult, _completionAck}`. The poll script already restored the original, removed all variant markers, and acknowledged `discarded` durable completion. Nothing to do unless `_completionAck.ok !== true`; in that case run `live-complete.mjs --id EVENT_ID --discarded`, then poll again.
+Event: `{id, _acceptResult, _completionAck}`. The poll script already restored the original, removed all variant markers, and acknowledged `discarded` durable completion. Nothing to do unless `_completionAck.ok !== true`; in that case complete the discarded session through the live facade, then poll again.
 
 ## Handle `prefetch`
 
@@ -430,7 +427,7 @@ Event: `{pageUrl}`. The browser fires this the first time the user selects an el
 
 Resolve `pageUrl` to the underlying file:
 
-- Root `/` → the `pageFile` returned by `live.mjs` (usually `public/index.html` or equivalent).
+- Root `/` → the `pageFile` returned by `npx impeccable live` (usually `public/index.html` or equivalent).
 - Sub-routes (e.g. `/docs`, `/docs/live`) → the generated or source file for that route. Use your knowledge of the project layout (multi-page static sites often resolve `/foo` → `public/foo/index.html`; SPAs may map all routes to a single entry).
 
 Read the file into context, then poll again. No `--reply`: this is speculative pre-work; Go will come later. If you can't confidently resolve the route to a file, skip and poll again.
@@ -449,7 +446,7 @@ When the poll returns `exit`, proceed to cleanup. If the poll is still running a
 ## Cleanup
 
 ```bash
-node .opencode/skills/impeccable/scripts/live-server.mjs stop
+npx impeccable live stop
 ```
 
 Stops the HTTP server and runs `live-inject.mjs --remove` to strip `localhost:…/live.js` from the HTML entry. To stop the server but keep the inject tag (for a quick restart), use `stop --keep-inject`. `.impeccable/live/config.json` persists as project config for future sessions.
@@ -460,7 +457,7 @@ Then:
 
 ## First-time setup (config missing or invalid)
 
-If `live.mjs` outputs `{ ok: false, error: "config_missing" | "config_invalid", path }`, write the live config at the reported path. By default this is `.impeccable/live/config.json`.
+If `npx impeccable live` outputs `{ ok: false, error: "config_missing" | "config_invalid", path }`, write the live config at the reported path. By default this is `.impeccable/live/config.json`.
 
 Schema:
 
@@ -498,11 +495,11 @@ Pick an anchor that exists in every file (`</body>` almost always works). Use `i
 
 For multi-page sites, **prefer a glob over a literal file list**. New pages added later are picked up automatically on the next `live-inject.mjs` run; no config maintenance needed.
 
-For multi-page sites whose pages are *rebuilt* by a generator (Astro, static-site generators, custom scripts like `build-sub-pages.js`), the inject survives only until the next regeneration. Re-run `live.mjs` after each build. Accept is unaffected; it writes to true source via the fallback flow.
+For multi-page sites whose pages are *rebuilt* by a generator (Astro, static-site generators, custom scripts like `build-sub-pages.js`), the inject survives only until the next regeneration. Re-run `npx impeccable live` after each build. Accept is unaffected; it writes to true source via the fallback flow.
 
 ### Drift-heal warning
 
-On every `live.mjs` boot, after inject, the project is scanned for HTML files under common page-source roots (`public/`, `src/`, `app/`, `pages/`). If any exist that aren't covered by the resolved `files` list, the output includes a `configDrift` field:
+On every `npx impeccable live` boot, after inject, the project is scanned for HTML files under common page-source roots (`public/`, `src/`, `app/`, `pages/`). If any exist that aren't covered by the resolved `files` list, the output includes a `configDrift` field:
 
 ```json
 {
@@ -532,13 +529,7 @@ Don't auto-update the config; let the user decide. `configDrift` is `null` when 
 
 If `config.cspChecked === true`, skip this entire section. You already asked this user once; the answer sticks.
 
-Otherwise, run the detection helper:
-
-```bash
-node .opencode/skills/impeccable/scripts/detect-csp.mjs
-```
-
-Output: `{ shape, signals }` where `shape` is one of `append-arrays`, `append-string`, `middleware`, `meta-tag`, or `null`. The shape is named by *patch mechanism*, so one template covers many frameworks.
+Otherwise, let `npx impeccable live` perform its internal CSP detection. Output: `{ shape, signals }` where `shape` is one of `append-arrays`, `append-string`, `middleware`, `meta-tag`, or `null`. The shape is named by *patch mechanism*, so one template covers many frameworks.
 
 - **`null`**: no CSP; skip to writing `.impeccable/live/config.json` with `cspChecked: true`.
 - **`append-arrays`**: CSP defined as structured directive arrays. Auto-patchable. See *append-arrays* below. Covers:
@@ -617,6 +608,6 @@ Reference outputs:
 
 ### Troubleshooting
 
-If a user says "no" to the CSP patch at setup time and later complains that live doesn't work: their dev CSP blocks `http://localhost:8400`. Fix: delete `cspChecked` from `.impeccable/live/config.json` and re-run `live.mjs`: setup will ask again.
+If a user says "no" to the CSP patch at setup time and later complains that live doesn't work: their dev CSP blocks `http://localhost:8400`. Fix: delete `cspChecked` from `.impeccable/live/config.json` and re-run `npx impeccable live`: setup will ask again.
 
-Then re-run `live.mjs`.
+Then re-run `npx impeccable live`.
