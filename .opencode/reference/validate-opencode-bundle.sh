@@ -927,6 +927,191 @@ PY
   fi
 }
 
+
+check_service_vernacular_posture_contract() {
+  service_file="$ROOT_DIR/.opencode/skills/service-vernacular/SKILL.md"
+  service_reference_dir="$ROOT_DIR/.opencode/skills/service-vernacular/reference"
+  require_file 'Service vernacular skill' "$service_file"
+
+  if python3 - "$service_file" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+text = path.read_text()
+required = [
+    'not a primary route',
+    'not an implementation executor',
+    'not a routing-matrix replacement',
+    'not a support claim',
+    'LANGUAGE.md',
+    'DOMAIN_LANGUAGE.md',
+    'Could this copy belong to any generic SaaS app?',
+]
+missing = [phrase for phrase in required if phrase not in text]
+if missing:
+    raise AssertionError(f"service-vernacular/SKILL.md is missing required guardrail phrases: {missing}")
+if 'allowed-tools' in text:
+    raise AssertionError('service-vernacular/SKILL.md must not declare allowed-tools')
+print('service vernacular skill guardrail phrase checks passed')
+PY
+  then
+    pass 'Service vernacular skill guardrails' 'service-vernacular/SKILL.md contains required boundaries, dossier terms, generic-SaaS gate, and no runtime grant'
+  else
+    fail 'Service vernacular skill guardrails' 'service-vernacular/SKILL.md is missing required guardrails or declares allowed-tools'
+  fi
+
+  require_file 'Service vernacular language dossier reference' "$service_reference_dir/language-dossier.md"
+  require_file 'Service vernacular surface registers reference' "$service_reference_dir/surface-registers.md"
+  require_file 'Service vernacular slop detector reference' "$service_reference_dir/slop-detector.md"
+  require_file 'Service vernacular rewrite gates reference' "$service_reference_dir/rewrite-gates.md"
+  require_file 'Service vernacular contract safety reference' "$service_reference_dir/contract-safety.md"
+  require_file 'Service vernacular examples reference' "$service_reference_dir/examples.md"
+
+  if python3 - "$service_reference_dir" <<'PY'
+from pathlib import Path
+import sys
+
+reference_dir = Path(sys.argv[1])
+checks = {
+    'language-dossier.md': [
+        'Dossier precedence',
+        '`LANGUAGE.md` is the canonical project-local dossier',
+        '`DOMAIN_LANGUAGE.md` is alternate/legacy context',
+        '`LANGUAGE.md` wins',
+    ],
+    'surface-registers.md': [
+        'Required surfaces covered: UI, docs, CLI, notifications, backend/API product-facing errors, admin/operator, onboarding, support, release notes.',
+        'Keep generic standard labels when they are clearest, familiar, or accessibility-critical.',
+    ],
+    'contract-safety.md': [
+        'Protected terms in exact form: machine-readable error codes, status codes, enum values, localization keys, log identifiers, telemetry event names, SDK-visible fields, and documented API semantics.',
+        'documented API semantics stayed the same',
+    ],
+    'rewrite-gates.md': [
+        'Gate 5: standard-label preservation',
+        'Gate 6: before/after requirements',
+        'Could this copy belong to any generic SaaS app?',
+    ],
+    'examples.md': [
+        'before/after pairs',
+        'Before:',
+        'After:',
+        'Contract-safety note:',
+    ],
+    'slop-detector.md': [
+        'Could this copy belong to any generic SaaS app?',
+        'Generic is not always slop.',
+    ],
+}
+missing = []
+for filename, phrases in checks.items():
+    path = reference_dir / filename
+    if not path.is_file():
+        missing.append(f'{filename}: missing')
+        continue
+    text = path.read_text()
+    for phrase in phrases:
+        if phrase not in text:
+            missing.append(f'{filename}: {phrase}')
+if missing:
+    raise AssertionError(f'service vernacular reference coverage missing: {missing}')
+print('service vernacular reference coverage checks passed')
+PY
+  then
+    pass 'Service vernacular reference coverage' 'references cover dossier precedence, required surfaces, protected fields, before/after examples, and standard-label preservation'
+  else
+    fail 'Service vernacular reference coverage' 'reference pack is missing required service-vernacular coverage'
+  fi
+
+  if python3 - "$ROOT_DIR" <<'PY'
+from pathlib import Path
+import sys
+
+root = Path(sys.argv[1])
+readme = root / 'README.md'
+routing = root / '.opencode/reference/routing-matrix.md'
+checks = {
+    readme: ['service-vernacular', 'supplementary language companion', 'not a primary route', 'not a support claim'],
+    routing: ['service-vernacular', 'supplementary', 'not a primary route', 'not a validated support claim'],
+}
+missing = []
+for path, phrases in checks.items():
+    text = path.read_text()
+    for phrase in phrases:
+        if phrase not in text:
+            missing.append(f'{path.relative_to(root)}: {phrase}')
+if missing:
+    raise AssertionError(f'service vernacular supplementary wording missing: {missing}')
+print('service vernacular supplementary discoverability checks passed')
+PY
+  then
+    pass 'Service vernacular supplementary discoverability' 'README and routing-matrix mention service-vernacular only as supplementary/non-primary'
+  else
+    fail 'Service vernacular supplementary discoverability' 'README or routing-matrix is missing supplementary/non-primary service-vernacular wording'
+  fi
+
+  if python3 - "$ROOT_DIR" <<'PY'
+from pathlib import Path
+import json
+import sys
+
+root = Path(sys.argv[1])
+text_paths = [
+    root / '.opencode/reference/support-policy.md',
+    root / '.opencode/reference/workflow-catalog.md',
+]
+json_paths = [
+    root / '.opencode/reference/routing-signals.json',
+    root / '.opencode/reference/capability-matrix.json',
+]
+violations = []
+for path in text_paths:
+    if 'service-vernacular' in path.read_text():
+        violations.append(str(path.relative_to(root)))
+for path in json_paths:
+    text = path.read_text()
+    if 'service-vernacular' in text:
+        violations.append(str(path.relative_to(root)))
+    json.loads(text)
+if violations:
+    raise AssertionError('service-vernacular must stay out of governance/support/routing sidecar files: ' + ', '.join(violations))
+print('service vernacular governance absence checks passed')
+PY
+  then
+    pass 'Service vernacular governance absence' 'service-vernacular is absent from support-policy, workflow-catalog, routing-signals, and capability-matrix'
+  else
+    fail 'Service vernacular governance absence' 'service-vernacular must not appear in governance/support files or routing sidecar'
+  fi
+
+  if python3 - "$0" <<'PY'
+from pathlib import Path
+import sys
+
+text = Path(sys.argv[1]).read_text()
+planned_block = text.split('PLANNED_ADJACENT_SKILLS="', 1)[1].split('"', 1)[0]
+assignments = {}
+for line in text.splitlines():
+    if '=' in line and not line.startswith(' '):
+        name, value = line.split('=', 1)
+        assignments[name] = value.strip()
+if 'service-vernacular' in planned_block:
+    raise AssertionError('service-vernacular must not be listed in PLANNED_ADJACENT_SKILLS')
+if assignments.get('FULL_EXPECTED_EXPERT_PACK_COUNT') != '17':
+    raise AssertionError('expert pack count must remain 17')
+if assignments.get('FULL_EXPECTED_ORIENTATION_SKILL_COUNT') != '1':
+    raise AssertionError('orientation skill count must remain 1')
+if assignments.get('FULL_EXPECTED_LANGUAGE_COMPANION_SKILL_COUNT') != '1':
+    raise AssertionError('language companion count must remain 1')
+print('service vernacular inventory classification checks passed')
+PY
+  then
+    pass 'Service vernacular inventory classification' 'service-vernacular remains one language companion, not planned-adjacent or an expert pack'
+  else
+    fail 'Service vernacular inventory classification' 'service-vernacular inventory classification drifted'
+  fi
+}
+
 check_harness_utilization_contract() {
   if python3 - "$ROUTING_MATRIX_FILE" <<'PY'
 from pathlib import Path
@@ -1555,6 +1740,7 @@ check_full() {
   check_impeccable_governance_absence
   check_sidecar_scaffolding
   check_compass_posture_contract
+  check_service_vernacular_posture_contract
   check_outlier_pack_contract
   check_harness_utilization_contract
   check_workspace_model_coherence
