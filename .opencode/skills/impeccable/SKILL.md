@@ -15,7 +15,7 @@ Designs and iterates production-grade frontend interfaces. Real working code, co
 
 Before any design work or file edits:
 
-1. Load context (PRODUCT.md / DESIGN.md) via the loader script.
+1. Load context (PRODUCT.md / DESIGN.md) through the `/impeccable` command runtime.
 2. Identify the register and load the matching register reference (brand.md or product.md).
 3. **If the user invoked a sub-command (e.g. `craft`, `shape`, `audit`), load its reference file too.** This is non-negotiable: `craft` without `craft.md` loaded means you'll skip the shape-and-confirm step the user expects.
 
@@ -28,17 +28,11 @@ Two files, case-insensitive. The loader looks at the project root by default and
 - **PRODUCT.md**: required. Users, brand, tone, anti-references, strategic principles.
 - **DESIGN.md**: optional, strongly recommended. Colors, typography, elevation, components.
 
-Load both in one call:
-
-```bash
-node .opencode/skills/impeccable/scripts/load-context.mjs
-```
-
-Consume the full JSON output. Never pipe through `head`, `tail`, `grep`, or `jq`. The output's `contextDir` field tells you where the files were resolved from.
+The `/impeccable` runtime loads both files before command execution and returns JSON context. Consume the full runtime context when it is present in the session. Never pipe context output through `head`, `tail`, `grep`, or `jq`. The context's `contextDir` field tells you where the files were resolved from.
 
 If the output is already in this session's conversation history, don't re-run. Exceptions requiring a fresh load: you just ran `/impeccable teach` or `/impeccable document` (they rewrite the files), or the user manually edited one.
 
-`/impeccable live` already warms context via `live.mjs`. If you've run `live.mjs`, don't also run `load-context.mjs` this session.
+`/impeccable live` already warms context through the live facade. If you've run `/impeccable live`, don't request a second context load this session.
 
 If PRODUCT.md is missing, empty, or placeholder (`[TODO]` markers, <200 chars): run `/impeccable teach`, then resume the user's original task with the fresh context. If the original task was `/impeccable craft`, resume into `/impeccable shape` before any implementation work.
 
@@ -146,7 +140,7 @@ If someone could look at this interface and say "AI made that" without doubt, it
 | `optimize [target]` | Fix | Diagnose and fix UI performance | [reference/optimize.md](reference/optimize.md) |
 | `live` | Iterate | Visual variant mode: pick elements in the browser, generate alternatives | [reference/live.md](reference/live.md) |
 
-Plus two management commands: `pin <command>` and `unpin <command>`, detailed below.
+Shortcut pinning is internal package management, not a user-facing Impeccable command.
 
 ### Routing rules
 
@@ -158,12 +152,6 @@ Setup (context gathering, register) is already loaded by then; sub-commands don'
 
 If the first word is `craft`, setup still runs first, but [reference/craft.md](reference/craft.md) owns the rest of the flow. If setup invokes `teach` as a blocker, finish teach, refresh context, then resume the original command and target.
 
-## Pin / Unpin
+## Shortcut Management
 
-**Pin** creates a standalone shortcut so `/<command>` invokes `/impeccable <command>` directly. **Unpin** removes it. The script writes to every harness directory present in the project.
-
-```bash
-node .opencode/skills/impeccable/scripts/pin.mjs <pin|unpin> <command>
-```
-
-Valid `<command>` is any command from the table above. Report the script's result concisely. Confirm the new shortcut on success, relay stderr verbatim on error.
+Standalone shortcuts that redirect `/<command>` to `/impeccable <command>` are an internal packaging concern. Do not create or remove top-level `pin` / `unpin` wrappers from agent instructions, and do not invoke the internal shortcut helper directly.

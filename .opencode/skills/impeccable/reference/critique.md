@@ -10,11 +10,7 @@ Before gathering assessments, do two small bookkeeping steps. They cost almost n
    - "this page" → the URL or the page's source file
    Prefer the source file path over the dev-server URL when both exist; ports drift between runs (`bun dev` vs `bun preview`), file paths don't.
 
-2. **Compute the slug.** Run:
-   ```bash
-   node .opencode/skills/impeccable/scripts/critique-storage.mjs slug "<resolved-path-or-url>"
-   ```
-   Keep the printed slug. It identifies this target's stream across runs. If the command exits non-zero ("no stable slug for input"), skip persistence for this run and tell the user; the trend won't update but the critique still goes ahead.
+2. **Compute the persistence target.** The `/impeccable critique` runtime derives a stable slug for the resolved path or URL and uses it to identify this target's stream across runs. Internally, this is the `critique-storage.mjs slug` responsibility; agents must not invoke the helper directly. If the target has no stable slug, skip persistence for this run and tell the user; the trend won't update but the critique still goes ahead. The storage helper is internal implementation detail, not an agent command.
 
 3. **Read the ignore list** at `.impeccable/critique/ignore.md` if it exists. Plain markdown; each non-empty, non-comment line is something the user has marked as "do not re-raise" (deferred tradeoffs, designer-intended deviations, detector false-positives the user accepts). When a finding's text matches a line here (case-insensitive substring against rule name or snippet), **drop it silently**. Do not mention it in the report. This is the ONLY input critique consumes from prior runs; anchoring on prior findings would defeat the point of independent assessment.
 
@@ -188,22 +184,9 @@ Once the report above is finalized, write it to `.impeccable/critique/` so the u
 
 Skip this step if the Setup slug was null (vague or root-level target).
 
-1. **Write the body to a temp file** so you can pipe it to the helper. Use the full report (heuristic table, anti-patterns verdict, priority issues, persona red flags) but stop before the "Ask the User" / "Recommended Actions" sections that come later.
+1. **Persist through the `/impeccable critique` runtime.** Use the full report (heuristic table, anti-patterns verdict, priority issues, persona red flags) but stop before the "Ask the User" / "Recommended Actions" sections that come later. Include structured metadata for target, total score, P0 count, and P1 count so the runtime can write the snapshot and read the last 5 frontmatter entries for the trend. Internally, these are the `critique-storage.mjs write` and `critique-storage.mjs trend` responsibilities; agents must not invoke the helper directly. The storage helper is internal implementation detail, not an agent command.
 
-2. **Pass the structured metadata** through `IMPECCABLE_CRITIQUE_META` (JSON), then run the write command:
-   ```bash
-   IMPECCABLE_CRITIQUE_META='{"target":"<user phrasing>","total_score":<n>,"p0_count":<n>,"p1_count":<n>}' \
-     node .opencode/skills/impeccable/scripts/critique-storage.mjs write <slug> <body-file>
-   ```
-   The helper prints the absolute path it wrote.
-
-3. **Read the trend** for context:
-   ```bash
-   node .opencode/skills/impeccable/scripts/critique-storage.mjs trend <slug> 5
-   ```
-   This returns a JSON array of the last 5 frontmatter entries (including the one you just wrote).
-
-4. **Append a single line to the user-visible output**, after the report and before the questions:
+2. **Append a single line to the user-visible output**, after the report and before the questions:
 
    > **Trend for `<slug>` (last 5 runs): 24 → 28 → 32 → 29 → 32**
    > Wrote `.impeccable/critique/<filename>`.
