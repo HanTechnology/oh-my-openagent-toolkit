@@ -10,21 +10,29 @@ Versioning rules:
 - Minor: new local skill surfaces, new reference layers, or meaningful public workflow/documentation additions.
 - Patch: validator fixes, wording corrections, guardrail tightening, and non-breaking documentation updates.
 
- ## Unreleased
+## v0.3.0 - 2026-05-22
 
-Minor-level local skill surface under the existing versioning rules. `VERSION` stays at `0.2.0` until a release is published.
+Local toolkit release publishing all local-only governance, routing, Impeccable compatibility, validation, and `service-vernacular` work accumulated after `v0.2.0`.
 
 ### Highlights
 
 * Added `service-vernacular` as a local supplementary language companion for repo-backed nouns, verbs, surface registers, and before/after rewrite evidence across user-facing surfaces.
-* Updated inventory wording for 45 top-level skill entrypoints, 42 core skill surfaces, and 3 planned adjacent packs, with `service-vernacular` counted as one language companion and not as a planned-adjacent pack.
-* Validator coverage now checks the `service-vernacular` skill guardrails, reference coverage, supplementary discoverability, governance absence, and inventory classification.
-* Governance absence remains intentional: `service-vernacular` has no routing-signals, capability-matrix, support-policy, or workflow-catalog sidecar entry.
+* Added the `service-vernacular` reference set for language dossiers, surface registers, rewrite examples, slop detection, rewrite gates, and contract-safety boundaries.
+* Added explicit OpenCode compatibility governance, including `LICENSE` and `.opencode/reference/opencode-compatibility-model.md`, to distinguish native OpenCode contracts from enhanced `oh-my-openagent` behavior.
+* Normalized the Impeccable command and reference facades so compatibility wrappers stay redirects or aliases while upstream command surfaces and references remain clearly supplementary.
+* Classified Impeccable compatibility wrappers and planned adjacent packs across the local skill inventory, keeping planned packs discoverable without promoting them to validated routes.
+* Clarified routing helper discovery, onboarding flow, release-engineering adjacency, support-policy wording, workflow-catalog boundaries, and compact workspace guidance.
+* Expanded bundle validation for compatibility surfaces, Impeccable wrapper taxonomy, planned adjacent classification, release-evidence freshness contracts, and `service-vernacular` inventory and guardrails.
+* Removed obsolete task-8 validation evidence files from the tracked release state; validation evidence that makes current release or workflow claims is now governed by freshness metadata.
+
+### Validation
+
+* Release-time validation: `sh -n .opencode/reference/validate-opencode-bundle.sh` passed, and `bash .opencode/reference/validate-opencode-bundle.sh full` reported `94 PASS, 0 WARN, 0 FAIL`.
 
 ### Boundaries
 
 * `service-vernacular` is not a primary route, not a validated workflow, and not a support claim.
-* This unreleased note does not publish a release date, tag, VERSION bump, supported-now claim, or validated workflow claim for `service-vernacular`.
+* Governance absence remains intentional: `service-vernacular` has no routing-signals, capability-matrix, support-policy, or workflow-catalog sidecar entry.
 * The validated workflow surface remains limited to `frontend-product-delivery`, `backend-service-delivery`, `cloud-release-readiness`, and `ai-data-product-delivery`.
 
 ## v0.2.0 - 2026-05-19
