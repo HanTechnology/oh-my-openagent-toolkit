@@ -154,6 +154,14 @@ require_dir() {
   fi
 }
 
+check_plugin_config_contract() {
+  if grep -n -E '^[[:space:]]*"paths"[[:space:]]*:' "$CONFIG_FILE" >/dev/null 2>&1; then
+    fail 'Plugin config contract' '.opencode/oh-my-openagent.jsonc must not use top-level paths; v4.3.0 project discovery loads .opencode/skills and .opencode/commands from the toolkit root'
+  else
+    pass 'Plugin config contract' '.opencode/oh-my-openagent.jsonc avoids obsolete top-level paths wiring'
+  fi
+}
+
 check_banned_strings() {
   label="$1"
   path="$2"
@@ -184,6 +192,7 @@ check_banned_strings() {
 check_foundation() {
   printf '%s\n' 'Mode: foundation'
   require_file 'Config' "$CONFIG_FILE"
+  check_plugin_config_contract
   require_dir 'Skills directory' "$ROOT_DIR/.opencode/skills"
   require_dir 'Commands directory' "$ROOT_DIR/.opencode/commands"
   require_dir 'Reference directory' "$ROOT_DIR/.opencode/reference"

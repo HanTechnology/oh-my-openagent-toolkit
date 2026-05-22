@@ -21,8 +21,8 @@ Enhanced behavior means the `oh-my-openagent` plugin or this local companion bun
 
 1. `oh-my-openagent` is registered from OpenCode config, normally in `opencode.json`, through the plugin entry `oh-my-openagent`. The legacy plugin entry `oh-my-opencode` still loads during the rename transition.
 2. The plugin reads user and walked project configs named `.opencode/oh-my-openagent.jsonc`, `.opencode/oh-my-openagent.json`, `.opencode/oh-my-opencode.jsonc`, or `.opencode/oh-my-opencode.json` during the transition.
-3. This toolkit's `.opencode/oh-my-openagent.jsonc` is a narrow local wiring file. It points the enhanced layer at local `skills`, `commands`, and `reference` roots. It does not make OpenCode route work or place files by itself.
-4. `skills.sources` is an `oh-my-openagent` skill-loading config shape, not the same thing as native OpenCode `skills.paths`. The enhanced source entries may include a local `path`, `recursive`, or `glob` setting, or a remote source string.
+3. This toolkit's `.opencode/oh-my-openagent.jsonc` is a narrow schema-compatible plugin config placeholder, not path wiring. From the toolkit repo root, `oh-my-openagent` v4.3.0 project discovery loads `.opencode/skills` and `.opencode/commands` automatically; reference files remain documentation linked by those assets.
+4. `skills.sources` is an `oh-my-openagent` skill-loading config shape for extra skill sources outside default project discovery, not the same thing as native OpenCode `skills.paths`. The enhanced source entries may include a local `path`, `recursive`, or `glob` setting, or a remote source string. It does not configure command or reference roots.
 5. Enhanced skill definitions may carry `allowed-tools`, `argument-hint`, `model`, `agent`, `subtask`, `license`, `compatibility`, and `metadata` in the plugin schema. In this bundle, `allowed-tools` and `argument-hint` should be read as enhanced metadata unless current native OpenCode docs add them later.
 6. The Impeccable layer uses enhanced local metadata on the consolidated `impeccable` skill, including `allowed-tools: Bash(npx impeccable *)` and an `argument-hint`. Local compatibility wrappers stay thin, grant-free aliases for the consolidated `/impeccable` command model.
 7. Category routing, background agents, built-in MCP injection, Team Mode, task persistence, and hashline editing are harness features. They can improve local operation, but they are not native OpenCode guarantees.
@@ -30,17 +30,18 @@ Enhanced behavior means the `oh-my-openagent` plugin or this local companion bun
 ## Boundary rules for this toolkit
 
 1. Do not add custom top-level keys to native `opencode.json` examples. Put `oh-my-openagent` settings in the plugin config files instead.
-2. Do not describe `.opencode/oh-my-openagent.jsonc` or `.opencode/oh-my-opencode.jsonc` as native OpenCode config files. They are enhanced plugin config files.
-3. For `allowed-tools`, `argument-hint`, or `user-invocable`, do not claim native support unless current OpenCode docs or schema prove it. At the time of this reference, current native docs list a smaller skill frontmatter set and ignore unknown skill frontmatter fields.
-4. Do not use `skills.sources` when documenting native OpenCode. Use `skills.paths` for native extra skill folders and reserve `skills.sources` for the enhanced layer.
-5. If a local document needs routing or helper behavior, link to `.opencode/reference/routing-matrix.md`. If it needs native-versus-enhanced config or metadata wording, link here.
+2. Do not add top-level `paths` to `.opencode/oh-my-openagent.jsonc`; v4.3.0 exposes top-level `skills`, while local `.opencode/skills` and `.opencode/commands` are project-discovered from the toolkit root.
+3. Do not describe `.opencode/oh-my-openagent.jsonc` or `.opencode/oh-my-opencode.jsonc` as native OpenCode config files. They are enhanced plugin config files.
+4. For `allowed-tools`, `argument-hint`, or `user-invocable`, do not claim native support unless current OpenCode docs or schema prove it. At the time of this reference, current native docs list a smaller skill frontmatter set and ignore unknown skill frontmatter fields.
+5. Do not use `skills.sources` when documenting native OpenCode. Use `skills.paths` for native extra skill folders and reserve `skills.sources` for the enhanced layer.
+6. If a local document needs routing or helper behavior, link to `.opencode/reference/routing-matrix.md`. If it needs native-versus-enhanced config or metadata wording, link here.
 
 ## Quick reference
 
 | Question | Portable answer | Enhanced answer |
 | --- | --- | --- |
-| Where does project OpenCode config live? | `opencode.json` or `opencode.jsonc` | Plugin config may also live in `.opencode/oh-my-openagent.jsonc` or transitional `.opencode/oh-my-opencode.jsonc` |
-| How are extra skill folders named? | `skills.paths` in native config | `skills.sources` in `oh-my-openagent` config |
+| Where does project OpenCode config live? | `opencode.json` or `opencode.jsonc` | Plugin config may also live in `.opencode/oh-my-openagent.jsonc` or transitional `.opencode/oh-my-opencode.jsonc`; local toolkit assets are discovered from the active toolkit root |
+| How are extra skill folders named? | `skills.paths` in native config | `skills.sources` in `oh-my-openagent` config for extra skill sources; default `.opencode/skills` needs no explicit config |
 | Which skill metadata is native? | `name`, `description`, `license`, `compatibility`, `metadata` | `allowed-tools`, `argument-hint`, and richer plugin skill definitions are enhanced |
 | How are access rules named? | `permission` | Agent and category settings may add enhanced behavior, but `permission` stays the native OpenCode term |
 | Does routing happen here? | No. Native OpenCode discovers assets and runs commands or skills | No. This reference explains compatibility only. Routing remains in `.opencode/reference/routing-matrix.md` |
