@@ -1,0 +1,1 @@
+# Uppercase collision fixture
