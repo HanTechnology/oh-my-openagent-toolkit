@@ -1,0 +1,8 @@
+{
+  // Existing local project config that is not managed by OMO Toolkit.
+  "skills": {
+    "custom-local-skill": {
+      "description": "Project-only local skill."
+    }
+  }
+}
