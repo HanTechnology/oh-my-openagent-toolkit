@@ -54,8 +54,8 @@ export function buildToolkitManifest(options = {}) {
   const packageRoot = options.packageRoot ?? resolvePackageRoot(import.meta.url);
   const packageJson = readJson(resolveReadPath(packageRoot, 'package.json'));
   const version = fs.readFileSync(resolveReadPath(packageRoot, 'VERSION'), 'utf8').trim();
-  const generatedAt = options.generatedAt ?? new Date().toISOString();
-  const gitCommit = options.gitCommit ?? readGitCommit(packageRoot);
+  const generatedAt = Object.hasOwn(options, 'generatedAt') ? options.generatedAt : new Date().toISOString();
+  const gitCommit = Object.hasOwn(options, 'gitCommit') ? options.gitCommit : readGitCommit(packageRoot);
   const files = buildManifestFiles(packageRoot);
 
   return sortJsonValue({
