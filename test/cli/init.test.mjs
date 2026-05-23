@@ -87,6 +87,55 @@ test('init apply blocks unmanaged .opencode managed-root content without overwri
   }
 });
 
+test('init apply ignores lockfile localOnly managed-root files for unmanaged conflicts and preserves bytes', () => {
+  const temp = createTempTargetFromFixture('empty-target');
+  try {
+    const first = runBin(['init', '--apply', '--target', temp.target]);
+    assert.equal(first.status, 0, first.stderr);
+
+    const localOnlyPath = '.opencode/skills/local-only/SKILL.md';
+    const localOnlyAbsolutePath = path.join(temp.target, localOnlyPath);
+    const localOnlyContent = '# Local Only\n\nProject-owned skill.\n';
+    fs.mkdirSync(path.dirname(localOnlyAbsolutePath), { recursive: true });
+    fs.writeFileSync(localOnlyAbsolutePath, localOnlyContent);
+    addLocalOnlyOverride(temp.target, localOnlyPath);
+
+    const result = runBin(['init', '--apply', '--target', temp.target]);
+
+    assert.equal(result.status, 0, result.stderr);
+    assert.doesNotMatch(result.stdout, /unmanaged-conflict \.opencode\/skills\/local-only\/SKILL\.md/);
+    assert.equal(fs.readFileSync(localOnlyAbsolutePath, 'utf8'), localOnlyContent);
+    assert.deepEqual(readTargetLockfile(temp.target).overrides.localOnly, [localOnlyPath]);
+  } finally {
+    temp.cleanup();
+  }
+});
+
+test('init apply preserves active manifest localOnly paths without blocking', () => {
+  const temp = createTempTargetFromFixture('empty-target');
+  try {
+    const first = runBin(['init', '--apply', '--target', temp.target]);
+    assert.equal(first.status, 0, first.stderr);
+
+    const localOnlyPath = '.opencode/commands/route-domain.md';
+    const localOnlyAbsolutePath = path.join(temp.target, localOnlyPath);
+    const localOnlyContent = '# Project route override\n';
+    fs.writeFileSync(localOnlyAbsolutePath, localOnlyContent);
+    addLocalOnlyOverride(temp.target, localOnlyPath);
+
+    const result = runBin(['init', '--apply', '--target', temp.target]);
+
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /skip-unmanaged \.opencode\/commands\/route-domain\.md/);
+    assert.doesNotMatch(result.stdout, /replace \.opencode\/commands\/route-domain\.md/);
+    assert.doesNotMatch(result.stdout, /create \.opencode\/commands\/route-domain\.md/);
+    assert.equal(fs.readFileSync(localOnlyAbsolutePath, 'utf8'), localOnlyContent);
+    assert.deepEqual(readTargetLockfile(temp.target).overrides.localOnly, [localOnlyPath]);
+  } finally {
+    temp.cleanup();
+  }
+});
+
 test('init with MCP blocks placeholder unless explicitly allowed', () => {
   const blocked = createTempTargetFromFixture('empty-target');
   try {
@@ -126,8 +175,39 @@ test('init with root docs writes only toolkit-suffixed target names', () => {
 });
 
 
+test('init --migrate --dry-run delegates to migrate dry-run action lines', () => {
+  const temp = createTempTargetFromFixture('empty-target');
+  try {
+    const migrate = runBin(['migrate', '--dry-run', '--target', temp.target]);
+    const alias = runBin(['init', '--migrate', '--dry-run', '--target', temp.target]);
+
+    assert.equal(migrate.status, 0, migrate.stderr);
+    assert.equal(alias.status, 0, alias.stderr);
+    assert.deepEqual(actionLines(alias.stdout), actionLines(migrate.stdout));
+  } finally {
+    temp.cleanup();
+  }
+});
+
+
 function fullManifestDigest() {
   return manifestSha256(JSON.parse(fs.readFileSync(path.join(PACKAGE_ROOT, 'toolkit-manifest.json'), 'utf8')));
+}
+
+function readTargetLockfile(target) {
+  return JSON.parse(fs.readFileSync(path.join(target, LOCKFILE_RELATIVE_PATH), 'utf8'));
+}
+
+function writeTargetLockfile(target, lockfile) {
+  fs.writeFileSync(path.join(target, LOCKFILE_RELATIVE_PATH), `${JSON.stringify(lockfile, null, 2)}\n`);
+}
+
+function addLocalOnlyOverride(target, relativePath) {
+  const lockfile = readTargetLockfile(target);
+  lockfile.overrides ??= {};
+  lockfile.overrides.skip ??= [];
+  lockfile.overrides.localOnly = [...new Set([...(lockfile.overrides.localOnly ?? []), relativePath])].sort((left, right) => left.localeCompare(right, 'en-US'));
+  writeTargetLockfile(target, lockfile);
 }
 
 function assertInstalledShape(target) {
@@ -183,4 +263,9 @@ function snapshotDirectory(root) {
     process.stdout.write(JSON.stringify(entries));
   `, root], { encoding: 'utf8' });
   return JSON.parse(output);
+}
+
+
+function actionLines(output) {
+  return output.split('\n').filter((line) => line.startsWith('- '));
 }

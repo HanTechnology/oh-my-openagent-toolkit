@@ -4,8 +4,10 @@ import path from 'node:path';
 import { hashFile } from '../core/hash.mjs';
 import { LOCKFILE_RELATIVE_PATH, manifestSha256, parseLockfileContent } from '../core/lockfile.mjs';
 import { MANIFEST_PATH, validateManifestFileEntry } from '../core/manifest.mjs';
-import { OPERATION_ACTIONS, planOperations } from '../core/operation-plan.mjs';
+import { OPERATION_ACTIONS, OPERATION_RULES, planOperations } from '../core/operation-plan.mjs';
 import { resolveOutputPath, resolvePackageRoot, resolveTargetRoot } from '../core/paths.mjs';
+import { askChoice, askYesNo, isInteractive } from '../core/prompt.mjs';
+import { runMigrateCommand } from './migrate.mjs';
 
 const VALID_PROFILES = new Set(['core', 'full']);
 const ROOT_DOC_TARGETS = Object.freeze({
@@ -16,8 +18,16 @@ const ROOT_DOC_TARGETS = Object.freeze({
 });
 const MANAGED_ROOTS = Object.freeze(['.opencode/skills/', '.opencode/commands/', '.opencode/reference/']);
 const PLACEHOLDER_MCP_TOKEN = `<<YOUR_GITHUB_${'PERSONAL_ACCESS_TOKEN'}>>`;
+const MODE_FLAGS = new Map([
+  ['--dry-run', 'dry-run'],
+  ['--apply', 'apply'],
+  ['--diff', 'diff'],
+]);
+const REJECTED_FLAGS = new Set(['--force', '--overwrite']);
 
 export async function runInitCommand(argv = [], options = {}) {
+  if (argv.includes('--migrate')) return runMigrateCommand(argv.filter((arg) => arg !== '--migrate' && arg !== '--guided'), options);
+
   const stdout = options.stdout ?? process.stdout;
   const stderr = options.stderr ?? process.stderr;
 
@@ -32,6 +42,18 @@ export async function runInitCommand(argv = [], options = {}) {
 
   const packageRoot = options.packageRoot ?? resolvePackageRoot(import.meta.url);
   const targetRoot = resolveTargetRoot(argv, options.cwd ?? process.cwd());
+
+  if (flags.guided) {
+    try {
+      const guided = await resolveGuidedInit(flags, { argv, options, stdout, stderr, targetRoot });
+      if (guided.exitCode !== null) return guided.exitCode;
+      flags = guided.flags;
+    } catch (error) {
+      writeLine(stderr, error.message);
+      writeLine(stderr, initUsage());
+      return 2;
+    }
+  }
 
   try {
     const baseManifest = readJson(path.join(packageRoot, MANIFEST_PATH));
@@ -71,21 +93,31 @@ function parseInitFlags(argv) {
   const flags = {
     allowPlaceholderMcp: false,
     defaultedDryRun: false,
+    guided: false,
+    explicitMode: false,
     json: false,
+    migrate: false,
     mode: null,
     profile: 'full',
     withMcp: false,
     withRootDocs: false,
+    yes: false,
   };
 
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
-    if (arg === '--dry-run') flags.mode = setMode(flags.mode, 'dry-run');
-    else if (arg === '--apply') flags.mode = setMode(flags.mode, 'apply');
+    if (MODE_FLAGS.has(arg)) {
+      flags.mode = setMode(flags.mode, MODE_FLAGS.get(arg));
+      flags.explicitMode = true;
+    }
+    else if (arg === '--guided') flags.guided = true;
+    else if (arg === '--migrate') flags.migrate = true;
+    else if (arg === '--yes') flags.yes = true;
     else if (arg === '--with-mcp') flags.withMcp = true;
     else if (arg === '--allow-placeholder-mcp') flags.allowPlaceholderMcp = true;
     else if (arg === '--with-root-docs') flags.withRootDocs = true;
     else if (arg === '--json') flags.json = true;
+    else if (REJECTED_FLAGS.has(arg)) throw new Error(`${arg} is not supported for init; use --guided, --dry-run, or --apply instead.`);
     else if (arg === '--profile') {
       index += 1;
       flags.profile = requireFlagValue(argv[index], '--profile');
@@ -102,6 +134,7 @@ function parseInitFlags(argv) {
   }
 
   if (!VALID_PROFILES.has(flags.profile)) throw new Error(`Unsupported profile: ${flags.profile}`);
+  if (flags.mode === 'diff' && !flags.migrate && !flags.guided) throw new Error('--diff belongs to migration/update; use init --migrate --diff or guided migration.');
   if (!flags.mode) {
     flags.mode = 'dry-run';
     flags.defaultedDryRun = true;
@@ -110,13 +143,94 @@ function parseInitFlags(argv) {
 }
 
 function setMode(current, next) {
-  if (current && current !== next) throw new Error('--dry-run and --apply are mutually exclusive.');
+  if (current && current !== next) throw new Error('--dry-run, --apply, and --diff are mutually exclusive.');
   return next;
 }
 
 function requireFlagValue(value, flag) {
   if (!value || value.startsWith('--')) throw new Error(`${flag} requires a value.`);
   return value;
+}
+
+async function resolveGuidedInit(flags, { argv, options, stdout, targetRoot }) {
+  const promptOptions = {
+    stdin: options.stdin ?? process.stdin,
+    stdout,
+    env: options.env ?? process.env,
+  };
+  const interactive = isInteractive(promptOptions);
+  if (!interactive) {
+    writeLine(stdout, 'Guided init is running outside an interactive TTY; using deterministic defaults and dry-run unless --apply or --yes is supplied.');
+  }
+
+  const guidedFlags = { ...flags, defaultedDryRun: false };
+  guidedFlags.profile = flags.yes ? 'full' : await askChoice({
+    ...promptOptions,
+    message: 'Select init profile',
+    choices: ['core', 'full'],
+    defaultValue: 'full',
+  });
+  guidedFlags.withMcp = flags.yes ? false : await askYesNo({ ...promptOptions, message: 'Install MCP config?', defaultValue: false });
+  guidedFlags.withRootDocs = flags.yes ? false : await askYesNo({ ...promptOptions, message: 'Install root docs?', defaultValue: false });
+
+  const legacyDetected = hasLegacyInstall(targetRoot);
+  const migrate = legacyDetected && (flags.yes ? true : await askYesNo({
+    ...promptOptions,
+    message: 'Migrate legacy toolkit install?',
+    defaultValue: true,
+  }));
+
+  if (flags.mode === 'diff' && !migrate) {
+    throw new Error('--diff belongs to migration/update; guided init can only diff when migration is selected.');
+  }
+
+  const apply = flags.mode === 'apply' || (!flags.explicitMode && (flags.yes || await askYesNo({
+    ...promptOptions,
+    message: 'Apply guided init changes?',
+    defaultValue: false,
+  })));
+  guidedFlags.mode = flags.mode === 'diff' ? 'diff' : (apply ? 'apply' : 'dry-run');
+  guidedFlags.defaultedDryRun = guidedFlags.mode === 'dry-run' && !flags.explicitMode;
+
+  if (!apply && flags.mode !== 'diff') writeLine(stdout, 'Guided init preview only; no files will be written.');
+  if (!migrate) return { exitCode: null, flags: guidedFlags };
+
+  const migrateArgs = migrateArgsFromGuided(argv, guidedFlags);
+  const exitCode = await runMigrateCommand(migrateArgs, options);
+  return { exitCode, flags: guidedFlags };
+}
+
+function migrateArgsFromGuided(argv, flags) {
+  const args = [];
+  appendTargetArgs(args, argv);
+  args.push('--profile', flags.profile);
+  if (flags.mode === 'diff') args.push('--diff');
+  else if (flags.mode === 'apply') args.push('--apply');
+  else args.push('--dry-run');
+  if (flags.withMcp) args.push('--with-mcp');
+  if (flags.allowPlaceholderMcp) args.push('--allow-placeholder-mcp');
+  if (flags.withRootDocs) args.push('--with-root-docs');
+  if (flags.json) args.push('--json');
+  return args;
+}
+
+function appendTargetArgs(args, argv) {
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+    if (arg === '--target') {
+      args.push(arg, argv[index + 1]);
+      index += 1;
+    } else if (arg.startsWith('--target=')) {
+      args.push(arg);
+    }
+  }
+}
+
+function hasLegacyInstall(targetRoot) {
+  if (readPreviousLockfile(targetRoot)) return false;
+  return fs.existsSync(resolveOutputPath(targetRoot, 'AGENTS.md'))
+    || fs.existsSync(resolveOutputPath(targetRoot, '.opencode/oh-my-openagent.jsonc'))
+    || MANAGED_ROOTS.some((root) => fs.existsSync(resolveOutputPath(targetRoot, root.slice(0, -1))));
 }
 
 function buildInitManifest(manifest, { flags, packageRoot }) {
@@ -167,6 +281,7 @@ function snapshotTargetFiles(targetRoot, manifest) {
   for (const entry of manifest.files) paths.add(entry.path);
   const lockfile = readPreviousLockfile(targetRoot);
   for (const record of lockfile?.files ?? []) paths.add(record.path);
+  for (const relativePath of lockfile?.overrides?.localOnly ?? []) paths.add(relativePath);
 
   const targetFiles = {};
   for (const relativePath of paths) {
@@ -187,11 +302,13 @@ function readPreviousLockfile(targetRoot) {
 
 function findUnmanagedManagedRootConflicts(targetRoot, manifest, lockfile) {
   const managedPaths = new Set(manifest.files.map((entry) => entry.path));
+  const localOnlyPaths = new Set(lockfile?.overrides?.localOnly ?? []);
   for (const record of lockfile?.files ?? []) managedPaths.add(record.path);
   const conflicts = [];
   for (const relativePath of listTargetFiles(targetRoot)) {
     if (!isManagedRootPath(relativePath)) continue;
     if (managedPaths.has(relativePath)) continue;
+    if (localOnlyPaths.has(relativePath)) continue;
     conflicts.push(relativePath);
   }
   return conflicts.sort();
@@ -218,7 +335,11 @@ function isManagedRootPath(relativePath) {
 }
 
 function hasSkipUnmanaged(plan) {
-  return plan.actions.some((action) => action.action === OPERATION_ACTIONS.SKIP_UNMANAGED && isManagedPath(action.path));
+  return plan.actions.some((action) => (
+    action.action === OPERATION_ACTIONS.SKIP_UNMANAGED
+    && action.ruleId !== OPERATION_RULES.FILE_LOCAL_ONLY
+    && isManagedPath(action.path)
+  ));
 }
 
 function isManagedPath(relativePath) {
@@ -299,5 +420,5 @@ function writeLine(stream, message = '') {
 }
 
 function initUsage() {
-  return 'Usage: omo-toolkit init [--target <path>] [--profile core|full] [--dry-run|--apply] [--with-mcp] [--allow-placeholder-mcp] [--with-root-docs] [--json]';
+  return 'Usage: omo-toolkit init [--guided] [--migrate] [--target <path>] [--profile core|full] [--dry-run|--apply|--diff] [--yes] [--with-mcp] [--allow-placeholder-mcp] [--with-root-docs] [--json]';
 }
