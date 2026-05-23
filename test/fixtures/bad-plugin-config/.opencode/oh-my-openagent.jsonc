@@ -1,0 +1,6 @@
+{
+  "paths": {
+    "skills": [".opencode/skills"],
+    "commands": [".opencode/commands"]
+  }
+}
