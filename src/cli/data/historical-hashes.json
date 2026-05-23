@@ -1,0 +1,1281 @@
+{
+  "generatedAt": "2026-05-23T00:51:40.315Z",
+  "schema": 1,
+  "versions": [
+    {
+      "agentsBlock": {
+        "sha256": "21448df5d754355b94d8d8e2cc69796955ecf175dd692f77aa3d04e558207de3"
+      },
+      "files": [
+        {
+          "kind": "plugin-config",
+          "mode": "100644",
+          "path": ".mcp.json",
+          "sha256": "3b750390cd87a8e796a54a7d8850e55010bc3b933b492a5dd902ae06eb52593e"
+        },
+        {
+          "kind": "command",
+          "mode": "100644",
+          "path": ".opencode/commands/route-domain.md",
+          "sha256": "a39bca91576a82f8b17f9435a732914031f0ef6d9925d208771e56f0ed4075dc"
+        },
+        {
+          "kind": "plugin-config",
+          "mode": "100644",
+          "path": ".opencode/oh-my-openagent.jsonc",
+          "sha256": "f5d55ac1b9ff48a77caab9ddf8ba05c8f8325380b0760b0bcdd97d782d489706"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/capability-matrix.json",
+          "sha256": "fcfee26f6890b928d78dd235da69bb52de2f97af27d26eb01ee9214e7641d6f8"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-anti-slop.md",
+          "sha256": "8c4895c0b8dfb7f19608dda974843f692e04aa2948c072aca526bfcd64b4d7e4"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md-catalog.md",
+          "sha256": "760bd17b40c86a5562ca7992139aba7d8cb5e3478fc976de240daebbca84ac1a"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md-selection-protocol.md",
+          "sha256": "a7fef9d35febb499a3c4b163067ff28b5cc2164853605eb8f218fde525a2845f"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md-source-policy.md",
+          "sha256": "f1da4003155d7e5f1e6ee3029c90879a5dc34a4f45dea91c6a34dba4fbdd0eaf"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/ATTRIBUTION.md",
+          "sha256": "35cc09adabc84ce1b91aac4b8dec231fb3d10721d2948161ca4fa9dbe2d4987f"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/apple/DESIGN.md",
+          "sha256": "180ddcdc4d2124fc6d9723236f0d345329e84eed0fea2a2ee4ed34f6752f2fa0"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/claude/DESIGN.md",
+          "sha256": "02952426a638db620cd759767b624831ebcb433aa9f2c001735454cd960395e8"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/cursor/DESIGN.md",
+          "sha256": "e113a74498b96bab7a43fe9e3c422063cf7d332c869df508fe67cccb0c814a8f"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/figma/DESIGN.md",
+          "sha256": "9732337f9c48ba3e1b484d52c031c50893b564906e35190dcce95111ee3ad1f0"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/linear.app/DESIGN.md",
+          "sha256": "6cc606ace1a1d627a4a02f840c1c82cc6decd86e5a0f8bdd8c1fe14630909754"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/notion/DESIGN.md",
+          "sha256": "ea0d45f2ac0a1c42bda6d5c1240790e32dfec52455ffda27737e63e9559afe6f"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/opencode.ai/DESIGN.md",
+          "sha256": "b2b4e1cb465ce43221af95b17e7ad89de2b8faa96d8762997579f9ea157c739d"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/README.md",
+          "sha256": "984df406a60b217a0dee48005339887480c3cbe094e8baa66c3bedfd907d0c1d"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/shopify/DESIGN.md",
+          "sha256": "013d839cc35e22418129caa946ab555443f9a8811d7547f1408260a7a60d153a"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/stripe/DESIGN.md",
+          "sha256": "2753a9d56de08a48d99516354d7b158fc3710879f7c0f4ce2cbd79a2bb3e0ecd"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/supabase/DESIGN.md",
+          "sha256": "65ae7d28d8fc235bb58ef6554e5587b9a2fc6931c2b543525f0287edbf8f5a75"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/vercel/DESIGN.md",
+          "sha256": "5fbe570e8a06047bc59cb2cc802ca98819089a00163a7db61c3d10f43138730e"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/examples/voltagent/DESIGN.md",
+          "sha256": "65536f0609a9a715563fe9488cf2fd7730ecc799ddf6f5805cd0e81766d20cb7"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/design-md/README.md",
+          "sha256": "b1ec71b8952e703ab0cb474e3acb83a33a1af736a329b7bca9b7328e390b580b"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/impeccable-vendor-policy.md",
+          "sha256": "01e6d527926208f15cb738d14733800d67da1ab3801c51a7aa075a6b397688ae"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/opencode-compatibility-model.md",
+          "sha256": "07a0e817e07d05d3cbe0c8ad9b3c4dd28e9f2ce02329ae4a3245bcd4cb36846f"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/project-setup-policy.md",
+          "sha256": "0147803bb1df217de654cca07f5216662abd173dfa9efaaf2a55744aa49bf355"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/qa/examples/accessibility.md",
+          "sha256": "7655a2a915ea18d0c7a524818e7bdf54da8ac69ba497696d74b7d3f1c35a16bb"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/qa/examples/e2e-playwright.md",
+          "sha256": "a510550715a42f2e9fef9f0ec14a300d5d34da8183e80a52f2cb17af524ae06e"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/qa/examples/performance.md",
+          "sha256": "ac644eb245c241db67bca47392e1b42244ff33b3c1d1e254429acdbd3bc13556"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/qa/examples/web-quality-validation.md",
+          "sha256": "465b6d40078eee863ca26dfaa55212704ca3603776756ca98d8c2646441ccdd9"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/quality-gates.md",
+          "sha256": "6ef362bb578f18914aa8395c84d60f974ace3dd497a3ed9f97b1edb4eba13ddb"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/routing-matrix.md",
+          "sha256": "4e21f8efc65bb701b6b08b9cf1a8e84d0424056e836f264ad099940c6133bd98"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/routing-signals.json",
+          "sha256": "25c5373683e2291aeab72ff75f2be71b69c1d5a98653e922699e9daba70e522f"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/support-policy.md",
+          "sha256": "a785f5c26f19aafc824f7ecb87443d1382623f5cec098861a76c2b354aa73f52"
+        },
+        {
+          "kind": "reference",
+          "mode": "100755",
+          "path": ".opencode/reference/validate-opencode-bundle.sh",
+          "sha256": "721615aa0d2e9e43dbdac0473b3e9e0299a03c01de656e0fab6a36705cb9a870"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/web-3d-support-model.md",
+          "sha256": "0b46e070b802801aad0516bae9e5fa4a25e3f169731862a1a4795587375b4180"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/workflow-catalog.md",
+          "sha256": "9c2e6f533e5cb78c33221c58f8da39810ebef9a83367aa07b42313559cdef607"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/workflows/ai-data-product-delivery.md",
+          "sha256": "6b8d6892bedc6c610137d09d81addbb85449675be3a57017a41080e78033a918"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/workflows/backend-service-delivery.md",
+          "sha256": "194a9deb40533203279f422569dea3d03dda9c5d598751dbaf6dc64b94dace62"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/workflows/cloud-release-readiness.md",
+          "sha256": "e32b1aa855c9b426c9b41e692544b027219a31f4ecd4182dbfa028f372741e57"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/workflows/frontend-product-delivery.md",
+          "sha256": "1bfbd94225484b84b7cafdfa3a1d98c3c92ca0922e6d5e306a0a47c1485ee5c9"
+        },
+        {
+          "kind": "reference",
+          "mode": "100644",
+          "path": ".opencode/reference/workspace-model.md",
+          "sha256": "c7b91b747cf4118bb292597a3eb8a1cebf8cb4b02388c0b28a0ec5024869c4c5"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/adapt/SKILL.md",
+          "sha256": "3c92a3aa2edce54ffb7ce217405a6a8aad374c7c297f160ecfa2694a412d0325"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/animate/SKILL.md",
+          "sha256": "5063aa6081005e1df08fbad931c53179401397cb5339d395f7f8a9b97efb0d0a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/architecture-integration/SKILL.md",
+          "sha256": "3b8c10d4c328d666b847c2330a825f5ea67285a77e3cbe4c38cfe360b3d0bb68"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/arrange/SKILL.md",
+          "sha256": "c8642b998264933ba81a80f7529a69196a6d09e7b37c470ee2855fbe9ae68dac"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/audit/SKILL.md",
+          "sha256": "34e65609323166a260dac63e4c03f9608a7bccd292db2189845551b2edf1ae18"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-dotnet/reference/aspnet-core.md",
+          "sha256": "c7828ba32f5c3d80f1620e95393cf55220b97d437bcacb05b886b9c1a5c0ab3e"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-dotnet/SKILL.md",
+          "sha256": "db27e31cd3e4dd22517a9eb7f662041b0dd562b35b376497ba8662a33328d12e"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-go/reference/gin-echo-fiber.md",
+          "sha256": "acc97553eeb6a48b13c84c10b8237a05fbaceeed897ca4d3ea7910e53ad15b4d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-go/SKILL.md",
+          "sha256": "46b33ed6f734feed3c4323312e24179cf40e339837dea5a13730112413a4d48e"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-jvm/reference/quarkus-ktor.md",
+          "sha256": "45313c83a7a6458b30520071ccf396911b7171a3cf05bc5fb72a7420067c5e46"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-jvm/reference/spring-boot.md",
+          "sha256": "b0d78a1048742bdb3edf7f12070da8133105bda8dad732f49d91a87d5dc21364"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-jvm/SKILL.md",
+          "sha256": "6f9a7181a3440ca57c8ef39f9641c2f56906b1c6e6438e71a0882c5513165f3a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-node/reference/express-fastify-hono.md",
+          "sha256": "1f022bb174b6fc51dc82815f06433c5d65a6b5971ddfdd073a84ec9ec1f88d9a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-node/reference/nestjs.md",
+          "sha256": "d0a056d2d8d5595dc3d9df2a033ea71b045d830e33812d52a70a1fc92b88d549"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-node/SKILL.md",
+          "sha256": "964203f73bc5de2ade0caf09a9d63c3e76e46cc7f60f3b34f53d227af8e53ac2"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-python/reference/django-flask.md",
+          "sha256": "21ffbcdaf99d01a38910a94f0fd7ec1b6014c5298f071d0bd414b82cb511da55"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-python/reference/fastapi.md",
+          "sha256": "c565f09452e00b56beeae9295cd65de78f5f1aa09c69a5ef4741b6ad0255d498"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/backend-python/SKILL.md",
+          "sha256": "690566a1e73f13df6489c1ab5ecaf0c11451770d5171f1167e6fd70b55baf2ba"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/bolder/SKILL.md",
+          "sha256": "e812fd8f311e5a7eb4af881f1a93f39946f7fb6685f8e43b82b5ea0f7ef1b70b"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/clarify/SKILL.md",
+          "sha256": "38db945c318a97f7aed51242c1d62787a2971a9e121500451630b4c734c0ae7d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/colorize/SKILL.md",
+          "sha256": "1ce5f09a1eb7377f882bec18d95ea670416449f1123d4e2f0d56a8bce116ef1e"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/compass/SKILL.md",
+          "sha256": "eee74a70dbc72e699c35ebcafa044ab52cfd223418a5ccd03b465b4c3f87d10e"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/critique/reference/cognitive-load.md",
+          "sha256": "0e3065f6242ddaaaac97daf851fbce0b0f95975a26412aae5471020c0bf06ebd"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/critique/reference/heuristics-scoring.md",
+          "sha256": "936742a7dd636047dfa30a6f4cb9f36857c6f08d99c7a3af72359f10630c745f"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/critique/reference/personas.md",
+          "sha256": "295778d9142b141d0a5de7df1249713e65e5684c09f83d05520747d981e7d6bf"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/critique/SKILL.md",
+          "sha256": "0afc4dece0ffa787c22e55f979be0aa62cc1ff306d190467d64b6fb0bc8acf40"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/data-ml-platform/reference/model-serving-mlops.md",
+          "sha256": "d85f42e0e22edd52f21590cbec8a45640d322572a8882b480139c1854bd08d62"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/data-ml-platform/reference/pytorch-tensorflow-sklearn-r.md",
+          "sha256": "bd9fa31c80a6bb501ba70f38df2f80d60e55b679a8a79fd4e7be8201c660d6bb"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/data-ml-platform/reference/rag-vector-evals.md",
+          "sha256": "c9774acb8a59f1ae47faef62c763e474a5c733be693057216176e827a42c8604"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/data-ml-platform/reference/spark-dbt-airflow.md",
+          "sha256": "d2c99e25849d85b8fc4b3a326eb7f601252051be8315ebf92aef9c4f520f0e4d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/data-ml-platform/SKILL.md",
+          "sha256": "61ac306d830551fa421f4d98c9d7467abbcae4815611252e966c88315b766b5d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/database-engineering/reference/analytics-search-stores.md",
+          "sha256": "c54ce80a08942bb11936a0dbc346500b8174a8d975627571c81956e43ef97370"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/database-engineering/reference/postgres-mysql-mongodb-redis.md",
+          "sha256": "196e8065875daf3db1a17023feb73ec473d95b6f7dfef8a0c71a9680c606fc03"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/database-engineering/SKILL.md",
+          "sha256": "9e83106b3333f1edf8c7c1dea6dd43b3144f0f50cf12fddca52396b4ecb31ddc"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/delight/SKILL.md",
+          "sha256": "f46b4a67acbf2483c877d2a50b1caace529ee4b86c7381d545989da64b450d45"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/developer-experience/reference/local-dev-environments.md",
+          "sha256": "40be349020c2219df8997db542d0f7ab05d79cd7b6a08b06befd0fd54039aa00"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/developer-experience/reference/package-managers-monorepos.md",
+          "sha256": "26c49e7093d422eef1be37a60d3354fd5d6ecd01dc5f317d4915222ef870a3a5"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/developer-experience/SKILL.md",
+          "sha256": "bda4a383c332f9f295f0efbbe1fcb6e396bf9c0ba2a6254fe6d33ed9e953362a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/devops-platform/reference/aws-azure-gcp.md",
+          "sha256": "a23a339688d83a8b1dfecf8652bbc3fb782fb2058f127e7b4eb7429593d779e2"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/devops-platform/reference/docker-kubernetes-ci-cd.md",
+          "sha256": "4ab38be6504ad52b8fbf134e4f8f225706bcf347c718d9107ab30b79ad9c58b1"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/devops-platform/reference/github-actions-argo.md",
+          "sha256": "01e85c62af5ecdd435ed7e7d1a8c1b7bdc688ba3b4bd0330ac8d70d01255ddf5"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/devops-platform/reference/observability-sre.md",
+          "sha256": "1e602de03885dd04843f47ff30897ee4a7f2ee8ac7f5a5f1b6065ba296938d8d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/devops-platform/reference/terraform-pulumi.md",
+          "sha256": "2511f042815e60753245210e98415864c5b5d787e5e68e906a2720df185be4f2"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/devops-platform/SKILL.md",
+          "sha256": "8e8c0f349ab4b17547043d20ad8e186ae9058df411135afa6ebb172bc39cff17"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/distill/SKILL.md",
+          "sha256": "b932985b16fce38b795e891130f49fbc0b286091212b579ea8a09cd485ddaffc"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/documentation-sdk/reference/api-docs-openapi-sdk.md",
+          "sha256": "64da8b58b86d131401ab5b73c422b753c589670a4d7b35da6feb6a3516c477f0"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/documentation-sdk/reference/technical-writing-release-notes.md",
+          "sha256": "9f9f8dbb01c3fbfdbaae7eb372ad03184449b06b4199aec7be09cc25bf7575f8"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/documentation-sdk/SKILL.md",
+          "sha256": "71ac5ae324e57fd98529fc76536d80efab5486c268688c6ded4af72236246b05"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/extract/SKILL.md",
+          "sha256": "4e89e5e851899b13c42a3d40553ef41997d49c33079a7e18640af3ca188b8827"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-design/SKILL.md",
+          "sha256": "baf9ae4e7c202144423b2194780d530e0c9092c5f8604a81bafe991708b53a76"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/angular.md",
+          "sha256": "f700647d9837f43615ab87649a0329dedc7aee01b81eac195c0da3ef0b82bd00"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/babylon-playcanvas.md",
+          "sha256": "2794e72a05bb1ecc0cd7ea63fc126603df82e05209040e82f960f738b3ca2d35"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/browser-3d-platform.md",
+          "sha256": "d110dac988efb49baf83e21aeeee471d1059318cadfa1b36bce9e48d189d2f18"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/gltf-asset-pipeline.md",
+          "sha256": "11794dc2029adc59c22bef763d8075eea57f69f18f4a3cd609fa8efee6c3f2fe"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/nextjs.md",
+          "sha256": "22a34dc726ed91ed454d9831b57d8613711df5cb8c42100b595a7230a383360b"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/react-web.md",
+          "sha256": "5c6b37b83fdc774e54c2c38acb28570eed00fc65c00cdd0429a2b0330452831c"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/shader-material-workflows.md",
+          "sha256": "c60ca62671373be5d5b9bb06d2e6b47741cd95e105f4bc74f0dc3431c51f8326"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/svelte-astro.md",
+          "sha256": "aa9b21236e87f6eab219eadfbaa5f0cba9af3cc737a8ee6c81abb592674177ac"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/threejs-react-three-fiber.md",
+          "sha256": "899c7bea10606f78f282a5d4bb99207c1eeec99c013ae699a9ee8e16b497eefb"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/reference/vue-nuxt.md",
+          "sha256": "a420112660db08de804fdde1e987b0b93168893c4105dbdc08127a9335495bbf"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/frontend-web/SKILL.md",
+          "sha256": "a26af4623ee5ba19e60c028f2a7eb50354ddc230bd8f90cd57275df7eb2ca4b5"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/functional-platform/reference/elixir-phoenix-scala-clojure.md",
+          "sha256": "5cb44ce13dc3587f7b00db783437e108cb782d9e5d4e8e2e1281832571fc577d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/functional-platform/SKILL.md",
+          "sha256": "79a7f6864c0063ce87dc1028079bbf8f4f44d9b43084d12e7aaa627f7f26e120"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/harden/SKILL.md",
+          "sha256": "f57774798851fe5c4a2dd116479ee3425471c20b4dbb132941a0eed55ddae8b9"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/LICENSE",
+          "sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/NOTICE.md",
+          "sha256": "f4e353716443499823a74f484fb3b05fd2b04aadd18277aaf40ed7b02a4a42f9"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/adapt.md",
+          "sha256": "79984bf2223f7ffff03f8c8ccaa527d747b0cd1d083d99c2c781908413f1710a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/animate.md",
+          "sha256": "6ea6c9ba97add0e2511f386b7bb3df01d2539f59ea88b15e6fd4b9959699501c"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/audit.md",
+          "sha256": "4d126e8e6e32d1b1e0710d24b8d42f1cf1eed8c5bee83d3ef43576f3713145aa"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/bolder.md",
+          "sha256": "2d72962f911a2bd49cb8aabe8240a3a260443dea62a828ee5fb69009a10a85c2"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/brand.md",
+          "sha256": "7c5854c93ce4c5d8c3e1a6423c0ad517b5e8b9dc0ca40a285779ae96c73d261d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/clarify.md",
+          "sha256": "76187c98eb6551a564284441d8df6fe2891d67ac8ef0426afb8dd7ee12549b4d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/codex.md",
+          "sha256": "e9352b0796d7db1da8595c26a100f1c42aa135e4a7eb443b519bf8534aa13e73"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/cognitive-load.md",
+          "sha256": "944365dec799c122e89407c56a322a120c2401e27e41d745b57fbfbabe89da42"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/color-and-contrast.md",
+          "sha256": "87e0e1ee4268839d8eb9a194de6dd66d747c286a56f92a22d6f8266ca13984e6"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/colorize.md",
+          "sha256": "0636e7aa6898f6b1b510e3998367977a929432850a62384a099660674aa71ff6"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/craft.md",
+          "sha256": "3be4d0d0be01681683ebcab32c9302f4ed4b26adca0c8c6cea8d61fc11abd1e2"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/critique.md",
+          "sha256": "7f5f3e1558019ddd141bfc996eb99cf899d0f8521bf118e9dc29e89845e3042f"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/delight.md",
+          "sha256": "c07595aef05fea136487784f828f4f2d14759c771811cb1cda31c0a0c1848a81"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/design-md.md",
+          "sha256": "ed3e87722724e627a4c42284b5c3c76d5ddd9b9f7cdb86504a647a4ada648454"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/distill.md",
+          "sha256": "6ac04013d3c05e46c10793b2767ea79f079a4220eb7ac8c7ad0fa0a2d760c346"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/document.md",
+          "sha256": "38b7591b9b4caaead4e50af0f69c0a121e573fd989ec8e6f971e2d0a9250ca30"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/extract.md",
+          "sha256": "b4cd99a1f672567cd52ba17a4a8ebc3fea9059dea89f5e75002f031d00f1bab7"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/harden.md",
+          "sha256": "c72525acf34d5a5e1999ed7c8d6d9589a3da0d3a9d9668bf36f897a732bd8dde"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/heuristics-scoring.md",
+          "sha256": "ab9df337000d79bd44da3ab29d8260a75e1ef3331ba7c2995d580979520a1bb9"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/interaction-design.md",
+          "sha256": "b11b318017acf39998e092a49b1a38c8fe44d7dd16dfa525d509cda2a25688a3"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/layout.md",
+          "sha256": "a984629af5b22df248d88788821872d791c283df910b848599b7ba87e3f3ecb5"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/live.md",
+          "sha256": "d439d4274aa8f8d80048a70a46976bbe2bac0ace474a8edbaa1806fb28940231"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/motion-design.md",
+          "sha256": "6c7697aa18887407f168fa72e65265e5d9857bffa8445e74d98ba1344b5e017d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/onboard.md",
+          "sha256": "9a2c08ee2516d2ee87129e7ebe6a0895f9990c9852d1f6fa7e70be9a6a88a659"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/optimize.md",
+          "sha256": "73745e94cd4a42653165a89b8c512764a036daae8e5b6da1774b4ddc1659516d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/overdrive.md",
+          "sha256": "47d7b69bf18dd388eba0d2731836305ff8bcad48b9850724d5057f333250be46"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/personas.md",
+          "sha256": "737674c5f4d2f5e1b8490e2552d9e8daa1acdee38e9d84fe23e9507e77ef2c93"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/polish.md",
+          "sha256": "50f2a06297bf5d12e08807841fc2850fb9e0c0bfd14bf076fdda8b6b4548ab6d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/product.md",
+          "sha256": "e955b22fe8db598899b553e0966f8d736f3885c92711c9759b5f04bbfdb9097b"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/quieter.md",
+          "sha256": "652c5dac72de9a7c4091682f78981bd68d5d143d5f8a53749d0b70c648fbe12d"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/responsive-design.md",
+          "sha256": "fefc1acaf1d293c74374c62c8c75629efa0660387315474d6302dc74b7f3ead0"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/shape.md",
+          "sha256": "8a8717dd5b05ce84f5e31e7cc9110c36d76d872311498c3cc5dd49d6dd3647f7"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/spatial-design.md",
+          "sha256": "6e104d26025d4fba99f7bb538f8479f0d34877ce7cdf94481d08aea6a352bb6b"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/teach.md",
+          "sha256": "afebd7c7516a9ab78252e996aeb399fda427fea95cba37c52c69061681de30bb"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/typeset.md",
+          "sha256": "67009b3ff8df53077408d8f161f05a9a96131c0c263c8e8ba44fac0246ed2f56"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/typography.md",
+          "sha256": "d08a05014d5009a5f1cc156236ba64a1d24463bb1e7141bdcca9269139d9ea64"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/reference/ux-writing.md",
+          "sha256": "20be4fe822a77558e8e169514ac7e6685d51703537b899e262f542fe99ed6af9"
+        },
+        {
+          "kind": "skill",
+          "mode": "100755",
+          "path": ".opencode/skills/impeccable/scripts/cleanup-deprecated.mjs",
+          "sha256": "5b1a36e3241e14ba8645881e8f07255748ca7f7a158a11e1df99043357a4b6d2"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/command-metadata.json",
+          "sha256": "d7167de1e3c242eb3788389f7c856914d05aef8e38271f9fc1aa48005992621a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100755",
+          "path": ".opencode/skills/impeccable/scripts/critique-storage.mjs",
+          "sha256": "3532237907d48062b9ce36438eb710a15937b5348878eb18552b06cb6b38a3d9"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/design-parser.mjs",
+          "sha256": "6e7b463344cdf59353acaf48f554ac0aad5a0a46cb1237a0d1a697ddc7759eab"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/detect-csp.mjs",
+          "sha256": "2d80520bef13cb93107699714bc0d2be5a2787a9aa079ecec91b94508a8125a4"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/impeccable-paths.mjs",
+          "sha256": "e828b4e75a1b3cf12b4bc16b854180d62544c366bf08ffe90f5652c7ff275d4a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/is-generated.mjs",
+          "sha256": "ed5b0b00e99ed385db541c7a068cb85f72456a4b6aa7a5460037d24b58bd90cd"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/live-accept.mjs",
+          "sha256": "92c0a973866a6c69795713e3562d8b4dcb57db95ab7603edac29cde656cc0a83"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/live-browser-session.js",
+          "sha256": "dddcb8b941f7460aa6a134f7d456b1820747172c12e01de36dab3265b1065cff"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/live-browser.js",
+          "sha256": "d022aea7a3ec35df374865c3f10b0b722d60aa2dce7442f9664a627250ad68cc"
+        },
+        {
+          "kind": "skill",
+          "mode": "100755",
+          "path": ".opencode/skills/impeccable/scripts/live-complete.mjs",
+          "sha256": "ada702f177432c9645bf2675b8f69ac5f6be5b63f4540eb161159a247eddd697"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/live-completion.mjs",
+          "sha256": "67f11f7823b366946cae6b9b4794dec40199951d3d2bd57af759fd1511030f45"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/live-inject.mjs",
+          "sha256": "f4d9dfba7cb9350b5e298c8ed6cb4ee46473483644f873fb87181ea07babf06c"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/live-poll.mjs",
+          "sha256": "02910a4d3547ca685198df4940f08f6b69efbcdb7633206c16f256ff54ae478e"
+        },
+        {
+          "kind": "skill",
+          "mode": "100755",
+          "path": ".opencode/skills/impeccable/scripts/live-resume.mjs",
+          "sha256": "741b6799a406b835ccaffb396d6c12109ee596659eb751d2e8865b4fc5a08e3f"
+        },
+        {
+          "kind": "skill",
+          "mode": "100755",
+          "path": ".opencode/skills/impeccable/scripts/live-server.mjs",
+          "sha256": "8db37f313b421f1a167e682fba8a64c49dd383bf8fac43da8d9db650efe89c27"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/live-session-store.mjs",
+          "sha256": "f3146096b4dfb95ca36a7a669ae9904db83d327da06b9f532ee056d0076fdbac"
+        },
+        {
+          "kind": "skill",
+          "mode": "100755",
+          "path": ".opencode/skills/impeccable/scripts/live-status.mjs",
+          "sha256": "bb8a936387a53a6c8eee0c5848b5fda9a6ab60098011e110379d2db47529fbc6"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/live-wrap.mjs",
+          "sha256": "062bf8ce9f9d5040174e4316189dd5e8b0122757ba755985257cb14b221aba92"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/live.mjs",
+          "sha256": "afc30c259057fd96c72b77e165971017348b9837a221701c599c8c1475b632ce"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/load-context.mjs",
+          "sha256": "ece13459c80423a8cba49e97419c8bfbb9e0c6cb9ede1bf7ffcebaf11db7bea8"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/scripts/modern-screenshot.umd.js",
+          "sha256": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b"
+        },
+        {
+          "kind": "skill",
+          "mode": "100755",
+          "path": ".opencode/skills/impeccable/scripts/pin.mjs",
+          "sha256": "89a7056adfaca280519a1cc679b2e33f083300c3ed02a4fe7c71cf4d8c443bb6"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/impeccable/SKILL.md",
+          "sha256": "876fe34065b2bbd53d911c9719e4eefc73d978ccdb4819a49d1d71d672062e44"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/mobile-app/reference/flutter.md",
+          "sha256": "3a04b12f5bf3eab4746e4839dc67dcc3306ccc14326df2a44bf523edd937fc5b"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/mobile-app/reference/jetpack-compose.md",
+          "sha256": "1f615dfac16e0098585cbf0260cb92b8b487005eb915f6e0e50a57d4a7cdc367"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/mobile-app/reference/react-native.md",
+          "sha256": "ea3d7efaa91a88f9cb72dbcff765e20056b406b76496ec13b18ecff1a4e8d885"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/mobile-app/reference/swiftui.md",
+          "sha256": "fcaf36364292e985415677b44a17dfab799a0d596536f8c278dba4004394a2b9"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/mobile-app/SKILL.md",
+          "sha256": "5fa22fd1677985be2ff9bf92095119c7f280ff9479451057bcbee27f05ce4431"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/normalize/SKILL.md",
+          "sha256": "e79280f56dcf9c497928f3bd29dabc0a93fa46c58caec9b099e459da6b42d8c9"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/onboard/SKILL.md",
+          "sha256": "ad8c32715c336d45af7924d97a49152a245009619a75b30ffce62d299080640a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/optimize/SKILL.md",
+          "sha256": "62fcac38c41743e5386ce659d28f8906cef11b705d13d7499d0ca40c3d6a933a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/overdrive/SKILL.md",
+          "sha256": "24494f993b44b4b1b2f5bd57a0732a57dd77af16e30c6bb1c26be24e5eb6002a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/php-ruby-platform/reference/laravel-symfony-rails.md",
+          "sha256": "586f5c619d318ff212b7ba5402e55d29861e557b20b04dc5a7d161d07dee725a"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/php-ruby-platform/SKILL.md",
+          "sha256": "651b73015d7d0309a49cdfdc65aa6a81f4e46b32ed2446c0f2165ec76456887c"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/polish/SKILL.md",
+          "sha256": "7d821b828271c1aeb27418a7ff60e7ae30da56516a5bd7713ab8bafd92a3440f"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/qa-validation/reference/api-contract-load-visual.md",
+          "sha256": "6ed86eaefbfa2493732fe6aca13a5f1eb3dbec7fdad59edcc3eaefe613ed36b1"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/qa-validation/reference/browser-3d-validation.md",
+          "sha256": "20402e77c61831998019e4bb37dbd2ba3332601ef11200aa1c2d5cba7a403e3e"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/qa-validation/reference/mobile-test-matrix.md",
+          "sha256": "470c4744b66ee75ec073ec4e030b5929ab85eb48d98c2e4ab69780bae5a0e164"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/qa-validation/SKILL.md",
+          "sha256": "d90da80f5648f32496831ccb409dd9422ce3957c60197088f38dada5e3538a9c"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/quieter/SKILL.md",
+          "sha256": "b50d923a2ff3517afe26f7e491350ba818a33525fc0d025d972f7e25b9403cc7"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/release-engineering/reference/rollback-promotion-feature-flags.md",
+          "sha256": "ba2da9d13ee84aa305f8b58839d3af12877f285ef6e11c29bbc5b4fb94447e04"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/release-engineering/reference/versioning-changelog-publishing.md",
+          "sha256": "e268f5b4fb6a7029714b58ec349af04e5713f6ac719ea30cc65e9a8b5f73b61c"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/release-engineering/SKILL.md",
+          "sha256": "6ae370003998f12c2a1c5916976ed544cfdd942f37c2c5133c760d92d05273a4"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/security-engineering/reference/auth-owasp-secrets.md",
+          "sha256": "914611be2101116f76b3e03c077b1df0b9a2b3b83be2b2c7a7b338d98cbd1ce7"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/security-engineering/reference/supply-chain-cloud-security.md",
+          "sha256": "cd87f22586696d5dbed7cfb2809ba73db5b8ba11e4a8b3c67dad2995317b9f71"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/security-engineering/SKILL.md",
+          "sha256": "9f61a5aaf5118155b55f0f1ad4ee8198074c8e82a466803c78e4a100e021c235"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/service-vernacular/reference/contract-safety.md",
+          "sha256": "e8d75607279c8b04c8bd0f1c083470cd58f51b2fa8203eaba5bbec26b63d95af"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/service-vernacular/reference/examples.md",
+          "sha256": "6d4a7bbd9b0ce3957b5248cf9e0d339f67373ab94ee432a2f330e8c5d71c1919"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/service-vernacular/reference/language-dossier.md",
+          "sha256": "4c475609ba38de632639dac3967b26f625b5b5d3df4b6588dc6999ad88eb1858"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/service-vernacular/reference/rewrite-gates.md",
+          "sha256": "0b72e6ecc8756cde2cd8a586dd1c8738f12b06c7ef5add3cec5f8dc9c940c9b2"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/service-vernacular/reference/slop-detector.md",
+          "sha256": "e60c18af54bbcf82997d0f1aa4aa571a606dccc51a75dcf20f33085869397fc3"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/service-vernacular/reference/surface-registers.md",
+          "sha256": "f8771a3e09162794b7bdd1b3602d82fc20f99324c494af9c584e3d9a42c5690f"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/service-vernacular/SKILL.md",
+          "sha256": "776a299c20a334ee136ada0aa878aa6c06aa94b31161af335b19049c286ab4a1"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/shape/SKILL.md",
+          "sha256": "f06e4368953c79c8d7708683f0ca5619451fb3fbc220ad961ef9c23a380abfc0"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/systems-c-cpp/reference/cmake-gtest-embedded.md",
+          "sha256": "248503518aa9eb06209f517b24ac50f9eeb70f7eb38f07a0b64e5fccf458e9e1"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/systems-c-cpp/SKILL.md",
+          "sha256": "181f82655e511997ad19411db15694a0771048023298bf6eed102fc701210227"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/systems-rust/reference/axum-actix-wasm.md",
+          "sha256": "2f298f85c0661c5a819ec0c9894221ac379abedf162546e1bc95b63d357de24e"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/systems-rust/reference/wasm-browser-3d-performance.md",
+          "sha256": "1ac5c3f6fd481ce439a2be61a897b5c3ae157dd496cd587d76a19da126b345f1"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/systems-rust/SKILL.md",
+          "sha256": "66dd1235fd8847f2eff8a6d508427b332df8b716fb419cde59326fbd398ca37f"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/teach-impeccable/SKILL.md",
+          "sha256": "1930214ccec621bc07c3ba1c86fa468d70b56858a1add2f2ecc27674036ee9d4"
+        },
+        {
+          "kind": "skill",
+          "mode": "100644",
+          "path": ".opencode/skills/typeset/SKILL.md",
+          "sha256": "4383ad8d620ee18306a95cbdc37909b34464ef2cd40be1e2c9d1d5024e79ebdb"
+        },
+        {
+          "kind": "root-doc",
+          "mode": "100644",
+          "path": "CHANGELOG.md",
+          "sha256": "44ceff8fce1f03fc4b211dc31d1704bae1928509f741a7af6a80ef816ea7542c"
+        },
+        {
+          "kind": "license",
+          "mode": "100644",
+          "path": "LICENSE",
+          "sha256": "650cf7ecfce8ca7998ef1d3aceac7a2e965a674dcd0c703a1378076dc8abd22a"
+        },
+        {
+          "kind": "root-doc",
+          "mode": "100644",
+          "path": "README.md",
+          "sha256": "76b051ff3245c7cc96f7ee6d775f31cbebc7570626ac3a152fbd940cba877c88"
+        },
+        {
+          "kind": "root-doc",
+          "mode": "100644",
+          "path": "VERSION",
+          "sha256": "97a5d6e540a6120d09c39ddb667e0e8e2bac7fcc2ffef813b82e08fd60365bce"
+        }
+      ],
+      "manifestSha256": "554929099a79184ebeae2e2ec32dc1cc207f022145e4b4f20c3243a76caacbf2",
+      "version": "0.6.0"
+    }
+  ]
+}

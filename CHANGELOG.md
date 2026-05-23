@@ -11,6 +11,23 @@ Versioning rules:
 - Patch: validator fixes, wording corrections, guardrail tightening, and non-breaking documentation updates.
 
 
+## v0.6.0 - 2026-05-24
+
+Minor toolkit release adding safe migration for legacy/manual installs and explicit guided init UX.
+
+#### Highlights
+
+* Added safe migration docs and CLI flow for existing or manual target installs through `migrate --dry-run`, `migrate --apply`, and `init --migrate --dry-run`.
+* Documented migration action labels: `adopt-identical`, `replace-known-stale`, `create-missing`, `preserve-project-owned`, `needs-review`, and `unsafe-conflict`, including marker-safe `AGENTS.md` handling.
+* Added explicit guided installer UX through `init --guided`; bare `init` remains dry-run/default-safe, and changing bare TTY `init` to guided by default remains a future decision.
+* Documented `localOnly` as lockfile preservation metadata for project-owned files respected by `validate`, `doctor`, `init`, `migrate`, and `update`.
+
+#### Boundaries
+
+* `--dry-run` writes nothing. `--force` and `--overwrite` are rejected guardrails, not migration safety flags.
+* Support and validation boundaries stay unchanged: v0.6 migration and guided init do not add primary routes, workflow validation, or native OpenCode behavior.
+* Migration uses package-local historical hashes only and does not fetch history at runtime.
+
 ## v0.5.0 - 2026-05-22
 
 Minor toolkit release publishing the project-local installer/updater CLI for safe target-project installation, validation, diffing, and updates.

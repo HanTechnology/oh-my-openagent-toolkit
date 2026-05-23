@@ -1,6 +1,6 @@
 {
   "name": "oh-my-openagent-toolkit",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "type": "module",
   "bin": {
     "oh-my-openagent-toolkit": "./bin/omo-toolkit.mjs",

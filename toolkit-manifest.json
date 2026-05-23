@@ -2513,8 +2513,8 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "bf69aa8131ad6d774124e902b96ac9d4b38ecaa59ec0922a37bf4611251a8cd6",
-      "size": 10007,
+      "sha256": "44ceff8fce1f03fc4b211dc31d1704bae1928509f741a7af6a80ef816ea7542c",
+      "size": 11231,
       "strategy": "opt-in"
     },
     {
@@ -2537,8 +2537,8 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "fae5d7158de469de6f6435155e0a17a6d94090a9019f1977e3c67ee7f999162f",
-      "size": 19541,
+      "sha256": "76b051ff3245c7cc96f7ee6d775f31cbebc7570626ac3a152fbd940cba877c88",
+      "size": 23112,
       "strategy": "opt-in"
     },
     {
@@ -2549,7 +2549,7 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "a0ad50640139a524f86591157145bf1d4674ea9c065bfea21558f0f7b04430c8",
+      "sha256": "97a5d6e540a6120d09c39ddb667e0e8e2bac7fcc2ffef813b82e08fd60365bce",
       "size": 6,
       "strategy": "opt-in"
     }
@@ -2597,11 +2597,11 @@
   },
   "schema": 1,
   "source": {
-    "generatedAt": "2026-05-23T00:51:40.315Z",
+    "generatedAt": "2026-05-23T15:49:26.182Z",
     "gitCommit": null
   },
   "toolkit": {
     "packageName": "oh-my-openagent-toolkit",
-    "version": "0.5.0"
+    "version": "0.6.0"
   }
 }
