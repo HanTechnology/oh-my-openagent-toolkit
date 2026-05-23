@@ -19,11 +19,14 @@ const FIXTURE_NAMES = [
   'duplicate-agents-block',
   'existing-opencode-unmanaged',
   'local-modification',
+  'partial-agents-block',
+  'unmarked-toolkit-agents',
   'bad-plugin-config',
   'crlf-agents',
   'symlink-escape',
   'case-collision',
-  'invalid-lockfile'
+  'invalid-lockfile',
+  'historical-known-old'
 ];
 
 test('fixture inventory is complete', () => {
@@ -77,6 +80,12 @@ test('agents fixtures cover existing, duplicate, CRLF, and local-modification st
   const localLockfile = JSON.parse(fs.readFileSync(fixturePath('local-modification', '.omo', 'lockfile.json'), 'utf8'));
   const localModification = planAgentsManagedBlock(localAgents, { lockfile: localLockfile });
   assert.equal(localModification.code, AGENTS_BLOCK_CONFLICTS.localModification);
+
+  const partialAgents = fs.readFileSync(fixturePath('partial-agents-block', 'AGENTS.md'), 'utf8');
+  assert.equal(planAgentsManagedBlock(partialAgents).code, AGENTS_BLOCK_CONFLICTS.partialBlock);
+
+  const unmarkedAgents = fs.readFileSync(fixturePath('unmarked-toolkit-agents', 'AGENTS.md'), 'utf8');
+  assert.equal(planAgentsManagedBlock(unmarkedAgents).code, AGENTS_BLOCK_CONFLICTS.unmarkedToolkitText);
 });
 
 test('opencode config fixtures cover unmanaged and bad top-level paths shapes', () => {
