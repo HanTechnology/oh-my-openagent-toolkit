@@ -284,6 +284,51 @@ test('update apply preserves local modifications and exits conflict state', () =
   }
 });
 
+test('update treats active manifest localOnly paths as project-owned during check and apply', () => {
+  const temp = installedOutdatedTarget();
+  try {
+    const localContent = `${OLD_CONTENT}project local override\n`;
+    fs.writeFileSync(path.join(temp.target, UPDATE_FILE), localContent);
+    addLocalOnlyOverride(temp.target, UPDATE_FILE);
+    const before = snapshotTarget(temp.target);
+
+    const check = runBin(['update', '--check', '--target', temp.target]);
+    assert.equal(check.status, 0, check.stderr);
+    assert.match(check.stdout, /skip-unmanaged \.opencode\/commands\/route-domain\.md/);
+    assert.doesNotMatch(check.stdout, /replace \.opencode\/commands\/route-domain\.md/);
+    assert.doesNotMatch(check.stdout, /create \.opencode\/commands\/route-domain\.md/);
+    assert.deepEqual(snapshotTarget(temp.target), before);
+
+    const apply = runBin(['update', '--apply', '--target', temp.target]);
+    assert.equal(apply.status, 0, apply.stderr);
+    assert.match(apply.stdout, /No changes to apply\./);
+    assert.doesNotMatch(apply.stdout, /replace \.opencode\/commands\/route-domain\.md \[write\]/);
+    assert.equal(fs.readFileSync(path.join(temp.target, UPDATE_FILE), 'utf8'), localContent);
+    assert.deepEqual(readTargetLockfile(temp.target).overrides.localOnly, [UPDATE_FILE]);
+  } finally {
+    temp.cleanup();
+  }
+});
+
+test('update apply preserves missing localOnly overrides in the next lockfile', () => {
+  const temp = installedTarget();
+  try {
+    addLocalOnlyOverride(temp.target, UPDATE_FILE);
+    fs.rmSync(path.join(temp.target, UPDATE_FILE));
+    writeStaleManifestIdentity(temp.target);
+
+    const result = runBin(['update', '--apply', '--target', temp.target]);
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /lockfile-write \.opencode\/oh-my-openagent-toolkit\.lock\.json \[write\]/);
+    assert.doesNotMatch(result.stdout, /create \.opencode\/commands\/route-domain\.md \[write\]/);
+    assert.equal(fs.existsSync(path.join(temp.target, UPDATE_FILE)), false);
+    assert.deepEqual(readTargetLockfile(temp.target).overrides.localOnly, [UPDATE_FILE]);
+    assert.equal(readTargetLockfile(temp.target).files.some((record) => record.path === UPDATE_FILE), false);
+  } finally {
+    temp.cleanup();
+  }
+});
+
 test('update rejects missing and invalid lockfiles as invalid update state', () => {
   const missing = createTempTargetFromFixture('empty-target');
   try {
@@ -379,6 +424,14 @@ function writeTargetLockfile(target, lockfile) {
   fs.writeFileSync(path.join(target, LOCKFILE_RELATIVE_PATH), `${JSON.stringify(lockfile, null, 2)}\n`);
 }
 
+function addLocalOnlyOverride(target, relativePath) {
+  const lockfile = readTargetLockfile(target);
+  lockfile.overrides ??= {};
+  lockfile.overrides.skip ??= [];
+  lockfile.overrides.localOnly = [...new Set([...(lockfile.overrides.localOnly ?? []), relativePath])].sort((left, right) => left.localeCompare(right, 'en-US'));
+  writeTargetLockfile(target, lockfile);
+}
+
 function writeStaleManifestIdentity(target) {
   const lockfile = readTargetLockfile(target);
   lockfile.manifest.sha256 = '0'.repeat(64);
@@ -393,7 +446,25 @@ function installedTarget(initArgs = []) {
   const temp = createTempTargetFromFixture('empty-target');
   const result = runBin(['init', '--apply', ...initArgs, '--target', temp.target]);
   assert.equal(result.status, 0, result.stderr);
+  if (initArgs.includes('--with-root-docs')) rewriteOptInRootDocLockHashes(temp.target);
   return temp;
+}
+
+function rewriteOptInRootDocLockHashes(target) {
+  const lockfile = readTargetLockfile(target);
+  for (const [targetPath, sourcePath] of [
+    [ROOT_DOC_TARGET, ROOT_DOC_SOURCE],
+    ['CHANGELOG.oh-my-openagent-toolkit.md', 'CHANGELOG.md'],
+    ['LICENSE.oh-my-openagent-toolkit', 'LICENSE'],
+    ['VERSION.oh-my-openagent-toolkit', 'VERSION'],
+  ]) {
+    const record = lockfile.files.find((entry) => entry.path === targetPath);
+    if (!record) continue;
+    const currentHash = sha256(fs.readFileSync(path.join(PACKAGE_ROOT, sourcePath)));
+    record.sha256 = currentHash;
+    record.sourceSha256 = currentHash;
+  }
+  writeTargetLockfile(target, lockfile);
 }
 
 function installedOutdatedTarget() {

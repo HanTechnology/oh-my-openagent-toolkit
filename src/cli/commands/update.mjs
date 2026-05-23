@@ -177,6 +177,7 @@ function snapshotTargetFiles(targetRoot, manifest, lockfile) {
   const paths = new Set(['AGENTS.md', LOCKFILE_RELATIVE_PATH]);
   for (const entry of manifest.files) paths.add(entry.path);
   for (const record of lockfile.files ?? []) paths.add(record.path);
+  for (const relativePath of lockfile.overrides?.localOnly ?? []) paths.add(relativePath);
 
   const targetFiles = {};
   for (const relativePath of paths) {

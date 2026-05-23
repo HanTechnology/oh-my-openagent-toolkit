@@ -163,6 +163,50 @@ test('plans local deletion of a lock-owned managed file as a safe restore', () =
   assert.equal(hasAction(plan, OPERATION_ACTIONS.DELETE_CANDIDATE, routeEntry.path), false);
 });
 
+test('treats active manifest localOnly paths as project-owned instead of managed writes', () => {
+  const routeEntry = manifestFile('.opencode/commands/route-domain.md', 'route new\n', {
+    kind: 'command',
+    profiles: ['core'],
+  });
+  const previousLockfile = previousLockfileFor([lockRecord(routeEntry, sha256('route old\n'))]);
+  previousLockfile.overrides.localOnly = [routeEntry.path];
+
+  const presentPlan = planOperations({
+    manifest: sampleManifest([routeEntry]),
+    lockfile: previousLockfile,
+    now: NOW,
+    targetFiles: {
+      '.opencode/commands/route-domain.md': 'route old\nlocal edit\n',
+      'AGENTS.md': buildAgentsManagedBlock(),
+    },
+  });
+
+  const presentSkip = actionFor(presentPlan, OPERATION_ACTIONS.SKIP_UNMANAGED, routeEntry.path);
+  assert.equal(presentPlan.ok, true);
+  assert.equal(presentSkip.write, false);
+  assert.equal(presentSkip.ruleId, OPERATION_RULES.FILE_LOCAL_ONLY);
+  assert.equal(hasAction(presentPlan, OPERATION_ACTIONS.CREATE, routeEntry.path), false);
+  assert.equal(hasAction(presentPlan, OPERATION_ACTIONS.REPLACE, routeEntry.path), false);
+  assert.equal(presentPlan.plannedWrites.some((write) => write.path === routeEntry.path), false);
+  assert.deepEqual(presentPlan.lockfile.files, []);
+  assert.deepEqual(presentPlan.lockfile.overrides.localOnly, [routeEntry.path]);
+
+  const missingPlan = planOperations({
+    manifest: sampleManifest([routeEntry]),
+    lockfile: previousLockfile,
+    now: NOW,
+    targetFiles: {
+      'AGENTS.md': buildAgentsManagedBlock(),
+    },
+  });
+
+  assert.equal(missingPlan.ok, true);
+  assert.equal(hasAction(missingPlan, OPERATION_ACTIONS.CREATE, routeEntry.path), false);
+  assert.equal(missingPlan.plannedWrites.some((write) => write.path === routeEntry.path), false);
+  assert.deepEqual(missingPlan.lockfile.files, []);
+  assert.deepEqual(missingPlan.lockfile.overrides.localOnly, [routeEntry.path]);
+});
+
 test('skips unmanaged existing target files instead of overwriting them', () => {
   const unmanagedContent = fs.readFileSync(
     fixturePath('existing-opencode-unmanaged', '.opencode', 'oh-my-openagent.jsonc'),

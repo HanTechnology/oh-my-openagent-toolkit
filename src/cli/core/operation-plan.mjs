@@ -37,6 +37,7 @@ export const OPERATION_RULES = Object.freeze({
   AGENTS_MISSING_LOCKFILE_MANAGED_BLOCK: 'agents.missing-lockfile-managed-block',
   AGENTS_STALE: 'agents.stale',
   FILE_LOCAL_MODIFICATION: 'file.local-modification',
+  FILE_LOCAL_ONLY: 'file.local-only',
   FILE_MISSING_LOCKFILE_INSTALLED_ASSET: 'file.missing-lockfile-installed-asset',
   FILE_SOURCE_DELETED_LOCAL_MODIFICATION: 'file.source-deleted-local-modification',
 });
@@ -171,6 +172,20 @@ function planManifestFile(context) {
     targetFile,
     nextFileRecords,
   } = context;
+
+  if (overrideLocalOnly.has(entry.path)) {
+    recordAction(actions, {
+      action: OPERATION_ACTIONS.SKIP_UNMANAGED,
+      kind: 'file',
+      path: entry.path,
+      profile,
+      reason: 'path is marked project-owned in lockfile overrides.localOnly',
+      ruleId: OPERATION_RULES.FILE_LOCAL_ONLY,
+      sourceSha256: entry.sha256,
+      targetSha256: targetFile?.sha256,
+    });
+    return;
+  }
 
   if (!targetFile) {
     recordManagedFile(actions, nextFileRecords, entry, {
