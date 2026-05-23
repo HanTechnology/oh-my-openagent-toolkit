@@ -111,7 +111,13 @@ Use this path from the target project root when you want the toolkit installed i
 ```sh
 npx oh-my-openagent-toolkit init --dry-run
 npx oh-my-openagent-toolkit init --apply
+npx oh-my-openagent-toolkit migrate --dry-run
+npx oh-my-openagent-toolkit migrate --apply
+npx oh-my-openagent-toolkit init --migrate --dry-run
+npx oh-my-openagent-toolkit init --guided
+npx oh-my-openagent-toolkit init --guided --yes
 npx oh-my-openagent-toolkit update --check
+npx oh-my-openagent-toolkit validate
 bunx oh-my-openagent-toolkit doctor
 ```
 
@@ -126,7 +132,32 @@ bunx --package oh-my-openagent-toolkit omo-toolkit doctor
 
 Default `init` manages the toolkit `.opencode/` payload, the toolkit lockfile, and the managed block in `AGENTS.md`. Root docs and `.mcp.json` are opt-in target artifacts. The default install does not overwrite a target project's README, changelog, version file, license, or `.mcp.json`; add opt-in flags only when you intend to copy those references.
 
-Installed target validation is CLI-only in v1: run `node bin/omo-toolkit.mjs validate --target <path>` from a toolkit checkout or unpacked package. The shell source validator remains for this repo source bundle and accepts only `foundation` or `full`.
+v0.6 keeps setup safe by default. Bare `init` remains a dry-run preview when you do not pass a mode, and it is still the default-safe installer path. `init --guided` is the explicit guided installer flow. In a TTY, guided init asks for the profile, optional MCP config, optional root docs, legacy migration, and final apply choice. Outside a TTY or in CI, it uses deterministic defaults and stays dry-run unless you pass `--apply` or `--yes`. `init --guided --yes` chooses deterministic defaults and applies them unless `--dry-run` was supplied explicitly. Changing bare TTY `init` to guided by default remains a future decision, not v0.6 behavior.
+
+### v0.6 migration and guided init
+
+Use migration when a target already has toolkit-looking `.opencode/` files, `AGENTS.md`, or a prior manual toolkit copy without matching lockfile ownership. Migration uses historical hashes shipped inside the package. It does not fetch history from the network at runtime.
+
+`migrate --dry-run` is the first command to run. `--dry-run` writes nothing: it only prints the plan, conflicts, review items, and `localOnly` paths. `migrate --apply` writes only safe actions from that plan. In v0.6, `--force` and `--overwrite` are not migration safety flags. They are rejected guardrails, not supported ways to replace project-owned files.
+
+Migration action labels mean:
+
+| Label | Meaning |
+| --- | --- |
+| `adopt-identical` | The target file already matches the current toolkit payload, so migration records ownership without rewriting the file. |
+| `replace-known-stale` | The target file matches a package-local historical toolkit hash, so `--apply` can replace it with the current package payload. |
+| `create-missing` | A toolkit file is absent from the target, so `--apply` can create it. |
+| `preserve-project-owned` | A file under a managed `.opencode/` root is not part of the toolkit manifest, so migration leaves it alone and records it as project-owned. |
+| `needs-review` | A toolkit path has project bytes that do not match the current payload or a known historical payload, so migration leaves it alone and asks you to review it. |
+| `unsafe-conflict` | The target has a path or marker shape the CLI cannot safely classify, such as a directory where a file is expected, a symlink, an invalid path, or broken `AGENTS.md` markers. No writes run until you fix it. |
+
+`AGENTS.md` migration is marker-safe. The CLI may insert, adopt, or replace only the OMO Toolkit managed block. Project-authored content outside the managed markers stays untouched. Unknown managed blocks or unmarked toolkit-like text become `needs-review`; duplicate, nested, or partial markers become `unsafe-conflict`.
+
+`localOnly` is the lockfile list for project-owned paths the toolkit must preserve. Migration records preserved or review-needed files there, and `validate`, `doctor`, `init`, `migrate`, and `update` respect those paths as project-owned instead of treating them as managed toolkit bytes. `localOnly` does not change support tiers or validated workflow status.
+
+`doctor` is read-only. When it sees legacy or manual `.opencode` targets without a toolkit lockfile, doctor suggests `migrate --dry-run` before `init --dry-run`.
+
+Installed target validation is CLI-only: run `npx oh-my-openagent-toolkit validate` from the target root or add `--target <path>`. From a toolkit checkout or unpacked package, `node bin/omo-toolkit.mjs validate --target <path>` checks the same installed-target surface. The shell source validator remains for this repo source bundle and accepts only `foundation` or `full`.
 
 ### Path 2: Clone/source workflow
 
@@ -141,7 +172,7 @@ bash .opencode/reference/validate-opencode-bundle.sh full
 
 The clone workflow does not validate an installed target project. Use `node bin/omo-toolkit.mjs validate --target <path>` for that.
 
-Neither setup path changes the support boundary. The current validated workflow surface stays limited to the four workflows listed above, and installer/update mechanics are not a new support tier.
+Neither setup path changes the support boundary. The current validated workflow surface stays limited to the four workflows listed above, and installer/update mechanics do not change support tiers.
 
 Once you are in this repo, read the local docs in this order:
 
@@ -189,7 +220,7 @@ Report bugs or documentation gaps as GitHub issues with a small reproduction, af
 
 Security reporting: there is no dedicated `SECURITY.md` in this repo right now. If GitHub Security Advisories are enabled, use them for private vulnerability reports. Otherwise, open a minimal public issue asking the maintainers to provide a private channel, and do not include exploit details, credentials, or private data in that issue.
 
-Support is community maintenance for this public bundle. Funding links do not create a paid support tier, a response commitment, or an expanded validated surface.
+Support is community maintenance for this public bundle. Funding links do not create paid support, response commitments, or validation boundary changes.
 
 ## Support the project
 
@@ -198,7 +229,7 @@ If this bundle saves you time or helps your team get oriented faster, you can he
 [![Support via Stripe](https://img.shields.io/badge/support%20this%20project-Stripe-635bff?style=for-the-badge&logo=stripe&logoColor=white)](https://buy.stripe.com/bJe8wQbkobMt4Am6IqaZi00)
 [![Sponsor maintenance](https://img.shields.io/badge/sponsor%20maintenance-Stripe-635bff?style=for-the-badge&logo=stripe&logoColor=white)](https://buy.stripe.com/8x25kE9cgaIpc2O8QyaZi01)
 
-These links are for optional funding only. They are not a paid support tier, they do not expand the validated workflow surface, and they do not change the support-policy boundaries described in this repo.
+These links are for optional funding only. They are not paid support, they do not change workflow validation, and they do not change the support-policy boundaries described in this repo.
 
 ## Attribution
 
