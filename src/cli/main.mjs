@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 
 import { runInitCommand } from './commands/init.mjs';
+import { runMigrateCommand } from './commands/migrate.mjs';
 import { runUpdateCommand } from './commands/update.mjs';
 import { runValidateCommand } from './commands/validate.mjs';
 import { runDoctorCommand } from './commands/doctor.mjs';
@@ -12,6 +13,7 @@ Usage:
 
 Commands:
   init        Initialize toolkit files
+  migrate     Migrate existing toolkit files into lockfile ownership
   update      Update toolkit files
   validate    Validate toolkit installation
   doctor      Diagnose toolkit installation
@@ -46,6 +48,10 @@ export async function runCli(argv = [], options = {}) {
 
   if (command === 'init') {
     return runInitCommand(argv.slice(1), options);
+  }
+
+  if (command === 'migrate') {
+    return runMigrateCommand(argv.slice(1), options);
   }
 
   if (command === 'update') {
