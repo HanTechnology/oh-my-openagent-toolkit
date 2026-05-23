@@ -10,6 +10,28 @@ Versioning rules:
 - Minor: new local skill surfaces, new reference layers, or meaningful public workflow/documentation additions.
 - Patch: validator fixes, wording corrections, guardrail tightening, and non-breaking documentation updates.
 
+
+## v0.5.0 - 2026-05-22
+
+Minor toolkit release publishing the project-local installer/updater CLI for safe target-project installation, validation, diffing, and updates.
+
+### Highlights
+
+* Added the dependency-light installer/updater CLI for `oh-my-openagent-toolkit`, including `init`, `update`, `validate`, and `doctor` command surfaces plus the `oh-my-openagent-toolkit` and `omo-toolkit` bin aliases.
+* Added the declarative source manifest used by package installs and update planning, distinct from the support-tier capability matrix.
+* Added lockfile-backed ownership through `.opencode/oh-my-openagent-toolkit.lock.json` so managed files and source identity are tracked explicitly.
+* Added marker-managed `AGENTS.md` integration that preserves project-authored content outside the OMO Toolkit managed block.
+
+### Validation
+
+* Release validation covers the source validator, CLI test suite, package dry-run, and external sandbox smoke from `/tmp/opencode/omo-toolkit-release-smoke-pack`.
+* Installed-project validation remains CLI-only through `node bin/omo-toolkit.mjs validate --target <path>` and checks managed files, lockfile hashes, duplicate AGENTS blocks, and forbidden top-level `paths`.
+
+### Boundaries
+
+* Support boundary remains unchanged: this release adds installer/update mechanics but does not add a new validated workflow, primary route, support tier, remote fetch, self-update, plugin marketplace, or interactive TUI.
+* Source validation remains `bash .opencode/reference/validate-opencode-bundle.sh full`; installed target validation remains separate from the source shell validator.
+
 ## v0.4.0 - 2026-05-22
 
 Minor toolkit release aligning local harness discovery documentation and validation with `oh-my-openagent` v4.3.0 project-root behavior.
