@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 
-import { buildAgentsManagedBlock } from '../../src/cli/core/agents-block.mjs';
+import { BEGIN_MARKER, END_MARKER, buildAgentsManagedBlock } from '../../src/cli/core/agents-block.mjs';
 import { LOCKFILE_RELATIVE_PATH } from '../../src/cli/core/lockfile.mjs';
 import { runCli } from '../../src/cli/main.mjs';
 import { createTempTargetFromFixture } from './helpers/temp-target.mjs';
@@ -58,6 +58,23 @@ test('migrate apply adopts identical files, creates missing payloads, and writes
     const lockfile = readTargetLockfile(temp.target);
     assert.ok(lockfile.files.some((record) => record.path === ROUTE_DOMAIN && record.lastAction === 'adopt-identical'));
     assert.ok(lockfile.files.some((record) => record.path === '.opencode/oh-my-openagent.jsonc' && record.lastAction === 'create-missing'));
+  } finally {
+    temp.cleanup();
+  }
+});
+
+test('migrate apply creates full AGENTS guide from outside package root', () => {
+  const temp = createTempTargetFromFixture('empty-target');
+  try {
+    const result = runBin(['migrate', '--apply', '--target', temp.target], { cwd: '/tmp/opencode' });
+
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /agents-insert AGENTS\.md agents\.missing-file \[write\]/);
+    const agents = fs.readFileSync(path.join(temp.target, 'AGENTS.md'), 'utf8');
+    assert.match(agents, /^# AGENTS Guide/);
+    assert.match(agents, /\.opencode\/reference\/routing-matrix\.md/);
+    assert.equal(countOccurrences(agents, BEGIN_MARKER), 1);
+    assert.equal(countOccurrences(agents, END_MARKER), 1);
   } finally {
     temp.cleanup();
   }
@@ -313,9 +330,9 @@ function readTargetLockfile(target) {
   return JSON.parse(fs.readFileSync(path.join(target, LOCKFILE_RELATIVE_PATH), 'utf8'));
 }
 
-function runBin(args) {
+function runBin(args, options = {}) {
   return spawnSync(process.execPath, [BIN, ...args], {
-    cwd: PACKAGE_ROOT,
+    cwd: options.cwd ?? PACKAGE_ROOT,
     encoding: 'utf8',
     maxBuffer: 10 * 1024 * 1024,
   });
@@ -364,6 +381,18 @@ function hashText(content) {
 
 function actionLines(output) {
   return output.split('\n').filter((line) => line.startsWith('- '));
+}
+
+function countOccurrences(content, needle) {
+  let count = 0;
+  let searchFrom = 0;
+  while (searchFrom < content.length) {
+    const matchIndex = content.indexOf(needle, searchFrom);
+    if (matchIndex === -1) break;
+    count += 1;
+    searchFrom = matchIndex + needle.length;
+  }
+  return count;
 }
 
 function snapshotTarget(target) {

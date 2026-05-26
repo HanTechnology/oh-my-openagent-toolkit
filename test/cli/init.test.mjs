@@ -5,13 +5,22 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 
-import { BEGIN_MARKER } from '../../src/cli/core/agents-block.mjs';
+import { BEGIN_MARKER, END_MARKER } from '../../src/cli/core/agents-block.mjs';
 import { LOCKFILE_RELATIVE_PATH, manifestSha256 } from '../../src/cli/core/lockfile.mjs';
 import { runCli } from '../../src/cli/main.mjs';
 import { createTempTargetFromFixture, fixturePath, snapshotFixture } from './helpers/temp-target.mjs';
 
 const PACKAGE_ROOT = path.resolve(new URL('../..', import.meta.url).pathname);
 const BIN = path.join(PACKAGE_ROOT, 'bin', 'omo-toolkit.mjs');
+const FULL_GUIDE_SENTINELS = [
+  '# AGENTS Guide',
+  '## What each document owns',
+  '.opencode/reference/routing-matrix.md',
+];
+const FULL_GUIDE_ONLY_SENTINELS = [
+  '# AGENTS Guide',
+  '## What each document owns',
+];
 
 test('init dry-run prints planned creates, AGENTS, and lockfile actions without writing', () => {
   const before = snapshotFixture('empty-target');
@@ -42,6 +51,8 @@ test('init apply installs full toolkit payload and is idempotent', () => {
     const first = runBin(['init', '--apply', '--target', temp.target]);
     assert.equal(first.status, 0, first.stderr);
     assertInstalledShape(temp.target);
+    assertFullGuideAgents(temp.target);
+    const agentsAfterFirst = fs.readFileSync(path.join(temp.target, 'AGENTS.md'), 'utf8');
     const afterFirst = snapshotTarget(temp.target);
 
     const second = runBin(['init', '--apply', '--target', temp.target]);
@@ -50,12 +61,68 @@ test('init apply installs full toolkit payload and is idempotent', () => {
     assert.match(second.stdout, /No changes to apply\./);
     assert.doesNotMatch(second.stdout, /lockfile-write \.opencode\/oh-my-openagent-toolkit\.lock\.json \[write\]/);
     assert.doesNotMatch(second.stdout, /Applied init plan\./);
+    assert.equal(fs.readFileSync(path.join(temp.target, 'AGENTS.md'), 'utf8'), agentsAfterFirst);
     assert.deepEqual(snapshotTarget(temp.target), afterFirst);
   } finally {
     temp.cleanup();
   }
 });
 
+
+test('init apply preserves existing AGENTS project text outside the managed block', () => {
+  const temp = createTempTargetFromFixture('existing-agents');
+  try {
+    const agentsPath = path.join(temp.target, 'AGENTS.md');
+    const before = fs.readFileSync(agentsPath, 'utf8');
+
+    const result = runBin(['init', '--apply', '--target', temp.target]);
+
+    assert.equal(result.status, 0, result.stderr);
+    const after = fs.readFileSync(agentsPath, 'utf8');
+    assertMarkerCounts(after);
+    assertNoFullGuideSentinels(after);
+    assert.equal(removeManagedBlock(after), before);
+  } finally {
+    temp.cleanup();
+  }
+});
+
+test('init apply treats zero-byte AGENTS as existing and writes only the managed block', () => {
+  const temp = createTempTargetFromFixture('empty-target');
+  try {
+    const agentsPath = path.join(temp.target, 'AGENTS.md');
+    fs.writeFileSync(agentsPath, '');
+
+    const result = runBin(['init', '--apply', '--target', temp.target]);
+
+    assert.equal(result.status, 0, result.stderr);
+    const after = fs.readFileSync(agentsPath, 'utf8');
+    assertMarkerCounts(after);
+    assertNoFullGuideSentinels(after);
+    assert.equal(removeManagedBlock(after), '');
+  } finally {
+    temp.cleanup();
+  }
+});
+
+test('init apply treats whitespace-only AGENTS as existing and writes only the managed block', () => {
+  const temp = createTempTargetFromFixture('empty-target');
+  try {
+    const agentsPath = path.join(temp.target, 'AGENTS.md');
+    const before = '  \n\t\n';
+    fs.writeFileSync(agentsPath, before);
+
+    const result = runBin(['init', '--apply', '--target', temp.target]);
+
+    assert.equal(result.status, 0, result.stderr);
+    const after = fs.readFileSync(agentsPath, 'utf8');
+    assertMarkerCounts(after);
+    assertNoFullGuideSentinels(after);
+    assert.equal(removeManagedBlock(after), before);
+  } finally {
+    temp.cleanup();
+  }
+});
 
 test('init lockfile stores full toolkit manifest identity', () => {
   const temp = createTempTargetFromFixture('empty-target');
@@ -216,8 +283,50 @@ function assertInstalledShape(target) {
   assert.equal(fs.statSync(path.join(target, '.opencode', 'commands')).isDirectory(), true);
   assert.equal(fs.statSync(path.join(target, '.opencode', 'reference')).isDirectory(), true);
   assert.equal(fs.existsSync(path.join(target, '.opencode', 'oh-my-openagent.jsonc')), true);
+  assert.equal(fs.existsSync(path.join(target, '.opencode', 'reference', 'routing-matrix.md')), true);
+  assertMarkerCounts(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8'));
+}
+
+function assertFullGuideAgents(target) {
   const agents = fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8');
-  assert.equal((agents.match(new RegExp(BEGIN_MARKER, 'g')) ?? []).length, 1);
+  for (const sentinel of FULL_GUIDE_SENTINELS) assert.match(agents, new RegExp(escapeRegExp(sentinel)));
+  assertMarkerCounts(agents);
+}
+
+function assertNoFullGuideSentinels(agents) {
+  for (const sentinel of FULL_GUIDE_ONLY_SENTINELS) assert.doesNotMatch(agents, new RegExp(escapeRegExp(sentinel)));
+}
+
+function assertMarkerCounts(agents) {
+  assert.equal(countOccurrences(agents, BEGIN_MARKER), 1);
+  assert.equal(countOccurrences(agents, END_MARKER), 1);
+}
+
+function removeManagedBlock(agents) {
+  const beginIndex = agents.indexOf(BEGIN_MARKER);
+  const endIndex = agents.indexOf(END_MARKER);
+  assert.notEqual(beginIndex, -1);
+  assert.notEqual(endIndex, -1);
+  const rangeEnd = consumeLineEnding(agents, endIndex + END_MARKER.length);
+  return agents.slice(0, beginIndex) + agents.slice(rangeEnd);
+}
+
+function consumeLineEnding(source, index) {
+  if (source.startsWith('\r\n', index)) return index + 2;
+  if (source[index] === '\n' || source[index] === '\r') return index + 1;
+  return index;
+}
+
+function countOccurrences(content, needle) {
+  let count = 0;
+  let searchFrom = 0;
+  while (searchFrom < content.length) {
+    const index = content.indexOf(needle, searchFrom);
+    if (index === -1) break;
+    count += 1;
+    searchFrom = index + needle.length;
+  }
+  return count;
 }
 
 function runBin(args) {
@@ -268,4 +377,8 @@ function snapshotDirectory(root) {
 
 function actionLines(output) {
   return output.split('\n').filter((line) => line.startsWith('- '));
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

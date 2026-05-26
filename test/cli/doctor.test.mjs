@@ -6,6 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 
+import { BEGIN_MARKER, END_MARKER } from '../../src/cli/core/agents-block.mjs';
 import { LOCKFILE_RELATIVE_PATH } from '../../src/cli/core/lockfile.mjs';
 import { createTempTargetFromFixture, fixturePath } from './helpers/temp-target.mjs';
 
@@ -13,6 +14,7 @@ const PACKAGE_ROOT = path.resolve(new URL('../..', import.meta.url).pathname);
 const BIN = path.join(PACKAGE_ROOT, 'bin', 'omo-toolkit.mjs');
 const PLUGIN_CONFIG_PATH = '.opencode/oh-my-openagent.jsonc';
 const ROUTE_DOMAIN_PATH = '.opencode/commands/route-domain.md';
+const FULL_GUIDE_SENTINELS = ['# AGENTS Guide', '## What each document owns'];
 
 test('doctor reports empty target as not installed without writing', () => {
   const temp = createTempTargetFromFixture('empty-target');
@@ -36,6 +38,7 @@ test('doctor exits 0 for valid installed target and does not mutate it', () => {
     const before = snapshotTarget(temp.target);
     const result = runBin(['doctor', '--target', temp.target]);
     assert.equal(result.status, 0, result.stderr);
+    assertFreshMissingFileInitTarget(temp.target);
     assert.match(result.stdout, /Doctor status: healthy/);
     assert.match(result.stdout, /PASS doctor\.hashes/);
     assert.match(result.stdout, /PASS doctor\.agents\.markers/);
@@ -195,4 +198,23 @@ function sha256(buffer) {
 
 function escapeRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function assertFreshMissingFileInitTarget(target) {
+  const agents = fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8');
+  for (const sentinel of FULL_GUIDE_SENTINELS) assert.match(agents, new RegExp(escapeRegExp(sentinel)));
+  assert.equal(countOccurrences(agents, BEGIN_MARKER), 1);
+  assert.equal(countOccurrences(agents, END_MARKER), 1);
+}
+
+function countOccurrences(content, needle) {
+  let count = 0;
+  let searchFrom = 0;
+  while (searchFrom < content.length) {
+    const index = content.indexOf(needle, searchFrom);
+    if (index === -1) break;
+    count += 1;
+    searchFrom = index + needle.length;
+  }
+  return count;
 }

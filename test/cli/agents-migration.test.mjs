@@ -8,6 +8,7 @@ import {
   END_MARKER,
   agentsBlockSha256,
   buildAgentsManagedBlock,
+  buildPackagedAgentsGuideWithManagedBlock,
 } from '../../src/cli/core/agents-block.mjs';
 import {
   AGENTS_MIGRATION_ACTIONS,
@@ -28,7 +29,11 @@ test('missing AGENTS classifies as agents-insert', () => {
   assert.equal(result.write, true);
   assert.equal(result.changed, true);
   assert.equal(result.source, '');
-  assert.equal(result.content, buildAgentsManagedBlock());
+  assert.equal(result.content, buildPackagedAgentsGuideWithManagedBlock());
+  assert.match(result.content, /^# AGENTS Guide/);
+  assert.match(result.content, /\.opencode\/reference\/routing-matrix\.md/);
+  assert.equal(countOccurrences(result.content, BEGIN_MARKER), 1);
+  assert.equal(countOccurrences(result.content, END_MARKER), 1);
 });
 
 test('safe unmarked project AGENTS classifies as agents-insert', () => {
@@ -44,6 +49,18 @@ test('safe unmarked project AGENTS classifies as agents-insert', () => {
   assert.equal(result.source, projectContent);
   assert.match(result.content, /Keep these existing local instructions\./);
   assert.match(result.content, /Preserve project-specific guidance\./);
+  assert.equal(countOccurrences(result.content, BEGIN_MARKER), 1);
+  assert.equal(countOccurrences(result.content, END_MARKER), 1);
+});
+
+test('safe unmarked project AGENTS without trailing newline preserves content and inserts one block', () => {
+  const projectContent = '# Project AGENTS\nPreserve this exact final line';
+  const result = classifyAgentsMigration(projectContent);
+
+  assert.equal(result.ok, true);
+  assert.equal(result.action, AGENTS_MIGRATION_ACTIONS.insert);
+  assert.equal(result.write, true);
+  assert.match(result.content, /^# Project AGENTS\nPreserve this exact final line\n/);
   assert.equal(countOccurrences(result.content, BEGIN_MARKER), 1);
   assert.equal(countOccurrences(result.content, END_MARKER), 1);
 });

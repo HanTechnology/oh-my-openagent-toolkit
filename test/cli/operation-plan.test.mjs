@@ -45,7 +45,12 @@ test('plans create, opt-in skip, AGENTS insert, and lockfile write without touch
     assertKnownActions(plan);
     assert.equal(actionFor(plan, OPERATION_ACTIONS.CREATE, managedEntry.path).write, true);
     assert.equal(actionFor(plan, OPERATION_ACTIONS.SKIP_OPT_IN, optInEntry.path).write, false);
-    assert.equal(actionFor(plan, OPERATION_ACTIONS.AGENTS_INSERT, 'AGENTS.md').write, true);
+    const agentsInsert = actionFor(plan, OPERATION_ACTIONS.AGENTS_INSERT, 'AGENTS.md');
+    assert.equal(agentsInsert.write, true);
+    assert.equal(agentsInsert.sourceState, 'missing-file');
+    assert.match(agentsInsert.content, /^# AGENTS Guide/m);
+    assert.equal(countOccurrences(agentsInsert.content, BEGIN_MARKER), 1);
+    assert.notEqual(agentsInsert.content, buildAgentsManagedBlock());
     assert.equal(actionFor(plan, OPERATION_ACTIONS.LOCKFILE_WRITE, LOCKFILE_RELATIVE_PATH).write, true);
     assert.deepEqual(plan.lockfile.overrides.skip, ['README.md']);
     assert.equal(plan.lockfile.files[0].lastAction, OPERATION_ACTIONS.CREATE);
@@ -56,6 +61,82 @@ test('plans create, opt-in skip, AGENTS insert, and lockfile write without touch
   }
 });
 
+
+
+test('distinguishes missing target AGENTS from existing empty, whitespace, and non-empty files', () => {
+  const cases = [
+    { name: 'missing', targetFiles: {}, sourceState: 'missing-file', fullGuide: true },
+    { name: 'empty', targetFiles: { 'AGENTS.md': '' }, sourceState: 'existing-empty', fullGuide: false },
+    { name: 'whitespace', targetFiles: { 'AGENTS.md': '  \n\t' }, sourceState: 'existing-whitespace', fullGuide: false },
+    { name: 'non-empty', targetFiles: { 'AGENTS.md': '# Project AGENTS\n\nKeep this.\n' }, sourceState: 'existing-non-empty', fullGuide: false },
+  ];
+
+  for (const entry of cases) {
+    const plan = planOperations({
+      manifest: sampleManifest([]),
+      now: NOW,
+      targetFiles: entry.targetFiles,
+    });
+    const agentsInsert = actionFor(plan, OPERATION_ACTIONS.AGENTS_INSERT, 'AGENTS.md');
+    assert.equal(plan.ok, true, entry.name);
+    assert.equal(agentsInsert.sourceState, entry.sourceState, entry.name);
+    assert.equal(agentsInsert.content.includes('# AGENTS Guide'), entry.fullGuide, entry.name);
+    assert.equal(countOccurrences(agentsInsert.content, BEGIN_MARKER), 1, entry.name);
+    assert.equal(countOccurrences(agentsInsert.content, END_MARKER), 1, entry.name);
+  }
+});
+
+
+test('missing target full guide is idempotent with returned lockfile', () => {
+  const first = planOperations({
+    manifest: sampleManifest([]),
+    now: NOW,
+    targetFiles: {},
+  });
+  const firstWrite = first.plannedWrites.find((entry) => entry.path === 'AGENTS.md');
+  assert.equal(first.ok, true);
+  assert.ok(firstWrite?.content.includes('# AGENTS Guide'));
+  assert.equal(countOccurrences(firstWrite.content, BEGIN_MARKER), 1);
+  assert.equal(countOccurrences(firstWrite.content, END_MARKER), 1);
+
+  const second = planOperations({
+    manifest: sampleManifest([]),
+    lockfile: first.lockfile,
+    now: '2026-05-22T00:00:01.000Z',
+    targetFiles: {
+      'AGENTS.md': firstWrite.content,
+    },
+  });
+
+  const agentsNoop = actionFor(second, OPERATION_ACTIONS.NOOP, 'AGENTS.md');
+  assert.equal(second.ok, true);
+  assert.equal(agentsNoop.ruleId, OPERATION_RULES.AGENTS_CURRENT);
+  assert.equal(agentsNoop.sourceState, 'existing-non-empty');
+  assert.equal(second.plannedWrites.some((write) => write.path === 'AGENTS.md'), false);
+});
+
+test('throws instead of falling back when missing AGENTS needs an unavailable packaged guide', () => {
+  const temp = fs.mkdtempSync('/tmp/omo-operation-plan-missing-guide-');
+  try {
+    assert.throws(
+      () => planOperations({
+        agentsGuidePackageRoot: temp,
+        manifest: sampleManifest([]),
+        now: NOW,
+        targetFiles: {},
+      }),
+      /AGENTS\.md/
+    );
+  } finally {
+    fs.rmSync(temp, { force: true, recursive: true });
+  }
+});
+
+test('toolkit manifest does not manage root AGENTS as a normal file entry', () => {
+  const manifest = JSON.parse(fs.readFileSync(new URL('../../toolkit-manifest.json', import.meta.url), 'utf8'));
+  assert.equal(manifest.files.some((entry) => entry.path === 'AGENTS.md'), false);
+  assert.equal(manifest.agentsBlock.path, 'src/cli/templates/agents-managed-block.md');
+});
 
 test('preserves explicit manifest source identity digest', () => {
   const routeEntry = manifestFile('.opencode/commands/route-domain.md', 'route command\n', {
@@ -478,6 +559,24 @@ function actionFor(plan, action, filePath) {
 
 function hasAction(plan, action, filePath = null) {
   return plan.actions.some((entry) => entry.action === action && (filePath === null || entry.path === filePath));
+}
+
+function countOccurrences(content, needle) {
+  let count = 0;
+  let searchFrom = 0;
+
+  while (searchFrom < content.length) {
+    const matchIndex = content.indexOf(needle, searchFrom);
+
+    if (matchIndex === -1) {
+      break;
+    }
+
+    count += 1;
+    searchFrom = matchIndex + needle.length;
+  }
+
+  return count;
 }
 
 function assertKnownActions(plan) {

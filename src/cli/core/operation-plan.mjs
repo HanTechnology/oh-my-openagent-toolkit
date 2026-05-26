@@ -1,6 +1,8 @@
 import {
   AGENTS_BLOCK_CONFLICTS,
+  buildPackagedAgentsGuideWithManagedBlock,
   inspectAgentsManagedBlock,
+  loadPackagedAgentsGuide,
   planAgentsManagedBlock,
 } from './agents-block.mjs';
 import { hashBuffer } from './hash.mjs';
@@ -318,7 +320,10 @@ function planAgentsBlock({ manifest, options, previousLockfile, profile, targetF
     });
   }
 
-  const result = planAgentsManagedBlock(agentsSource.content, { lockfile: previousLockfile });
+  const result = planAgentsManagedBlock(agentsSource.content, {
+    allowUnmarkedToolkitText: shouldAllowUnmarkedToolkitText(agentsSource, previousLockfile, options),
+    lockfile: previousLockfile,
+  });
   if (!result.ok) {
     return agentsConflictAction({
       agentsBlock: result.agentsBlock,
@@ -337,8 +342,9 @@ function planAgentsBlock({ manifest, options, previousLockfile, profile, targetF
         content: result.content,
         kind: 'agents',
         path: AGENTS_PATH,
-        reason: 'managed AGENTS block missing',
+        reason: agentsSource.state === 'missing-file' ? 'target AGENTS.md missing' : 'managed AGENTS block missing',
         ruleId: OPERATION_RULES.AGENTS_MISSING,
+        sourceState: agentsSource.state,
         state: result.state,
       },
       agentsBlock: result.agentsBlock,
@@ -357,6 +363,7 @@ function planAgentsBlock({ manifest, options, previousLockfile, profile, targetF
         previousAgentsBlock: result.previousAgentsBlock,
         reason: 'managed AGENTS block stale',
         ruleId: OPERATION_RULES.AGENTS_STALE,
+        sourceState: agentsSource.state,
         state: result.state,
       },
       agentsBlock: result.agentsBlock,
@@ -372,11 +379,21 @@ function planAgentsBlock({ manifest, options, previousLockfile, profile, targetF
       path: AGENTS_PATH,
       reason: 'managed AGENTS block current',
       ruleId: OPERATION_RULES.AGENTS_CURRENT,
+      sourceState: agentsSource.state,
       state: result.state,
     },
     agentsBlock: result.agentsBlock,
     write: false,
   };
+}
+
+function shouldAllowUnmarkedToolkitText(agentsSource, previousLockfile, options) {
+  if (agentsSource.state === 'missing-file') return true;
+  if (!previousLockfile?.agentsBlock?.sha256) return false;
+  return agentsSource.content === buildPackagedAgentsGuideWithManagedBlock({
+    guidePath: options.agentsGuidePath,
+    packageRoot: options.agentsGuidePackageRoot,
+  });
 }
 
 function agentsConflictAction({ agentsBlock = null, details = {}, reason, ruleId, state }) {
@@ -551,12 +568,38 @@ function normalizeTargetFileValue(path, value) {
 
 function agentsContentFromOptions(options, targetFiles) {
   if (Object.hasOwn(options, 'agentsContent')) {
-    return { content: options.agentsContent === null ? '' : String(options.agentsContent) };
+    if (options.agentsContent === null) {
+      return missingAgentsSource(options);
+    }
+    return existingAgentsSource(String(options.agentsContent));
   }
   const targetFile = targetFiles.get(AGENTS_PATH);
-  if (!targetFile) return { content: '' };
+  if (!targetFile) return missingAgentsSource(options);
   if (targetFile.content === undefined) return { missingContent: true };
-  return { content: String(targetFile.content) };
+  return existingAgentsSource(String(targetFile.content));
+}
+
+function missingAgentsSource(options) {
+  return {
+    content: loadPackagedAgentsGuide({
+      guidePath: options.agentsGuidePath,
+      packageRoot: options.agentsGuidePackageRoot,
+    }),
+    state: 'missing-file',
+  };
+}
+
+function existingAgentsSource(content) {
+  return {
+    content,
+    state: classifyExistingAgentsSource(content),
+  };
+}
+
+function classifyExistingAgentsSource(content) {
+  if (content.length === 0) return 'existing-empty';
+  if (content.trim().length === 0) return 'existing-whitespace';
+  return 'existing-non-empty';
 }
 
 function profileUsesAgentsBlock(manifest, profile) {

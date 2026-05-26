@@ -1,4 +1,7 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import test from 'node:test';
 
 import {
@@ -8,8 +11,36 @@ import {
   agentsBlockSha256,
   buildAgentsManagedBlock,
   canonicalAgentsBlockBody,
+  loadPackagedAgentsGuide,
   planAgentsManagedBlock
 } from '../../src/cli/core/agents-block.mjs';
+
+
+test('loads packaged root AGENTS guide independent of cwd', () => {
+  const originalCwd = process.cwd();
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'omo-agents-guide-cwd-'));
+  try {
+    process.chdir(temp);
+    const guide = loadPackagedAgentsGuide();
+    assert.match(guide, /^# AGENTS Guide/m);
+    assert.match(guide, /\.opencode\/reference\/routing-matrix\.md/);
+  } finally {
+    process.chdir(originalCwd);
+    fs.rmSync(temp, { force: true, recursive: true });
+  }
+});
+
+test('fails clearly when packaged root AGENTS guide is unavailable', () => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'omo-agents-guide-missing-'));
+  try {
+    assert.throws(
+      () => loadPackagedAgentsGuide({ packageRoot: temp }),
+      /AGENTS\.md/
+    );
+  } finally {
+    fs.rmSync(temp, { force: true, recursive: true });
+  }
+});
 
 test('inserts one managed block after a safe title and intro', () => {
   const titleAndIntro = '# Project AGENTS\r\n\r\nKeep this exact intro.\r\nIt spans two lines.\r\n\r\n';
@@ -39,7 +70,21 @@ test('appends one managed block when safe title and intro insertion is unclear',
   assert.equal(result.action, 'insert');
   assert.equal(result.changed, true);
   assert.equal(result.content.slice(0, projectContent.length), projectContent);
-  assert.equal(result.content.slice(projectContent.length, result.content.indexOf(BEGIN_MARKER)), '\n');
+  assert.equal(result.content.slice(projectContent.length, result.content.indexOf(BEGIN_MARKER)), '');
+  assert.equal(countOccurrences(result.content, BEGIN_MARKER), 1);
+  assert.equal(countOccurrences(result.content, END_MARKER), 1);
+});
+
+test('appends a separator before a managed block when source has no trailing newline', () => {
+  const projectContent = '# Project AGENTS\n\n- Keep list-shaped local rules.';
+  const result = planAgentsManagedBlock(projectContent);
+
+  assert.equal(result.ok, true);
+  assert.equal(result.state, 'missing');
+  assert.equal(result.action, 'insert');
+  assert.equal(result.changed, true);
+  assert.equal(result.content.slice(0, projectContent.length), projectContent);
+  assert.equal(result.content.slice(projectContent.length, result.content.indexOf(BEGIN_MARKER)), '\n\n');
   assert.equal(countOccurrences(result.content, BEGIN_MARKER), 1);
   assert.equal(countOccurrences(result.content, END_MARKER), 1);
 });

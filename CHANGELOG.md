@@ -11,6 +11,21 @@ Versioning rules:
 - Patch: validator fixes, wording corrections, guardrail tightening, and non-breaking documentation updates.
 
 
+## v0.6.1 - 2026-05-26
+
+Patch release for the `init` AGENTS target-path repair.
+
+#### Fixes
+
+* Fixed missing-target `AGENTS.md` creation so absent target paths receive the packaged full guide plus exactly one managed OMO Toolkit block.
+* Preserved marker-safe behavior for existing `AGENTS.md` files: project content outside the managed block stays intact, and existing managed blocks remain the only toolkit-owned region.
+* Kept lockfile `agentsBlock` ownership tied to the managed-block hash, not the whole generated guide.
+
+#### Validation
+
+* Validation and smoke coverage now cover missing-target full-guide creation, idempotency, and existing-file marker preservation.
+* npm publication remains a manual user step after the GitHub release; this metadata update does not publish the package.
+
 ## v0.6.0 - 2026-05-24
 
 Minor toolkit release adding safe migration for legacy/manual installs and explicit guided init UX.

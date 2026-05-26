@@ -1253,7 +1253,7 @@
           "kind": "root-doc",
           "mode": "100644",
           "path": "CHANGELOG.md",
-          "sha256": "44ceff8fce1f03fc4b211dc31d1704bae1928509f741a7af6a80ef816ea7542c"
+          "sha256": "a0b455710d93509afc95830a2a357af76e207b326737ac0d7a846bde00c9b445"
         },
         {
           "kind": "license",
@@ -1271,11 +1271,11 @@
           "kind": "root-doc",
           "mode": "100644",
           "path": "VERSION",
-          "sha256": "97a5d6e540a6120d09c39ddb667e0e8e2bac7fcc2ffef813b82e08fd60365bce"
+          "sha256": "87b241b275c591694846560e9879f50c9da3150f854efdabd782c539772f3033"
         }
       ],
-      "manifestSha256": "554929099a79184ebeae2e2ec32dc1cc207f022145e4b4f20c3243a76caacbf2",
-      "version": "0.6.0"
+      "manifestSha256": "5a67d600ea77ba36052fa99251a94c449038e099530831adabb21ad52fbf19d3",
+      "version": "0.6.1"
     }
   ]
 }

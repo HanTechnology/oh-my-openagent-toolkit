@@ -9,6 +9,7 @@ import {
   END_MARKER,
   agentsBlockSha256,
   buildAgentsManagedBlock,
+  buildPackagedAgentsGuideWithManagedBlock,
 } from '../../src/cli/core/agents-block.mjs';
 import { hashBuffer, hashFile } from '../../src/cli/core/hash.mjs';
 import { LOCKFILE_RELATIVE_PATH } from '../../src/cli/core/lockfile.mjs';
@@ -144,6 +145,24 @@ test('AGENTS insert, adopt, and replace apply only marker-safe behavior', () => 
     assert.doesNotMatch(replaced, /Historical managed block/);
     assert.equal(countOccurrences(replaced, BEGIN_MARKER), 1);
     assert.equal(countOccurrences(replaced, END_MARKER), 1);
+  } finally {
+    fixture.cleanup();
+  }
+});
+
+test('AGENTS missing apply creates packaged full guide with one managed block', () => {
+  const fixture = createApplyFixture([], { agentsBlock: true });
+  try {
+    const plan = makePlan(fixture, {});
+    assert.equal(actionFor(plan, MIGRATION_ACTIONS.AGENTS_INSERT, 'AGENTS.md').write, true);
+
+    const result = applyFixturePlan(fixture, plan);
+
+    assert.equal(result.ok, true, result.message);
+    const agents = fs.readFileSync(path.join(fixture.targetRoot, 'AGENTS.md'), 'utf8');
+    assert.equal(agents, buildPackagedAgentsGuideWithManagedBlock());
+    assert.equal(countOccurrences(agents, BEGIN_MARKER), 1);
+    assert.equal(countOccurrences(agents, END_MARKER), 1);
   } finally {
     fixture.cleanup();
   }

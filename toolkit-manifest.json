@@ -2513,8 +2513,8 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "44ceff8fce1f03fc4b211dc31d1704bae1928509f741a7af6a80ef816ea7542c",
-      "size": 11231,
+      "sha256": "a0b455710d93509afc95830a2a357af76e207b326737ac0d7a846bde00c9b445",
+      "size": 12028,
       "strategy": "opt-in"
     },
     {
@@ -2549,7 +2549,7 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "97a5d6e540a6120d09c39ddb667e0e8e2bac7fcc2ffef813b82e08fd60365bce",
+      "sha256": "87b241b275c591694846560e9879f50c9da3150f854efdabd782c539772f3033",
       "size": 6,
       "strategy": "opt-in"
     }
@@ -2597,11 +2597,11 @@
   },
   "schema": 1,
   "source": {
-    "generatedAt": "2026-05-23T15:49:26.182Z",
+    "generatedAt": "2026-05-26T01:40:07.350Z",
     "gitCommit": null
   },
   "toolkit": {
     "packageName": "oh-my-openagent-toolkit",
-    "version": "0.6.0"
+    "version": "0.6.1"
   }
 }

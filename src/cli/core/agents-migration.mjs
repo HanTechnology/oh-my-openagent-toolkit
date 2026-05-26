@@ -5,6 +5,7 @@ import {
   END_MARKER,
   agentsBlockSha256,
   buildAgentsManagedBlock,
+  buildPackagedAgentsGuideWithManagedBlock,
   canonicalAgentsBlockBody,
   inspectAgentsManagedBlock,
   planAgentsManagedBlock,
@@ -43,7 +44,12 @@ export function classifyAgentsMigration(agentsContent = '', options = {}) {
     beginMarker: BEGIN_MARKER,
     endMarker: END_MARKER,
   };
-  const plannedBlock = planAgentsManagedBlock(source, { body });
+  const expectedPackagedGuide = buildPackagedAgentsGuideWithManagedBlock({ body });
+  const isCurrentPackagedGuide = source === expectedPackagedGuide;
+  const plannedBlock = planAgentsManagedBlock(source, {
+    allowUnmarkedToolkitText: isCurrentPackagedGuide,
+    body,
+  });
 
   if (plannedBlock.ok === false) {
     if (UNSAFE_MARKER_CONFLICTS.has(plannedBlock.code)) {
@@ -70,7 +76,7 @@ export function classifyAgentsMigration(agentsContent = '', options = {}) {
   if (!exists) {
     return insertResult({
       source,
-      content: plannedBlock.content,
+      content: expectedPackagedGuide,
       agentsBlock,
       state: 'missing-file',
       ruleId: AGENTS_MIGRATION_RULES.missingFile,

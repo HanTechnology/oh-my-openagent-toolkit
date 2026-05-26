@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
 
 export const BEGIN_MARKER = '<!-- BEGIN OMO-TOOLKIT MANAGED BLOCK: oh-my-openagent-toolkit -->';
 export const END_MARKER = '<!-- END OMO-TOOLKIT MANAGED BLOCK: oh-my-openagent-toolkit -->';
@@ -13,6 +14,7 @@ export const AGENTS_BLOCK_CONFLICTS = Object.freeze({
 });
 
 const DEFAULT_TEMPLATE_URL = new URL('../templates/agents-managed-block.md', import.meta.url);
+const DEFAULT_PACKAGE_AGENTS_GUIDE_URL = new URL('../../../AGENTS.md', import.meta.url);
 export const DEFAULT_AGENTS_BLOCK_BODY = readFileSync(DEFAULT_TEMPLATE_URL, 'utf8');
 
 const CONFLICT_MESSAGES = Object.freeze({
@@ -31,6 +33,42 @@ const UNMARKED_TOOLKIT_TEXT_PATTERNS = Object.freeze([
   /\.opencode\/reference\/opencode-compatibility-model\.md/,
   /\.opencode\/oh-my-openagent\.jsonc/
 ]);
+
+export function loadPackagedAgentsGuide(options = {}) {
+  const guideSource = options.guidePath
+    ? path.resolve(options.guidePath)
+    : options.packageRoot
+      ? path.join(path.resolve(options.packageRoot), 'AGENTS.md')
+      : DEFAULT_PACKAGE_AGENTS_GUIDE_URL;
+
+  try {
+    return readFileSync(guideSource, 'utf8');
+  } catch (error) {
+    const sourceDescription = guideSource instanceof URL ? guideSource.href : guideSource;
+    throw new Error(`Unable to load packaged root AGENTS.md from ${sourceDescription}: ${error.message}`, { cause: error });
+  }
+}
+
+export function isPackagedAgentsGuideCandidate(content) {
+  const source = String(content ?? '');
+  return source.includes('# AGENTS Guide')
+    && source.includes('.opencode/reference/routing-matrix.md')
+    && source.includes('## What each document owns');
+}
+
+export function buildPackagedAgentsGuideWithManagedBlock(options = {}) {
+  const guide = loadPackagedAgentsGuide(options);
+  const planned = planAgentsManagedBlock(guide, {
+    allowUnmarkedToolkitText: true,
+    body: options.body,
+  });
+
+  if (!planned.ok) {
+    throw new Error(`Unable to build packaged root AGENTS.md guide: ${planned.message}`);
+  }
+
+  return planned.content;
+}
 
 export function canonicalAgentsBlockBody(body = DEFAULT_AGENTS_BLOCK_BODY) {
   const normalizedBody = String(body ?? '')
@@ -121,7 +159,9 @@ export function planAgentsManagedBlock(agentsContent = '', options = {}) {
     return conflictResult(source, inspectedBlock.state, inspectedBlock.code, generatedAgentsBlock, inspectedBlock);
   }
 
-  const unmarkedText = findUnmarkedToolkitText(source, inspectedBlock);
+  const unmarkedText = options.allowUnmarkedToolkitText === true
+    ? null
+    : findUnmarkedToolkitText(source, inspectedBlock);
 
   if (unmarkedText) {
     return conflictResult(
@@ -299,10 +339,10 @@ function insertAgentsManagedBlock(source, generatedBlock) {
   const titleIntroInsertIndex = findTitleIntroInsertIndex(source);
 
   if (titleIntroInsertIndex !== null) {
-    return `${source.slice(0, titleIntroInsertIndex)}${generatedBlock}\n${source.slice(titleIntroInsertIndex)}`;
+    return `${source.slice(0, titleIntroInsertIndex)}${generatedBlock}${source.slice(titleIntroInsertIndex)}`;
   }
 
-  const spacer = source.endsWith('\n') || source.endsWith('\r') ? '\n' : '\n\n';
+  const spacer = source.endsWith('\n') || source.endsWith('\r') ? '' : '\n\n';
   return `${source}${spacer}${generatedBlock}`;
 }
 

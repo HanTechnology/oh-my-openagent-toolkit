@@ -1,7 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { agentsBlockSha256, inspectAgentsManagedBlock } from '../core/agents-block.mjs';
+import {
+  agentsBlockSha256,
+  buildPackagedAgentsGuideWithManagedBlock,
+  inspectAgentsManagedBlock,
+  isPackagedAgentsGuideCandidate,
+} from '../core/agents-block.mjs';
 import { hashFile } from '../core/hash.mjs';
 import { LOCKFILE_RELATIVE_PATH, LockfileError, manifestSha256, parseLockfileContent } from '../core/lockfile.mjs';
 import { MANIFEST_PATH } from '../core/manifest.mjs';
@@ -205,6 +210,11 @@ function validateAgentsBlock(targetRoot, lockfile, issues, manifest) {
     issues.push(issue(VALIDATE_RULES.AGENTS_HASH_MISMATCH, AGENTS_PATH, 'AGENTS.md managed block hash does not match the lockfile.', {
       expectedSha256: lockfile.agentsBlock.sha256,
       actualSha256,
+    }));
+  } else if (isPackagedAgentsGuideCandidate(content) && content !== buildPackagedAgentsGuideWithManagedBlock()) {
+    issues.push(issue(VALIDATE_RULES.AGENTS_HASH_MISMATCH, AGENTS_PATH, 'AGENTS.md packaged guide content does not match this package.', {
+      expected: 'packaged root AGENTS.md with current managed block',
+      actual: 'modified packaged root AGENTS.md guide',
     }));
   }
   if (FORBIDDEN_SUPPORT_CLAIMS.some((pattern) => pattern.test(inspected.rawBody))) {

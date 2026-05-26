@@ -6,6 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 
+import { BEGIN_MARKER, END_MARKER } from '../../src/cli/core/agents-block.mjs';
 import { LOCKFILE_RELATIVE_PATH, manifestSha256 } from '../../src/cli/core/lockfile.mjs';
 import { runCli } from '../../src/cli/main.mjs';
 import { createTempTargetFromFixture } from './helpers/temp-target.mjs';
@@ -111,6 +112,25 @@ test('update check and dry-run report locally deleted managed files without writ
     assert.match(dryRun.stdout, /create \.opencode\/commands\/route-domain\.md/);
     assert.doesNotMatch(dryRun.stdout, /\[write\]/);
     assert.deepEqual(snapshotTarget(temp.target), before);
+  } finally {
+    temp.cleanup();
+  }
+});
+
+test('update apply recreates missing lock-owned AGENTS as full guide with one managed block', () => {
+  const temp = installedTarget();
+  try {
+    fs.rmSync(path.join(temp.target, 'AGENTS.md'));
+
+    const result = runBin(['update', '--apply', '--target', temp.target]);
+
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /agents-insert AGENTS\.md \[write\] agents\.missing/);
+    const agents = fs.readFileSync(path.join(temp.target, 'AGENTS.md'), 'utf8');
+    assert.match(agents, /^# AGENTS Guide/);
+    assert.match(agents, /\.opencode\/reference\/routing-matrix\.md/);
+    assert.equal(countOccurrences(agents, BEGIN_MARKER), 1);
+    assert.equal(countOccurrences(agents, END_MARKER), 1);
   } finally {
     temp.cleanup();
   }
@@ -538,4 +558,16 @@ function collectSnapshot(root, current, entries) {
       entries.push({ path: relative, type: 'file', hash: sha256(fs.readFileSync(absolute)) });
     }
   }
+}
+
+function countOccurrences(content, needle) {
+  let count = 0;
+  let searchFrom = 0;
+  while (searchFrom < content.length) {
+    const matchIndex = content.indexOf(needle, searchFrom);
+    if (matchIndex === -1) break;
+    count += 1;
+    searchFrom = matchIndex + needle.length;
+  }
+  return count;
 }

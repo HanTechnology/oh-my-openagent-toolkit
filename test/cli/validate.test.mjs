@@ -13,12 +13,14 @@ const PACKAGE_ROOT = path.resolve(new URL('../..', import.meta.url).pathname);
 const BIN = path.join(PACKAGE_ROOT, 'bin', 'omo-toolkit.mjs');
 const ROUTE_DOMAIN_PATH = '.opencode/commands/route-domain.md';
 const PLUGIN_CONFIG_PATH = '.opencode/oh-my-openagent.jsonc';
+const FULL_GUIDE_SENTINELS = ['# AGENTS Guide', '## What each document owns'];
 
 test('validate exits 0 for a valid init apply target', () => {
   const temp = installedTarget();
   try {
     const result = runBin(['validate', '--target', temp.target]);
     assert.equal(result.status, 0, result.stderr);
+    assertFreshMissingFileInitTarget(temp.target);
     assert.match(result.stdout, /Rules checked: .*install\.file\.hash-mismatch/);
     assert.match(result.stdout, /Summary: PASS \(0 failures\)/);
   } finally {
@@ -270,4 +272,23 @@ function sha256(content) {
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function assertFreshMissingFileInitTarget(target) {
+  const agents = fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8');
+  for (const sentinel of FULL_GUIDE_SENTINELS) assert.match(agents, new RegExp(escapeRegExp(sentinel)));
+  assert.equal(countOccurrences(agents, BEGIN_MARKER), 1);
+  assert.equal(countOccurrences(agents, END_MARKER), 1);
+}
+
+function countOccurrences(content, needle) {
+  let count = 0;
+  let searchFrom = 0;
+  while (searchFrom < content.length) {
+    const index = content.indexOf(needle, searchFrom);
+    if (index === -1) break;
+    count += 1;
+    searchFrom = index + needle.length;
+  }
+  return count;
 }

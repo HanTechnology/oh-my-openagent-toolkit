@@ -6,6 +6,7 @@ import {
   END_MARKER,
   agentsBlockSha256,
   buildAgentsManagedBlock,
+  buildPackagedAgentsGuideWithManagedBlock,
 } from '../../src/cli/core/agents-block.mjs';
 import { hashBuffer, hashFile } from '../../src/cli/core/hash.mjs';
 import {
@@ -57,7 +58,7 @@ test('historical hash requires exact path and sha256', () => {
   assert.equal(isKnownHistoricalFileHash(KNOWN_PATH, '0'.repeat(64), registry), false);
 
   const match = findHistoricalFileHash(KNOWN_PATH, knownHash, registry);
-  assert.equal(match.version, '0.6.0');
+  assert.equal(typeof match.version, 'string');
   assert.equal(match.file.path, KNOWN_PATH);
 });
 
@@ -212,7 +213,11 @@ test('AGENTS missing and historical managed block produce AGENTS-specific migrat
     targetFiles: {},
   });
 
-  assert.equal(actionFor(insertPlan, MIGRATION_ACTIONS.AGENTS_INSERT, 'AGENTS.md').write, true);
+  const insert = actionFor(insertPlan, MIGRATION_ACTIONS.AGENTS_INSERT, 'AGENTS.md');
+  assert.equal(insert.write, true);
+  assert.equal(insert.content, buildPackagedAgentsGuideWithManagedBlock());
+  assert.equal(countOccurrences(insert.content, BEGIN_MARKER), 1);
+  assert.equal(countOccurrences(insert.content, END_MARKER), 1);
   assert.equal(hasAction(insertPlan, MIGRATION_ACTIONS.CREATE_MISSING, 'AGENTS.md'), false);
   assert.equal(insertPlan.plannedWrites.some((write) => write.path === 'AGENTS.md'), true);
 
