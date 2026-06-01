@@ -11,6 +11,31 @@
     "validate:source": "node --check bin/omo-toolkit.mjs && node --check src/cli/main.mjs",
     "pack:dry-run": "npm pack --dry-run"
   },
+  "keywords": [
+    "omo",
+    "toolkit",
+    "omo-toolkit",
+    "oh-my-openagent",
+    "ai",
+    "agent",
+    "skills",
+    "architecture",
+    "frontend",
+    "backend",
+    "design",
+    "system",
+    "development-toolkit"
+  ],
+  "author": "HanTechnology",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HanTechnology/oh-my-openagent-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HanTechnology/oh-my-openagent-toolkit/issues"
+  },
+  "homepage": "https://github.com/HanTechnology/oh-my-openagent-toolkit#readme",
   "engines": {
     "node": ">=20"
   },
