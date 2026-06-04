@@ -179,8 +179,8 @@ Support is community maintenance for this public bundle. Funding links do not cr
 
 If this bundle saves you time or helps your team get oriented faster, you can help fund continued maintenance and documentation work here:
 
-[![Support via Stripe](https://img.shields.io/badge/support%20this%20project-Stripe-635bff?style=for-the-badge&logo=stripe&logoColor=white)](https://buy.stripe.com/bJe8wQbkobMt4Am6IqaZi00)
-[![Sponsor maintenance](https://img.shields.io/badge/sponsor%20maintenance-Stripe-635bff?style=for-the-badge&logo=stripe&logoColor=white)](https://buy.stripe.com/8x25kE9cgaIpc2O8QyaZi01)
+[![Support via Stripe](https://img.shields.io/badge/support%20this%20project-Stripe-635bff?style=for-the-badge&logo=stripe&logoColor=white)](https://donate.stripe.com/14A00k0FK5o54Amc2KaZi02)
+[![Sponsor maintenance](https://img.shields.io/badge/sponsor%20maintenance-Stripe-635bff?style=for-the-badge&logo=stripe&logoColor=white)](https://donate.stripe.com/28E28s604aIpc2O7MuaZi03)
 
 These links are for optional funding only. They are not paid support, do not change workflow validation, and do not change the support-policy boundaries described in this repo.
 
