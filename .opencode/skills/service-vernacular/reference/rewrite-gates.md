@@ -64,6 +64,48 @@ Run `contract-safety.md` before accepting changes to backend/API product-facing 
 
 Fail if the rewrite changes a protected contract field without explicit authorization.
 
+## Gate 9: publishability gate
+
+Public copy must be publishable as-is for the named surface, not merely useful as a review note. Homepage, service, proof, route, CTA, link, caption, metadata, fallback, and localized copy must read like text a visitor could see.
+
+Fail if the rewrite describes the page, strategy, QA finding, or internal rationale instead of giving the public sentence.
+
+## Gate 10: public display copy
+
+For public display copy, check the visible string without surrounding notes. The sentence must name the offer, action, proof, route, or limit that the surface needs and must not depend on hidden reviewer context.
+
+Fail if a homepage or service sentence only works after reading the internal explanation.
+
+## Gate 11: internal-rationale separation
+
+Keep rationale, evidence notes, review constraints, and claim-limit reasoning separate from the copy that ships. Before/after blocks may include both, but the accepted `After` text must contain only publishable wording.
+
+Fail if phrases such as content order, company trust first, section purpose, QA outcome, or claim-safety reasoning leak into display copy.
+
+## Gate 12: Korean-native review
+
+Korean public copy must pass a native-register check for grammar, spacing, rhythm, mixed-language terms, and surface fit. Keep approved English product names only when they are the public convention.
+
+Fail if Korean text reads like English syntax, a literal translation, a component annotation, or a reviewer note.
+
+## Gate 13: CTA/link predictability
+
+CTA and link text must predict the destination and commitment level. Check the target URL, modal, form, auth state, or route before accepting the verb.
+
+Fail if the link could surprise the user, overstate the action, or use a vague verb when the destination is specific.
+
+## Gate 14: headline rhythm
+
+Headlines should have a clear subject, a readable cadence, and a surface-appropriate claim. Public homepage and service headlines can be concise, but they still need meaning and proof boundaries.
+
+Fail if the headline is a stacked slogan, a generic value claim, an internal page summary, or a rhythm copied from English into Korean without native flow.
+
+## Gate 15: EN/KO meaning parity
+
+When English and Korean copy describe the same public surface, compare meaning, claim strength, actor, object, and next action. The languages may differ in rhythm, but they must not differ in promise.
+
+Fail if one locale adds capability, certainty, support scope, product category, or visitor instruction that the other locale does not support.
+
 ## Final acceptance check
 
 Ask the slop-detector gate last:

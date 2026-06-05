@@ -15,7 +15,7 @@ It is not a primary route, not an implementation executor, not a routing-matrix 
 
 - User-facing wording sounds like generic SaaS copy and needs product-specific nouns, verbs, workflows, or mental models.
 - A project needs a repo-backed `LANGUAGE.md` dossier created or updated before broad copy changes.
-- UI text, docs, CLI output, notifications, backend or API messages, admin or operator screens, onboarding, support copy, or release notes need one shared language source.
+- UI text, docs, homepage/service prose, CLI output, notifications, backend or API messages, admin or operator screens, onboarding, support copy, or release notes need one shared language source.
 - A rewrite needs before and after examples that show which domain evidence changed the wording.
 - The work needs to preserve clarity while removing vague AI-like filler, over-broad claims, or interchangeable product language.
 
@@ -29,13 +29,17 @@ It is not a primary route, not an implementation executor, not a routing-matrix 
 
 ## Setup and context gathering
 
-1. Read the user request and identify the surface: UI, docs, CLI, notification, backend/API message, admin/operator, onboarding, support, or release note.
-2. Collect repo evidence before rewriting: current copy, product docs, README or help text, routes, feature names, domain models, user roles, workflows, errors, and support language.
-3. Find `LANGUAGE.md` at the project or service root. Treat `LANGUAGE.md` as canonical when it exists.
-4. Read `DOMAIN_LANGUAGE.md` as alternate/legacy context only. When both files exist, `LANGUAGE.md` wins.
-5. If neither dossier exists, propose or create `LANGUAGE.md` only after evidence supports the canonical nouns, verbs, audiences, workflows, registers, forbidden terms, and claim boundaries.
-6. Keep standard labels when they are clearest, accessibility-critical, legally required, or industry-standard. Generic is allowed when it helps users act.
-7. Run the gate on every meaningful rewrite: `Could this copy belong to any generic SaaS app?`. If yes, find better evidence or keep the original if it is already clear.
+1. Read the user request and identify the surface: UI, docs, homepage/service prose, CLI, notification, backend/API message, admin/operator, onboarding, support, or release note.
+2. Run surface classification before rewrite: separate public display copy from internal rationale, evidence notes, QA notes, contract notes, and implementation/page-planning language.
+3. Treat internal rationale, evidence notes, QA notes, contract notes, and implementation/page-planning language as not public display copy. They can guide the rewrite, but they must not leak into public-facing wording.
+4. Collect repo evidence before rewriting: current copy, product docs, README or help text, routes, feature names, domain models, user roles, workflows, errors, and support language.
+5. Run an evidence-to-public-copy workflow: map each public claim to its evidence source, state the claim boundary, draft only what the public surface needs, and keep rationale or QA notes private.
+6. Find `LANGUAGE.md` at the project or service root. Treat `LANGUAGE.md` as canonical when it exists.
+7. Read `DOMAIN_LANGUAGE.md` as alternate/legacy context only. When both files exist, `LANGUAGE.md` wins.
+8. If neither dossier exists, propose or create `LANGUAGE.md` only after evidence supports the canonical nouns, verbs, audiences, workflows, registers, forbidden terms, and claim boundaries.
+9. Keep standard labels when they are clearest, accessibility-critical, legally required, or industry-standard. Generic is allowed when it helps users act.
+10. Run Korean-native review for Korean public copy before returning it. Check natural Korean phrasing, service-specific nouns, register, spacing, and whether translated evidence leaked as awkward literal wording.
+11. Run the gate on every meaningful rewrite: `Could this copy belong to any generic SaaS app?`. If yes, find better evidence or keep the original if it is already clear.
 
 ## Dossier workflow
 
@@ -47,6 +51,9 @@ Use these same-pack references when present:
 - `reference/rewrite-gates.md` for clarity, standard-label preservation, usefulness, accessibility, and before/after rules.
 - `reference/contract-safety.md` for protocol, API, localization, log, telemetry, SDK, and documented semantics safety.
 - `reference/examples.md` for evidence-backed before and after examples.
+- `reference/public-copy-protocol.md` for the evidence-to-public-copy workflow, surface classification, leakage checks, and public/private copy boundaries.
+- `reference/web-service-prose.md` for homepage/service prose, landing pages, feature sections, pricing or plan copy, and other web service copy surfaces.
+- `reference/korean-native-copy.md` for Korean-native review, Korean public copy quality, register, spacing, and literal-translation checks.
 
 When updating the dossier:
 
@@ -67,6 +74,17 @@ When updating the dossier:
 
 ## Output shape
 
+- intent card: include these fields for each public-copy pass:
+  - `Surface/location`
+  - `Audience/reader`
+  - `Copy job`
+  - `Evidence source`
+  - `Claim boundary`
+  - `Protected terms/contracts`
+  - `Public-facing draft`
+  - `Internal rationale/evidence notes`
+  - `Leakage check`
+  - `Korean-native review` when Korean copy exists
 - Evidence sources: list the repo files, screens, commands, messages, docs, models, tickets, or user flows that shaped the language pass.
 - Dossier updates: state whether `LANGUAGE.md` was created, updated, or left unchanged, and name any `DOMAIN_LANGUAGE.md` context used.
 - Before/after examples: show the original wording, the proposed wording, and the evidence that made the new wording more service-native.
@@ -79,6 +97,7 @@ When updating the dossier:
 - This skill is not an implementation executor and must hand code, UI, docs, mobile, or backend changes to the owning route.
 - This skill is not a routing-matrix replacement and must defer routing, helper fit, and support posture to `.opencode/reference/routing-matrix.md` and the support references.
 - This skill is not a support claim and must not imply current validated coverage, public support status, or workflow status.
+- Internal rationale, evidence notes, QA notes, contract notes, and page-planning language are not public display copy. Keep them out of homepage/service prose, UI strings, docs, notifications, CLI output, API messages, support copy, and release notes unless the user explicitly asks to publish that material.
 - Do not rewrite machine-readable contracts unless the user explicitly authorizes the contract change.
 - Do not over-brand clear functional copy. If a standard label is best for comprehension or accessibility, keep it.
 - Do not use domain language that lacks evidence in the repo, product surface, or user-provided context.

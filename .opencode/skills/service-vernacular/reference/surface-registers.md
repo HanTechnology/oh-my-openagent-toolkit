@@ -4,7 +4,7 @@ Use this reference to apply one language dossier across surfaces without flatten
 
 Service-vernacular owns terminology and register evidence. Impeccable owns detailed UI copy mechanics. documentation-sdk owns docs, API reference, SDK, and release-note structure. Keep those boundaries clear.
 
-Required surfaces covered: UI, docs, CLI, notifications, backend/API product-facing errors, admin/operator, onboarding, support, release notes.
+Required surfaces covered: UI, docs, CLI, notifications, backend/API product-facing errors, admin/operator, onboarding, support, release notes, homepage hero, product/service page, proof panel, route card, CTA/link, caption/diagram label, metadata/fallback text, localized-copy.
 
 ## Shared register rules
 
@@ -15,6 +15,102 @@ Required surfaces covered: UI, docs, CLI, notifications, backend/API product-fac
 5. Keep generic standard labels when they are clearest, familiar, or accessibility-critical.
 6. Preserve contract fields named in `contract-safety.md`.
 7. Avoid over-branding. A term can be distinctive without sounding like a mascot.
+
+## Homepage hero
+
+Register: public, immediate, and grounded in the visitor's first decision.
+
+Homepage hero copy should say what the service is, who it helps, and what the visitor can safely do next. It may carry brand confidence, but only from evidence such as product facts, approved positioning, customer proof, or visible service capabilities.
+
+Evidence to inspect: homepage brief, product facts, company positioning, customer proof, analytics intent, primary CTA target, route map, localization source, and current hero text.
+
+Keep generic when clearest: short navigation labels, `Learn more`, `Contact us`, `Sign in`, and other standard paths may stay familiar when they point to predictable destinations.
+
+Avoid: internal page-review notes, sequencing instructions, abstract trust claims, and sentences that describe the page instead of speaking to the visitor.
+
+## Product/service page
+
+Register: explanatory, proof-aware, and specific to the service promise.
+
+Product and service pages should name the offer, the user or buyer problem, and the evidence-backed capability boundary. Do not turn internal product taxonomy into public copy unless that taxonomy is already public and useful.
+
+Evidence to inspect: service descriptions, feature inventory, diagrams, technical docs, sales collateral, customer questions, support limits, pricing boundaries, and approved claim language.
+
+Keep generic when clearest: standard section labels such as `Features`, `Services`, `Pricing`, `Security`, and `FAQ` may remain generic when they help scanning.
+
+Avoid: claim stacking, unsupported category leadership, filler phrases, or translating an internal section note into visitor-facing prose.
+
+## Proof panel
+
+Register: factual, cited, and modest.
+
+Proof panels should expose verifiable evidence such as deployments, case studies, certifications, measured outcomes, customer quotes, integration facts, or audit scope. If the proof is still under review, keep that review status out of public copy.
+
+Evidence to inspect: approved metrics, customer approvals, compliance artifacts, public case studies, screenshots, benchmark notes, and legal or brand approvals.
+
+Keep generic when clearest: neutral labels such as `Results`, `Evidence`, `Customers`, `Partners`, and `Case studies` may remain generic.
+
+Avoid: inventing certainty, implying forensic or compliance guarantees, or using QA-language to explain why a claim was limited.
+
+## Route card
+
+Register: choice-oriented, parallel, and predictable.
+
+Route cards should help visitors choose between products, services, industries, docs, contact paths, or support paths. Each card needs a clear destination, a distinct reason to choose it, and a label that matches the linked route.
+
+Evidence to inspect: sitemap, route names, IA notes, card destinations, product families, visitor segments, analytics events, and current navigation labels.
+
+Keep generic when clearest: common route labels may stay standard when they reduce choice friction.
+
+Avoid: cards that repeat the same value phrase, hide the destination, or use internal routing notes as display text.
+
+## CTA/link
+
+Register: action-specific, honest, and destination-matched.
+
+CTA and link text should tell the visitor what happens after selection. Match the verb to the destination, the commitment level, and the current surface. A service inquiry link should not sound like a product launch, and a docs link should not sound like a sales conversion.
+
+Evidence to inspect: target URL, form behavior, modal behavior, auth requirement, sales process, route title, analytics name, and accessibility label.
+
+Keep generic when clearest: `Learn more`, `View docs`, `Contact sales`, `Get started`, and `Sign in` may remain generic when the target is obvious and accessible.
+
+Avoid: vague verbs, bait-and-switch destinations, inflated verbs such as `unlock`, and links that only make sense beside surrounding prose.
+
+## Caption/diagram label
+
+Register: explanatory, compact, and tied to the visual.
+
+Captions and diagram labels should name what the visual proves or clarifies. They should not carry the whole product pitch, and they should not add claims the visual does not show.
+
+Evidence to inspect: diagram source, alt text, design annotations, product architecture notes, component labels, and any localized caption source.
+
+Keep generic when clearest: standard labels such as `Architecture`, `Workflow`, `Before`, `After`, and `Example` may remain generic.
+
+Avoid: decorative captions, unlabeled acronyms, or labels that require internal architecture knowledge.
+
+## Metadata/fallback text
+
+Register: concise, searchable, and safe when seen out of context.
+
+Metadata, SEO snippets, social cards, empty fallbacks, alt fallbacks, and route titles should preserve the public claim boundary even when detached from the page. These strings often appear in search, previews, and assistive contexts, so they need standalone clarity.
+
+Evidence to inspect: page title, meta description, Open Graph fields, structured data, fallback components, localization files, screenshots, and generated route names.
+
+Keep generic when clearest: product names, company names, and standard fallback labels may remain simple when clarity beats novelty.
+
+Avoid: stuffing keywords, expanding claims for search, or using placeholder copy that can leak into public previews.
+
+## Localized-copy review
+
+Register: native to the locale, meaning-preserving, and surface-aware.
+
+Localized-copy review checks whether translated or bilingual text keeps the same meaning, claim boundary, and surface purpose as the source. Korean public copy should read like Korean written for that surface, not English structure with Korean words.
+
+Evidence to inspect: source copy, target-locale copy, glossary, approved product names, locale-specific legal or claim notes, route context, and native-speaker review findings.
+
+Keep generic when clearest: widely understood product names, route labels, and technical terms may stay in English when that is the approved public convention.
+
+Avoid: literal English rhythm, internal review terms, mixed-language taxonomy without reason, or a Korean sentence that is accurate but unnatural for public display.
 
 ## UI
 

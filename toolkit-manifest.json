@@ -1130,8 +1130,8 @@
         "core",
         "full"
       ],
-      "sha256": "4e21f8efc65bb701b6b08b9cf1a8e84d0424056e836f264ad099940c6133bd98",
-      "size": 24812,
+      "sha256": "a7e8da8ba3e0f772aa880c0b33590e7203d8deb9564d902c6ad8e9a11765c573",
+      "size": 24991,
       "strategy": "managed"
     },
     {
@@ -1167,8 +1167,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "5cd109009765d82bff1cae07c352d057cbfc0a29a1c2910b5ccd6ef604fd554e",
-      "size": 93643,
+      "sha256": "5534cae272e574eac2e3ecfcbcef73dfdaf9e6dab12f9b1757bc35cf40bef707",
+      "size": 95096,
       "strategy": "managed"
     },
     {
@@ -3077,8 +3077,20 @@
       "profiles": [
         "full"
       ],
-      "sha256": "6d4a7bbd9b0ce3957b5248cf9e0d339f67373ab94ee432a2f330e8c5d71c1919",
-      "size": 4554,
+      "sha256": "379054ffb49f9727cc10e7199ab234d1d264fcca3ba1139c5c005fb913e9d3e6",
+      "size": 7804,
+      "strategy": "managed"
+    },
+    {
+      "kind": "skill",
+      "mode": "100644",
+      "owner": "toolkit",
+      "path": ".opencode/skills/service-vernacular/reference/korean-native-copy.md",
+      "profiles": [
+        "full"
+      ],
+      "sha256": "36d9a07edbc93f1edceaf543b0d9684f9234bc183c53c1055fac17145953f462",
+      "size": 4461,
       "strategy": "managed"
     },
     {
@@ -3097,12 +3109,24 @@
       "kind": "skill",
       "mode": "100644",
       "owner": "toolkit",
+      "path": ".opencode/skills/service-vernacular/reference/public-copy-protocol.md",
+      "profiles": [
+        "full"
+      ],
+      "sha256": "5b5b291f16f768ebf8c147ae60b7d18c4f54b5fae362252f7b56c6d1fa8d90c6",
+      "size": 4418,
+      "strategy": "managed"
+    },
+    {
+      "kind": "skill",
+      "mode": "100644",
+      "owner": "toolkit",
       "path": ".opencode/skills/service-vernacular/reference/rewrite-gates.md",
       "profiles": [
         "full"
       ],
-      "sha256": "0b72e6ecc8756cde2cd8a586dd1c8738f12b06c7ef5add3cec5f8dc9c940c9b2",
-      "size": 3532,
+      "sha256": "4c548697b0b08712d17cd189fdc94e6691850ae6827e69d0762cb6b8192ae8c1",
+      "size": 6083,
       "strategy": "managed"
     },
     {
@@ -3113,8 +3137,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "e60c18af54bbcf82997d0f1aa4aa571a606dccc51a75dcf20f33085869397fc3",
-      "size": 3919,
+      "sha256": "12c4ef01a77722241ce51d827a8c899930efcb24c2ba0c1be2b1aa08ba5fb796",
+      "size": 7155,
       "strategy": "managed"
     },
     {
@@ -3125,8 +3149,20 @@
       "profiles": [
         "full"
       ],
-      "sha256": "f8771a3e09162794b7bdd1b3602d82fc20f99324c494af9c584e3d9a42c5690f",
-      "size": 7589,
+      "sha256": "476233daf769add961986c4edf003e8b4ed8798bc332cd4f7e6d58f84d6b6256",
+      "size": 13930,
+      "strategy": "managed"
+    },
+    {
+      "kind": "skill",
+      "mode": "100644",
+      "owner": "toolkit",
+      "path": ".opencode/skills/service-vernacular/reference/web-service-prose.md",
+      "profiles": [
+        "full"
+      ],
+      "sha256": "f82ed5a2517eb05c053ac542715f5f54630ea0c2f691d72b16d37add29dd8353",
+      "size": 5048,
       "strategy": "managed"
     },
     {
@@ -3137,8 +3173,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "776a299c20a334ee136ada0aa878aa6c06aa94b31161af335b19049c286ab4a1",
-      "size": 6973,
+      "sha256": "7197fda258451eb8a916ad24c501d3e0cb211f8f10830aca43c9d5c7ee580c08",
+      "size": 8936,
       "strategy": "managed"
     },
     {
@@ -3245,8 +3281,8 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "51e2d2793642e613b32d612ad670545c6b5922f6b2187d8b65bf4fb4e4721a99",
-      "size": 13369,
+      "sha256": "2223d9c7bad636c146471a8e06f187977fd7f3b6e6d245d55aaa43cc4dca6c3e",
+      "size": 14765,
       "strategy": "opt-in"
     },
     {
@@ -3269,8 +3305,8 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "15b9ba1b26a889d42dde922ad00f0c2782ecec072a7e40d4d098a3e5e1a8e3fa",
-      "size": 14803,
+      "sha256": "b678592df492c7b4d6f521b41ffc70e6017f6a6b55c1551218090a4eb348fd18",
+      "size": 14980,
       "strategy": "opt-in"
     },
     {
@@ -3281,7 +3317,7 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "967d9afb101346667166f2e76e81910bc190488d7d41d50ca0072e9d92f00e32",
+      "sha256": "a66780da23103beaf12432b418508966b31a2a3a787f9468a5b6cdaa8667c1ef",
       "size": 6,
       "strategy": "opt-in"
     }
@@ -3329,11 +3365,11 @@
   },
   "schema": 1,
   "source": {
-    "generatedAt": "2026-06-02T01:46:20.507Z",
+    "generatedAt": "2026-06-04T10:24:04.748Z",
     "gitCommit": null
   },
   "toolkit": {
     "packageName": "oh-my-openagent-toolkit",
-    "version": "0.7.0"
+    "version": "0.8.0"
   }
 }

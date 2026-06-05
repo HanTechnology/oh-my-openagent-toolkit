@@ -1132,6 +1132,12 @@ required = [
     'LANGUAGE.md',
     'DOMAIN_LANGUAGE.md',
     'Could this copy belong to any generic SaaS app?',
+    'evidence-to-public-copy workflow',
+    'public display copy',
+    'internal rationale',
+    'intent card',
+    'Korean-native review',
+    'homepage/service prose',
 ]
 missing = [phrase for phrase in required if phrase not in text]
 if missing:
@@ -1151,6 +1157,9 @@ PY
   require_file 'Service vernacular slop detector reference' "$service_reference_dir/slop-detector.md"
   require_file 'Service vernacular rewrite gates reference' "$service_reference_dir/rewrite-gates.md"
   require_file 'Service vernacular contract safety reference' "$service_reference_dir/contract-safety.md"
+  require_file 'Service vernacular public copy protocol reference' "$service_reference_dir/public-copy-protocol.md"
+  require_file 'Service vernacular web service prose reference' "$service_reference_dir/web-service-prose.md"
+  require_file 'Service vernacular Korean native copy reference' "$service_reference_dir/korean-native-copy.md"
   require_file 'Service vernacular examples reference' "$service_reference_dir/examples.md"
 
   if python3 - "$service_reference_dir" <<'PY'
@@ -1166,27 +1175,60 @@ checks = {
         '`LANGUAGE.md` wins',
     ],
     'surface-registers.md': [
-        'Required surfaces covered: UI, docs, CLI, notifications, backend/API product-facing errors, admin/operator, onboarding, support, release notes.',
+        'Required surfaces covered:',
         'Keep generic standard labels when they are clearest, familiar, or accessibility-critical.',
+        'homepage hero',
+        'proof panel',
+        'route card',
+        'localized-copy',
     ],
     'contract-safety.md': [
         'Protected terms in exact form: machine-readable error codes, status codes, enum values, localization keys, log identifiers, telemetry event names, SDK-visible fields, and documented API semantics.',
         'documented API semantics stayed the same',
     ],
+    'public-copy-protocol.md': [
+        'public display copy',
+        'internal rationale',
+        'intent card',
+        'failed public copy / do not publish',
+    ],
+    'web-service-prose.md': [
+        'homepage/service prose',
+        'hero',
+        'proof panel',
+        'route card',
+        'CTA',
+    ],
+    'korean-native-copy.md': [
+        'Korean-native review',
+        'translationese',
+        'noun stacks',
+        '합니다체',
+    ],
     'rewrite-gates.md': [
         'Gate 5: standard-label preservation',
         'Gate 6: before/after requirements',
         'Could this copy belong to any generic SaaS app?',
+        'publishability gate',
+        'CTA/link predictability',
+        'headline rhythm',
+        'EN/KO meaning parity',
     ],
     'examples.md': [
         'before/after pairs',
         'Before:',
         'After:',
         'Contract-safety note:',
+        'failed public copy / do not publish',
+        'RoboLink AI Core는 하나의 대표 Physical AI 제품 섹션입니다.',
+        'Company trust first. Product and service choices second.',
     ],
     'slop-detector.md': [
         'Could this copy belong to any generic SaaS app?',
         'Generic is not always slop.',
+        'internal-planning leakage',
+        'QA-language leakage',
+        'AI-copy construction fingerprints',
     ],
 }
 missing = []
@@ -1204,7 +1246,7 @@ if missing:
 print('service vernacular reference coverage checks passed')
 PY
   then
-    pass 'Service vernacular reference coverage' 'references cover dossier precedence, required surfaces, protected fields, before/after examples, and standard-label preservation'
+    pass 'Service vernacular reference coverage' 'references cover dossier precedence, public-copy protocol, homepage/service prose, Korean-native review, required surfaces, protected fields, before/after examples, and standard-label preservation'
   else
     fail 'Service vernacular reference coverage' 'reference pack is missing required service-vernacular coverage'
   fi

@@ -49,7 +49,7 @@ The practical split is simple: upstream stays general-purpose, while this bundle
 | Skill surface | Domain-oriented local packs across architecture, UI, backend, systems, data, security, QA, and deployment. | `.opencode/skills/` |
 | Impeccable refinement | Supplementary UI critique, anti-slop review, polishing, typography, color, layout, and interaction guidance. | `.opencode/skills/impeccable/`, compatibility wrappers such as `polish`, `audit`, `critique`, `typeset` |
 | DESIGN.md reference layer | 73 offline DESIGN.md snapshots for visual-language interpretation. It is not a primary route and not a validated support claim. | `.opencode/reference/design-md/README.md`, `.opencode/reference/design-md-source-policy.md`, `.opencode/reference/design-md-catalog.md`, `.opencode/reference/design-md-selection-protocol.md` |
-| Service vernacular | `service-vernacular` is a supplementary language companion for repo-backed nouns, verbs, surface registers, and rewrite evidence. It is not a primary route and not a support claim. | `.opencode/skills/service-vernacular/SKILL.md`, `.opencode/skills/service-vernacular/reference/` |
+| Service vernacular | `service-vernacular` is a supplementary language companion for repo-backed nouns, verbs, surface registers, public-copy boundaries, homepage/service prose, Korean-native review, and rewrite evidence. It is not a primary route and not a support claim. | `.opencode/skills/service-vernacular/SKILL.md`, `.opencode/skills/service-vernacular/reference/` |
 | Compass orientation | `compass` helps frame goals, compare options, and choose a next route before implementation. It is not a primary route or validated support claim. | `.opencode/skills/compass/SKILL.md` |
 
 ## Validated surface
@@ -132,7 +132,7 @@ Start from the repo root and read in this order:
 
 For UI work, route through `frontend-web` or `mobile-app` first, then layer Impeccable commands or compatibility wrappers only when they fit. If a UI request names a product feel or the project lacks a strong design direction, use the DESIGN.md selection protocol to shortlist exactly three local reference slugs plus `Custom`; extract transferable traits and adapt them to the current project rather than copying brand identity.
 
-For product-facing language across UI, docs, CLI, notifications, backend/API errors, admin/operator surfaces, onboarding, support, or release notes, use `service-vernacular` as a supplementary language companion. Keep implementation ownership with the primary route.
+For product-facing language across UI, docs, CLI, notifications, backend/API errors, admin/operator surfaces, onboarding, support, release notes, homepage/service prose, or public-copy boundaries, use `service-vernacular` as a supplementary language companion for evidence-backed wording and Korean-native review. Keep implementation ownership with the primary route.
 
 ## Source workflow
 

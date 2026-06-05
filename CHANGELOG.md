@@ -11,6 +11,26 @@ Versioning rules:
 - Patch: validator fixes, wording corrections, guardrail tightening, and non-breaking documentation updates.
 
 
+## v0.8.0 - 2026-06-04
+
+Minor toolkit release preparing the `service-vernacular` Option B public-copy upgrade for manual npm publish.
+
+#### Highlights
+
+* Expanded `service-vernacular` from internal wording help into Option B public-copy guidance for homepage and service prose while keeping it a supplementary language companion.
+* Added public-copy reference coverage for `public-copy-protocol.md`, `web-service-prose.md`, and `korean-native-copy.md`, including intent card inputs, public/private copy boundaries, and Korean-native review gates.
+* Updated discoverability so public display copy, homepage/service prose, and Korean-native review are easier to find without making `service-vernacular` a primary route or support claim.
+
+#### Validation
+
+* Added source validator coverage for the new public-copy references, required tokens, negative governance sidecar checks, and Korean-native public-copy gates.
+* Regenerated toolkit manifest and historical hash metadata for `0.8.0` so manual update planning can recognize the final managed payload alongside `0.7.0`.
+
+#### Boundaries
+
+* Support and routing posture stay unchanged: `service-vernacular` remains supplementary, absent from governance sidecars, and not a primary route, validated workflow, or support claim.
+* This release prepares source metadata only; npm publish, git tags, and GitHub Releases remain manual user-owned steps.
+
 ## v0.7.0 - 2026-06-01
 
 Minor toolkit release adding the full local DESIGN.md reference mirror and reference-guided DESIGN.md generation guardrails.

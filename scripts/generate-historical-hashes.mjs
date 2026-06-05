@@ -23,8 +23,9 @@ function main(argv = process.argv.slice(2)) {
   const packageRoot = path.resolve(new URL('..', import.meta.url).pathname);
   const registryPath = path.join(packageRoot, REGISTRY_RELATIVE_PATH);
   const actual = fs.existsSync(registryPath) ? fs.readFileSync(registryPath, 'utf8') : null;
-  const generatedAt = actual ? readGeneratedAt(actual) : readManifest(packageRoot).source?.generatedAt ?? null;
-  const expected = registryToJson(buildHistoricalRegistry(packageRoot, { generatedAt }));
+  const existingRegistry = actual ? readExistingRegistry(actual) : null;
+  const generatedAt = actual ? existingRegistry?.generatedAt ?? null : readManifest(packageRoot).source?.generatedAt ?? null;
+  const expected = registryToJson(buildHistoricalRegistry(packageRoot, { existingRegistry, generatedAt }));
 
   if (argv.includes('--write')) {
     fs.mkdirSync(path.dirname(registryPath), { recursive: true });
@@ -54,19 +55,19 @@ export function buildHistoricalRegistry(packageRoot, options = {}) {
     }))
     .sort(compareByPath);
 
+  const currentVersion = {
+    version: packageJson.version,
+    manifestSha256: manifestSha256(manifest),
+    files,
+    agentsBlock: {
+      sha256: manifest.agentsBlock.sha256,
+    },
+  };
+
   return sortJsonValue({
     schema: SCHEMA_VERSION,
     generatedAt: options.generatedAt ?? manifest.source?.generatedAt ?? null,
-    versions: [
-      {
-        version: packageJson.version,
-        manifestSha256: manifestSha256(manifest),
-        files,
-        agentsBlock: {
-          sha256: manifest.agentsBlock.sha256,
-        },
-      },
-    ],
+    versions: mergeHistoricalVersions(options.existingRegistry, currentVersion),
   });
 }
 
@@ -82,12 +83,33 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-function readGeneratedAt(content) {
+function readExistingRegistry(content) {
   try {
-    return JSON.parse(content).generatedAt ?? null;
+    return JSON.parse(content);
   } catch {
     return null;
   }
+}
+
+function mergeHistoricalVersions(existingRegistry, currentVersion) {
+  const existingVersions = Array.isArray(existingRegistry?.versions) ? existingRegistry.versions : [];
+  const versions = [];
+  let replacedCurrent = false;
+
+  for (const versionEntry of existingVersions) {
+    if (versionEntry?.version !== currentVersion.version) {
+      versions.push(versionEntry);
+      continue;
+    }
+
+    if (!replacedCurrent) {
+      versions.push(currentVersion);
+      replacedCurrent = true;
+    }
+  }
+
+  if (!replacedCurrent) versions.push(currentVersion);
+  return versions;
 }
 
 function compareByPath(left, right) {

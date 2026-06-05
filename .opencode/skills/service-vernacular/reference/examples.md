@@ -115,3 +115,79 @@ Domain evidence: The release diff adds escalation policy names to incident notif
 Contract-safety note: Do not claim new delivery guarantees or change webhook payload semantics unless the API contract changed.
 
 Why this is not generic: It states the shipped user impact in incident-response terms and avoids a broad improvement claim.
+
+## Homepage/service/Korean negative fixtures
+
+These Nuvreon-shaped fixtures are labeled `failed public copy / do not publish`. They are examples of what to reject, not recommended public copy.
+
+### Korean product-section fixture
+
+Surface: product/service page
+
+Fixture label: `failed public copy / do not publish`
+
+Failed public copy: `RoboLink AI Core는 하나의 대표 Physical AI 제품 섹션입니다.`
+
+Why it fails: It reads like an internal section label, mixes Korean with product taxonomy, and claims representative status without source evidence.
+
+Direction, not final Nuvreon copy: Return to verified product evidence. Write natural Korean that names the product role only if approved sources support that role.
+
+### Korean company-review fixture
+
+Surface: homepage hero
+
+Fixture label: `failed public copy / do not publish`
+
+Failed public copy: `회사 검토 자료가 보인 뒤 방문자를 안내합니다.`
+
+Why it fails: It exposes review sequencing and tells the visitor about internal material instead of speaking from the company surface.
+
+Direction, not final Nuvreon copy: Keep review order in notes. Public copy should address the visitor's first decision with approved company identity and service evidence.
+
+### Korean claim-boundary fixture
+
+Surface: proof panel
+
+Fixture label: `failed public copy / do not publish`
+
+Failed public copy: `검토 자료는 ... 포렌식 확실성을 지어내지 않습니다.`
+
+Why it fails: It leaks claim-safety rationale into display copy and frames the page around what reviewers avoided.
+
+Direction, not final Nuvreon copy: Keep the constraint in the review record. Public copy should state only verified proof and approved limits.
+
+### Korean operation-list fixture
+
+Surface: caption/diagram label
+
+Fixture label: `failed public copy / do not publish`
+
+Failed public copy: `Core가 명령을 점검, 정규화, 기록, 라우팅, 준비합니다.`
+
+Why it fails: It stacks internal process verbs and may imply a broader command pipeline than the public evidence proves.
+
+Direction, not final Nuvreon copy: Use diagram evidence to name the visible flow and keep any internal operation list out of public labels unless it is documented and user-relevant.
+
+### English route-order fixture
+
+Surface: route card
+
+Fixture label: `failed public copy / do not publish`
+
+Failed public copy: `Company trust first. Product and service choices second.`
+
+Why it fails: It is a content-order instruction, not visitor-facing route copy. It also makes every route feel like a strategy note.
+
+Direction, not final Nuvreon copy: Put route order in IA notes. Public route cards should name each destination and why a visitor would choose it.
+
+### English homepage-description fixture
+
+Surface: metadata/fallback text
+
+Fixture label: `failed public copy / do not publish`
+
+Failed public copy: `The Home page opens with the company identity...`
+
+Why it fails: It describes the page artifact and leaves the public message unfinished. As metadata or fallback text, it would leak review narration into search or previews.
+
+Direction, not final Nuvreon copy: Write standalone public metadata from the approved company identity, service scope, and route purpose. Keep page observations in internal notes.
