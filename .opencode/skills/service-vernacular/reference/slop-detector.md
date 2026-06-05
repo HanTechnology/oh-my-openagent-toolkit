@@ -23,6 +23,7 @@ Score each dimension from 0 to 2.
 | Usefulness | Sounds polished but vague | Understandable but incomplete | Tells the user what happened, why it matters, or what to do next |
 | Claim safety | Adds unsupported claims | Claim is plausible but uncited | Claim is backed by source evidence and within approved boundaries |
 | Contract safety | May rename contract fields | Mentions contracts but misses one risk | Preserves protected fields from `contract-safety.md` |
+| Locale-native fit | Source syntax or translationese controls the target line | Target locale is named but weakly reviewed | Source intent, target-locale register, termbase, and native-review evidence shape the wording |
 
 Passing bar: no 0 scores, and at least four dimensions score 2. The required gate still wins. If the copy could fit any generic SaaS app, it fails even with a high score.
 
@@ -60,6 +61,19 @@ Fail if the copy exposes internal caution, legal reasoning, or unsupported certa
 Homepage and service prose fails when it sounds polished but could sit on any vendor site. It also fails when it talks about the page, the section, or the strategy rather than the company, service, visitor task, destination, or proof.
 
 Check homepage heroes, product/service pages, proof panels, route cards, CTA/link text, captions, diagram labels, metadata, fallback text, and localized copy. Each surface needs evidence from the actual offer and route.
+
+## localized-copy slop
+
+Localized slop can sound fluent while still copying source-locale logic. It fails when public copy exposes translation rationale, claims a native review inside the visible string, ignores the locale termbase, or uses target-language words in source-language order.
+
+Reject translationese, literal idiom transfer, source punctuation copied into the target line, generic market claims, protected terms translated for style, and localized CTAs that no longer predict the destination.
+
+| Failure shape | Why it fails | Repair move |
+| --- | --- | --- |
+| `native review passed` | Review evidence leaked into public copy | Move review status to notes and write the reader-facing line |
+| `localized for this market` | Locale strategy, not display copy | Name the reader action, proof, or destination |
+| Source-language word order in target copy | Translationese blocks native reading | Restate source intent, then draft in target-locale order |
+| Protected product term translated without termbase evidence | May break contract, recognition, or support wording | Keep the approved term and rewrite surrounding grammar |
 
 ## AI-copy construction fingerprints
 

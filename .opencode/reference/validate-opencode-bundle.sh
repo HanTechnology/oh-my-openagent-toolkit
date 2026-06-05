@@ -1136,7 +1136,14 @@ required = [
     'public display copy',
     'internal rationale',
     'intent card',
+    'locale-native-copy.md',
+    'target-locale native review',
+    'transcreation decision',
+    'locale dossier',
+    'do-not-translate',
+    'native/in-market review',
     'Korean-native review',
+    'Korean specialization',
     'homepage/service prose',
 ]
 missing = [phrase for phrase in required if phrase not in text]
@@ -1159,6 +1166,7 @@ PY
   require_file 'Service vernacular contract safety reference' "$service_reference_dir/contract-safety.md"
   require_file 'Service vernacular public copy protocol reference' "$service_reference_dir/public-copy-protocol.md"
   require_file 'Service vernacular web service prose reference' "$service_reference_dir/web-service-prose.md"
+  require_file 'Service vernacular locale-native copy reference' "$service_reference_dir/locale-native-copy.md"
   require_file 'Service vernacular Korean native copy reference' "$service_reference_dir/korean-native-copy.md"
   require_file 'Service vernacular examples reference' "$service_reference_dir/examples.md"
 
@@ -1199,8 +1207,16 @@ checks = {
         'route card',
         'CTA',
     ],
+    'locale-native-copy.md': [
+        'target-locale native review',
+        'transcreation decision',
+        'locale dossier',
+        'do-not-translate',
+        'native/in-market review',
+    ],
     'korean-native-copy.md': [
         'Korean-native review',
+        'Korean specialization',
         'translationese',
         'noun stacks',
         '합니다체',
@@ -1246,7 +1262,7 @@ if missing:
 print('service vernacular reference coverage checks passed')
 PY
   then
-    pass 'Service vernacular reference coverage' 'references cover dossier precedence, public-copy protocol, homepage/service prose, Korean-native review, required surfaces, protected fields, before/after examples, and standard-label preservation'
+    pass 'Service vernacular reference coverage' 'references cover dossier precedence, public-copy protocol, homepage/service prose, locale-native transcreation, Korean-native review, required surfaces, protected fields, before/after examples, and standard-label preservation'
   else
     fail 'Service vernacular reference coverage' 'reference pack is missing required service-vernacular coverage'
   fi

@@ -41,6 +41,14 @@ Every CTA or link must make the next action predictable:
 
 Reject CTA copy when the reader cannot predict what happens after selection.
 
+## Locale-native hero and CTA transcreation
+
+Localized homepage heroes and CTAs often need transcreation, not sentence-by-sentence translation. Preserve source intent, claim boundary, destination, and commitment level, then let the target locale choose its own order, rhythm, proof emphasis, idiom choice, and CTA verb.
+
+Record the transcreation decision, termbase choices, protected terms, UI/layout risk, and native-review evidence in notes. The visible hero or CTA must not say that it was localized, transcreated, or native-reviewed.
+
+Reject localized hero or CTA copy when it copies source syntax at the cost of native reading, changes the offer, overstates proof, hides the link destination, ignores text expansion, or turns translation rationale into public copy.
+
 ## Evidence density
 
 Use low evidence density for short labels, navigation, and obvious actions. Use medium evidence density for subheads, route cards, captions, and metadata. Use high evidence density for proof panels, product/service claims, and trust-sensitive fallback text.

@@ -104,13 +104,15 @@ Avoid: stuffing keywords, expanding claims for search, or using placeholder copy
 
 Register: native to the locale, meaning-preserving, and surface-aware.
 
-Localized-copy review checks whether translated or bilingual text keeps the same meaning, claim boundary, and surface purpose as the source. Korean public copy should read like Korean written for that surface, not English structure with Korean words.
+Localized-copy review checks whether translated, bilingual, or transcreated text preserves source intent, claim boundary, surface purpose, and next action while reading like native locale public copy. The target line may change order, rhythm, idiom, proof order, or CTA shape when the transcreation decision calls for it, but it must not change the promise.
 
-Evidence to inspect: source copy, target-locale copy, glossary, approved product names, locale-specific legal or claim notes, route context, and native-speaker review findings.
+Evidence to inspect: source copy, target-locale copy, locale dossier, glossary, locale terminology or termbase, do-not-translate terms, approved product names, locale-specific legal or claim notes, cultural/register notes, route context, UI/layout constraints, and target-locale native-review evidence.
 
-Keep generic when clearest: widely understood product names, route labels, and technical terms may stay in English when that is the approved public convention.
+Keep generic when clearest: widely understood product names, route labels, standard labels, and technical terms may stay in English or in their approved localized form when that is the public convention.
 
-Avoid: literal English rhythm, internal review terms, mixed-language taxonomy without reason, or a Korean sentence that is accurate but unnatural for public display.
+Check fit: confirm the target copy matches the surface's job, the audience relationship, formality, politeness, punctuation, reading direction, line length, truncation risk, and placeholder grammar.
+
+Avoid: literal English rhythm, missing transcreation decision, internal review terms, mixed-language taxonomy without reason, ignored UI/layout constraints, absent native-review evidence, or a Korean sentence that is accurate but unnatural for public display.
 
 ## UI
 

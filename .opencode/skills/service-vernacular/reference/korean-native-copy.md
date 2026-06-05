@@ -2,6 +2,8 @@
 
 Use this reference when Korean public copy appears in service-vernacular work. Korean copy must pass Korean-native review by meaning and reader intent, not sentence-by-sentence translation from English.
 
+This is the deeper Korean-specific specialization under the general locale-native protocol in [locale-native-copy.md](locale-native-copy.md). Use the general protocol first for source locale, target locale, source intent, the transcreation decision, protected terms, and native/in-market review notes. Then use this `ko`/Korean specialization for Korean information flow, protected English terms in Korean grammar, particles and spacing, B2B technical Korean register, `합니다체` vs `해요체`, headline rhythm, translationese, noun stacks, English word order leakage, and negative fixtures.
+
 ## Korean-native review
 
 Korean-native review asks whether a Korean reader would understand the same intent with natural rhythm, trust, and register. It is not a literal parity check. Preserve the claim boundary and protected terms, then rewrite the surrounding Korean so it reads as Korean-first public copy.

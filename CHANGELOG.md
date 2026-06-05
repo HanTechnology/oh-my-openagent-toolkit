@@ -11,6 +11,26 @@ Versioning rules:
 - Patch: validator fixes, wording corrections, guardrail tightening, and non-breaking documentation updates.
 
 
+## v0.9.0 - 2026-06-05
+
+Minor toolkit release preparing the locale-native/transcreation service-vernacular upgrade for manual npm publish readiness.
+
+#### Highlights
+
+* Expanded `service-vernacular` into a generalized locale-native and transcreation companion for target-locale public copy while preserving Korean as the deeper locale-specific specialization.
+* Added the general `locale-native-copy.md` reference layer and upgraded related service-vernacular protocols for source intent, locale dossiers, terminology, register, cultural adaptation, UI/layout risk, and native/in-market review evidence.
+* Preserved Korean specialization through `korean-native-copy.md` and retained Korean-native review requirements alongside the generalized locale-native workflow.
+
+#### Validation
+
+* Hardened the source validator so locale-native/transcreation anchors, target-locale native review, Korean specialization preservation, governance absence, and discoverability boundaries are checked together.
+* Regenerated toolkit manifest and historical hash metadata for `0.9.0` after the managed service-vernacular, validator, README, and routing discoverability edits.
+
+#### Boundaries
+
+* `service-vernacular` remains supplementary and non-primary; this release does not add support tiers, workflow claims, route-domain entries, capability-matrix entries, routing-signals entries, or new skills.
+* This release prepares source metadata only; npm publish remains user-owned and was not performed, and no git tags or GitHub Releases are created by this metadata update.
+
 ## v0.8.0 - 2026-06-04
 
 Minor toolkit release preparing the `service-vernacular` Option B public-copy upgrade for manual npm publish.

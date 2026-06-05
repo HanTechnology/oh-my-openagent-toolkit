@@ -24,6 +24,15 @@ Protected terms in exact form: machine-readable error codes, status codes, enum 
 3. UI labels that sit above a stable API field, when the submitted field name remains unchanged.
 4. Release-note wording that explains user impact without changing availability, compatibility, or migration requirements.
 5. Operator guidance that maps known log or telemetry identifiers to a clearer recovery step while preserving the identifiers.
+6. Localized human-facing wording around protected fields, when localization keys, placeholders, ICU syntax, contract terms, and documented semantics stay unchanged.
+
+## Localized wording and protected terms
+
+Locale-native rewriting may change the human-facing sentence around a protected term, but not the protected term itself. Treat localization keys, translation memory identifiers, placeholders, ICU variable names, do-not-translate terms, API names, SDK names, error codes, enum values, telemetry names, log identifiers, and documented semantics as contract material unless the owner authorizes a change.
+
+A contract-safe localized rewrite records which terms were protected, which surrounding words changed, how the termbase was used, and why the target-locale sentence keeps the same recovery path, obligation, warning, or public behavior.
+
+Fail localized human-facing wording if it translates a key, drops a placeholder, changes variable meaning, moves a protected term into ambiguous grammar, or broadens the source contract claim.
 
 ## Safety workflow
 

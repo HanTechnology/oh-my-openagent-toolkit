@@ -44,6 +44,7 @@ Every accepted rewrite batch should include:
 4. Evidence used.
 5. Why the rewrite is not generic.
 6. Contract-safety note when the text touches API, CLI, localization, logs, telemetry, SDK, or status semantics.
+7. Source locale, target locale, transcreation decision, and native-review status when copy is localized, bilingual, translated, or non-source-language public copy.
 
 Fail if the rewrite cannot be audited from before to after.
 
@@ -82,25 +83,49 @@ Keep rationale, evidence notes, review constraints, and claim-limit reasoning se
 
 Fail if phrases such as content order, company trust first, section purpose, QA outcome, or claim-safety reasoning leak into display copy.
 
-## Gate 12: Korean-native review
+## Gate 12: target-locale native review
+
+Localized, bilingual, translated, or non-source-language public copy must pass target-locale native review before it is called publishable. The review checks source intent, claim boundary, register, cultural fit, domain terminology, protected terms, and surface context.
+
+Fail if the copy sounds translated, uses the source locale's sentence shape, lacks required native-review evidence, or hides a missing native review inside the public string.
+
+## Gate 13: transcreation decision
+
+Record the transcreation decision before drafting each localized block: translation, localization, transcreation, or mixed by block. Persuasive heroes, CTAs, proof panels, and campaign-like service prose may change structure, rhythm, proof order, or imagery to keep the same reader decision. Factual, procedural, legal, help, CLI, API, and contract-adjacent copy need tighter parity.
+
+Fail if the rewrite copies source syntax when the target locale needs a native expression, or if transcreation adds a promise, audience, route, commitment, or support scope that the source evidence does not support.
+
+## Gate 14: locale terminology and termbase
+
+Localized copy must use locale terminology from the dossier, glossary, termbase, existing approved localized copy, user language, and protected-term list. Keep do-not-translate terms, localization keys, API names, model names, product names, status codes, enum values, telemetry names, and approved English terms unchanged unless the contract owner authorizes a change.
+
+Fail if a localized rewrite translates a protected term for style, chooses a term that conflicts with the termbase, or forces a protected English term into awkward target-locale grammar instead of rewriting the surrounding sentence.
+
+## Gate 15: locale claim parity
+
+Compare source and target copy for locale claim parity: claim strength, actor, object, audience, next action, obligation, condition, risk, legal qualifier, support scope, and proof boundary must stay aligned unless an approved locale-specific rule narrows the target claim.
+
+Fail if the target locale adds certainty, removes a qualifier, changes the user's commitment, softens a required warning, broadens a regulated claim, or turns a support note into a public promise.
+
+## Gate 16: Korean-native review
 
 Korean public copy must pass a native-register check for grammar, spacing, rhythm, mixed-language terms, and surface fit. Keep approved English product names only when they are the public convention.
 
 Fail if Korean text reads like English syntax, a literal translation, a component annotation, or a reviewer note.
 
-## Gate 13: CTA/link predictability
+## Gate 17: CTA/link predictability
 
 CTA and link text must predict the destination and commitment level. Check the target URL, modal, form, auth state, or route before accepting the verb.
 
 Fail if the link could surprise the user, overstate the action, or use a vague verb when the destination is specific.
 
-## Gate 14: headline rhythm
+## Gate 18: headline rhythm
 
 Headlines should have a clear subject, a readable cadence, and a surface-appropriate claim. Public homepage and service headlines can be concise, but they still need meaning and proof boundaries.
 
 Fail if the headline is a stacked slogan, a generic value claim, an internal page summary, or a rhythm copied from English into Korean without native flow.
 
-## Gate 15: EN/KO meaning parity
+## Gate 19: EN/KO meaning parity
 
 When English and Korean copy describe the same public surface, compare meaning, claim strength, actor, object, and next action. The languages may differ in rhythm, but they must not differ in promise.
 

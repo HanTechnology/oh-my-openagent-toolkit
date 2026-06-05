@@ -92,9 +92,9 @@ The six fixed buckets remain the only first-pass routing buckets. This guidance 
 
 ## Supplementary service vernacular skill
 
-`service-vernacular` is a supplementary language companion for repo-backed nouns, verbs, surface registers, claim boundaries, public display copy, intent card wording, Korean-native review, and before/after rewrite evidence across UI, docs, CLI, notifications, backend/API product-facing errors, admin/operator text, onboarding, support, release notes, and homepage/service prose.
+`service-vernacular` is a supplementary language companion for repo-backed wording, public-copy boundaries, locale-native review, transcreation decisions, Korean-native specialization, and before/after rewrite evidence across UI, docs, CLI, notifications, backend/API product-facing errors, admin/operator text, onboarding, support, release notes, and homepage/service prose.
 
-Use it before or beside the owning primary route when copy work needs a `LANGUAGE.md` dossier, `DOMAIN_LANGUAGE.md` legacy context, generic SaaS-copy cleanup, public display copy boundaries, homepage/service prose, an intent card, Korean-native review, or contract-safe product language. The owning primary route still handles implementation, documentation structure, API/SDK shape, UI mechanics, and delivery.
+Use it before or beside the owning primary route when copy work needs a `LANGUAGE.md` dossier, `DOMAIN_LANGUAGE.md` legacy context, generic SaaS-copy cleanup, public-copy boundaries, homepage/service prose, an intent card, locale-native review, a transcreation decision, Korean-native specialization, or contract-safe product language. The owning primary route still handles implementation, documentation structure, API/SDK shape, UI mechanics, and delivery.
 
 `service-vernacular` is not a primary route and not a validated support claim.
 

@@ -1130,8 +1130,8 @@
         "core",
         "full"
       ],
-      "sha256": "a7e8da8ba3e0f772aa880c0b33590e7203d8deb9564d902c6ad8e9a11765c573",
-      "size": 24991,
+      "sha256": "38e75a8f05d0316e4fb938baed19c4f83eb336bd2ad74d4a3c6e232649ca8c6b",
+      "size": 25034,
       "strategy": "managed"
     },
     {
@@ -1167,8 +1167,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "5534cae272e574eac2e3ecfcbcef73dfdaf9e6dab12f9b1757bc35cf40bef707",
-      "size": 95096,
+      "sha256": "7c8b28d8ba21e5aa2efb81fb02b5cc7d2e913170b1a4f04920d849e9763667f3",
+      "size": 95670,
       "strategy": "managed"
     },
     {
@@ -3065,8 +3065,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "e8d75607279c8b04c8bd0f1c083470cd58f51b2fa8203eaba5bbec26b63d95af",
-      "size": 4582,
+      "sha256": "20fed0f7cb39b3f4abad0bdbb40b5778a18e3d2aa5707eb7ac51cdbcb8bb2e2b",
+      "size": 5624,
       "strategy": "managed"
     },
     {
@@ -3077,8 +3077,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "379054ffb49f9727cc10e7199ab234d1d264fcca3ba1139c5c005fb913e9d3e6",
-      "size": 7804,
+      "sha256": "8a47c9e05e80071ac55ebdd2bb5d4fa3353f38e755523d5e43d82a2a1ce9b43c",
+      "size": 9912,
       "strategy": "managed"
     },
     {
@@ -3089,8 +3089,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "36d9a07edbc93f1edceaf543b0d9684f9234bc183c53c1055fac17145953f462",
-      "size": 4461,
+      "sha256": "aca99e3abf0d476444f072a387f686f25d686268235d1bfafa4c02a2d7cc5253",
+      "size": 5059,
       "strategy": "managed"
     },
     {
@@ -3101,8 +3101,20 @@
       "profiles": [
         "full"
       ],
-      "sha256": "4c475609ba38de632639dac3967b26f625b5b5d3df4b6588dc6999ad88eb1858",
-      "size": 7412,
+      "sha256": "49d9a7081dd93827e6b08d71e3fbf3d5895a488f878af048ef52a8f424a2d464",
+      "size": 12341,
+      "strategy": "managed"
+    },
+    {
+      "kind": "skill",
+      "mode": "100644",
+      "owner": "toolkit",
+      "path": ".opencode/skills/service-vernacular/reference/locale-native-copy.md",
+      "profiles": [
+        "full"
+      ],
+      "sha256": "dc56d2ac7d3edb06eaae35ffceff87f94e097f0c7c7d4fa4d49c3f74b293351b",
+      "size": 7814,
       "strategy": "managed"
     },
     {
@@ -3113,8 +3125,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "5b5b291f16f768ebf8c147ae60b7d18c4f54b5fae362252f7b56c6d1fa8d90c6",
-      "size": 4418,
+      "sha256": "1a94242188eb90b64cb73ab94d973587e44fc8bfaba41fa400eb6443122fac65",
+      "size": 7341,
       "strategy": "managed"
     },
     {
@@ -3125,8 +3137,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "4c548697b0b08712d17cd189fdc94e6691850ae6827e69d0762cb6b8192ae8c1",
-      "size": 6083,
+      "sha256": "e2f3136777542b8d700807ec570e8322b540c69a5573965ac0dccb671201e741",
+      "size": 8531,
       "strategy": "managed"
     },
     {
@@ -3137,8 +3149,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "12c4ef01a77722241ce51d827a8c899930efcb24c2ba0c1be2b1aa08ba5fb796",
-      "size": 7155,
+      "sha256": "09aea6b6959dcb877c476db03fb3cbcd5dbd31f8fadec745cdc8d1bc39d0ed4d",
+      "size": 8518,
       "strategy": "managed"
     },
     {
@@ -3149,8 +3161,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "476233daf769add961986c4edf003e8b4ed8798bc332cd4f7e6d58f84d6b6256",
-      "size": 13930,
+      "sha256": "a78163dd4a8e76461c168a61051b248379f2015f4bedb92574372b1fddecb84b",
+      "size": 14501,
       "strategy": "managed"
     },
     {
@@ -3161,8 +3173,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "f82ed5a2517eb05c053ac542715f5f54630ea0c2f691d72b16d37add29dd8353",
-      "size": 5048,
+      "sha256": "c003caa6264f3c5d70abd3ca91980da01b9f4334344a90a1645281a401302034",
+      "size": 5820,
       "strategy": "managed"
     },
     {
@@ -3173,8 +3185,8 @@
       "profiles": [
         "full"
       ],
-      "sha256": "7197fda258451eb8a916ad24c501d3e0cb211f8f10830aca43c9d5c7ee580c08",
-      "size": 8936,
+      "sha256": "3b628701e7b78d295ebacc394462f0255d22bf2405f80b67eed29e9bbd7e114c",
+      "size": 11334,
       "strategy": "managed"
     },
     {
@@ -3281,8 +3293,8 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "2223d9c7bad636c146471a8e06f187977fd7f3b6e6d245d55aaa43cc4dca6c3e",
-      "size": 14765,
+      "sha256": "14e99efe5ba84f12c8b55d7e749c6dfa5f337c9e2f492014439dca0e41e8fd59",
+      "size": 16324,
       "strategy": "opt-in"
     },
     {
@@ -3305,8 +3317,8 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "b678592df492c7b4d6f521b41ffc70e6017f6a6b55c1551218090a4eb348fd18",
-      "size": 14980,
+      "sha256": "557ed81fb0906becffadbc5104a7d5dbfa6773055dccfa2ac2794901e79ba396",
+      "size": 15067,
       "strategy": "opt-in"
     },
     {
@@ -3317,7 +3329,7 @@
       "profiles": [
         "opt-in"
       ],
-      "sha256": "a66780da23103beaf12432b418508966b31a2a3a787f9468a5b6cdaa8667c1ef",
+      "sha256": "9d8c94f1ad3ea96b1e2ac4914fda4cb93c76b4a3e0d8cc6dd8976d6c0b227d15",
       "size": 6,
       "strategy": "opt-in"
     }
@@ -3365,11 +3377,11 @@
   },
   "schema": 1,
   "source": {
-    "generatedAt": "2026-06-04T10:24:04.748Z",
+    "generatedAt": "2026-06-05T06:19:30.609Z",
     "gitCommit": null
   },
   "toolkit": {
     "packageName": "oh-my-openagent-toolkit",
-    "version": "0.8.0"
+    "version": "0.9.0"
   }
 }

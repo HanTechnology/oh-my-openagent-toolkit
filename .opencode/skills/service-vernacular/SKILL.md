@@ -30,16 +30,21 @@ It is not a primary route, not an implementation executor, not a routing-matrix 
 ## Setup and context gathering
 
 1. Read the user request and identify the surface: UI, docs, homepage/service prose, CLI, notification, backend/API message, admin/operator, onboarding, support, or release note.
-2. Run surface classification before rewrite: separate public display copy from internal rationale, evidence notes, QA notes, contract notes, and implementation/page-planning language.
-3. Treat internal rationale, evidence notes, QA notes, contract notes, and implementation/page-planning language as not public display copy. They can guide the rewrite, but they must not leak into public-facing wording.
-4. Collect repo evidence before rewriting: current copy, product docs, README or help text, routes, feature names, domain models, user roles, workflows, errors, and support language.
-5. Run an evidence-to-public-copy workflow: map each public claim to its evidence source, state the claim boundary, draft only what the public surface needs, and keep rationale or QA notes private.
-6. Find `LANGUAGE.md` at the project or service root. Treat `LANGUAGE.md` as canonical when it exists.
-7. Read `DOMAIN_LANGUAGE.md` as alternate/legacy context only. When both files exist, `LANGUAGE.md` wins.
-8. If neither dossier exists, propose or create `LANGUAGE.md` only after evidence supports the canonical nouns, verbs, audiences, workflows, registers, forbidden terms, and claim boundaries.
-9. Keep standard labels when they are clearest, accessibility-critical, legally required, or industry-standard. Generic is allowed when it helps users act.
-10. Run Korean-native review for Korean public copy before returning it. Check natural Korean phrasing, service-specific nouns, register, spacing, and whether translated evidence leaked as awkward literal wording.
-11. Run the gate on every meaningful rewrite: `Could this copy belong to any generic SaaS app?`. If yes, find better evidence or keep the original if it is already clear.
+2. Identify the source language and target locale when copy is localized, bilingual, translated, or intended for non-source-language publication. A locale means the target language, region, script, writing direction, and cultural conventions.
+3. Capture the target audience, surface, service domain, channel, risk level, and source intent before rewriting.
+4. Run surface classification before rewrite: separate public display copy from internal rationale, evidence notes, QA notes, contract notes, and implementation/page-planning language.
+5. Treat internal rationale, evidence notes, QA notes, contract notes, and implementation/page-planning language as not public display copy. They can guide the rewrite, but they must not leak into public-facing wording.
+6. Collect repo evidence before rewriting: current copy, product docs, README or help text, routes, feature names, domain models, user roles, workflows, errors, support language, and approved localized terms.
+7. For localized public copy, create or update the locale dossier from repo and user evidence before rewriting. Record target-locale research: approved product names, service-native terms, do-not-translate protected terms, register/formality, cultural context, legal or claim limits, UI/layout risk, and native/in-market review requirements.
+8. Make an explicit translation/localization/transcreation decision before drafting, and record the transcreation decision as translation, localization, or transcreation. Use translation for factual, procedural, legal, or help copy when the source structure still serves the reader. Use localization when local conventions, examples, units, formats, or legal norms change the shape. Use transcreation for persuasive, brand-heavy, or market-sensitive copy when source syntax would weaken source intent.
+9. Run an evidence-to-public-copy workflow: map each public claim to its evidence source, state the claim boundary, draft only what the public surface needs, and keep rationale or QA notes private.
+10. Find `LANGUAGE.md` at the project or service root. Treat `LANGUAGE.md` as canonical when it exists.
+11. Read `DOMAIN_LANGUAGE.md` as alternate/legacy context only. When both files exist, `LANGUAGE.md` wins.
+12. If neither dossier exists, propose or create `LANGUAGE.md` only after evidence supports the canonical nouns, verbs, audiences, workflows, registers, forbidden terms, and claim boundaries.
+13. Keep standard labels when they are clearest, accessibility-critical, legally required, or industry-standard. Generic is allowed when it helps users act.
+14. Run target-locale native review for localized public copy before returning it. Check meaning, claim boundary, service terms, register, cultural fit, UI fit, and whether the target copy reads native/in-market for the channel.
+15. Run Korean public copy through the deeper Korean-native review and Korean specialization in `reference/korean-native-copy.md`; do not flatten Korean into the general locale workflow.
+16. Run the gate on every meaningful rewrite: `Could this copy belong to any generic SaaS app?`. If yes, find better evidence or keep the original if it is already clear.
 
 ## Dossier workflow
 
@@ -53,7 +58,8 @@ Use these same-pack references when present:
 - `reference/examples.md` for evidence-backed before and after examples.
 - `reference/public-copy-protocol.md` for the evidence-to-public-copy workflow, surface classification, leakage checks, and public/private copy boundaries.
 - `reference/web-service-prose.md` for homepage/service prose, landing pages, feature sections, pricing or plan copy, and other web service copy surfaces.
-- `reference/korean-native-copy.md` for Korean-native review, Korean public copy quality, register, spacing, and literal-translation checks.
+- `reference/locale-native-copy.md` for target-locale native review, transcreation decision, locale dossier inputs, do-not-translate terms, native/in-market review, UI/layout risk, and general locale-native public copy.
+- `reference/korean-native-copy.md` for Korean-native review, Korean specialization, Korean public copy quality, register, spacing, and literal-translation checks.
 
 When updating the dossier:
 
@@ -76,20 +82,33 @@ When updating the dossier:
 
 - intent card: include these fields for each public-copy pass:
   - `Surface/location`
+  - `Target locale`
   - `Audience/reader`
+  - `Service domain`
+  - `Channel`
+  - `Risk level`
   - `Copy job`
+  - `Source intent`
   - `Evidence source`
+  - `Locale dossier`
   - `Claim boundary`
   - `Protected terms/contracts`
+  - `Terminology/do-not-translate terms`
+  - `Translation/localization/transcreation decision`
+  - `Register/formality`
+  - `Cultural adaptations`
+  - `UI/layout risk`
   - `Public-facing draft`
+  - `Native/in-market review notes`
+  - `Korean-native review` when Korean copy exists
   - `Internal rationale/evidence notes`
   - `Leakage check`
-  - `Korean-native review` when Korean copy exists
-- Evidence sources: list the repo files, screens, commands, messages, docs, models, tickets, or user flows that shaped the language pass.
-- Dossier updates: state whether `LANGUAGE.md` was created, updated, or left unchanged, and name any `DOMAIN_LANGUAGE.md` context used.
-- Before/after examples: show the original wording, the proposed wording, and the evidence that made the new wording more service-native.
-- Protected contracts: name any API contracts, localization keys, error codes, logs, telemetry event names, SDK-visible fields, status codes, enum values, or documented semantics left unchanged.
-- Remaining uncertainties: list terms, audiences, workflows, or claims that need user or product-owner confirmation.
+- Evidence sources: list the repo files, screens, commands, messages, docs, models, tickets, user flows, locale research notes, native/in-market review notes, or approved terminology sources that shaped the language pass.
+- Dossier updates: state whether `LANGUAGE.md` was created, updated, or left unchanged, name any `DOMAIN_LANGUAGE.md` context used, and name any locale dossier fields added or left unresolved.
+- Before/after examples: show the original wording, the proposed wording, the source intent, and the evidence that made the new wording more service-native and locale-native.
+- Protected contracts: name any API contracts, localization keys, error codes, logs, telemetry event names, SDK-visible fields, status codes, enum values, documented semantics, or do-not-translate terms left unchanged.
+- Locale review notes: state the target-locale native review outcome, any cultural adaptations, any UI/layout risk, and whether Korean-native review was required.
+- Remaining uncertainties: list terms, audiences, workflows, locale conventions, native-review gaps, or claims that need user or product-owner confirmation.
 
 ## Guardrails
 

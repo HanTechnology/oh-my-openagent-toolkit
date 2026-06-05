@@ -116,6 +116,54 @@ Contract-safety note: Do not claim new delivery guarantees or change webhook pay
 
 Why this is not generic: It states the shipped user impact in incident-response terms and avoids a broad improvement claim.
 
+## Locale-native/transcreation accepted example
+
+Surface: homepage hero
+
+Source locale: English
+
+Target locale: Korean public copy
+
+Before/source: "Stop incidents before they spread."
+
+After: `장애가 번지기 전에 대응팀이 먼저 움직입니다.`
+
+Transcreation decision: Transcreation. The source intent is early incident containment, but the Korean line uses a natural B2B public-copy rhythm and names the response team as the actor.
+
+Domain evidence: Incident response docs use incidents, responders, escalation windows, and service impact as the public domain model. The Korean termbase approves `장애` for incident context and protects product and API names elsewhere.
+
+Native-review evidence: Korean-native review checks meaning, claim strength, `합니다체` register, read-aloud headline rhythm, protected English term placement, and UI length before publication.
+
+Why this is not generic: It names incident spread and responder action, not a broad service promise.
+
+## Locale-native/transcreation failed fixture
+
+Surface: homepage hero
+
+Fixture label: `failed public copy / do not publish`
+
+Source locale: English
+
+Target locale: Korean public copy
+
+Failed public copy: `장애의 확산을 중지하세요.`
+
+Why it fails: It mirrors English command structure, sounds stiff in Korean, weakens the responder context, and has no target-locale native-review evidence.
+
+Direction, not final copy: Return to the source intent, termbase, surface purpose, and Korean-native review. Draft in Korean information flow instead of copying the English syntax.
+
+## Transcreation-strategy leakage fixture
+
+Surface: CTA/link
+
+Fixture label: `failed public copy / do not publish`
+
+Failed public copy: `This transcreated CTA preserves the English source intent for the local market.`
+
+Why it fails: It exposes translation rationale and transcreation strategy instead of telling the reader what happens after the link.
+
+Direction, not final copy: Keep the transcreation decision in the evidence notes. Public CTA text should name the destination, commitment level, and action in target-locale wording.
+
 ## Homepage/service/Korean negative fixtures
 
 These Nuvreon-shaped fixtures are labeled `failed public copy / do not publish`. They are examples of what to reject, not recommended public copy.
